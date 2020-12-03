@@ -1,0 +1,13 @@
+$btn-padding-y: 10px;
+$btn-padding-x: 20px;
+$btn-padding-y-sm: $btn-padding-y;
+$btn-padding-x-sm: $btn-padding-x;
+$btn-padding-y-lg: $btn-padding-y;
+$btn-padding-x-lg: $btn-padding-x;
+
+@import '~bootstrap/scss/bootstrap.scss';
+@import '~bootstrap-vue/src/index.scss';
+
+@import "./global/default";
+@import "./header";
+@import "./banner";
