@@ -3,7 +3,7 @@
   transition: all 0.5s;
   z-index: 997;
   padding: 15px 0;
-  box-shadow: 0px 2px 15px rgba(0, 0, 0, 0.1);
+  //box-shadow: 0px 2px 15px rgba(0, 0, 0, 0.1);
 }
 
 #header.header-scrolled {
@@ -18,7 +18,7 @@
   line-height: 1;
   font-weight: 600;
   letter-spacing: 0.8px;
-  font-family: "Poppins", sans-serif;
+  font-family: var(--font-family-sans-serif);
 }
 
 #header .logo a,
@@ -80,7 +80,8 @@
   font-size: 15px;
   font-weight: 600;
   padding: 0 3px;
-  font-family: "Open Sans", sans-serif;
+  text-decoration: none;
+  font-family: var(--font-family-sans-serif);
 }
 
 .nav-menu > ul > li > a:before {

@@ -33,13 +33,17 @@ export default {
 
   // Global CSS (https://go.nuxtjs.dev/config-css)
   css: [
+    { src: 'quill/dist/quill.snow.css', lang: 'css' },
     { src: '@fortawesome/fontawesome-free/css/all.min.css', lang: 'css' },
+
     { src: '@/assets/scss/style.scss', lang: 'css' },
     { src: '@/assets/css/style.css', lang: 'css' }
   ],
 
   // Plugins to run before rendering page (https://go.nuxtjs.dev/config-plugins)
   plugins: [
+    { src: '~/plugins/main.js', mode: 'client', ssr: false },
+    { src: '~/plugins/quill-editor', ssr: false }
   ],
 
   // Auto import components (https://go.nuxtjs.dev/config-components)

@@ -1,0 +1,289 @@
+/*--------------------------------------------------------------
+# Resume editor start
+--------------------------------------------------------------*/
+$resume-blue: rgb(33, 150, 243);
+$resume-red: rgb(255, 76, 76);
+$resume-green: rgb(37, 184, 105);
+$resume-yellow: rgb(255, 186, 25);
+
+.rf-section {
+  margin-bottom: 40px;
+
+  &__title {
+    position: relative;
+    margin-right: 4px;
+    min-width: 0;
+    height: 28px;
+    font-size: 22px;
+    line-height: 28px;
+    font-weight: 600;
+  }
+
+  &__sub-title {
+    display: block;
+    font-size: 16px;
+    line-height: 20px;
+    color: rgb(152, 161, 179);
+    margin-bottom: 6px;
+  }
+}
+
+.resume__left-block {
+  display: flex;
+  -webkit-box-pack: center;
+  justify-content: center;
+  width: 50%;
+  min-height: 100vh;
+}
+
+.resume__form {
+  width: 100%;
+  max-width: 100%;
+  flex: 1 1 0;
+
+  & .form__content {
+    flex: 1 1 0;
+    max-width: 860px;
+    height: 100%;
+    background-color: rgb(255, 255, 255);
+    margin: auto;
+  }
+}
+
+.resume__preview {
+  position: fixed;
+  top: 0;
+  bottom: 0;
+  right: 0;
+  width: 50%;
+  flex: 1 1 0;
+  display: flex;
+  -webkit-box-align: center;
+  align-items: center;
+  -webkit-box-pack: center;
+  justify-content: center;
+  flex-flow: column nowrap;
+  background-color: rgb(122, 133, 153);
+  user-select: none;
+  z-index: 3;
+}
+
+.rf-padding {
+  padding: 48px;
+}
+
+.rf-title {
+  font-size: 32px;
+  line-height: 34px;
+  text-align: center;
+  position: relative;
+  margin-bottom: 2px;
+  padding: 0px 32px;
+}
+
+.rf-progress {
+  display: block;
+  user-select: none;
+  height: 71px;
+  margin-bottom: 12px;
+  position: relative;
+}
+
+.rfp-item {
+  display: block;
+  background-color: transparent;
+  padding-top: 20px;
+  padding-bottom: 16px;
+  top: 0px;
+  position: absolute;
+  left: 0px;
+  right: 0px;
+  z-index: 2;
+
+  & .rfp-content {
+    display: flex;
+    flex-flow: row nowrap;
+  }
+}
+
+.rfp-left {
+  margin-right: 8px;
+  margin-bottom: 8px;
+  font-size: 16px;
+  line-height: 20px;
+  color: rgb(152, 161, 179);
+}
+
+.rfp-right {
+  display: flex;
+  flex: 1 1 0%;
+  -webkit-box-align: center;
+  align-items: center;
+  -webkit-box-pack: end;
+  justify-content: flex-end;
+  margin-bottom: 8px;
+}
+
+.rfpr-text {
+  position: relative;
+  flex: 1 1 0;
+  overflow: hidden;
+}
+
+.rfpr-text-enter {
+  text-align: right;
+  white-space: nowrap;
+  font-size: 16px;
+  line-height: 20px;
+  color: rgb(152, 161, 179);
+  cursor: pointer;
+  transition: opacity 0.4s ease 0s, transform 0.4s ease 0s;
+  opacity: 1;
+  transform: translateY(0px);
+}
+
+.rtpr-tip {
+  width: 26px;
+  height: 20px;
+  margin-left: 16px;
+  position: relative;
+  bottom: 2px;
+  cursor: pointer;
+  transition: background-color 0.1s ease 0s;
+
+  &.rtpr-tip-green {
+    color: $resume-green;
+
+    &:hover,
+    &:active,
+    &:focus {
+      color: $resume-blue;
+    }
+  }
+}
+
+.rfp-content-bar {
+  height: 3px;
+  background-color: rgb(242, 245, 250);
+
+  & .bar {
+    height: 3px;
+    width: 10%;
+
+    &-red {
+      background: $resume-red;
+    }
+
+    &-green {
+      background: $resume-green;
+    }
+
+    &-yellow {
+      background: $resume-yellow;
+    }
+  }
+}
+
+.percentage {
+  display: inline-block;
+  font-size: 16px;
+  line-height: 20px;
+  font-weight: 600;
+  margin-right: 6px;
+
+  &.green {
+    color: $resume-green;
+  }
+
+  &.yellow {
+    color: $resume-yellow;
+  }
+
+  &.red {
+    color: $resume-red;
+  }
+}
+
+.ellipsis {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.additional-detail {
+  &-hide {
+    height: 0;
+    opacity: 0;
+    overflow: hidden;
+    transition: height 0.2s ease 0s, opacity 0.2s ease 0s;
+  }
+
+  &-show {
+    height: auto;
+    opacity: 1;
+    overflow: visible;
+  }
+}
+
+@media (min-width: 1280px) {
+  .resume__left-block {
+    max-width: 960px;
+  }
+  .resume__preview {
+    display: block;
+  }
+}
+
+@media (max-width: 1279px) {
+  .resume__left-block {
+    width: 100%;
+    margin: 0px auto;
+  }
+
+  .resume__preview {
+    display: none;
+  }
+}
+
+.resume-label-control {
+  display: flex;
+  -webkit-box-align: center;
+  align-items: center;
+  font-size: 16px;
+  line-height: 20px;
+  color: rgb(152, 161, 179);
+  margin-bottom: 6px;
+}
+
+.resume-form-control {
+  border-radius: 3px;
+  padding: 11px 16px;
+  width: 100%;
+  display: block;
+  caret-color: $resume-blue;
+  background-color: rgb(242, 245, 250);
+  outline: none;
+  border: 0;
+  color: rgb(38, 43, 51);
+  pointer-events: unset;
+  transition: .3s width ease-in-out;
+}
+
+.form-group .line {
+  height: 2px;
+  width: 0;
+  border-radius: 3px;
+  background-color: darkgrey;
+  transition: .3s width ease-in-out;
+  position: relative;
+  top: -3px;
+}
+
+.resume-form-control:focus + .line {
+  width: 100%;
+  background-color: #02add7;
+}
+
+/*--------------------------------------------------------------
+# Resume editor end
+--------------------------------------------------------------*/

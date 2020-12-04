@@ -1,6 +1,6 @@
 <template>
   <!-- ======= Header ======= -->
-  <header id="header" class="fixed-top">
+  <header id="header" class="fixed-top" v-if="$route.name === 'index'">
     <div class="container-fluid d-flex align-items-center nav-container">
       <!-- Uncomment below if you prefer to use an image logo -->
       <NuxtLink :to="{name: 'index'}" class="logo mr-auto">
@@ -13,8 +13,8 @@
       <nav class="nav-menu d-none d-lg-block">
         <ul>
           <li class="active">
-            <NuxtLink :to="{name: 'index'}">
-              Home
+            <NuxtLink :to="{name: 'resume-uuid-edit', params: {uuid: '23523'}}">
+              Resume
             </NuxtLink>
           </li>
           <li>|</li>

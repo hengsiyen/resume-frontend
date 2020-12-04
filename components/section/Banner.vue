@@ -2,7 +2,9 @@
   <section id="hero" class="d-flex align-items-center">
     <div class="container" data-aos="zoom-out" data-aos-delay="100">
       <div class="banner-content">
-        <h1 class="banner-content_title">Job-winning resume templates</h1>
+        <h1 class="banner-content_title">
+          Job-winning resume templates
+        </h1>
         <p>
           Each template is expertly designed and follows the exact “resume rules” hiring managers look for.
           Stand out and get hired faster with field-tested resume templates.

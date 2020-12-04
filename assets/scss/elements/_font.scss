@@ -1,0 +1,177 @@
+// 200 extra light
+@font-face {
+  font-family: "Nunito";
+  font-style: normal;
+  font-weight: 200;
+  src: local("Nunito"), url(~assets/fonts/Nunito/Nunito-ExtraLight.ttf) format("truetype");
+}
+@font-face {
+  font-family: "Nunito";
+  font-style: italic;
+  font-weight: 200;
+  src: local("Nunito"), url(~assets/fonts/Nunito/Nunito-ExtraLightItalic.ttf) format("truetype");
+}
+
+@font-face {
+  font-family: "Open khmer school";
+  font-style: normal;
+  font-weight: 200;
+  unicode-range: U+1780-17FF;
+  src: local("Open khmer school"), url(~assets/fonts/Oks/OpenKhmerSchool-Light.ttf) format("truetype");
+}
+
+@font-face {
+  font-family: "Open khmer school";
+  font-style: italic;
+  font-weight: 200;
+  unicode-range: U+1780-17FF;
+  src: local("Open khmer school"), url(~assets/fonts/Oks/OpenKhmerSchool-Light.ttf) format("truetype");
+}
+
+// 300 light
+@font-face {
+  font-family: "Nunito";
+  font-style: normal;
+  font-weight: 300;
+  src: local("Nunito"), url(~assets/fonts/Nunito/Nunito-Light.ttf) format("truetype");
+}
+@font-face {
+  font-family: "Nunito";
+  font-style: italic;
+  font-weight: 300;
+  src: local("Nunito"), url(~assets/fonts/Nunito/Nunito-LightItalic.ttf) format("truetype");
+}
+
+@font-face {
+  font-family: "Open khmer school";
+  font-style: normal;
+  font-weight: 300;
+  unicode-range: U+1780-17FF;
+  src: local("Open khmer school"), url(~assets/fonts/Oks/OpenKhmerSchool-Medium.ttf) format("truetype");
+}
+
+@font-face {
+  font-family: "Open khmer school";
+  font-style: italic;
+  font-weight: 300;
+  unicode-range: U+1780-17FF;
+  src: local("Open khmer school"), url(~assets/fonts/Oks/OpenKhmerSchool-Medium.ttf) format("truetype");
+}
+
+// 400 normal
+@font-face {
+  font-family: "Nunito";
+  font-style: normal;
+  font-weight: 400;
+  src: local("Nunito"), url(~assets/fonts/Nunito/Nunito-Regular.ttf) format("truetype");
+}
+@font-face {
+  font-family: "Nunito";
+  font-style: italic;
+  font-weight: 400;
+  src: local("Nunito"), url(~assets/fonts/Nunito/Nunito-Italic.ttf) format("truetype");
+}
+
+@font-face {
+  font-family: "Open khmer school";
+  font-style: normal;
+  font-weight: 400;
+  unicode-range: U+1780-17FF;
+  src: local("Open khmer school"), url(~assets/fonts/Oks/OpenKhmerSchool-Regular.ttf) format("truetype");
+}
+
+@font-face {
+  font-family: "Open khmer school";
+  font-style: italic;
+  font-weight: 400;
+  unicode-range: U+1780-17FF;
+  src: local("Open khmer school"), url(~assets/fonts/Oks/OpenKhmerSchool-Regular.ttf) format("truetype");
+}
+
+// 500 semi bold
+@font-face {
+  font-family: "Nunito";
+  font-style: normal;
+  font-weight: 500;
+  src: local("Nunito"), url(~assets/fonts/Nunito/Nunito-SemiBold.ttf) format("truetype");
+}
+@font-face {
+  font-family: "Nunito";
+  font-style: italic;
+  font-weight: 500;
+  src: local("Nunito"), url(~assets/fonts/Nunito/Nunito-SemiBoldItalic.ttf) format("truetype");
+}
+
+@font-face {
+  font-family: "Open khmer school";
+  font-style: normal;
+  font-weight: 500;
+  unicode-range: U+1780-17FF;
+  src: local("Open khmer school"), url(~assets/fonts/Oks/OpenKhmerSchool-SemiBold.ttf) format("truetype");
+}
+
+@font-face {
+  font-family: "Open khmer school";
+  font-style: italic;
+  font-weight: 500;
+  unicode-range: U+1780-17FF;
+  src: local("Open khmer school"), url(~assets/fonts/Oks/OpenKhmerSchool-SemiBold.ttf) format("truetype");
+}
+
+// 600 bold
+@font-face {
+  font-family: "Nunito";
+  font-style: normal;
+  font-weight: 600;
+  src: local("Nunito"), url(~assets/fonts/Nunito/Nunito-Bold.ttf) format("truetype");
+}
+@font-face {
+  font-family: "Nunito";
+  font-style: italic;
+  font-weight: 600;
+  src: local("Nunito"), url(~assets/fonts/Nunito/Nunito-BoldItalic.ttf) format("truetype");
+}
+
+@font-face {
+  font-family: "Open khmer school";
+  font-style: normal;
+  font-weight: 600;
+  unicode-range: U+1780-17FF;
+  src: local("Open khmer school"), url(~assets/fonts/Oks/OpenKhmerSchool-Bold.ttf) format("truetype");
+}
+
+@font-face {
+  font-family: "Open khmer school";
+  font-style: italic;
+  font-weight: 600;
+  unicode-range: U+1780-17FF;
+  src: local("Open khmer school"), url(~assets/fonts/Oks/OpenKhmerSchool-Bold.ttf) format("truetype");
+}
+
+// 700 Extra Bold
+@font-face {
+  font-family: "Nunito";
+  font-style: normal;
+  font-weight: 700;
+  src: local("Nunito"), url(~assets/fonts/Nunito/Nunito-ExtraBold.ttf) format("truetype");
+}
+@font-face {
+  font-family: "Nunito";
+  font-style: italic;
+  font-weight: 700;
+  src: local("Nunito"), url(~assets/fonts/Nunito/Nunito-ExtraBoldItalic.ttf) format("truetype");
+}
+
+// 800 and 900 Extra Bold
+@font-face {
+  font-family: "Nunito";
+  font-style: normal;
+  font-weight: 800;
+  src: local("Nunito"), url(~assets/fonts/Nunito/Nunito-Black.ttf) format("truetype");
+}
+@font-face {
+  font-family: "Nunito";
+  font-style: italic;
+  font-weight: 900;
+  src: local("Nunito"), url(~assets/fonts/Nunito/Nunito-BlackItalic.ttf) format("truetype");
+}
