@@ -1,1 +1,115 @@
+body {
+  font-family: var(--font-family-sans-serif);
+  color: #444444;
+  font-weight: 500;
+}
 
+a {
+  color: $resume-blue;
+}
+
+a:hover {
+  color: #3b8af2;
+  text-decoration: none;
+}
+
+h1, h2, h3, h4, h5, h6 {
+  font-family: var(--font-family-sans-serif);
+}
+
+.underline-none,
+.underline-none:hover,
+.underline-none:active,
+.underline-none:focus, {
+  text-decoration: none !important;
+}
+
+.resume-form-control {
+  border-radius: 3px;
+  padding: 11px 16px;
+  width: 100%;
+  display: block;
+  caret-color: $resume-blue;
+  background-color: rgb(242, 245, 250);
+  outline: none;
+  border: 0;
+  color: rgb(38, 43, 51);
+  pointer-events: unset;
+  transition: .3s width ease-in-out;
+}
+
+.form-group .line,
+.ql-editor-line {
+  height: 2px;
+  width: 0;
+  background-color: darkgray;
+  border-radius: 3px;
+  transition: .3s width ease-in-out;
+  position: relative;
+  top: -3px;
+}
+
+.resume-form-control:focus + .line,
+.editor + .ql-editor-line {
+  width: 100%;
+  background-color: #02add7;
+}
+
+/*--------------------------------------------------------------
+# Date picker start
+--------------------------------------------------------------*/
+
+.resume_date_picker {
+  border-radius: 3px;
+  padding: 11px 16px;
+  width: 100%;
+  display: block;
+  caret-color: $resume-blue;
+  background-color: rgb(242, 245, 250);
+  outline: none;
+  border: 0;
+  color: rgb(38, 43, 51);
+  pointer-events: unset;
+  transition: .3s width ease-in-out;
+}
+
+.resume_calendar {
+  padding: 16px 24px;
+  box-shadow: rgba(207, 214, 230, 0.7) 0 14px 16px -10px, rgba(207, 214, 230, 0.12) 0 20px 40px -8px;
+  background-color: rgb(242, 245, 250) !important;
+  border: unset !important;
+  top: 55px;
+  width: 350px !important;
+
+  & header .month__year_btn {
+    padding: 0 16px;
+    font-size: 19px;
+    font-weight: 700;
+    line-height: 38px;
+  }
+}
+
+.vdp-datepicker__calendar .cell:not(.blank):not(.disabled).day:hover,
+.vdp-datepicker__calendar .cell:not(.blank):not(.disabled).month:hover,
+.vdp-datepicker__calendar .cell:not(.blank):not(.disabled).year:hover {
+  color: $resume-blue;
+  background-color: rgb(222, 238, 252);
+}
+
+.vdp-datepicker__calendar .cell.selected:not(.blank):not(.disabled).day:hover,
+.vdp-datepicker__calendar .cell.selected:not(.blank):not(.disabled).month:hover,
+.vdp-datepicker__calendar .cell.selected:not(.blank):not(.disabled).year:hover,
+.vdp-datepicker__calendar .cell.selected {
+  background-color: $resume-blue !important;
+  color: rgb(222, 238, 252);
+
+}
+
+.vdp-datepicker__calendar .cell:not(.blank):not(.disabled).day:hover,
+.vdp-datepicker__calendar .cell:not(.blank):not(.disabled).month:hover,
+.vdp-datepicker__calendar .cell:not(.blank):not(.disabled).year:hover,
+.vdp-datepicker__calendar .cell.selected {
+  border-radius: 19px;
+  font-weight: 700;
+  border: unset !important;
+}

@@ -1,10 +1,7 @@
 /*--------------------------------------------------------------
 # Resume editor start
 --------------------------------------------------------------*/
-$resume-blue: rgb(33, 150, 243);
-$resume-red: rgb(255, 76, 76);
-$resume-green: rgb(37, 184, 105);
-$resume-yellow: rgb(255, 186, 25);
+@import "elements/_default.scss";
 
 .rf-section {
   margin-bottom: 40px;
@@ -23,8 +20,21 @@ $resume-yellow: rgb(255, 186, 25);
     display: block;
     font-size: 16px;
     line-height: 20px;
-    color: rgb(152, 161, 179);
-    margin-bottom: 6px;
+    color: $resume-gray;
+    margin-bottom: 8px;
+  }
+
+  &__draggable {
+    position: absolute;
+    left: -15px;
+    top: 40%;
+    margin-right: 2px;
+    margin-top: -10px;
+    font-size: 15px;
+    flex-shrink: 0;
+    color: rgb(184, 190, 204);
+    transition: opacity 0.15s ease 0s;
+    cursor: move;
   }
 }
 
@@ -254,36 +264,6 @@ $resume-yellow: rgb(255, 186, 25);
   color: rgb(152, 161, 179);
   margin-bottom: 6px;
 }
-
-.resume-form-control {
-  border-radius: 3px;
-  padding: 11px 16px;
-  width: 100%;
-  display: block;
-  caret-color: $resume-blue;
-  background-color: rgb(242, 245, 250);
-  outline: none;
-  border: 0;
-  color: rgb(38, 43, 51);
-  pointer-events: unset;
-  transition: .3s width ease-in-out;
-}
-
-.form-group .line {
-  height: 2px;
-  width: 0;
-  border-radius: 3px;
-  background-color: darkgrey;
-  transition: .3s width ease-in-out;
-  position: relative;
-  top: -3px;
-}
-
-.resume-form-control:focus + .line {
-  width: 100%;
-  background-color: #02add7;
-}
-
 /*--------------------------------------------------------------
 # Resume editor end
 --------------------------------------------------------------*/

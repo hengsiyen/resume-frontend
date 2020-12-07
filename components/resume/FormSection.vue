@@ -4,9 +4,18 @@
       <div class="ellipsis">
         {{ title }}
       </div>
+      <div
+        v-if="draggable"
+        class="rf-section__draggable"
+        data-toggle="tooltip"
+        data-placement="top"
+        title="Tooltip on top"
+      >
+        <i class="fas fa-ellipsis-v" />
+      </div>
     </div>
     <div class="rf-section__sub-title">
-      <div class="ellipsis">
+      <div>
         {{ subTitle }}
       </div>
     </div>
@@ -18,6 +27,10 @@
 export default {
   name: 'FormSection',
   props: {
+    draggable: {
+      type: Boolean,
+      default: false
+    },
     title: {
       type: String,
       default: ''

@@ -1,6 +1,6 @@
 <template>
   <!-- ======= Header ======= -->
-  <header id="header" class="fixed-top" v-if="$route.name === 'index'">
+  <header v-if="$route.name === 'index'" id="header" class="fixed-top">
     <div class="container-fluid d-flex align-items-center nav-container">
       <!-- Uncomment below if you prefer to use an image logo -->
       <NuxtLink :to="{name: 'index'}" class="logo mr-auto">

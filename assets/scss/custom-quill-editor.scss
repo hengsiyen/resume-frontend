@@ -6,7 +6,7 @@
   outline: none;
   border: 0;
   color: #262b33;
-  height: 450px;
+  height: 250px;
   position: relative;
 }
 
@@ -30,21 +30,10 @@
 }
 
 .ql-editor {
+  height: 95%;
   padding: 12px 20px;
 }
-.ql-editor-line {
-  height: 2px;
-  width: 0;
-  background-color: darkgray;
-  border-radius: 3px;
-  transition: .3s width ease-in-out;
-  position: relative;
-  top: -3px;
-}
-.editor + .ql-editor-line {
-  width: 100%;
-  background-color: #02add7;
-}
+
 
 .ql-snow .ql-formats:after {
   content: '';
