@@ -3,15 +3,15 @@
     <div class="row">
       <div class="col-12 col-sm-6">
         <div class="form-group">
-          <label for="jobTitle" class="resume-label-control">Job Title</label>
-          <input id="jobTitle" type="text" class="resume-form-control">
+          <label for="school" class="resume-label-control">Function Title</label>
+          <input id="school" type="text" class="resume-form-control">
           <div class="line" />
         </div>
       </div>
       <div class="col-12 col-sm-6">
         <div class="form-group">
-          <label for="employer" class="resume-label-control">Employer</label>
-          <input id="employer" type="text" class="resume-form-control">
+          <label for="degree" class="resume-label-control">Employer</label>
+          <input id="degree" type="text" class="resume-form-control">
           <div class="line" />
         </div>
       </div>
@@ -26,7 +26,7 @@
                 <datepicker
                   v-model=" start_date"
                   placeholder="MM / YYYY"
-                  :format="empDateFormat"
+                  :format="eduDateFormat"
                   input-class="resume_date_picker"
                   calendar-class="resume_calendar"
                   :minimum-view="'month'"
@@ -38,7 +38,7 @@
                 <datepicker
                   v-model="end_date"
                   placeholder="MM / YYYY"
-                  :format="empDateFormat"
+                  :format="eduDateFormat"
                   input-class="resume_date_picker"
                   calendar-class="resume_calendar"
                   :minimum-view="'month'"
@@ -85,10 +85,10 @@
 import { dataOptions } from '@/mixins/dataOptions'
 
 export default {
-  name: 'InternshipForm',
+  name: 'ActivityForm',
   data () {
     return {
-      empDateFormat: 'MMM, yyyy',
+      eduDateFormat: 'MMM, yyyy',
       start_date: new Date(),
       end_date: new Date(),
       show_line: false,

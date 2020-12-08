@@ -10,6 +10,9 @@
     position: relative;
     margin-right: 4px;
     min-width: 0;
+    display: flex;
+    flex-flow: row nowrap;
+    align-items: center;
     height: 28px;
     font-size: 22px;
     line-height: 28px;
@@ -22,6 +25,15 @@
     line-height: 20px;
     color: $resume-gray;
     margin-bottom: 8px;
+  }
+
+  &__delete {
+    font-size: 18px;
+    color: $resume-gray;
+
+    &:hover {
+      color: $resume-red;
+    }
   }
 
   &__draggable {
@@ -235,12 +247,70 @@
   }
 }
 
+
+.list-section {
+  position: relative;
+  left: -4px;
+  display: flex;
+  flex-flow: row wrap;
+
+  &-item {
+    display: flex;
+    flex-flow: row nowrap;
+    -webkit-box-align: center;
+    align-items: center;
+    margin-bottom: 12px;
+    width: calc(50% - 32px);
+    flex: 0 0 calc(50% - 32px);
+    margin-right: 32px;
+    cursor: pointer;
+    color: rgb(38, 43, 51);
+    font-size: 22px;
+
+    & i.fas,
+    & i.fa {
+      font-size: 30px;
+    }
+
+    &.active {
+      cursor: alias;
+      color: rgb(152, 161, 179);
+    }
+  }
+}
+
 @media (min-width: 1280px) {
   .resume__left-block {
-    max-width: 960px;
+    max-width: 1060px;
   }
   .resume__preview {
     display: block;
+  }
+}
+
+.btn-add-item {
+  line-height: 20px;
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  position: relative;
+  padding: 8px 16px;
+  width: 100%;
+  border-radius: 4px;
+  background-color: rgba(230, 244, 255, 0);
+  color: $resume-blue;
+  font-weight: 600;
+  cursor: pointer;
+  outline: none;
+  transition: background-color 0.15s ease 0s;
+
+  & span {
+    font-size: 18px;
+  }
+  &:hover,
+  &:active,
+  &:focus {
+    background-color: rgba(230, 244, 255, 0.5);
   }
 }
 
@@ -252,6 +322,18 @@
 
   .resume__preview {
     display: none;
+  }
+}
+
+@media (max-width: 767px) {
+  .rf-padding {
+    padding: 20px;
+  }
+
+  .list-section-item {
+    width: 100%;
+    flex: 0 0 100%;
+    margin-right: 0px;
   }
 }
 

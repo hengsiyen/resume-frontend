@@ -1,8 +1,11 @@
 <template>
   <div class="rf-section">
     <div class="rf-section__title" :style="!subTitle ? 'margin-bottom: 1.5rem;' : ''">
-      <div class="ellipsis">
+      <div class="ellipsis mr-2">
         {{ title }}
+      </div>
+      <div v-if="hasDeleteButton" class="rf-section__delete">
+        <i class="far fa-trash-alt" />
       </div>
       <div
         v-if="draggable"
@@ -31,9 +34,13 @@ export default {
       type: Boolean,
       default: false
     },
+    hasDeleteButton: {
+      type: Boolean,
+      default: false
+    },
     title: {
       type: String,
-      default: ''
+      default: 'Untitled'
     },
     subTitle: {
       type: String,

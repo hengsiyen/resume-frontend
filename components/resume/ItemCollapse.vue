@@ -1,13 +1,17 @@
 <template>
   <div class="tab-collapse">
     <div class="tab-collapse-item">
-      <a href="javascript:void(0)" class="a-no-underline" @click="active_tab = !active_tab">
+      <a
+        href="javascript:void(0)"
+        class="a-no-underline"
+        @click="active_tab = !active_tab"
+      >
         <div class="collapse-header">
           <div>
             <p class="mb-0">
               <i v-if="icon" :class="icon" /> <strong>{{ tabLabel }}</strong>
             </p>
-            <p class="collapse-header__subtitle mb-0" v-if="hasSubTitle">Dec, 2020 - Dec, 2020</p>
+            <p v-if="hasSubTitle" class="collapse-header__subtitle mb-0">Dec, 2020 - Dec, 2020</p>
           </div>
           <div class="collapse-action d-flex align-content-center justify-items-center">
             <div class="dropdown collapse-btn collapse-dropdown">

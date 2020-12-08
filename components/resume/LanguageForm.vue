@@ -9,9 +9,19 @@
         </div>
       </div>
       <div class="col-12 col-sm-6">
-        <div class="form-group mb-0">
+        <div class="form-group">
           <label for="level" class="resume-label-control">Level</label>
-          <input id="level" type="text" class="resume-form-control">
+          <select id="level" name="level" class="resume-form-control">
+            <option :value="null">
+              Select level
+            </option>
+            <template v-for="(item, key) in language_levels">
+              <option :value="item.id" :key="key">
+                {{ item.name_en }}
+              </option>
+            </template>
+          </select>
+          <i class="fa fa-chevron-down" />
           <div class="line" />
         </div>
       </div>
@@ -22,7 +32,33 @@
 <script>
 
 export default {
-  name: 'LanguageForm'
+  name: 'LanguageForm',
+  data () {
+    return {
+      language_levels: [],
+      limit: 10,
+      queryText: '',
+      suggestions: [],
+      filteredSuggestions: [],
+      inputProps: {
+        id: 'autosuggest__input',
+        placeholder: '',
+        class: 'text-ellipsis'
+      }
+    }
+  },
+  mounted () {
+    this.getLanguagesLvlOptions()
+  },
+  methods: {
+    getLanguagesLvlOptions () {
+      this.$axios
+        .get(this.$base_api + '/api/frontend/language-level/get-option')
+        .then((res) => {
+          this.language_levels = res.data.data
+        })
+    }
+  }
 }
 </script>
 

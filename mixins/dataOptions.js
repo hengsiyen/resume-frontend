@@ -16,12 +16,17 @@ export const dataOptions = {
     'educations',
     'workExperiences',
     'socialProfiles',
-    'skills',
-    'courses',
-    'references',
-    'internships'
+    'skills'
   ],
 
+  addSections: [
+    { name_en: 'Courses', value: 'courses', active: false },
+    { name_en: 'Internships', value: 'internships', active: false },
+    { name_en: 'Languages', value: 'languages', active: false },
+    { name_en: 'Activities', value: 'activities', active: false },
+    { name_en: 'Hobbies', value: 'hobbies', active: false },
+    { name_en: 'References', value: 'references', active: false }
+  ],
   sectionOrdersSubTitle: {
     educations: {
       title: 'Education',
@@ -45,16 +50,75 @@ export const dataOptions = {
       title: 'Courses',
       sub_title: null
     },
-    references: {
-      title: 'References',
-      sub_title: null
-    },
     internships: {
       title: 'Internships',
       sub_title: null
+    },
+    languages: {
+      title: 'Languages',
+      sub_title: null
+    },
+    activities: {
+      title: 'Activities',
+      sub_title: null
+    },
+    hobbies: {
+      title: 'Hobbies',
+      sub_title: null
+    },
+    references: {
+      title: 'References',
+      sub_title: null
     }
   },
-
+  customSections: [
+    {
+      externalId: '2293734973',
+      id: 4311827,
+      title: 'Hello',
+      items: [
+        {
+          cid: null,
+          city: 'werqwe',
+          createdAt: '2020-12-08T06:36:40.345+01:00',
+          dateFrom: '2020-12-08',
+          dateUntil: '2020-12-08',
+          description: '<p>ewrqrwe</p>',
+          id: 4577769,
+          isDateUntilPresent: null,
+          isMonthFromHidden: null,
+          isMonthUntilHidden: null,
+          position: 1,
+          sectionId: 4311827,
+          title: 'ewrwqe',
+          updatedAt: '2020-12-08T06:43:30.278+01:00'
+        }
+      ]
+    },
+    {
+      externalId: '2293734973',
+      id: 4311826,
+      title: 'World',
+      items: [
+        {
+          cid: null,
+          city: 'werqwe',
+          createdAt: '2020-12-08T06:36:40.345+01:00',
+          dateFrom: '2020-12-08',
+          dateUntil: '2020-12-08',
+          description: '<p>ewrqrwe</p>',
+          id: 4577769,
+          isDateUntilPresent: null,
+          isMonthFromHidden: null,
+          isMonthUntilHidden: null,
+          position: 1,
+          sectionId: 4311827,
+          title: 'ewrwqe',
+          updatedAt: '2020-12-08T06:43:30.278+01:00'
+        }
+      ]
+    }
+  ],
   educations: [
     {
       cid: null,

@@ -63,6 +63,7 @@
       <div class="row">
         <div class="col-12">
           <div class="form-group mb-0">
+            <label class="resume-label-control">Description</label>
             <quill-editor
               ref="editor"
               v-model="content"
