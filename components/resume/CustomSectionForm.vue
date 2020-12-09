@@ -3,15 +3,17 @@
     <div class="row">
       <div class="col-12 col-sm-6">
         <div class="form-group">
-          <label for="school" class="resume-label-control">Activity name, job title, book title ect.</label>
-          <input id="school" type="text" class="resume-form-control">
+          <label for="title" class="resume-label-control">
+            <span class="ellipsis">Activity name, job title, book title ect.</span>
+          </label>
+          <input id="title" v-model="item.title" type="text" class="resume-form-control">
           <div class="line" />
         </div>
       </div>
       <div class="col-12 col-sm-6">
         <div class="form-group">
           <label for="city" class="resume-label-control">City</label>
-          <input id="city" type="text" class="resume-form-control">
+          <input id="city" v-model="item.city" type="text" class="resume-form-control">
           <div class="line" />
         </div>
       </div>
@@ -24,13 +26,14 @@
             <div class="row">
               <div class="col-12 col-sm-6 pr-sm-1">
                 <datepicker
-                  v-model=" start_date"
+                  v-model="start_date"
                   placeholder="MM / YYYY"
                   :format="eduDateFormat"
                   input-class="resume_date_picker"
                   calendar-class="resume_calendar"
                   :minimum-view="'month'"
                   :maximum-view="'month'"
+                  @closed="selectedStartDate"
                 />
                 <div class="line" />
               </div>
@@ -43,7 +46,7 @@
                   calendar-class="resume_calendar"
                   :minimum-view="'month'"
                   :maximum-view="'month'"
-                  calendar-button-icon="fa fa-calendar"
+                  @closed="selectedEndDate"
                 />
                 <div class="line" />
               </div>
@@ -52,14 +55,14 @@
         </div>
       </div>
     </div>
-    <client-only>
-      <div class="row">
-        <div class="col-12">
+    <div class="row">
+      <div class="col-12">
+        <client-only>
           <div class="form-group mb-0">
             <label class="resume-label-control">Description</label>
             <quill-editor
               ref="editor"
-              v-model="description"
+              v-model="item.description"
               :class="{'editor': show_line}"
               :options="editorOption"
               @blur="onEditorBlur($event)"
@@ -67,9 +70,9 @@
             />
             <div class="ql-editor-line" />
           </div>
-        </div>
+        </client-only>
       </div>
-    </client-only>
+    </div>
   </div>
 </template>
 
@@ -79,14 +82,27 @@ import { dataOptions } from '@/mixins/dataOptions'
 
 export default {
   name: 'CustomSectionForm',
+  props: {
+    item: {
+      type: Object,
+      default: () => {
+        return null
+      }
+    }
+  },
   data () {
     return {
       eduDateFormat: 'MMM, yyyy',
-      start_date: new Date(),
-      end_date: new Date(),
       show_line: false,
-      description: '',
-      editorOption: dataOptions.editorOption
+      editorOption: dataOptions.editorOption,
+      start_date: new Date(),
+      end_date: new Date()
+    }
+  },
+  mounted () {
+    if (this.item) {
+      this.start_date = this.convertDateFormat(this.item.start_date)
+      this.end_date = this.convertDateFormat(this.item.end_date)
     }
   },
   methods: {
@@ -95,6 +111,12 @@ export default {
     },
     onEditorFocus (editor) {
       this.show_line = true
+    },
+    selectedStartDate () {
+      this.item.start_date = this.convertDateFormat(this.start_date, 'YYYY-MM-DD')
+    },
+    selectedEndDate () {
+      this.item.end_date = this.convertDateFormat(this.end_date, 'YYYY-MM-DD')
     }
   }
 }

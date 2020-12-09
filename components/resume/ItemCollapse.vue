@@ -7,11 +7,11 @@
         @click="active_tab = !active_tab"
       >
         <div class="collapse-header">
-          <div>
-            <p class="mb-0">
-              <i v-if="icon" :class="icon" /> <strong>{{ tabLabel }}</strong>
+          <div class="collapse-text">
+            <p class="collapse-header__title mb-0">
+              <i v-if="icon" :class="icon" /> <strong>{{ title }}</strong>
             </p>
-            <p v-if="hasSubTitle" class="collapse-header__subtitle mb-0">Dec, 2020 - Dec, 2020</p>
+            <p v-if="hasSubTitle" class="collapse-header__subtitle mb-0"> {{ subTabLabel }}</p>
           </div>
           <div class="collapse-action d-flex align-content-center justify-items-center">
             <div class="dropdown collapse-btn collapse-dropdown">
@@ -28,10 +28,7 @@
               </a>
 
               <div class="dropdown-menu dropdown-menu-right" aria-labelledby="dropdownMenuLink">
-                <a class="dropdown-item" href="#">
-                  <i class="fas fa-pen mr-3 text-primary" /> Edit
-                </a>
-                <a class="dropdown-item" href="#">
+                <a class="dropdown-item" href="javascript:void(0)" @click="onDelete">
                   <i class="fas fa-trash mr-3 text-primary" /> Delete
                 </a>
               </div>
@@ -53,10 +50,6 @@
 export default {
   name: 'ItemCollapse',
   props: {
-    tabLabel: {
-      type: String,
-      default: '(No specified)'
-    },
     icon: {
       type: String,
       default: ''
@@ -68,11 +61,62 @@ export default {
     hasSubTitle: {
       type: Boolean,
       default: false
+    },
+    item: {
+      type: Object,
+      default: () => {
+        return null
+      }
     }
   },
   data () {
     return {
       active_tab: this.activeTab
+    }
+  },
+  computed: {
+    title () {
+      if (this.item) {
+        if (this.item.title) {
+          return this.item.title
+        } else if (this.item.school) {
+          return this.item.school
+        } else if (this.item.label) {
+          return this.item.label
+        } else if (this.item.skill) {
+          return this.item.skill
+        } else if (this.item.course) {
+          return this.item.course
+        } else if (this.item.language) {
+          return this.item.language
+        } else if (this.item.name) {
+          return this.item.name
+        } else {
+          return '(No specified)'
+        }
+      }
+      return '(No specified)'
+    },
+    subTabLabel () {
+      if (this.item) {
+        if (this.item.start_date || this.item.end_date) {
+          return this.concatDates(this.item.start_date, this.item.end_date)
+        } else if (this.item.level) {
+          return this.item.level
+        } else if (this.item.company) {
+          return this.item.company
+        } else if (this.item.institution) {
+          return this.item.institution
+        } else if (this.item.link) {
+          return this.item.link
+        }
+      }
+      return null
+    }
+  },
+  methods: {
+    onDelete () {
+      this.$emit('onDelete')
     }
   }
 }
@@ -114,7 +158,12 @@ export default {
   justify-content: space-between;
   cursor: pointer;
 
+  &__title {
+    font-size: 18px;
+  }
+
   &__subtitle {
+    font-size: 14px;
     color: $resume-gray;
   }
 }
@@ -131,18 +180,22 @@ export default {
 
     & a.dropdown-toggle {
       color: rgb(184, 190, 204);
+
       &:hover,
       &:focus {
         color: #3b8af2;
       }
     }
+
     & a.btn-link.dropdown-toggle:after {
       content: unset;
     }
+
     .dropdown-menu a {
       font-size: 20px;
       font-weight: 600;
       color: #262b33;
+
       &:hover,
       &:focus {
         color: #3b8af2;

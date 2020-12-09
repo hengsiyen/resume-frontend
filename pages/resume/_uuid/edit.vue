@@ -6,36 +6,26 @@
           <div class="form__content">
             <div class="rf-padding position-relative">
               <div class="rf-title">
-                {{ title }}
+                <template v-if="editable_title">
+                  <div class="form-group mb-0 mr-2">
+                    <input v-model="title" type="text" class="resume-form-control">
+                    <div class="line" />
+                  </div>
+                  <a
+                    href="javascript:void(0)"
+                    class="rf-section__confirm-lg mr-2"
+                    @click="editable_title = false"
+                  ><i class="fas fa-check-circle" /></a>
+                </template>
+                <template v-else>
+                  <span class="mr-1">{{ title }}</span>
+                  <a
+                    href="javascript:void(0)"
+                    class="rf-section__edit hover"
+                    @click="editable_title = true"
+                  ><i class="fas fa-pencil-alt" /></a>
+                </template>
               </div>
-              <!--              <div class="rf-progress">-->
-              <!--                <div class="rfp-item">-->
-              <!--                  <div class="rfp-content">-->
-              <!--                    <div class="rfp-left">-->
-              <!--                      <div class="percentage" :class="progressColor">-->
-              <!--                        {{ progress }}%-->
-              <!--                      </div>-->
-              <!--                      Profile completeness-->
-              <!--                    </div>-->
-              <!--                    <div class="rfp-right">-->
-              <!--                      <div class="rtpr-text d-none d-md-block">-->
-              <!--                        <div class="rfpr-text-enter">-->
-              <!--                          <div class="percentage green">-->
-              <!--                            10%-->
-              <!--                          </div>-->
-              <!--                          Add profile summary-->
-              <!--                        </div>-->
-              <!--                      </div>-->
-              <!--                      <div class="rtpr-tip rtpr-tip-green">-->
-              <!--                        <i class="fas fa-question-circle" />-->
-              <!--                      </div>-->
-              <!--                    </div>-->
-              <!--                  </div>-->
-              <!--                  <div class="rfp-content-bar">-->
-              <!--                    <div class="bar" :class="'bar-' + progressColor" :style="`width: ${progress}%;`" />-->
-              <!--                  </div>-->
-              <!--                </div>-->
-              <!--              </div>-->
               <FormSection title="Personal Details">
                 <div class="row">
                   <div class="col-12 col-sm-6">
@@ -197,16 +187,22 @@
                         :sub-title="sectionOrdersSubTitle[element].sub_title"
                       >
                         <draggable v-model="educations" draggable=".item">
-                          <template v-for="(element, key) in educations">
-                            <ItemCollapse :key="key" :active-tab="false" :has-sub-title="true">
-                              <EducationForm />
+                          <template v-for="(item, edu_key) in educations">
+                            <ItemCollapse
+                              :key="edu_key"
+                              :item="item"
+                              :active-tab="false"
+                              :has-sub-title="true"
+                              @onDelete="removeSectionItem(educations, item)"
+                            >
+                              <EducationForm :item="item" />
                             </ItemCollapse>
                           </template>
                         </draggable>
                         <a
                           href="javascript:void(0)"
                           class="btn-add-item"
-                          @click="addCustomItem(educations)"
+                          @click="addSectionItem(educations, element)"
                         >
                           <i class="fas fa-plus mr-2" />
                           <span>Add item</span>
@@ -220,16 +216,22 @@
                         :sub-title="sectionOrdersSubTitle[element].sub_title"
                       >
                         <draggable v-model="workExperiences" draggable=".item">
-                          <template v-for="(element, key) in workExperiences">
-                            <ItemCollapse :active-tab="false" :has-sub-title="true" :key="key">
-                              <EmploymentForm />
+                          <template v-for="(item, emp_key) in workExperiences">
+                            <ItemCollapse
+                              :key="emp_key"
+                              :item="item"
+                              :active-tab="false"
+                              :has-sub-title="true"
+                              @onDelete="removeSectionItem(workExperiences, item)"
+                            >
+                              <EmploymentForm :item="item" />
                             </ItemCollapse>
                           </template>
                         </draggable>
                         <a
                           href="javascript:void(0)"
                           class="btn-add-item"
-                          @click="addCustomItem(workExperiences)"
+                          @click="addSectionItem(workExperiences, element)"
                         >
                           <i class="fas fa-plus mr-2" />
                           <span>Add item</span>
@@ -243,16 +245,21 @@
                         :sub-title="sectionOrdersSubTitle[element].sub_title"
                       >
                         <draggable v-model="socialProfiles" draggable=".item">
-                          <template v-for="(element, key) in socialProfiles">
-                            <ItemCollapse :active-tab="false" :key="key">
-                              <SocialProfileForm />
+                          <template v-for="(item, soc_key) in socialProfiles">
+                            <ItemCollapse
+                              :key="soc_key"
+                              :item="item"
+                              :active-tab="false"
+                              @onDelete="removeSectionItem(socialProfiles, item)"
+                            >
+                              <SocialProfileForm :item="item" />
                             </ItemCollapse>
                           </template>
                         </draggable>
                         <a
                           href="javascript:void(0)"
                           class="btn-add-item"
-                          @click="addCustomItem(socialProfiles)"
+                          @click="addSectionItem(socialProfiles, element)"
                         >
                           <i class="fas fa-plus mr-2" />
                           <span>Add item</span>
@@ -265,17 +272,23 @@
                         :title="sectionOrdersSubTitle[element].title"
                         :sub-title="sectionOrdersSubTitle[element].sub_title"
                       >
-                        <draggable v-model="skills" draggable=".item">
-                          <template v-for="(element, key) in skills">
-                            <ItemCollapse :active-tab="false" :has-sub-title="true" :key="key">
-                              <SkillForm />
-                            </ItemCollapse>
-                          </template>
-                        </draggable>
+                        <!--                        <draggable v-model="skills" draggable=".item">-->
+                        <template v-for="(item, skill_key) in skills">
+                          <ItemCollapse
+                            :key="skill_key"
+                            :item="item"
+                            :active-tab="false"
+                            :has-sub-title="true"
+                            @onDelete="removeSectionItem(skills, item)"
+                          >
+                            <SkillForm :item="item" />
+                          </ItemCollapse>
+                        </template>
+                        <!--                        </draggable>-->
                         <a
                           href="javascript:void(0)"
                           class="btn-add-item"
-                          @click="addCustomItem(skills)"
+                          @click="addSectionItem(skills, element)"
                         >
                           <i class="fas fa-plus mr-2" />
                           <span>Add item</span>
@@ -288,18 +301,25 @@
                         :has-delete-button="true"
                         :title="sectionOrdersSubTitle[element].title"
                         :sub-title="sectionOrdersSubTitle[element].sub_title"
+                        @onDelete="removeSection(element)"
                       >
                         <draggable v-model="courses" draggable=".item">
-                          <template v-for="(element, key) in courses">
-                            <ItemCollapse :active-tab="false" :has-sub-title="true" :key="key">
-                              <CourseForm />
+                          <template v-for="(item, course_key) in courses">
+                            <ItemCollapse
+                              :key="course_key"
+                              :item="item"
+                              :active-tab="false"
+                              :has-sub-title="true"
+                              @onDelete="removeSectionItem(courses, item)"
+                            >
+                              <CourseForm :item="item" />
                             </ItemCollapse>
                           </template>
                         </draggable>
                         <a
                           href="javascript:void(0)"
                           class="btn-add-item"
-                          @click="addCustomItem(courses)"
+                          @click="addSectionItem(courses, element)"
                         >
                           <i class="fas fa-plus mr-2" />
                           <span>Add item</span>
@@ -312,18 +332,25 @@
                         :has-delete-button="true"
                         :title="sectionOrdersSubTitle[element].title"
                         :sub-title="sectionOrdersSubTitle[element].sub_title"
+                        @onDelete="removeSection(element)"
                       >
                         <draggable v-model="internships" draggable=".item">
-                          <template v-for="(element, key) in internships">
-                            <ItemCollapse :active-tab="false" :has-sub-title="true" :key="key">
-                              <InternshipForm />
+                          <template v-for="(item, intern_key) in internships">
+                            <ItemCollapse
+                              :key="intern_key"
+                              :item="item"
+                              :active-tab="false"
+                              :has-sub-title="true"
+                              @onDelete="removeSectionItem(internships, item)"
+                            >
+                              <InternshipForm :item="item" />
                             </ItemCollapse>
                           </template>
                         </draggable>
                         <a
                           href="javascript:void(0)"
                           class="btn-add-item"
-                          @click="addCustomItem(internships)"
+                          @click="addSectionItem(internships, element)"
                         >
                           <i class="fas fa-plus mr-2" />
                           <span>Add item</span>
@@ -336,18 +363,24 @@
                         :has-delete-button="true"
                         :title="sectionOrdersSubTitle[element].title"
                         :sub-title="sectionOrdersSubTitle[element].sub_title"
+                        @onDelete="removeSection(element)"
                       >
                         <draggable v-model="languages" draggable=".item">
-                          <template v-for="(element, key) in languages">
-                            <ItemCollapse :active-tab="false" :key="key">
-                              <LanguageForm />
+                          <template v-for="(item, lang_key) in languages">
+                            <ItemCollapse
+                              :key="lang_key"
+                              :item="item"
+                              :active-tab="false"
+                              @onDelete="removeSectionItem(languages, item)"
+                            >
+                              <LanguageForm :item="item" />
                             </ItemCollapse>
                           </template>
                         </draggable>
                         <a
                           href="javascript:void(0)"
                           class="btn-add-item"
-                          @click="addCustomItem(languages)"
+                          @click="addSectionItem(languages, element)"
                         >
                           <i class="fas fa-plus mr-2" />
                           <span>Add item</span>
@@ -360,18 +393,24 @@
                         :has-delete-button="true"
                         :title="sectionOrdersSubTitle[element].title"
                         :sub-title="sectionOrdersSubTitle[element].sub_title"
+                        @onDelete="removeSection(element)"
                       >
                         <draggable v-model="activities" draggable=".item">
-                          <template v-for="(element, key) in activities">
-                            <ItemCollapse :active-tab="false" :key="key">
-                              <ActivityForm />
+                          <template v-for="(item, act_key) in activities">
+                            <ItemCollapse
+                              :key="act_key"
+                              :item="item"
+                              :active-tab="false"
+                              @onDelete="removeSectionItem(activities, item)"
+                            >
+                              <ActivityForm :item="item" />
                             </ItemCollapse>
                           </template>
                         </draggable>
                         <a
                           href="javascript:void(0)"
                           class="btn-add-item"
-                          @click="addCustomItem(activities)"
+                          @click="addSectionItem(activities, element)"
                         >
                           <i class="fas fa-plus mr-2" />
                           <span>Add item</span>
@@ -384,8 +423,9 @@
                         :has-delete-button="true"
                         :title="sectionOrdersSubTitle[element].title"
                         :sub-title="sectionOrdersSubTitle[element].sub_title"
+                        @onDelete="removeSection(element)"
                       >
-                        <HobbyForm />
+                        <HobbyForm :item="hobbies[0]" />
                       </FormSection>
                     </template>
                     <template v-if="element === 'references'">
@@ -394,54 +434,69 @@
                         :has-delete-button="true"
                         :title="sectionOrdersSubTitle[element].title"
                         :sub-title="sectionOrdersSubTitle[element].sub_title"
+                        @onDelete="removeSection(element)"
                       >
                         <draggable v-model="references" draggable=".item">
-                          <template v-for="(element, key) in references">
-                            <ItemCollapse :active-tab="false" :has-sub-title="false" :key="key">
-                              <ReferenceForm />
+                          <template v-for="(item, ref_key) in references">
+                            <ItemCollapse
+                              :key="ref_key"
+                              :item="item"
+                              :active-tab="false"
+                              :has-sub-title="false"
+                              @onDelete="removeSectionItem(references, item)"
+                            >
+                              <ReferenceForm :item="item" />
                             </ItemCollapse>
                           </template>
                         </draggable>
                         <a
                           href="javascript:void(0)"
                           class="btn-add-item"
-                          @click="addCustomItem(references)"
+                          @click="addSectionItem(references, element)"
                         >
                           <i class="fas fa-plus mr-2" />
                           <span>Add item</span>
                         </a>
                       </FormSection>
                     </template>
-                    <template v-if="customSections.length">
-                      <template v-for="(customSection, key) in customSections">
-                        <template v-if="element === 'custom:' + customSection.externalId">
-                          <FormSection
-                            :key="key"
-                            :draggable="true"
-                            :has-delete-button="true"
-                            :title="customSection.title ? customSection.title : 'Untitled'"
-                          >
-                            <template v-if="customSection && customSection.items.length">
-                              <template v-for="(item, item_key) in customSection.items">
-                                <ItemCollapse
-                                  :key="item_key"
-                                  :active-tab="false"
-                                  :has-sub-title="false"
-                                >
-                                  <CustomSectionForm />
-                                </ItemCollapse>
-                              </template>
+                    <template v-for="(customSection, custom_key) in customSections">
+                      <template v-if="customSection && element === 'custom:' + customSection.externalId">
+                        <FormSection
+                          :key="custom_key"
+                          :draggable="true"
+                          :has-delete-button="true"
+                          :has-edit-button="true"
+                          :editable="customSection.editable"
+                          :item="customSection"
+                          :title="customSection.title ? customSection.title : 'Untitled'"
+                          @onDelete="removeSection(element)"
+                          @onEdit="editableCustomSection(customSection, true, true)"
+                          @onConfirm="editableCustomSection(customSection, true, false)"
+                          @onCancel="editableCustomSection(customSection, true, false)"
+                        >
+                          <template v-if="customSection && customSection.items.length">
+                            <template v-for="(item, item_key) in customSection.items">
+                              <ItemCollapse
+                                v-if="item"
+                                :key="item_key"
+                                :item="item"
+                                :active-tab="false"
+                                :has-sub-title="true"
+                                @onDelete="removeSectionItem(customSection.items, item)"
+                              >
+                                <CustomSectionForm :item="item" />
+                              </ItemCollapse>
                             </template>
-                            <a
-                              href="javascript:void(0)"
-                              class="btn-add-item"
-                              @click="addCustomItem(customSection.items)"
-                            >
-                              <i class="fas fa-plus mr-2" />
-                              <span>Add item</span>
-                            </a>
-                          </FormSection>
-                        </template>
+                          </template>
+                          <a
+                            href="javascript:void(0)"
+                            class="btn-add-item"
+                            @click="addSectionItem(customSection.items, 'custom')"
+                          >
+                            <i class="fas fa-plus mr-2" />
+                            <span>Add item</span>
+                          </a>
+                        </FormSection>
                       </template>
                     </template>
                   </div>
@@ -504,6 +559,9 @@ import CustomSectionForm from '@/components/resume/CustomSectionForm'
 export default {
   name: 'Edit',
   components: {
+    FormSection,
+    draggable,
+    EducationForm,
     CustomSectionForm,
     ActivityForm,
     SkillForm,
@@ -514,15 +572,12 @@ export default {
     ReferenceForm,
     SocialProfileForm,
     ItemCollapse,
-    EmploymentForm,
-    EducationForm,
-    FormSection,
-    draggable
+    EmploymentForm
   },
   data () {
     return {
+      editable_title: false,
       show_line: false,
-      progress: 30,
       title: 'Untitled',
       showAdditionalDetail: false,
       content: '<p>I am Example</p>',
@@ -539,46 +594,74 @@ export default {
       internships: [],
       languages: [],
       activities: [],
-      hobbies: [],
+      hobbies: [
+        { hobby: null }
+      ],
       references: []
     }
   },
-  computed: {
-    progressColor () {
-      if (this.progress === 0 && this.progress < 30) {
-        return 'red'
-      } else if (this.progress >= 30 && this.progress < 59) {
-        return 'yellow'
-      } else if (this.progress >= 60 && this.progress <= 100) {
-        return 'green'
-      } else {
-        return 'default'
-      }
-    }
-  },
   methods: {
-    addCustomItem (item) {
-      const newItem = {
-        title: null,
-        city: null,
-        start_date: new Date(),
-        end_date: new Date(),
-        description: null
-      }
-      item.push(newItem)
-    },
     addCustomSection () {
       const newCustomSection = {
         externalId: this.makeExternalId(8),
         title: '',
         items: []
       }
+      this.addSectionItem(newCustomSection.items, 'custom')
       this.customSections.push(newCustomSection)
       this.sectionsOrder.push('custom:' + newCustomSection.externalId)
     },
     addSection (item) {
       if (item) {
-        this.sectionsOrder.push(item.value)
+        if (!this.sectionsOrder.includes(item.value)) {
+          // this.addSectionItem(item.value, item.value)
+          this.sectionsOrder.push(item.value)
+        }
+      }
+    },
+    editableCustomSection (item, isCustom = false, isEdit = false) {
+      if (isCustom) {
+        item.editable = isEdit
+      }
+    },
+    removeSectionItem (model, item) {
+      if (Array.isArray(model)) {
+        if (model.includes(item)) {
+          const self = this
+          self.$swal({
+            title: 'Delete Entry',
+            text: 'Are you sure you want to delete this entry?',
+            showCancelButton: true,
+            confirmButtonText: 'Delete',
+            cancelButtonText: 'Cancel'
+          }).then((result) => {
+            if (result.value) {
+              const index = model.indexOf(item)
+              if (index > -1) {
+                model.splice(index, 1)
+              }
+            }
+          })
+        }
+      }
+    },
+    removeSection (item) {
+      if (this.sectionsOrder.includes(item)) {
+        const self = this
+        self.$swal({
+          title: 'Delete Section',
+          text: 'Are you sure you want to delete this section?',
+          showCancelButton: true,
+          confirmButtonText: 'Delete',
+          cancelButtonText: 'Cancel'
+        }).then((result) => {
+          if (result.value) {
+            const index = this.sectionsOrder.indexOf(item)
+            if (index > -1) {
+              this.sectionsOrder.splice(index, 1)
+            }
+          }
+        })
       }
     },
     checkSectionActive (array, key = '') {

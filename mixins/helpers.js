@@ -1,4 +1,4 @@
-const helpers = {
+export const helpers = {
   methods: {
     notEmptyObject (someObject) {
       return Object.keys(someObject).length > 0
@@ -42,6 +42,7 @@ const helpers = {
         }
       }
       if (error.response === undefined) {
+        // eslint-disable-next-line no-console
         console.log(error)
       }
     },
@@ -53,6 +54,95 @@ const helpers = {
         result += characters.charAt(Math.floor(Math.random() * charactersLength))
       }
       return result
+    },
+    convertDateFormat (date, format = 'MMM yyyy', locale = 'en') {
+      if (date) {
+        return this.$moment(date).locale(locale).format(format)
+      }
+      return null
+    },
+    concatDates (startDate, endDate) {
+      const d1 = this.convertDateFormat(startDate)
+      const d2 = this.convertDateFormat(endDate)
+      if (d1 && d2) {
+        return d1 + ' - ' + d2
+      } else if (d1 && !d2) {
+        return d1
+      } else if (!d1 && d2) {
+        return d2
+      }
+      return null
+    },
+
+    addSectionItem (model, type) {
+      let newItem = null
+      switch (type) {
+        case 'educations':
+          newItem = {
+            school: null,
+            degree: null,
+            start_date: null,
+            end_date: null,
+            city: null,
+            description: null
+          }
+          break
+        case 'workExperiences':
+        case 'internships':
+        case 'activities':
+          newItem = {
+            title: null,
+            employer: null,
+            start_date: null,
+            end_date: null,
+            city: null,
+            description: null
+          }
+          break
+        case 'socialProfiles':
+          newItem = {
+            label: null,
+            link: null
+          }
+          break
+        case 'skills':
+          newItem = {
+            skill: null,
+            level: null
+          }
+          break
+        case 'courses':
+          newItem = {
+            course: null,
+            institution: null,
+            start_date: null,
+            end_date: null
+          }
+          break
+        case 'languages':
+          newItem = {
+            language: null,
+            level: null
+          }
+          break
+        case 'references':
+          newItem = {
+            name: null,
+            company: null,
+            phone: null,
+            email: null
+          }
+          break
+        case 'custom':
+          newItem = {
+            title: null,
+            start_date: null,
+            end_date: null,
+            city: null,
+            description: null
+          }
+      }
+      model.push(newItem)
     }
   }
 }

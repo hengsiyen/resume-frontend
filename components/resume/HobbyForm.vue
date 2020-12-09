@@ -4,7 +4,14 @@
       <div class="col-12 col-sm-12">
         <div class="form-group">
           <label for="hobby" class="resume-label-control">What do you like?</label>
-          <textarea name="hobby" id="hobby" cols="30" rows="5" class="resume-form-control"></textarea>
+          <textarea
+            id="hobby"
+            v-model="item.hobby"
+            name="hobby"
+            cols="30"
+            rows="5"
+            class="resume-form-control"
+          />
           <div class="line" />
         </div>
       </div>
@@ -14,7 +21,15 @@
 
 <script>
 export default {
-  name: 'HobbyForm'
+  name: 'HobbyForm',
+  props: {
+    item: {
+      type: Object,
+      default: () => {
+        return null
+      }
+    }
+  }
 }
 </script>
 

@@ -4,14 +4,14 @@
       <div class="col-12 col-sm-6">
         <div class="form-group">
           <label for="jobTitle" class="resume-label-control">Job Title</label>
-          <input id="jobTitle" type="text" class="resume-form-control">
+          <input id="jobTitle" v-model="item.title" type="text" class="resume-form-control">
           <div class="line" />
         </div>
       </div>
       <div class="col-12 col-sm-6">
         <div class="form-group">
           <label for="employer" class="resume-label-control">Employer</label>
-          <input id="employer" type="text" class="resume-form-control">
+          <input id="employer" v-model="item.employer" type="text" class="resume-form-control">
           <div class="line" />
         </div>
       </div>
@@ -31,6 +31,7 @@
                   calendar-class="resume_calendar"
                   :minimum-view="'month'"
                   :maximum-view="'month'"
+                  @closed="selectedStartDate"
                 />
                 <div class="line" />
               </div>
@@ -43,7 +44,7 @@
                   calendar-class="resume_calendar"
                   :minimum-view="'month'"
                   :maximum-view="'month'"
-                  calendar-button-icon="fa fa-calendar"
+                  @closed="selectedEndDate"
                 />
                 <div class="line" />
               </div>
@@ -54,7 +55,7 @@
       <div class="col-12 col-sm-6">
         <div class="form-group">
           <label for="city" class="resume-label-control">City</label>
-          <input id="city" type="text" class="resume-form-control">
+          <input id="city" v-model="item.city" type="text" class="resume-form-control">
           <div class="line" />
         </div>
       </div>
@@ -66,7 +67,7 @@
             <label class="resume-label-control">Description</label>
             <quill-editor
               ref="editor"
-              v-model="content"
+              v-model="item.description"
               :class="{'editor': show_line}"
               :options="editorOption"
               @blur="onEditorBlur($event)"
@@ -86,6 +87,14 @@ import { dataOptions } from '@/mixins/dataOptions'
 
 export default {
   name: 'EmploymentForm',
+  props: {
+    item: {
+      type: Object,
+      default: () => {
+        return null
+      }
+    }
+  },
   data () {
     return {
       empDateFormat: 'MMM, yyyy',
@@ -96,12 +105,24 @@ export default {
       editorOption: dataOptions.editorOption
     }
   },
+  mounted () {
+    if (this.item) {
+      this.start_date = this.convertDateFormat(this.item.start_date)
+      this.end_date = this.convertDateFormat(this.item.end_date)
+    }
+  },
   methods: {
     onEditorBlur (editor) {
       this.show_line = false
     },
     onEditorFocus (editor) {
       this.show_line = true
+    },
+    selectedStartDate () {
+      this.item.start_date = this.convertDateFormat(this.start_date, 'YYYY-MM-DD')
+    },
+    selectedEndDate () {
+      this.item.end_date = this.convertDateFormat(this.end_date, 'YYYY-MM-DD')
     }
   }
 }

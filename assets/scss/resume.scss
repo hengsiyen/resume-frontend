@@ -27,13 +27,48 @@
     margin-bottom: 8px;
   }
 
+  &__edit,
+  &__confirm,
   &__delete {
     font-size: 18px;
     color: $resume-gray;
+  }
 
-    &:hover {
-      color: $resume-red;
-    }
+  &__edit-lg,
+  &__confirm-lg,
+  &__delete-lg {
+    font-size: 21px;
+    color: $resume-gray;
+  }
+
+  &__edit-xl,
+  &__confirm-xl,
+  &__delete-xl {
+    font-size: 26px;
+    color: $resume-gray;
+  }
+
+  &__edit.hover {
+    opacity: 0;
+  }
+
+
+  &__confirm:hover,
+  &__confirm-lg:hover,
+  &__confirm-xl:hover {
+    color: $resume-green;
+  }
+
+  &__edit:hover,
+  &__edit-lg:hover,
+  &__edit-xl:hover {
+    color: $resume-blue;
+  }
+
+  &__delete:hover,
+  &__delete-lg:hover,
+  &__delete-xl:hover {
+    color: $resume-red;
   }
 
   &__draggable {
@@ -100,7 +135,16 @@
   text-align: center;
   position: relative;
   margin-bottom: 2px;
-  padding: 0px 32px;
+  //padding: 0px 32px;
+  display: flex;
+  align-content: center;
+  justify-content: center;
+  align-items: center;
+  height: 58px;
+
+  &:hover .rf-section__edit.hover {
+    opacity: 1;
+  }
 }
 
 .rf-progress {

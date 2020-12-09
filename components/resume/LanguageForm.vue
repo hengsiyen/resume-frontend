@@ -4,19 +4,19 @@
       <div class="col-12 col-sm-6">
         <div class="form-group mb-0">
           <label for="language" class="resume-label-control">Language</label>
-          <input id="language" type="text" class="resume-form-control">
+          <input id="language" v-model="item.language" type="text" class="resume-form-control">
           <div class="line" />
         </div>
       </div>
       <div class="col-12 col-sm-6">
         <div class="form-group">
           <label for="level" class="resume-label-control">Level</label>
-          <select id="level" name="level" class="resume-form-control">
+          <select id="level" v-model="item.level" name="level" class="resume-form-control">
             <option :value="null">
               Select level
             </option>
             <template v-for="(item, key) in language_levels">
-              <option :value="item.id" :key="key">
+              <option :key="key" :value="item.name_en">
                 {{ item.name_en }}
               </option>
             </template>
@@ -33,6 +33,14 @@
 
 export default {
   name: 'LanguageForm',
+  props: {
+    item: {
+      type: Object,
+      default: () => {
+        return null
+      }
+    }
+  },
   data () {
     return {
       language_levels: [],
@@ -49,6 +57,9 @@ export default {
   },
   mounted () {
     this.getLanguagesLvlOptions()
+    if (this.item) {
+      this.queryText = this.item.language
+    }
   },
   methods: {
     getLanguagesLvlOptions () {

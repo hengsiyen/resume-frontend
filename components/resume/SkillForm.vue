@@ -29,23 +29,23 @@
       <div class="col-12 col-sm-6">
         <div class="form-group">
           <label for="level" class="resume-label-control">Level</label>
-          <select id="level" name="level" class="resume-form-control">
+          <select id="level" v-model="item.level" name="level" class="resume-form-control">
             <option :value="null">
               Select level
             </option>
-            <option value="1">
+            <option value="Novice">
               Novice
             </option>
-            <option value="2">
+            <option value="Beginner">
               Beginner
             </option>
-            <option value="3">
+            <option value="Skillful">
               Skillful
             </option>
-            <option value="4">
+            <option value="Experienced">
               Experienced
             </option>
-            <option value="5">
+            <option value="Expert">
               Expert
             </option>
           </select>
@@ -62,6 +62,14 @@ import { debounce } from 'debounce'
 
 export default {
   name: 'SkillForm',
+  props: {
+    item: {
+      type: Object,
+      default: () => {
+        return null
+      }
+    }
+  },
   data () {
     return {
       limit: 10,
@@ -71,11 +79,15 @@ export default {
       inputProps: {
         id: 'autosuggest__input',
         placeholder: '',
-        class: 'text-ellipsis'
+        class: 'text-ellipsis',
+        value: 'sdfssfd'
       }
     }
   },
   mounted () {
+    if (this.item) {
+      this.queryText = this.item.skill
+    }
   },
   methods: {
     inputText: debounce(function (text) {
@@ -99,6 +111,7 @@ export default {
     getSuggestionValue (suggestion) {
       const donut = suggestion.item
       this.queryText = donut.name_en
+      this.item.skill = this.queryText
       // if (donut) {
       //   this.$store.dispatch('user/searchQueryJobByTitle', donut.title)
       // } else {

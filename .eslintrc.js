@@ -19,6 +19,7 @@ module.exports = {
     'eslint-disable-next-line no-unused-expressions': 'off',
     'eslint-disable-next-line camelcase': 'off',
     'eslint-disable-next-line nuxt/no-cjs-in-config': 'off',
-    'eslint-disable-next-line vue/require-valid-default-prop': 'off'
+    'eslint-disable-next-line vue/require-valid-default-prop': 'off',
+    'eslint-disable-next-line vue/return-in-computed-property': 'off'
   }
 }

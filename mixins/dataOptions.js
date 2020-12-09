@@ -16,7 +16,9 @@ export const dataOptions = {
     'educations',
     'workExperiences',
     'socialProfiles',
-    'skills'
+    'skills',
+    'custom:2293734973',
+    'custom:2293733234'
   ],
 
   addSections: [
@@ -76,13 +78,14 @@ export const dataOptions = {
       externalId: '2293734973',
       id: 4311827,
       title: 'Hello',
+      editable: false,
       items: [
         {
           cid: null,
           city: 'werqwe',
           createdAt: '2020-12-08T06:36:40.345+01:00',
-          dateFrom: '2020-12-08',
-          dateUntil: '2020-12-08',
+          start_date: '2020-01-08',
+          end_date: '2020-03-08',
           description: '<p>ewrqrwe</p>',
           id: 4577769,
           isDateUntilPresent: null,
@@ -96,16 +99,17 @@ export const dataOptions = {
       ]
     },
     {
-      externalId: '2293734973',
+      externalId: '2293733234',
       id: 4311826,
       title: 'World',
+      editable: false,
       items: [
         {
           cid: null,
           city: 'werqwe',
           createdAt: '2020-12-08T06:36:40.345+01:00',
-          dateFrom: '2020-12-08',
-          dateUntil: '2020-12-08',
+          start_date: '2020-05-08',
+          end_date: '2020-09-08',
           description: '<p>ewrqrwe</p>',
           id: 4577769,
           isDateUntilPresent: null,

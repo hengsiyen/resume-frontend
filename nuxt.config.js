@@ -35,14 +35,12 @@ export default {
   css: [
     { src: 'quill/dist/quill.snow.css', lang: 'css' },
     { src: '@fortawesome/fontawesome-free/css/all.min.css', lang: 'css' },
-
     { src: '@/assets/scss/style.scss', lang: 'css' },
     { src: '@/assets/css/style.css', lang: 'css' }
   ],
 
   // Plugins to run before rendering page (https://go.nuxtjs.dev/config-plugins)
   plugins: [
-    { src: '~/plugins/helper.js', ssr: false },
     { src: '~/plugins/date-picker.js', ssr: false },
     { src: '~/plugins/vue-suggestion.js', ssr: false },
     { src: '~/plugins/main.js', mode: 'client', ssr: false },
@@ -66,7 +64,8 @@ export default {
     '@nuxtjs/axios',
     '@nuxtjs/dotenv',
     '@nuxt/content',
-    '@nuxtjs/moment'
+    '@nuxtjs/moment',
+    'vue-sweetalert2/nuxt'
   ],
 
   moment: {
