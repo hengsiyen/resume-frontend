@@ -3,9 +3,23 @@
     <div class="row">
       <div class="col-12 col-sm-6">
         <div class="form-group mb-0">
-          <label for="language" class="resume-label-control">Language</label>
-          <input id="language" v-model="item.language" type="text" class="resume-form-control">
-          <div class="line" />
+          <label class="resume-label-control">Language</label>
+          <autocomplete
+            :search="search"
+            :default-value="langValue"
+            aria-label="Search skill"
+            :get-result-value="getResultValue"
+            @update="update"
+            @submit="submit"
+          >
+            <template #result="{ result, props }">
+              <li v-bind="props">
+                <div class="wiki-title">
+                  {{ result.name_en }}
+                </div>
+              </li>
+            </template>
+          </autocomplete>
         </div>
       </div>
       <div class="col-12 col-sm-6">
@@ -44,19 +58,20 @@ export default {
   data () {
     return {
       language_levels: [],
-      limit: 10,
-      queryText: '',
-      suggestions: [],
-      filteredSuggestions: [],
-      inputProps: {
-        id: 'autosuggest__input',
-        placeholder: '',
-        class: 'text-ellipsis'
+      languages: []
+    }
+  },
+  computed: {
+    langValue () {
+      if (this.item) {
+        return this.item.language
       }
+      return null
     }
   },
   mounted () {
     this.getLanguagesLvlOptions()
+    this.getLanguages()
     if (this.item) {
       this.queryText = this.item.language
     }
@@ -67,6 +82,38 @@ export default {
         .get(this.$base_api + '/api/frontend/language-level/get-option')
         .then((res) => {
           this.language_levels = res.data.data
+        })
+    },
+
+    update (results, selectedIndex) {
+      if (selectedIndex > -1) {
+        if (results[selectedIndex]) {
+          this.item.language = results[selectedIndex].name_en
+        }
+      }
+    },
+    submit (result) {
+      if (result) {
+        this.item.language = result.name_en
+      }
+    },
+    getResultValue (result) {
+      return result.name_en
+    },
+    search (input) {
+      this.item.language = input
+      if (input < 1) {
+        return []
+      }
+      return this.languages.filter((language) => {
+        return language.name_en.toLowerCase().startsWith(input.toLowerCase())
+      })
+    },
+    getLanguages () {
+      this.$axios
+        .get(this.$base_api + '/api/frontend/language/get-option')
+        .then((res) => {
+          this.languages = res.data.data
         })
     }
   }

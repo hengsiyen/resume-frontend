@@ -1,0 +1,28 @@
+.swal2-popup {
+  width: 590px !important;
+  padding: 32px 40px !important;
+}
+
+.swal2-header {
+  align-items: start !important;
+}
+
+.swal2-title {
+  margin-bottom: 0 !important;
+}
+
+.swal2-content {
+  text-align: left !important;
+  margin-bottom: 100px !important;
+}
+
+.swal2-actions {
+  align-items: end !important;
+  justify-content: flex-end !important;
+  margin: 0 !important;
+}
+.swal2-header,
+.swal2-content,
+.swal2-actions {
+  padding: 0 !important;
+}

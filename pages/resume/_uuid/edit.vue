@@ -186,19 +186,17 @@
                         :title="sectionOrdersSubTitle[element].title"
                         :sub-title="sectionOrdersSubTitle[element].sub_title"
                       >
-                        <draggable v-model="educations" draggable=".item">
-                          <template v-for="(item, edu_key) in educations">
-                            <ItemCollapse
-                              :key="edu_key"
-                              :item="item"
-                              :active-tab="false"
-                              :has-sub-title="true"
-                              @onDelete="removeSectionItem(educations, item)"
-                            >
-                              <EducationForm :item="item" />
-                            </ItemCollapse>
-                          </template>
-                        </draggable>
+                        <template v-for="(item, edu_key) in educations">
+                          <ItemCollapse
+                            :key="edu_key"
+                            :item="item"
+                            :active-tab="false"
+                            :has-sub-title="true"
+                            @onDelete="removeSectionItem(educations, item)"
+                          >
+                            <EducationForm :item="item" />
+                          </ItemCollapse>
+                        </template>
                         <a
                           href="javascript:void(0)"
                           class="btn-add-item"
@@ -215,19 +213,17 @@
                         :title="sectionOrdersSubTitle[element].title"
                         :sub-title="sectionOrdersSubTitle[element].sub_title"
                       >
-                        <draggable v-model="workExperiences" draggable=".item">
-                          <template v-for="(item, emp_key) in workExperiences">
-                            <ItemCollapse
-                              :key="emp_key"
-                              :item="item"
-                              :active-tab="false"
-                              :has-sub-title="true"
-                              @onDelete="removeSectionItem(workExperiences, item)"
-                            >
-                              <EmploymentForm :item="item" />
-                            </ItemCollapse>
-                          </template>
-                        </draggable>
+                        <template v-for="(item, emp_key) in workExperiences">
+                          <ItemCollapse
+                            :key="emp_key"
+                            :item="item"
+                            :active-tab="false"
+                            :has-sub-title="true"
+                            @onDelete="removeSectionItem(workExperiences, item)"
+                          >
+                            <EmploymentForm :item="item" />
+                          </ItemCollapse>
+                        </template>
                         <a
                           href="javascript:void(0)"
                           class="btn-add-item"
@@ -244,18 +240,17 @@
                         :title="sectionOrdersSubTitle[element].title"
                         :sub-title="sectionOrdersSubTitle[element].sub_title"
                       >
-                        <draggable v-model="socialProfiles" draggable=".item">
-                          <template v-for="(item, soc_key) in socialProfiles">
-                            <ItemCollapse
-                              :key="soc_key"
-                              :item="item"
-                              :active-tab="false"
-                              @onDelete="removeSectionItem(socialProfiles, item)"
-                            >
-                              <SocialProfileForm :item="item" />
-                            </ItemCollapse>
-                          </template>
-                        </draggable>
+                        <template v-for="(item, soc_key) in socialProfiles">
+                          <ItemCollapse
+                            :key="soc_key"
+                            :item="item"
+                            :active-tab="false"
+                            :has-sub-title="true"
+                            @onDelete="removeSectionItem(socialProfiles, item)"
+                          >
+                            <SocialProfileForm :item="item" />
+                          </ItemCollapse>
+                        </template>
                         <a
                           href="javascript:void(0)"
                           class="btn-add-item"
@@ -272,7 +267,6 @@
                         :title="sectionOrdersSubTitle[element].title"
                         :sub-title="sectionOrdersSubTitle[element].sub_title"
                       >
-                        <!--                        <draggable v-model="skills" draggable=".item">-->
                         <template v-for="(item, skill_key) in skills">
                           <ItemCollapse
                             :key="skill_key"
@@ -284,7 +278,6 @@
                             <SkillForm :item="item" />
                           </ItemCollapse>
                         </template>
-                        <!--                        </draggable>-->
                         <a
                           href="javascript:void(0)"
                           class="btn-add-item"
@@ -303,19 +296,17 @@
                         :sub-title="sectionOrdersSubTitle[element].sub_title"
                         @onDelete="removeSection(element)"
                       >
-                        <draggable v-model="courses" draggable=".item">
-                          <template v-for="(item, course_key) in courses">
-                            <ItemCollapse
-                              :key="course_key"
-                              :item="item"
-                              :active-tab="false"
-                              :has-sub-title="true"
-                              @onDelete="removeSectionItem(courses, item)"
-                            >
-                              <CourseForm :item="item" />
-                            </ItemCollapse>
-                          </template>
-                        </draggable>
+                        <template v-for="(item, course_key) in courses">
+                          <ItemCollapse
+                            :key="course_key"
+                            :item="item"
+                            :active-tab="false"
+                            :has-sub-title="true"
+                            @onDelete="removeSectionItem(courses, item)"
+                          >
+                            <CourseForm :item="item" />
+                          </ItemCollapse>
+                        </template>
                         <a
                           href="javascript:void(0)"
                           class="btn-add-item"
@@ -334,19 +325,17 @@
                         :sub-title="sectionOrdersSubTitle[element].sub_title"
                         @onDelete="removeSection(element)"
                       >
-                        <draggable v-model="internships" draggable=".item">
-                          <template v-for="(item, intern_key) in internships">
-                            <ItemCollapse
-                              :key="intern_key"
-                              :item="item"
-                              :active-tab="false"
-                              :has-sub-title="true"
-                              @onDelete="removeSectionItem(internships, item)"
-                            >
-                              <InternshipForm :item="item" />
-                            </ItemCollapse>
-                          </template>
-                        </draggable>
+                        <template v-for="(item, intern_key) in internships">
+                          <ItemCollapse
+                            :key="intern_key"
+                            :item="item"
+                            :active-tab="false"
+                            :has-sub-title="true"
+                            @onDelete="removeSectionItem(internships, item)"
+                          >
+                            <InternshipForm :item="item" />
+                          </ItemCollapse>
+                        </template>
                         <a
                           href="javascript:void(0)"
                           class="btn-add-item"
@@ -365,18 +354,17 @@
                         :sub-title="sectionOrdersSubTitle[element].sub_title"
                         @onDelete="removeSection(element)"
                       >
-                        <draggable v-model="languages" draggable=".item">
-                          <template v-for="(item, lang_key) in languages">
-                            <ItemCollapse
-                              :key="lang_key"
-                              :item="item"
-                              :active-tab="false"
-                              @onDelete="removeSectionItem(languages, item)"
-                            >
-                              <LanguageForm :item="item" />
-                            </ItemCollapse>
-                          </template>
-                        </draggable>
+                        <template v-for="(item, lang_key) in languages">
+                          <ItemCollapse
+                            :key="lang_key"
+                            :item="item"
+                            :has-sub-title="true"
+                            :active-tab="false"
+                            @onDelete="removeSectionItem(languages, item)"
+                          >
+                            <LanguageForm :item="item" />
+                          </ItemCollapse>
+                        </template>
                         <a
                           href="javascript:void(0)"
                           class="btn-add-item"
@@ -395,18 +383,17 @@
                         :sub-title="sectionOrdersSubTitle[element].sub_title"
                         @onDelete="removeSection(element)"
                       >
-                        <draggable v-model="activities" draggable=".item">
-                          <template v-for="(item, act_key) in activities">
-                            <ItemCollapse
-                              :key="act_key"
-                              :item="item"
-                              :active-tab="false"
-                              @onDelete="removeSectionItem(activities, item)"
-                            >
-                              <ActivityForm :item="item" />
-                            </ItemCollapse>
-                          </template>
-                        </draggable>
+                        <template v-for="(item, act_key) in activities">
+                          <ItemCollapse
+                            :key="act_key"
+                            :item="item"
+                            :has-sub-title="true"
+                            :active-tab="false"
+                            @onDelete="removeSectionItem(activities, item)"
+                          >
+                            <ActivityForm :item="item" />
+                          </ItemCollapse>
+                        </template>
                         <a
                           href="javascript:void(0)"
                           class="btn-add-item"
@@ -436,19 +423,17 @@
                         :sub-title="sectionOrdersSubTitle[element].sub_title"
                         @onDelete="removeSection(element)"
                       >
-                        <draggable v-model="references" draggable=".item">
-                          <template v-for="(item, ref_key) in references">
-                            <ItemCollapse
-                              :key="ref_key"
-                              :item="item"
-                              :active-tab="false"
-                              :has-sub-title="false"
-                              @onDelete="removeSectionItem(references, item)"
-                            >
-                              <ReferenceForm :item="item" />
-                            </ItemCollapse>
-                          </template>
-                        </draggable>
+                        <template v-for="(item, ref_key) in references">
+                          <ItemCollapse
+                            :key="ref_key"
+                            :item="item"
+                            :active-tab="false"
+                            :has-sub-title="true"
+                            @onDelete="removeSectionItem(references, item)"
+                          >
+                            <ReferenceForm :item="item" />
+                          </ItemCollapse>
+                        </template>
                         <a
                           href="javascript:void(0)"
                           class="btn-add-item"
@@ -605,6 +590,7 @@ export default {
       const newCustomSection = {
         externalId: this.makeExternalId(8),
         title: '',
+        editable: false,
         items: []
       }
       this.addSectionItem(newCustomSection.items, 'custom')
@@ -633,7 +619,9 @@ export default {
             text: 'Are you sure you want to delete this entry?',
             showCancelButton: true,
             confirmButtonText: 'Delete',
-            cancelButtonText: 'Cancel'
+            cancelButtonText: 'Cancel',
+            confirmButtonColor: '#FF4C4C',
+            cancelButtonColor: '#909090'
           }).then((result) => {
             if (result.value) {
               const index = model.indexOf(item)
@@ -653,7 +641,9 @@ export default {
           text: 'Are you sure you want to delete this section?',
           showCancelButton: true,
           confirmButtonText: 'Delete',
-          cancelButtonText: 'Cancel'
+          cancelButtonText: 'Cancel',
+          confirmButtonColor: '#FF4C4C',
+          cancelButtonColor: '#909090'
         }).then((result) => {
           if (result.value) {
             const index = this.sectionsOrder.indexOf(item)

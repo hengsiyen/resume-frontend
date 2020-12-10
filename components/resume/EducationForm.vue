@@ -4,14 +4,14 @@
       <div class="col-12 col-sm-6">
         <div class="form-group">
           <label for="school" class="resume-label-control">School</label>
-          <input v-model="item.school" id="school" type="text" class="resume-form-control">
+          <input id="school" v-model="item.school" type="text" class="resume-form-control">
           <div class="line" />
         </div>
       </div>
       <div class="col-12 col-sm-6">
         <div class="form-group">
           <label for="degree" class="resume-label-control">Degree</label>
-          <input v-model="item.degree" id="degree" type="text" class="resume-form-control">
+          <input id="degree" v-model="item.degree" type="text" class="resume-form-control">
           <div class="line" />
         </div>
       </div>
@@ -55,7 +55,7 @@
       <div class="col-12 col-sm-6">
         <div class="form-group">
           <label for="city" class="resume-label-control">City</label>
-          <input v-model="item.city" id="city" type="text" class="resume-form-control">
+          <input id="city" v-model="item.city" type="text" class="resume-form-control">
           <div class="line" />
         </div>
       </div>

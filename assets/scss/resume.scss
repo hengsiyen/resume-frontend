@@ -17,6 +17,16 @@
     font-size: 22px;
     line-height: 28px;
     font-weight: 600;
+
+    & a.rf-section__edit,
+    & a.rf-section__delete {
+      opacity: 0;
+    }
+
+    &:hover a.rf-section__edit,
+    &:hover a.rf-section__delete {
+      opacity: 1;
+    }
   }
 
   &__sub-title {
@@ -29,6 +39,7 @@
 
   &__edit,
   &__confirm,
+  &__cancel,
   &__delete {
     font-size: 18px;
     color: $resume-gray;
@@ -36,6 +47,7 @@
 
   &__edit-lg,
   &__confirm-lg,
+  &__cancel-lg,
   &__delete-lg {
     font-size: 21px;
     color: $resume-gray;
@@ -43,6 +55,7 @@
 
   &__edit-xl,
   &__confirm-xl,
+  &__cancel-xl,
   &__delete-xl {
     font-size: 26px;
     color: $resume-gray;
@@ -67,7 +80,10 @@
 
   &__delete:hover,
   &__delete-lg:hover,
-  &__delete-xl:hover {
+  &__delete-xl:hover,
+  &__cancel:hover,
+  &__cancel-lg:hover,
+  &__cancel-xl:hover{
     color: $resume-red;
   }
 

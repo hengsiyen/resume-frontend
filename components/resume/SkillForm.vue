@@ -4,26 +4,22 @@
       <div class="col-12 col-sm-6">
         <div class="form-group">
           <label class="resume-label-control">Skill</label>
-          <vue-autosuggest
-            ref="autosuggest"
-            v-model="queryText"
-            class="position-relative"
-            :suggestions="filteredSuggestions"
-            :input-props="inputProps"
-            :get-suggestion-value="getSuggestionValue"
-            @input="inputText"
+          <autocomplete
+            :search="search"
+            :default-value="skillValue"
+            aria-label="Search skill"
+            :get-result-value="getResultValue"
+            @update="update"
+            @submit="submit"
           >
-            <template slot="after-input">
-              <div class="line" />
-            </template>
-            <template slot-scope="{ suggestion }">
-              <div class="row">
-                <div class="col-12">
-                  {{ suggestion.item.name_en }}
+            <template #result="{ result, props }">
+              <li v-bind="props">
+                <div class="wiki-title">
+                  {{ result.name_en }}
                 </div>
-              </div>
+              </li>
             </template>
-          </vue-autosuggest>
+          </autocomplete>
         </div>
       </div>
       <div class="col-12 col-sm-6">
@@ -58,8 +54,6 @@
 </template>
 
 <script>
-import { debounce } from 'debounce'
-
 export default {
   name: 'SkillForm',
   props: {
@@ -72,52 +66,51 @@ export default {
   },
   data () {
     return {
-      limit: 10,
-      queryText: '',
-      skills: [],
-      filteredSuggestions: [],
-      inputProps: {
-        id: 'autosuggest__input',
-        placeholder: '',
-        class: 'text-ellipsis',
-        value: 'sdfssfd'
+      skills: []
+    }
+  },
+  computed: {
+    skillValue () {
+      if (this.item) {
+        return this.item.skill
       }
+      return null
     }
   },
   mounted () {
-    if (this.item) {
-      this.queryText = this.item.skill
-    }
+    this.getSkills()
   },
   methods: {
-    inputText: debounce(function (text) {
+    update (results, selectedIndex) {
+      if (selectedIndex > -1) {
+        if (results[selectedIndex]) {
+          this.item.skill = results[selectedIndex].name_en
+        }
+      }
+    },
+    submit (result) {
+      if (result) {
+        this.item.skill = result.name_en
+      }
+    },
+    getResultValue (result) {
+      return result.name_en
+    },
+    search (input) {
+      this.item.skill = input
+      if (input < 1) {
+        return []
+      }
+      return this.skills.filter((skill) => {
+        return skill.name_en.toLowerCase().startsWith(input.toLowerCase())
+      })
+    },
+    getSkills () {
       this.$axios
-        .post(this.$base_api + '/api/frontend/skill/suggestion', {
-          query_text: text,
-          number_result_search: this.limit
-        })
+        .post(this.$base_api + '/api/frontend/skill/suggestion')
         .then((res) => {
           this.skills = res.data.data
-          if (this.skills.length > 0) {
-            this.filteredSuggestions = [{
-              data: this.skills
-            }]
-          } else {
-            this.filteredSuggestions = []
-          }
         })
-    }, 200),
-
-    getSuggestionValue (suggestion) {
-      const donut = suggestion.item
-      this.queryText = donut.name_en
-      this.item.skill = this.queryText
-      // if (donut) {
-      //   this.$store.dispatch('user/searchQueryJobByTitle', donut.title)
-      // } else {
-      //   this.$store.dispatch('user/clearSearchQueryJobByTitle')
-      // }
-      return donut.name_en
     }
   }
 }

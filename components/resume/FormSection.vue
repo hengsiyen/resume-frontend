@@ -21,7 +21,7 @@
           ><i class="fas fa-check-circle" /></a>
           <a
             href="javascript:void(0)"
-            class="rf-section__delete mr-2"
+            class="rf-section__cancel mr-2"
             @click="onCancel"
           ><i class="fas fa-times-circle" /></a>
         </template>
