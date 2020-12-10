@@ -62,6 +62,11 @@ div[aria-owns="autosuggest-autosuggest__results"][aria-expanded="true"] + .line,
   background-color: #02add7;
 }
 
+.line.line-red {
+  width: 100%;
+  background-color: $resume-red;
+}
+
 /*--------------------------------------------------------------
 # Date picker start
 --------------------------------------------------------------*/

@@ -19,6 +19,13 @@ export const helpers = {
       }
       return ''
     },
+    checkKeyObj (model, key = '') {
+      if (model) {
+        // eslint-disable-next-line no-prototype-builtins
+        return model.hasOwnProperty(key)
+      }
+      return false
+    },
     onResponseError (error) {
       if (error.statusText) {
         this.$toastr('error', error.statusText, this.$t('string.error'))

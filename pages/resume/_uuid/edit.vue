@@ -41,14 +41,14 @@
                   <div class="col-12 col-sm-6">
                     <div class="form-group">
                       <label for="firstName" class="resume-label-control">First Name</label>
-                      <input id="firstName" type="text" class="resume-form-control">
+                      <input id="firstName" v-model="user.first_name" type="text" class="resume-form-control">
                       <div class="line" />
                     </div>
                   </div>
                   <div class="col-12 col-sm-6">
                     <div class="form-group">
                       <label for="lastName" class="resume-label-control">Last Name</label>
-                      <input id="lastName" type="text" class="resume-form-control">
+                      <input id="lastName" v-model="user.last_name" type="text" class="resume-form-control">
                       <div class="line" />
                     </div>
                   </div>
@@ -57,7 +57,7 @@
                   <div class="col-12 col-sm-6">
                     <div class="form-group">
                       <label for="email" class="resume-label-control">Email</label>
-                      <input id="email" type="email" class="resume-form-control">
+                      <input id="email" v-model="user.email" type="email" class="resume-form-control">
                       <div class="line" />
                     </div>
                   </div>
@@ -516,9 +516,40 @@
                 </div>
               </FormSection>
             </div>
+            <div class="d-flex align-items-center justify-content-center pb-2">
+              <span class="mr-1 text-muted">Copyright © 2020 by {{ app_name }}. Power by</span>
+              <a href="http://asorasoft.com/" class="text-muted"> Asorasoft</a>
+            </div>
           </div>
         </div>
-        <div class="resume__preview" />
+        <div class="resume__preview">
+          <a
+            href="javascript:void(0)"
+            class="resume-cancel position-absolute d-flex align-items-center justify-content-center"
+          >
+            <i class="fas fa-times" />
+          </a>
+          <div class="d-flex position-relative justify-content-center align-items-center w-75 h-100">
+            <div class="resume__preview-footer position-absolute w-100 d-flex align-items-center justify-content-between">
+              <span class="btn-select-template d-flex align-items-center justify-content-center">
+                <div class="btn-select-template-icon d-flex align-items-center justify-content-center">
+                  <i class="fas fa-th-large" />
+                </div>
+                <div class="btn-select-template-label">
+                  Select template
+                </div>
+              </span>
+              <div>
+                <button class="btn bnt-lg btn-primary font-weight-bold">
+                  Download PDF
+                </button>
+                <button class="btn bnt-lg btn-primary font-weight-bold">
+                  <i class="fas fa-ellipsis-h" />
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
       </div>
     </div>
   </div>
@@ -540,6 +571,7 @@ import HobbyForm from '@/components/resume/HobbyForm'
 import SkillForm from '@/components/resume/SkillForm'
 import ActivityForm from '@/components/resume/ActivityForm'
 import CustomSectionForm from '@/components/resume/CustomSectionForm'
+import { mapState } from 'vuex'
 
 export default {
   name: 'Edit',
@@ -561,6 +593,7 @@ export default {
   },
   data () {
     return {
+      app_name: process.env.VUE_APP_NAME,
       editable_title: false,
       show_line: false,
       title: 'Untitled',
@@ -584,6 +617,11 @@ export default {
       ],
       references: []
     }
+  },
+  computed: {
+    ...mapState({
+      user: state => state.user.user
+    })
   },
   methods: {
     addCustomSection () {
