@@ -529,7 +529,23 @@
           >
             <i class="fas fa-times" />
           </a>
-          <div class="d-flex position-relative justify-content-center align-items-center w-75 h-100">
+
+          <div>
+            {{ currentPage }} / {{ pageCount }}
+          </div>
+          <div class="resume__preview-container">
+            <div class="viewer-content position-relative">
+              <pdf
+                v-for="(i, k) in pageCount"
+                :key="k"
+                ref="myPdfComponent"
+                class="w-100 h-100 d-inline-block"
+                style="position: absolute; top: 0; left: 0;"
+                :style="`z-index: ${i};`"
+                :src="src"
+                :page="i"
+              />
+            </div>
             <div class="resume__preview-footer position-absolute w-100 d-flex align-items-center justify-content-between">
               <span class="btn-select-template d-flex align-items-center justify-content-center">
                 <div class="btn-select-template-icon d-flex align-items-center justify-content-center">
@@ -556,6 +572,7 @@
 </template>
 <script>
 
+import { debounce } from 'debounce'
 import { dataOptions } from '@/mixins/dataOptions'
 import FormSection from '@/components/resume/FormSection'
 import draggable from 'vuedraggable'
@@ -572,6 +589,7 @@ import SkillForm from '@/components/resume/SkillForm'
 import ActivityForm from '@/components/resume/ActivityForm'
 import CustomSectionForm from '@/components/resume/CustomSectionForm'
 import { mapState } from 'vuex'
+import pdf from 'vue-pdf'
 
 export default {
   name: 'Edit',
@@ -589,10 +607,15 @@ export default {
     ReferenceForm,
     SocialProfileForm,
     ItemCollapse,
-    EmploymentForm
+    EmploymentForm,
+    pdf
   },
   data () {
     return {
+      // src: 'http://localhost:3000',
+      src: 'https://api-ccinspection.asoradev.com/certificates/company/letter-of-license/7b9855f9-6295-476b-bfce-3973f96237e7',
+      currentPage: 0,
+      pageCount: 0,
       app_name: process.env.VUE_APP_NAME,
       editable_title: false,
       show_line: false,
@@ -624,6 +647,15 @@ export default {
     })
   },
   methods: {
+    updateDataResume () {
+      this.logContent()
+    },
+    logContent: debounce(function () {
+      this.src = pdf.createLoadingTask(this.$base_api + `/resume/testing/${this.user.first_name}/${this.user.last_name}/${this.user.email}`)
+      this.src.promise.then((pdf) => {
+        this.pageCount = pdf.numPages
+      })
+    }, 800),
     addCustomSection () {
       const newCustomSection = {
         externalId: this.makeExternalId(8),

@@ -1,5 +1,3 @@
-import Vue from 'vue'
-
 export const state = () => ({
   user: {
     first_name: null,
@@ -16,7 +14,7 @@ export const getters = {
 
 export const mutations = {
   setUser (state, data) {
-    Vue.set(state, 'user', data)
+    state.user = data
   }
 }
 

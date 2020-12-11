@@ -345,9 +345,9 @@
   }
   .resume__preview {
     position: fixed;
-    top: 0px;
-    bottom: 0px;
-    right: 0px;
+    top: 0;
+    bottom: 0;
+    right: 0;
     width: 50%;
     flex: 1 1 0%;
     display: flex;
@@ -359,8 +359,26 @@
     background-color: rgb(122, 133, 153);
     user-select: none;
     z-index: 3;
+    & .viewer-content{
+      width: 685px;
+      height: 985px;
+    }
   }
 
+  .resume__viewer-canvas {
+    position: relative;
+    border-radius: 6px;
+    background-color: rgb(255, 255, 255);
+    overflow: hidden;
+    width: 536px;
+    height: 755px;
+  }
+  .resume__viewer-canvas-hover {
+    inset: 0;
+    z-index: 3;
+    border-radius: 6px;
+    cursor: pointer;
+  }
   .resume-cancel {
     cursor: pointer;
     top: 16px;
