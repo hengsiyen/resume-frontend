@@ -340,6 +340,50 @@
 }
 
 @media (min-width: 1280px) {
+  .top_pdf {
+    position: absolute;
+    top: 0;
+    width: 685px;
+    display: flex;
+    flex-flow: row nowrap;
+    height: 70px;
+    -webkit-box-align: center;
+    align-items: center;
+    -webkit-box-pack: center;
+    justify-content: center;
+  }
+
+  a.angle-r,
+  a.angle-l {
+    display: flex;
+    -webkit-box-align: center;
+    align-items: center;
+    -webkit-box-pack: center;
+    justify-content: center;
+    width: 24px;
+    height: 24px;
+    cursor: pointer;
+    color: rgb(255, 255, 255);
+    border-radius: 14px;
+    background-color: rgba(15, 20, 31, 0);
+    transition: background-color 0.1s ease 0s;
+    opacity: 0.3;
+    pointer-events: none;
+  }
+  a.angle-r:hover,
+  a.angle-l:hover {
+    background-color: rgba(15, 20, 31, 0.15);
+  }
+
+  .page_count {
+    text-align: center;
+    font-size: 16px;
+    line-height: 20px;
+    color: rgb(255, 255, 255);
+    margin: 0px 6px;
+    font-variant-numeric: tabular-nums;
+  }
+
   .resume__left-block {
     max-width: 1060px;
   }
@@ -394,7 +438,7 @@
 
   .resume__preview-footer {
     bottom: 20px;
-    left: 0;
+    width: 685px;
   }
 
   .btn-select-template {

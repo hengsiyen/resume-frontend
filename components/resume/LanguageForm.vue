@@ -29,9 +29,9 @@
             <option :value="null">
               Select level
             </option>
-            <template v-for="(item, key) in language_levels">
-              <option :key="key" :value="item.name_en">
-                {{ item.name_en }}
+            <template v-for="(l_item, key) in language_levels">
+              <option :key="key" :value="l_item.name_en">
+                {{ l_item.name_en }}
               </option>
             </template>
           </select>

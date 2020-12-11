@@ -41,14 +41,26 @@
                   <div class="col-12 col-sm-6">
                     <div class="form-group">
                       <label for="firstName" class="resume-label-control">First Name</label>
-                      <input id="firstName" v-model="user.first_name" type="text" class="resume-form-control">
+                      <input
+                        id="firstName"
+                        v-model="first_name"
+                        type="text"
+                        class="resume-form-control"
+                        @input="updateDataResume"
+                      >
                       <div class="line" />
                     </div>
                   </div>
                   <div class="col-12 col-sm-6">
                     <div class="form-group">
                       <label for="lastName" class="resume-label-control">Last Name</label>
-                      <input id="lastName" v-model="user.last_name" type="text" class="resume-form-control">
+                      <input
+                        id="lastName"
+                        v-model="last_name"
+                        type="text"
+                        class="resume-form-control"
+                        @input="updateDataResume"
+                      >
                       <div class="line" />
                     </div>
                   </div>
@@ -57,7 +69,13 @@
                   <div class="col-12 col-sm-6">
                     <div class="form-group">
                       <label for="email" class="resume-label-control">Email</label>
-                      <input id="email" v-model="user.email" type="email" class="resume-form-control">
+                      <input
+                        id="email"
+                        v-model="email"
+                        type="email"
+                        class="resume-form-control"
+                        @input="updateDataResume"
+                      >
                       <div class="line" />
                     </div>
                   </div>
@@ -522,31 +540,44 @@
             </div>
           </div>
         </div>
-        <div class="resume__preview">
+        <div class="resume__preview" style="z-index: 3">
           <a
             href="javascript:void(0)"
             class="resume-cancel position-absolute d-flex align-items-center justify-content-center"
+            @click="angleLeft"
           >
             <i class="fas fa-times" />
           </a>
-
-          <div>
-            {{ currentPage }} / {{ pageCount }}
+          <div class="top_pdf">
+            <div class="d-flex align-items-center justify-content-center">
+              <NuxtLink :to="{name: 'index'}" class="angle-l" @click="angleLeft">
+                <i class="fas fa-angle-left" />
+              </NuxtLink>
+              <div class="page_count">
+                {{ currentPage }} / {{ pageCount }}
+              </div>
+              <a href="javascript:void(0)" class="angle-r" @click="angleRight">
+                <i class="fas fa-angle-right" />
+              </a>
+            </div>
           </div>
           <div class="resume__preview-container">
             <div class="viewer-content position-relative">
-              <pdf
-                v-for="(i, k) in pageCount"
-                :key="k"
-                ref="myPdfComponent"
-                class="w-100 h-100 d-inline-block"
-                style="position: absolute; top: 0; left: 0;"
-                :style="`z-index: ${i};`"
-                :src="src"
-                :page="i"
-              />
+              <template v-if="pageCount > 0">
+                <pdf
+                  v-for="(i, k) in pageCount"
+                  :key="k"
+                  ref="myPdfComponent"
+                  class="w-100 h-100 d-inline-block"
+                  style="position: absolute; top: 0; left: 0;"
+                  :src="src"
+                  :page="currentPage"
+                />
+              </template>
             </div>
-            <div class="resume__preview-footer position-absolute w-100 d-flex align-items-center justify-content-between">
+            <div
+              class="resume__preview-footer position-absolute w-100 d-flex align-items-center justify-content-between"
+            >
               <span class="btn-select-template d-flex align-items-center justify-content-center">
                 <div class="btn-select-template-icon d-flex align-items-center justify-content-center">
                   <i class="fas fa-th-large" />
@@ -589,10 +620,10 @@ import SkillForm from '@/components/resume/SkillForm'
 import ActivityForm from '@/components/resume/ActivityForm'
 import CustomSectionForm from '@/components/resume/CustomSectionForm'
 import { mapState } from 'vuex'
-import pdf from 'vue-pdf'
 
 export default {
   name: 'Edit',
+  layout: 'default',
   components: {
     FormSection,
     draggable,
@@ -607,13 +638,11 @@ export default {
     ReferenceForm,
     SocialProfileForm,
     ItemCollapse,
-    EmploymentForm,
-    pdf
+    EmploymentForm
   },
   data () {
     return {
-      // src: 'http://localhost:3000',
-      src: 'https://api-ccinspection.asoradev.com/certificates/company/letter-of-license/7b9855f9-6295-476b-bfce-3973f96237e7',
+      src: null,
       currentPage: 0,
       pageCount: 0,
       app_name: process.env.VUE_APP_NAME,
@@ -638,7 +667,11 @@ export default {
       hobbies: [
         { hobby: null }
       ],
-      references: []
+      references: [],
+      show_pdf: false,
+      first_name: null,
+      last_name: null,
+      email: null
     }
   },
   computed: {
@@ -646,15 +679,35 @@ export default {
       user: state => state.user.user
     })
   },
+  mounted () {
+    this.first_name = this.user.first_name
+    this.last_name = this.user.last_name
+    this.email = this.user.email
+    this.logContent()
+  },
   methods: {
+    angleLeft () {
+      console.log('sada')
+      if (this.currentPage > 1) {
+        this.currentPage -= 1
+      }
+    },
+    angleRight () {
+      if (this.currentPage < this.pageCount) {
+        this.currentPage += 1
+      }
+    },
     updateDataResume () {
       this.logContent()
     },
     logContent: debounce(function () {
-      this.src = pdf.createLoadingTask(this.$base_api + `/resume/testing/${this.user.first_name}/${this.user.last_name}/${this.user.email}`)
-      this.src.promise.then((pdf) => {
-        this.pageCount = pdf.numPages
-      })
+      this.src = this.$pdf.createLoadingTask(this.$base_api + `/resume/testing/${this.first_name}/${this.last_name}/${this.email}`)
+      if (this.src) {
+        this.src.promise.then((pdf) => {
+          this.pageCount = pdf.numPages
+          this.currentPage = 1
+        })
+      }
     }, 800),
     addCustomSection () {
       const newCustomSection = {

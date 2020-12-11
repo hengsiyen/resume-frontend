@@ -44,7 +44,8 @@ export default {
     { src: '~/plugins/date-picker.js', ssr: false },
     { src: '~/plugins/vue-autocomplete.js', ssr: false },
     { src: '~/plugins/main.js', mode: 'client', ssr: false },
-    { src: '~/plugins/quill-editor', ssr: false }
+    { src: '~/plugins/quill-editor', ssr: false },
+    { src: '~/plugins/vue-pdf.js', ssr: false }
   ],
 
   // Auto import components (https://go.nuxtjs.dev/config-components)
@@ -77,6 +78,15 @@ export default {
 
   // Build Configuration (https://go.nuxtjs.dev/config-build)
   build: {
+    extend (config, ctx) {
+      config.output.globalObject = 'this'
+      config.module.rules.push(
+        {
+          test: /\.pdf$/,
+          loader: 'url-loader'
+        }
+      )
+    },
     plugins: [
       new webpack.ProvidePlugin({
         $: 'jquery',
