@@ -324,12 +324,11 @@
 @media (min-width: 1280px) {
   .top_pdf {
     position: absolute;
-    top: 0;
+    top: 30px;
     display: flex;
     flex-flow: row nowrap;
     align-items: center;
     justify-content: center;
-    height: 75px;
   }
 
   button.btn.angle-r,
@@ -381,18 +380,20 @@
     & .viewer-content{
       //width: 655px;
       //height: 950px;
-      width: 600px;
-      height: 855px;
+      height: 880px;
     }
   }
 
   .show_pdf {
     position: absolute !important;
     display: inline-block !important;
-    top: 50%;
+    top: -15px;
     left: 50%;
     width: 100%;
-    transform: translate(-50%, -50%);
+    transform: translate(-50%, 0);
+    & canvas {
+      border-radius: 6px !important;
+    }
   }
   .resume__viewer-canvas {
     position: relative;
@@ -421,9 +422,14 @@
     transition: background-color 0.1s ease 0s;
   }
 
+  .resume__preview .viewer-content,
+  .resume__preview-footer {
+    width: 625px;
+  }
+
   .resume__preview-footer {
     bottom: 0;
-    width: 685px;
+
     height: 75px;
   }
 
