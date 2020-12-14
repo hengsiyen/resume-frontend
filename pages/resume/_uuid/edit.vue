@@ -549,7 +549,6 @@
           <NuxtLink
             :to="{name: 'index'}"
             class="resume-cancel position-absolute d-flex align-items-center justify-content-center"
-            @click="angleLeft"
           >
             <i class="fas fa-times" />
           </NuxtLink>
@@ -623,60 +622,71 @@
           </div>
         </div>
       </div>
-      <!--      model share resume-->
-      <div id="shareLink" class="modal fade" tabindex="-1" aria-labelledby="shareLink" aria-hidden="true">
-        <div class="modal-dialog modal-dialog-centered modal-lg">
-          <div class="modal-content">
-            <div class="modal-header custom-padding">
-              <h5 id="exampleModalLabel" class="modal-title">
-                Share
-              </h5>
-              <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                <span aria-hidden="true">&times;</span>
-              </button>
+    </div>
+    <!--      model share resume-->
+    <div
+      id="shareLink"
+      class="modal fade"
+      tabindex="-1"
+      aria-labelledby="shareLink"
+      aria-hidden="true"
+    >
+      <div class="modal-dialog modal-dialog-centered modal-lg">
+        <div class="modal-content">
+          <div class="modal-header custom-padding">
+            <h5 id="exampleModalLabel" class="modal-title">
+              Share
+            </h5>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </div>
+          <div class="modal-body custom-padding">
+            <h4><strong>Share a Link to Your Resume</strong></h4>
+            <h5 class="mb-4">
+              Share this link on social media or copy and paste the URL to send your resume via text, email or to
+              share your resume on your personal website.
+            </h5>
+            <div class="form-group">
+              <label class="resume-label-control">Copy this private URL</label>
+              <input
+                readonly
+                class="resume-form-control"
+                :value="resume_url"
+                style="pointer-events: unset"
+              >
+              <div class="line" />
             </div>
-            <div class="modal-body custom-padding">
-              <h4><strong>Share a Link to Your Resume</strong></h4>
-              <h5 class="mb-4">
-                Share this link on social media or copy and paste the URL to send your resume via text, email or to
-                share your resume on your personal website.
-              </h5>
-              <div class="form-group">
-                <label class="resume-label-control">Copy this private URL</label>
-                <input
-                  readonly
-                  class="resume-form-control"
-                  value="https://resume.io/r/MzfhECgWs"
-                  style="pointer-events: unset"
-                >
-                <div class="line" />
-              </div>
-            </div>
-            <div class="modal-footer no-border justify-content-between custom-padding">
-              <template v-for="(item, k) in shareSocial">
-                <div :key="k" class="share-social" :class="item.label">
-                  <a
-                    target="_blank"
-                    :href="item.url"
-                    :class="item.label"
-                  >
-                    <i :class="item.icon" />
-                  </a>
-                </div>
-              </template>
-              <div>
+          </div>
+          <div class="modal-footer no-border justify-content-between custom-padding">
+            <template v-for="(item, k) in shareSocial">
+              <div :key="k" class="share-social" :class="item.label">
                 <a
-                  href="https://resume.io/r/MzfhECgWs"
-                  type="button"
-                  class="btn btn-link btn-lg font-weight-bold no-underline"
-                  data-dismiss="modal"
+                  target="_blank"
+                  :href="item.url"
+                  :class="item.label"
                 >
-                  Open Link
+                  <i :class="item.icon" />
                 </a>
-                <button type="button" class="btn btn-primary btn-lg font-weight-bold">
-                  Copy Link
-                </button>
               </div>
+            </template>
+            <div>
+              <a
+                :href="resume_url"
+                type="button"
+                class="btn btn-link btn-lg font-weight-bold a-no-underline"
+                data-dismiss="modal"
+              >
+                Open Link
+              </a>
+              <button
+                v-clipboard:copy="resume_url"
+                v-clipboard:success="onCopy"
+                type="button"
+                class="btn btn-primary btn-lg font-weight-bold"
+              >
+                {{ is_copy ? 'Copied!' :'Copy Link' }}
+              </button>
             </div>
           </div>
         </div>
@@ -727,13 +737,6 @@ export default {
   },
   data () {
     return {
-      shareSocial: [
-        {
-          icon: 'fab fa-facebook-f',
-          label: 'facebook',
-          url: 'https://www.facebook.com'
-        }
-      ],
       src: null,
       currentPage: 0,
       pageCount: 0,
@@ -779,7 +782,6 @@ export default {
   },
   methods: {
     angleLeft () {
-      console.log('sada')
       if (this.currentPage > 1) {
         this.currentPage -= 1
       }

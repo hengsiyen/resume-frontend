@@ -11,6 +11,10 @@ a {
     color: #3b8af2;
     text-decoration: none;
   }
+
+  &.a-no-underline {
+    text-decoration: unset;
+  }
 }
 
 h1, h2, h3, h4, h5, h6 {
@@ -103,6 +107,32 @@ div[aria-owns="autosuggest-autosuggest__results"][aria-expanded="true"] + .line,
   background-color: $resume-red;
 }
 
+.btn-select-template {
+  padding: 0 16px 0 8px;
+  height: 38px;
+  border-radius: 19px;
+  user-select: none;
+  color: white;
+  cursor: pointer;
+  background-color: rgba(15, 20, 31, 0);
+  transition: background-color 0.1s ease 0s;
+  &-icon {
+    width: 24px;
+    height: 24px;
+    margin-right: 4px;
+  }
+  &-label {
+    font-size: 19px;
+    line-height: 24px;
+    color: white;
+  }
+  &:hover {
+    background-color: rgba(61, 64, 71, .7);
+    & .btn-select-template-label {
+      color: white;
+    }
+  }
+}
 /*--------------------------------------------------------------
 # Date picker start
 --------------------------------------------------------------*/

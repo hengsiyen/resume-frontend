@@ -1,4 +1,17 @@
 export const helpers = {
+  data () {
+    return {
+      is_copy: false,
+      resume_url: 'https://resume.io/r/MzfhECgWs',
+      shareSocial: [
+        {
+          icon: 'fab fa-facebook-f',
+          label: 'facebook',
+          url: 'https://www.facebook.com'
+        }
+      ]
+    }
+  },
   methods: {
     notEmptyObject (someObject) {
       return Object.keys(someObject).length > 0
@@ -80,7 +93,6 @@ export const helpers = {
       }
       return null
     },
-
     addSectionItem (model, type) {
       let newItem = null
       switch (type) {
@@ -150,6 +162,12 @@ export const helpers = {
           }
       }
       model.push(newItem)
+    },
+    onCopy () {
+      this.is_copy = true
+      setTimeout(function () {
+        this.is_copy = false
+      }, 1000)
     }
   }
 }
