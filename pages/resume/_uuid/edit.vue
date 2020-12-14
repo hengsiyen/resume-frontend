@@ -567,8 +567,7 @@
                   v-for="(i, k) in pageCount"
                   :key="k"
                   ref="myPdfComponent"
-                  class="w-100 h-100 d-inline-block"
-                  style="position: absolute; top: 0; left: 0;"
+                  class="show_pdf"
                   :src="src"
                   :page="currentPage"
                 />

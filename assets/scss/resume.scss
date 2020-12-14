@@ -379,11 +379,19 @@
     background-color: rgb(122, 133, 153);
     user-select: none;
     & .viewer-content{
-      width: 685px;
-      height: 985px;
+      width: 655px;
+      height: 950px;
     }
   }
 
+  .show_pdf {
+    position: absolute !important;
+    display: inline-block !important;
+    top: 50%;
+    left: 50%;
+    width: 96%;
+    transform: translate(-50%, -50%);
+  }
   .resume__viewer-canvas {
     position: relative;
     border-radius: 6px;
