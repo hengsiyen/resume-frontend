@@ -540,26 +540,25 @@
             </div>
           </div>
         </div>
-        <div class="resume__preview" style="z-index: 3">
-          <a
-            href="javascript:void(0)"
+
+        <div class="resume__preview">
+          <NuxtLink
+            :to="{name: 'index'}"
             class="resume-cancel position-absolute d-flex align-items-center justify-content-center"
             @click="angleLeft"
           >
             <i class="fas fa-times" />
-          </a>
+          </NuxtLink>
           <div class="top_pdf">
-            <div class="d-flex align-items-center justify-content-center">
-              <NuxtLink :to="{name: 'index'}" class="angle-l" @click="angleLeft">
-                <i class="fas fa-angle-left" />
-              </NuxtLink>
-              <div class="page_count">
-                {{ currentPage }} / {{ pageCount }}
-              </div>
-              <a href="javascript:void(0)" class="angle-r" @click="angleRight">
-                <i class="fas fa-angle-right" />
-              </a>
+            <button class="btn angle-l" @click="angleLeft">
+              <i class="fas fa-angle-left" />
+            </button>
+            <div class="page_count">
+              {{ currentPage }} / {{ pageCount }}
             </div>
+            <button class="btn angle-r" @click="angleRight">
+              <i class="fas fa-angle-right" />
+            </button>
           </div>
           <div class="resume__preview-container">
             <div class="viewer-content position-relative">
@@ -575,25 +574,25 @@
                 />
               </template>
             </div>
-            <div
-              class="resume__preview-footer position-absolute w-100 d-flex align-items-center justify-content-between"
-            >
-              <span class="btn-select-template d-flex align-items-center justify-content-center">
-                <div class="btn-select-template-icon d-flex align-items-center justify-content-center">
-                  <i class="fas fa-th-large" />
-                </div>
-                <div class="btn-select-template-label">
-                  Select template
-                </div>
-              </span>
-              <div>
-                <button class="btn bnt-lg btn-primary font-weight-bold">
-                  Download PDF
-                </button>
-                <button class="btn bnt-lg btn-primary font-weight-bold">
-                  <i class="fas fa-ellipsis-h" />
-                </button>
+          </div>
+          <div
+            class="resume__preview-footer position-absolute d-flex align-items-center justify-content-between"
+          >
+            <span class="btn-select-template d-flex align-items-center justify-content-center">
+              <div class="btn-select-template-icon d-flex align-items-center justify-content-center">
+                <i class="fas fa-th-large" />
               </div>
+              <div class="btn-select-template-label">
+                Select template
+              </div>
+            </span>
+            <div>
+              <button class="btn bnt-lg btn-primary font-weight-bold">
+                Download PDF
+              </button>
+              <button class="btn bnt-lg btn-primary font-weight-bold">
+                <i class="fas fa-ellipsis-h" />
+              </button>
             </div>
           </div>
         </div>

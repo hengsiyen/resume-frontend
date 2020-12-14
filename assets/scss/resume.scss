@@ -123,24 +123,6 @@
   }
 }
 
-.resume__preview {
-  position: fixed;
-  top: 0;
-  bottom: 0;
-  right: 0;
-  width: 50%;
-  flex: 1 1 0;
-  display: flex;
-  -webkit-box-align: center;
-  align-items: center;
-  -webkit-box-pack: center;
-  justify-content: center;
-  flex-flow: column nowrap;
-  background-color: rgb(122, 133, 153);
-  user-select: none;
-  z-index: 3;
-}
-
 .rf-padding {
   padding: 48px;
 }
@@ -343,35 +325,29 @@
   .top_pdf {
     position: absolute;
     top: 0;
-    width: 685px;
     display: flex;
     flex-flow: row nowrap;
-    height: 70px;
-    -webkit-box-align: center;
     align-items: center;
-    -webkit-box-pack: center;
     justify-content: center;
+    height: 75px;
   }
 
-  a.angle-r,
-  a.angle-l {
+  button.btn.angle-r,
+  button.btn.angle-l {
     display: flex;
-    -webkit-box-align: center;
     align-items: center;
-    -webkit-box-pack: center;
     justify-content: center;
     width: 24px;
     height: 24px;
     cursor: pointer;
-    color: rgb(255, 255, 255);
+    color: rgb(255, 255, 255) !important;
     border-radius: 14px;
     background-color: rgba(15, 20, 31, 0);
     transition: background-color 0.1s ease 0s;
-    opacity: 0.3;
-    pointer-events: none;
+    padding: 0 10px !important;
   }
-  a.angle-r:hover,
-  a.angle-l:hover {
+  button.btn.angle-r:hover,
+  button.btn.angle-l:hover {
     background-color: rgba(15, 20, 31, 0.15);
   }
 
@@ -393,7 +369,7 @@
     bottom: 0;
     right: 0;
     width: 50%;
-    flex: 1 1 0%;
+    flex: 1 1 0;
     display: flex;
     -webkit-box-align: center;
     align-items: center;
@@ -402,7 +378,6 @@
     flex-flow: column nowrap;
     background-color: rgb(122, 133, 153);
     user-select: none;
-    z-index: 3;
     & .viewer-content{
       width: 685px;
       height: 985px;
@@ -437,8 +412,9 @@
   }
 
   .resume__preview-footer {
-    bottom: 20px;
+    bottom: 0;
     width: 685px;
+    height: 75px;
   }
 
   .btn-select-template {

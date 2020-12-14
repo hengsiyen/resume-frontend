@@ -90,3 +90,4 @@ sw.*
 *.swp
 !/pages/_.vue
 !/components/resume/CustomSectionForm.vue
+!/pages/resume/_uuid/edit.vue
