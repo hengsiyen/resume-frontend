@@ -35,7 +35,11 @@
                       <div class="line" />
                     </div>
                   </div>
-                  <div class="col-12 col-sm-6" />
+                  <div class="col-12 col-sm-6 d-flex align-items-center">
+                    <div class="form-group mb-0 w-100">
+                      <UploadAvatar />
+                    </div>
+                  </div>
                 </div>
                 <div class="row">
                   <div class="col-12 col-sm-6">
@@ -581,17 +585,98 @@
               <div class="btn-select-template-icon d-flex align-items-center justify-content-center">
                 <i class="fas fa-th-large" />
               </div>
-              <div class="btn-select-template-label">
+              <NuxtLink
+                :to="{name: 'resume-uuid-select-template', params: {uuid: $route.params.uuid}}"
+                class="btn-select-template-label"
+              >
                 Select template
-              </div>
+              </NuxtLink>
             </span>
             <div>
               <button class="btn bnt-lg btn-primary font-weight-bold">
                 Download PDF
               </button>
-              <button class="btn bnt-lg btn-primary font-weight-bold">
+              <button
+                id="dropdownMenuButton"
+                class="btn bnt-lg btn-primary font-weight-bold dropdown-toggle no-icon"
+                type="button"
+                data-toggle="dropdown"
+                aria-haspopup="true"
+                aria-expanded="false"
+              >
                 <i class="fas fa-ellipsis-h" />
               </button>
+              <div
+                class="dropdown-menu custom-position dropdown-menu-right"
+                aria-labelledby="dropdownMenuButton"
+              >
+                <button
+                  class="dropdown-item"
+                  type="button"
+                  data-toggle="modal"
+                  data-target="#shareLink"
+                >
+                  <i class="fas fa-link" /> Share a link
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <!--      model share resume-->
+      <div id="shareLink" class="modal fade" tabindex="-1" aria-labelledby="shareLink" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered modal-lg">
+          <div class="modal-content">
+            <div class="modal-header custom-padding">
+              <h5 id="exampleModalLabel" class="modal-title">
+                Share
+              </h5>
+              <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+              </button>
+            </div>
+            <div class="modal-body custom-padding">
+              <h4><strong>Share a Link to Your Resume</strong></h4>
+              <h5 class="mb-4">
+                Share this link on social media or copy and paste the URL to send your resume via text, email or to
+                share your resume on your personal website.
+              </h5>
+              <div class="form-group">
+                <label class="resume-label-control">Copy this private URL</label>
+                <input
+                  readonly
+                  class="resume-form-control"
+                  value="https://resume.io/r/MzfhECgWs"
+                  style="pointer-events: unset"
+                >
+                <div class="line" />
+              </div>
+            </div>
+            <div class="modal-footer no-border justify-content-between custom-padding">
+              <template v-for="(item, k) in shareSocial">
+                <div :key="k" class="share-social" :class="item.label">
+                  <a
+                    target="_blank"
+                    :href="item.url"
+                    :class="item.label"
+                  >
+                    <i :class="item.icon" />
+                  </a>
+                </div>
+              </template>
+              <div>
+                <a
+                  href="https://resume.io/r/MzfhECgWs"
+                  type="button"
+                  class="btn btn-link btn-lg font-weight-bold no-underline"
+                  data-dismiss="modal"
+                >
+                  Open Link
+                </a>
+                <button type="button" class="btn btn-primary btn-lg font-weight-bold">
+                  Copy Link
+                </button>
+              </div>
             </div>
           </div>
         </div>
@@ -618,11 +703,13 @@ import SkillForm from '@/components/resume/SkillForm'
 import ActivityForm from '@/components/resume/ActivityForm'
 import CustomSectionForm from '@/components/resume/CustomSectionForm'
 import { mapState } from 'vuex'
+import UploadAvatar from '@/components/UploadAvatar'
 
 export default {
   name: 'Edit',
   layout: 'default',
   components: {
+    UploadAvatar,
     FormSection,
     draggable,
     EducationForm,
@@ -640,6 +727,13 @@ export default {
   },
   data () {
     return {
+      shareSocial: [
+        {
+          icon: 'fab fa-facebook-f',
+          label: 'facebook',
+          url: 'https://www.facebook.com'
+        }
+      ],
       src: null,
       currentPage: 0,
       pageCount: 0,

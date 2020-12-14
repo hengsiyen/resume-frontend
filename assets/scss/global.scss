@@ -17,6 +17,15 @@ h1, h2, h3, h4, h5, h6 {
   font-family: var(--font-family-sans-serif);
 }
 
+button:active,
+button:focus {
+  outline: unset;
+}
+
+.no-border {
+  border: unset !important;
+}
+
 .underline-none {
   text-decoration: none !important;
 
@@ -24,6 +33,33 @@ h1, h2, h3, h4, h5, h6 {
   &:active,
   &:focus, {
     text-decoration: none !important;
+  }
+}
+
+.dropdown-toggle:after {
+  content: unset !important;
+}
+
+.dropdown-menu.custom-position {
+  transform: translate3d(441px, -50px, 0px) !important;
+}
+
+.dropdown-menu .dropdown-item {
+  font-size: 20px;
+  font-weight: 600;
+  color: #262b33;
+
+  & i {
+    color: #3b8af2;
+  }
+
+  &:hover {
+    color: #3b8af2;
+  }
+
+  &:active i,
+  &:active {
+    color: white;
   }
 }
 
@@ -280,3 +316,71 @@ select {
 /*--------------------------------------------------------------
 # suggestion end
 --------------------------------------------------------------*/
+
+/*--------------------------------------------------------------
+# upload avatar start
+--------------------------------------------------------------*/
+.vue-image-crop-upload .vicp-wrap .vicp-operate a {
+  color: $resume-blue !important;
+}
+
+/*--------------------------------------------------------------
+# upload avatar end
+--------------------------------------------------------------*/
+
+.social-icon {
+  width: 24px;
+  height: 24px;
+  margin-right: 16px;
+
+  &.facebook {
+    color: #3b5997;
+  }
+
+  &.google {
+    color: #db4a39;
+  }
+}
+
+.share-social {
+  display: inline-block;
+  padding: 10px;
+  margin-right: 8px;
+  border: 1px solid rgb(221, 227, 240);
+  border-radius: 50%;
+  transition: border-color 0.2s ease 0s, background-color 0.2s ease 0s;
+  cursor: pointer;
+  text-align: center;
+
+  & .facebook {
+    color: #3b5997;
+  }
+
+  & i {
+    display: block;
+    width: 20px;
+    height: 20px;
+    padding-top: 2px;
+  }
+
+  &.facebook:hover {
+    background-color: #3b5997;
+    & .facebook {
+      color: white;
+    }
+  }
+}
+
+.modal {
+  &-header.custom-padding {
+    padding: 1rem 2rem !important;
+  }
+  &-body.custom-padding {
+    padding: 2rem !important;
+  }
+  &-footer.custom-padding {
+    padding: 0 2rem 2rem !important;
+  }
+}
+
+

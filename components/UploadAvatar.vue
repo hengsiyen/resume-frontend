@@ -1,51 +1,77 @@
 <template>
   <div class="change-avatar">
-    <a
-      class="btn btn-link"
-      style="color: white"
-      @click="toggleShow"
-    >
-      <i class="fas fa-camera" /><br>
-      <small class="label-upload">Upload</small>
-    </a>
-    <my-upload
-      v-model="show"
-      field="avatar"
-      :width="200"
-      :height="200"
-      :lang-type="langType"
-      :lang-ext="localeExt"
-      :url="`${$base_api}/api/frontend/candidate/upload-avatar`"
-      :params="params"
-      :headers="headers"
-      img-format="png"
-      @crop-success="cropSuccess"
-      @crop-upload-success="cropUploadSuccess"
-      @crop-upload-fail="cropUploadFail"
-    />
+    <template v-if="imgDataUrl">
+      <div class="d-flex upload-field">
+        <div class="upload-icon" :style="`background-image: url('${imgDataUrl}')`" />
+        <div class="upload-label">
+          <a
+            class="d-flex align-items-center edit-photo"
+            href="javascript:void(0)"
+            @click="toggleShow"
+          >
+            <div><i class="fas fa-pencil-alt" /></div>
+            Edit Photo
+          </a>
+          <a
+            class="d-flex align-items-center remove-photo"
+            href="javascript:void(0)"
+            @click="removePhoto"
+          >
+            <div><i class="fas fa-trash-alt" /></div>
+            Remove
+          </a>
+        </div>
+      </div>
+    </template>
+    <template v-else>
+      <a
+        href="javascript:void(0)"
+        class="upload-field"
+        @click="toggleShow"
+      >
+        <div class="d-flex">
+          <div class="upload-icon">
+            <i class="fas fa-user" />
+          </div>
+          <div class="upload-label">
+            <label class="label-text">Upload Photo</label>
+          </div>
+        </div>
+      </a>
+      <avatar
+        v-model="show"
+        field="avatar"
+        :width="200"
+        :height="200"
+        :lang-type="'en'"
+        :lang-ext="en"
+        url="https://httpbin.org/post"
+        :params="params"
+        :headers="headers"
+        img-format="png"
+        @crop-success="cropSuccess"
+        @crop-upload-success="cropUploadSuccess"
+        @crop-upload-fail="cropUploadFail"
+      />
+    </template>
   </div>
 </template>
 
 <script>
-import 'babel-polyfill'
-import myUpload from 'vue-image-crop-upload'
-import { mapActions, mapState } from 'vuex'
-
 export default {
   name: 'UploadAvatar',
-  components: {
-    'my-upload': myUpload
-  },
   data () {
     return {
       show: false,
       params: {
-        user_id: null,
+        token: '123456798',
         name: 'avatar'
       },
-      headers: null,
-      imgDataUrl: '',
-      enn: {
+      headers: {
+        smail: '*_~'
+      },
+      imgDataUrl: null,
+      en: {
         hint: 'Click or drag the file here to upload!',
         loading: 'Uploading…',
         noSupported: 'Browser is not supported, please use IE10+ or other browsers',
@@ -85,42 +111,122 @@ export default {
       }
     }
   },
-  computed: {
-    ...mapState({
-      user: state => state.user.data
-    }),
-    langType () {
-      return this.$i18n.locale
-    },
-    localeExt () {
-      return this.$i18n.locale === 'km' ? this.km : this.en
-    }
-  },
-  methods: {
-    ...mapActions([
-      'setUser'
-    ]),
-    toggleShow () {
-      this.show = !this.show
-    },
-    cropSuccess (imgDataUrl, field) {
-    },
-    cropUploadSuccess (jsonData, field) {
-      this.$store.dispatch('user/setUser', { user: jsonData.data })
-    },
-    cropUploadFail (status, field) {
-    }
-  },
   mounted () {
     this.headers = {
       Authorization: 'Bearer ' + localStorage.getItem(this.$token),
       Accept: 'application/json'
     }
+  },
+  methods: {
+    toggleShow () {
+      console.log('-------- toggle Show --------')
+      this.show = !this.show
+    },
+    cropSuccess (imgDataUrl, field) {
+      this.imgDataUrl = imgDataUrl
+      this.toggleShow()
+    },
+    cropUploadSuccess (jsonData, field) {
+      console.log('-------- upload success --------')
+      console.log(jsonData)
+      console.log('field: ' + field)
+    },
+    cropUploadFail (status, field) {
+      console.log('-------- upload fail --------')
+      console.log(status)
+      console.log('field: ' + field)
+    },
+
+    removePhoto () {
+      const self = this
+      self.$swal({
+        title: 'Remove Phonr',
+        text: 'Are you sure you want to remove this photo?',
+        showCancelButton: true,
+        confirmButtonText: 'Delete',
+        cancelButtonText: 'Cancel',
+        confirmButtonColor: '#FF4C4C',
+        cancelButtonColor: '#909090'
+      }).then((result) => {
+        if (result.value) {
+          this.imgDataUrl = null
+        }
+      })
+    }
   }
 }
 </script>
 
-<style scoped>
+<style scoped lang="scss">
+.upload-field {
+  & .upload-icon {
+    flex: 0 0 60px;
+    width: 60px;
+    height: 60px;
+    border-radius: 3px;
+    margin-right: 16px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+    overflow: hidden;
+    //background-color: rgb(242, 245, 250);
+    background-size: cover;
+    background-repeat: no-repeat;
+    color: rgb(207, 214, 230);
+    font-size: xx-large;
+    transition: background-color 0.1s ease 0s, color 0.1s ease 0s;
+  }
+  &:hover {
+    cursor: pointer;
+    & .upload-icon {
+      background-color: rgb(230, 244, 255);
+      color: rgb(33, 150, 243);
+    }
+
+    & .upload-label .label-text {
+      color: rgb(25, 118, 210);
+    }
+  }
+
+  & .upload-label {
+    display: flex;
+    flex-flow: column nowrap;
+    -webkit-box-pack: center;
+    justify-content: center;
+    & .label-text {
+      margin-bottom: 0;
+      font-size: 16px;
+      line-height: 20px;
+      color: rgb(33, 150, 243);
+      transition: color 0.1s ease 0s
+    }
+  }
+}
+
+.remove-photo,
+.edit-photo {
+  display: flex;
+  flex-flow: row nowrap;
+  align-items: center;
+  transition: color 0.1s ease 0s;
+  color: rgb(152, 161, 179);
+  padding: 2px 0;
+  cursor: pointer;
+  font-size: 19px;
+  line-height: 1.5;
+  & div i {
+    margin-right: 4px;
+  }
+}
+
+.edit-photo:hover {
+  color: rgb(33, 150, 243);
+}
+
+.remove-photo:hover {
+  color: rgb(255, 76, 76);
+}
 @media screen and (max-width: 767px) {
   .label-upload {
     display: none;

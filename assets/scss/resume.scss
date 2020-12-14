@@ -438,7 +438,7 @@
     height: 38px;
     border-radius: 19px;
     user-select: none;
-    color: rgb(255, 255, 255);
+    color: white;
     cursor: pointer;
     background-color: rgba(15, 20, 31, 0);
     transition: background-color 0.1s ease 0s;
@@ -450,6 +450,7 @@
     &-label {
       font-size: 19px;
       line-height: 24px;
+      color: white;
     }
     &:hover {
       background-color: rgba(15, 20, 31, 0.15);
@@ -515,6 +516,7 @@
   color: rgb(152, 161, 179);
   margin-bottom: 6px;
 }
+
 /*--------------------------------------------------------------
 # Resume editor end
 --------------------------------------------------------------*/

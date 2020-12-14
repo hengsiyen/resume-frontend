@@ -369,19 +369,4 @@ export default {
     }
   }
 }
-
-.social-icon {
-  width: 24px;
-  height: 24px;
-  margin-right: 16px;
-
-  &.facebook {
-    color: #3b5997;
-  }
-
-  &.google {
-    color: #db4a39;
-  }
-}
-
 </style>

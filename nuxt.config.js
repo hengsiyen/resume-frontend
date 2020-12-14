@@ -42,6 +42,7 @@ export default {
   // Plugins to run before rendering page (https://go.nuxtjs.dev/config-plugins)
   plugins: [
     { src: '~/plugins/date-picker.js', ssr: false },
+    { src: '~/plugins/avatar.js', mode: 'client', ssr: false },
     { src: '~/plugins/vue-autocomplete.js', ssr: false },
     { src: '~/plugins/main.js', mode: 'client', ssr: false },
     { src: '~/plugins/quill-editor', ssr: false },
