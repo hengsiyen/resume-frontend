@@ -379,8 +379,10 @@
     background-color: rgb(122, 133, 153);
     user-select: none;
     & .viewer-content{
-      width: 655px;
-      height: 950px;
+      //width: 655px;
+      //height: 950px;
+      width: 600px;
+      height: 855px;
     }
   }
 
@@ -389,7 +391,7 @@
     display: inline-block !important;
     top: 50%;
     left: 50%;
-    width: 96%;
+    width: 100%;
     transform: translate(-50%, -50%);
   }
   .resume__viewer-canvas {
