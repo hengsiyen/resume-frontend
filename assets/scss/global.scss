@@ -45,7 +45,7 @@ button:focus {
 }
 
 .dropdown-menu.custom-position {
-  transform: translate3d(441px, -50px, 0px) !important;
+  top: -5px !important;
 }
 
 .dropdown-menu .dropdown-item {

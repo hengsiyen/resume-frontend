@@ -1,6 +1,6 @@
 <template>
   <!-- ======= Header ======= -->
-  <header v-if="$route.name === 'index'" id="header" class="fixed-top">
+  <header id="header">
     <div class="container-fluid d-flex align-items-center nav-container">
       <!-- Uncomment below if you prefer to use an image logo -->
       <NuxtLink :to="{name: 'index'}" class="logo mr-auto">
@@ -20,6 +20,11 @@
           <li :class="{'active' : $route.name === 'user-dashboard'}">
             <NuxtLink :to="{name: 'user-dashboard'}">
               Dashboard
+            </NuxtLink>
+          </li>
+          <li :class="{'active' : $route.name === 'user-account'}">
+            <NuxtLink :to="{name: 'user-account'}">
+              Account Settings
             </NuxtLink>
           </li>
           <li>|</li>
