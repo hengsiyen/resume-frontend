@@ -323,12 +323,11 @@
 
 @media (min-width: 1280px) {
   .top_pdf {
-    position: absolute;
-    top: 20px;
+    position: relative;
     display: flex;
-    flex-flow: row nowrap;
     align-items: center;
     justify-content: center;
+    height: 75px;
   }
 
   button.btn.angle-r,
@@ -369,28 +368,19 @@
     right: 0;
     width: 50%;
     flex: 1 1 0;
-    display: flex;
-    -webkit-box-align: center;
-    align-items: center;
-    -webkit-box-pack: center;
-    justify-content: center;
     flex-flow: column nowrap;
     background-color: rgb(122, 133, 153);
     user-select: none;
     & .viewer-content{
       //width: 655px;
       //height: 950px;
-      height: 880px;
     }
   }
 
   .show_pdf {
     position: absolute !important;
     display: inline-block !important;
-    top: -15px;
-    left: 50%;
-    width: 100%;
-    transform: translate(-50%, 0);
+    width: 65%;
     & canvas {
       border-radius: 6px !important;
     }
@@ -422,15 +412,20 @@
     transition: background-color 0.1s ease 0s;
   }
 
-  .resume__preview .viewer-content,
-  .resume__preview-footer {
-    width: 625px;
+  .resume__preview .viewer-content {
+    width: 100%;
+    display: flex;
+    margin: 0 auto;
+    justify-content: center;
   }
 
   .resume__preview-footer {
+    width: 85%;
+    margin: 0 auto;
     bottom: 0;
-
     height: 75px;
+    right: 50%;
+    transform: translate(50%, 0);
   }
 }
 

@@ -1,59 +1,57 @@
 <template>
   <!-- ======= Header ======= -->
-  <div>
-    <header>
-      <div
-        class="container-fluid d-flex align-items-center justify-content-between nav-container bg-dark"
-        style="height: 64px"
-      >
-        <!-- Uncomment below if you prefer to use an image logo -->
-        <div class="btn-select-template d-flex align-items-center justify-content-center">
-          <div class="btn-select-template-icon d-flex align-items-center justify-content-center">
-            <i class="fas fa-angle-left" />
-          </div>
-          <NuxtLink
-            :to="{name: 'resume-uuid-edit', params: {uuid: $route.params.uuid}}"
-            class="btn-select-template-label"
-          >
-            Back to editor
-          </NuxtLink>
+  <div style="height: 100vh;">
+    <div
+      class="container-fluid d-flex align-items-center justify-content-between nav-container bg-dark"
+      style="height: 6vh"
+    >
+      <!-- Uncomment below if you prefer to use an image logo -->
+      <div class="btn-select-template d-flex align-items-center justify-content-center">
+        <div class="btn-select-template-icon d-flex align-items-center justify-content-center">
+          <i class="fas fa-angle-left" />
         </div>
-        <div>
-          <button class="btn bnt-lg btn-primary font-weight-bold">
-            Download PDF
-          </button>
+        <NuxtLink
+          :to="{name: 'resume-uuid-edit', params: {uuid: $route.params.uuid}}"
+          class="btn-select-template-label"
+        >
+          Back to editor
+        </NuxtLink>
+      </div>
+      <div>
+        <button class="btn bnt-lg btn-primary font-weight-bold">
+          Download PDF
+        </button>
+        <button
+          id="dropdownMenuButton"
+          class="btn bnt-lg btn-primary font-weight-bold dropdown-toggle no-icon"
+          type="button"
+          data-toggle="dropdown"
+          aria-haspopup="true"
+          aria-expanded="false"
+        >
+          <i class="fas fa-ellipsis-h" />
+        </button>
+        <div
+          class="dropdown-menu dropdown-menu-right"
+          aria-labelledby="dropdownMenuButton"
+        >
           <button
-            id="dropdownMenuButton"
-            class="btn bnt-lg btn-primary font-weight-bold dropdown-toggle no-icon"
+            class="dropdown-item"
             type="button"
-            data-toggle="dropdown"
-            aria-haspopup="true"
-            aria-expanded="false"
+            data-toggle="modal"
+            data-target="#shareLink"
           >
-            <i class="fas fa-ellipsis-h" />
+            <i class="fas fa-link" /> Share a link
           </button>
-          <div
-            class="dropdown-menu dropdown-menu-right"
-            aria-labelledby="dropdownMenuButton"
-          >
-            <button
-              class="dropdown-item"
-              type="button"
-              data-toggle="modal"
-              data-target="#shareLink"
-            >
-              <i class="fas fa-link" /> Share a link
-            </button>
-          </div>
         </div>
       </div>
-    </header>
+    </div>
     <div class="d-flex section-body">
       <div class="template-list">
         <div class="template-list-content">
           <div class="d-flex flex-wrap justify-content-between">
             <template v-for="(item, k) in templateLists">
-              <div class="template-item" :key="k">
+              <div :key="k" class="template-item">
                 <div class="template-name">
                   {{ item.name }}
                 </div>
@@ -64,102 +62,108 @@
         </div>
       </div>
       <div class="template-preview">
-<!--        <div class="top_pdf">-->
-<!--          <button class="btn angle-l" @click="angleLeft">-->
-<!--            <i class="fas fa-angle-left" />-->
-<!--          </button>-->
-<!--          <div class="page_count">-->
-<!--            {{ currentPage }} / {{ pageCount }}-->
-<!--          </div>-->
-<!--          <button class="btn angle-r" @click="angleRight">-->
-<!--            <i class="fas fa-angle-right" />-->
-<!--          </button>-->
-<!--        </div>-->
-        <div class="resume__preview-container">
-          <div class="viewer-content position-relative w-75 mx-auto">
-            <template v-if="pageCount > 0">
-              <pdf
-                v-for="(i, k) in pageCount"
-                :key="k"
-                ref="myPdfComponent"
-                class="show_pdf"
-                :src="src"
-                :page="currentPage"
-              />
-            </template>
+        <div class="d-flex justify-content-center resume__preview-container w-100 mx-auto">
+          <template v-if="pageCount > 0">
+            <pdf
+              v-for="(i, k) in pageCount"
+              :key="k"
+              ref="myPdfComponent"
+              class="position-absolute d-inline-block pdf"
+              :src="src"
+              :page="currentPage"
+            />
+          </template>
+        </div>
+        <div class="link_page">
+          <button
+            class="btn angle-l text-white"
+            :class="currentPage === 1 ? 'deactive' : ''"
+            @click="angleLeft"
+          >
+            <i class="fas fa-chevron-left" />
+          </button>
+          <div class="page_count">
+            {{ currentPage }} / {{ pageCount }}
           </div>
+          <button
+            class="btn angle-r text-white"
+            :class="currentPage === pageCount ? 'deactive' : ''"
+            @click="angleRight"
+          >
+            <i class="fas fa-chevron-right" />
+          </button>
         </div>
       </div>
     </div>
     <!--      model share resume-->
-    <div
-      id="shareLink"
-      class="modal fade"
-      tabindex="-1"
-      aria-labelledby="shareLink"
-      aria-hidden="true"
-    >
-      <div class="modal-dialog modal-dialog-centered modal-lg">
-        <div class="modal-content">
-          <div class="modal-header custom-padding">
-            <h5 id="exampleModalLabel" class="modal-title">
-              Share
-            </h5>
-            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-              <span aria-hidden="true">&times;</span>
-            </button>
-          </div>
-          <div class="modal-body custom-padding">
-            <h4><strong>Share a Link to Your Resume</strong></h4>
-            <h5 class="mb-4">
-              Share this link on social media or copy and paste the URL to send your resume via text, email or to
-              share your resume on your personal website.
-            </h5>
-            <div class="form-group">
-              <label class="resume-label-control">Copy this private URL</label>
-              <input
-                readonly
-                class="resume-form-control"
-                :value="resume_url"
-                style="pointer-events: unset"
-              >
-              <div class="line" />
-            </div>
-          </div>
-          <div class="modal-footer no-border justify-content-between custom-padding">
-            <template v-for="(item, k) in shareSocial">
-              <div :key="k" class="share-social" :class="item.label">
-                <a
-                  target="_blank"
-                  :href="item.url"
-                  :class="item.label"
-                >
-                  <i :class="item.icon" />
-                </a>
-              </div>
-            </template>
-            <div>
-              <a
-                :href="resume_url"
-                type="button"
-                class="btn btn-link btn-lg font-weight-bold a-no-underline"
-                data-dismiss="modal"
-              >
-                Open Link
-              </a>
-              <button
-                v-clipboard:copy="resume_url"
-                v-clipboard:success="onCopy"
-                type="button"
-                class="btn btn-primary btn-lg font-weight-bold"
-              >
-                {{is_copy ? 'Copied!' :'Copy Link'}}
-              </button>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
+    <!--    <div-->
+    <!--      id="shareLink"-->
+    <!--      class="modal fade"-->
+    <!--      tabindex="-1"-->
+    <!--      aria-labelledby="shareLink"-->
+    <!--      aria-hidden="true"-->
+    <!--    >-->
+    <!--      <div class="modal-dialog modal-dialog-centered modal-lg">-->
+    <!--        <div class="modal-content">-->
+    <!--          <div class="modal-header custom-padding">-->
+    <!--            <h5 id="exampleModalLabel" class="modal-title">-->
+    <!--              Share-->
+    <!--            </h5>-->
+    <!--            <button type="button" class="close" data-dismiss="modal" aria-label="Close">-->
+    <!--              <span aria-hidden="true">&times;</span>-->
+    <!--            </button>-->
+    <!--          </div>-->
+    <!--          <div class="modal-body custom-padding">-->
+    <!--            <h4><strong>Share a Link to Your Resume</strong></h4>-->
+    <!--            <h5 class="mb-4">-->
+    <!--              Share this link on social media or copy and paste the URL to send your resume via text, email or to-->
+    <!--              share your resume on your personal website.-->
+    <!--            </h5>-->
+    <!--            <div class="form-group">-->
+    <!--              <label class="resume-label-control">Copy this private URL</label>-->
+    <!--              <input-->
+    <!--                readonly-->
+    <!--                class="resume-form-control"-->
+    <!--                :value="resume_url"-->
+    <!--                style="pointer-events: unset"-->
+    <!--              >-->
+    <!--              <div class="line" />-->
+    <!--            </div>-->
+    <!--          </div>-->
+    <!--          <div class="modal-footer no-border justify-content-between custom-padding">-->
+    <!--            <template v-for="(item, k) in shareSocial">-->
+    <!--              <div :key="k" class="share-social" :class="item.label">-->
+    <!--                <a-->
+    <!--                  target="_blank"-->
+    <!--                  :href="item.url"-->
+    <!--                  :class="item.label"-->
+    <!--                >-->
+    <!--                  <i :class="item.icon" />-->
+    <!--                </a>-->
+    <!--              </div>-->
+    <!--            </template>-->
+    <!--            <div>-->
+    <!--              <a-->
+    <!--                :href="resume_url"-->
+    <!--                type="button"-->
+    <!--                class="btn btn-link btn-lg font-weight-bold a-no-underline"-->
+    <!--                data-dismiss="modal"-->
+    <!--              >-->
+    <!--                Open Link-->
+    <!--              </a>-->
+    <!--              <button-->
+    <!--                v-clipboard:copy="resume_url"-->
+    <!--                v-clipboard:success="onCopy"-->
+    <!--                type="button"-->
+    <!--                class="btn btn-primary btn-lg font-weight-bold"-->
+    <!--              >-->
+    <!--                {{ is_copy ? 'Copied!' :'Copy Link' }}-->
+    <!--              </button>-->
+    <!--            </div>-->
+    <!--          </div>-->
+    <!--        </div>-->
+    <!--      </div>-->
+    <!--    </div>-->
   </div>
   <!-- End Header -->
 </template>
@@ -230,8 +234,8 @@ export default {
 
 <style scoped lang="scss">
 .section-body {
-  max-height: 94.25vh;
-  background-color: #262b33;
+  height: 94vh;
+  background-color: #4f5259;
 }
 .template-list {
   width: 409px;
@@ -246,9 +250,10 @@ export default {
 
 .template-preview {
   position: relative;
-  flex-grow: 1;
-  min-width: 0;
-  overflow: auto;
+  width: 100%;
+  height: 100%;
+  padding: 34px 0 42px;
+  overflow-y: auto;
 }
 
 .template-item {
@@ -270,5 +275,38 @@ export default {
   border-radius: 3px;
   background-color: rgb(255, 255, 255);
   background-size: cover;
+}
+
+.resume__preview-container {
+  position: relative;
+  height: 1313px;
+}
+.pdf {
+  width: 928px;
+  background: #fff;
+  border: 3px solid #fff;
+  border-radius: 6px;
+  height: 1313px;
+}
+
+.link_page {
+  display: flex;
+  align-items: center;
+  position: fixed !important;
+  background: var(--dark);
+  bottom: 3%;
+  left: 53%;
+  transform: translate(47%, 0);
+  font-size: 20px;
+  color: white;
+  border-radius: 30px;
+  & button:active,
+  & button:focus {
+    box-shadow: unset;
+  }
+}
+
+.deactive {
+  color: #a9a9a9 !important;
 }
 </style>
