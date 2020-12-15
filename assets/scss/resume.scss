@@ -327,7 +327,9 @@
     display: flex;
     align-items: center;
     justify-content: center;
-    height: 75px;
+    height: 6.5vh;
+    width: 30%;
+    margin: 0 auto;
   }
 
   button.btn.angle-r,
@@ -370,11 +372,16 @@
     flex: 1 1 0;
     flex-flow: column nowrap;
     background-color: rgb(122, 133, 153);
-    user-select: none;
+    height: 100vh;
     & .viewer-content{
       //width: 655px;
       //height: 950px;
     }
+  }
+
+  .resume__preview-container {
+    position: relative;
+    height: 985px !important;
   }
 
   .show_pdf {
@@ -392,7 +399,6 @@
     margin: 0 auto;
     justify-content: center;
     align-items: center;
-    height: 975px;
   }
 
   .resume__viewer-canvas {
@@ -426,7 +432,7 @@
     width: 85%;
     margin: 0 auto;
     bottom: 0;
-    height: 75px;
+    height: 5.5vh;
     right: 50%;
     transform: translate(50%, 0);
   }
