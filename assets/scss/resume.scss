@@ -380,18 +380,28 @@
   .show_pdf {
     position: absolute !important;
     display: inline-block !important;
-    width: 65%;
+    width: 100%;
     & canvas {
       border-radius: 6px !important;
     }
   }
+
+  .resume__preview .viewer-content {
+    width: 100%;
+    display: flex;
+    margin: 0 auto;
+    justify-content: center;
+    align-items: center;
+    height: 975px;
+  }
+
   .resume__viewer-canvas {
     position: relative;
     border-radius: 6px;
     background-color: rgb(255, 255, 255);
-    overflow: hidden;
-    width: 536px;
-    height: 755px;
+    overflow: hidden;;
+    height: 903px;
+    width: 649px;
   }
   .resume__viewer-canvas-hover {
     inset: 0;
@@ -410,13 +420,6 @@
     font-size: 19px;
     background-color: rgba(15, 20, 31, 0.3);
     transition: background-color 0.1s ease 0s;
-  }
-
-  .resume__preview .viewer-content {
-    width: 100%;
-    display: flex;
-    margin: 0 auto;
-    justify-content: center;
   }
 
   .resume__preview-footer {

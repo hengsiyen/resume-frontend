@@ -565,16 +565,18 @@
           </div>
           <div class="resume__preview-container">
             <div class="viewer-content position-relative">
-              <template v-if="pageCount > 0">
-                <pdf
-                  v-for="(i, k) in pageCount"
-                  :key="k"
-                  ref="myPdfComponent"
-                  class="show_pdf"
-                  :src="src"
-                  :page="currentPage"
-                />
-              </template>
+              <div class="resume__viewer-canvas">
+                <template v-if="pageCount > 0">
+                  <pdf
+                    v-for="(i, k) in pageCount"
+                    :key="k"
+                    ref="myPdfComponent"
+                    class="show_pdf"
+                    :src="src"
+                    :page="currentPage"
+                  />
+                </template>
+              </div>
             </div>
           </div>
           <div
