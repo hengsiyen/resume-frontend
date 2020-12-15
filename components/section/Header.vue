@@ -12,9 +12,14 @@
 
       <nav class="nav-menu d-none d-lg-block">
         <ul>
-          <li class="active">
+          <li :class="{'active' : $route.name === 'resume-uuid-edit'}">
             <NuxtLink :to="{name: 'resume-uuid-edit', params: {uuid: '23523'}}">
               Resume
+            </NuxtLink>
+          </li>
+          <li :class="{'active' : $route.name === 'user-dashboard'}">
+            <NuxtLink :to="{name: 'user-dashboard'}">
+              Dashboard
             </NuxtLink>
           </li>
           <li>|</li>

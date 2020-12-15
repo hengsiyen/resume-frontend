@@ -3,6 +3,9 @@
 --------------------------------------------------------------*/
 @import "elements/_default.scss";
 
+.resume-container {
+  height: 100vh;
+}
 .rf-section {
   margin-bottom: 40px;
 
@@ -361,7 +364,8 @@
   }
 
   .resume__left-block {
-    max-width: 1060px;
+    width: 50%;
+    overflow-y: auto;
   }
   .resume__preview {
     position: fixed;

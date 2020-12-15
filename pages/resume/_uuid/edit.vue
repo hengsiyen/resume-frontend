@@ -1,6 +1,6 @@
 <template>
   <div id="resume-editor">
-    <div class="resume-container">
+    <div class="resume-container d-flex">
       <div class="resume__left-block">
         <div class="resume__form">
           <div class="form__content">
@@ -544,44 +544,44 @@
             </div>
           </div>
         </div>
-
-        <div class="resume__preview">
-          <NuxtLink
-            :to="{name: 'index'}"
-            class="resume-cancel position-absolute d-flex align-items-center justify-content-center"
-          >
-            <i class="fas fa-times" />
-          </NuxtLink>
-          <div class="top_pdf">
-            <button class="btn angle-l" @click="angleLeft">
-              <i class="fas fa-angle-left" />
-            </button>
-            <div class="page_count">
-              {{ currentPage }} / {{ pageCount }}
-            </div>
-            <button class="btn angle-r" @click="angleRight">
-              <i class="fas fa-angle-right" />
-            </button>
+      </div>
+      <div class="resume__preview">
+        <NuxtLink
+          :to="{name: 'index'}"
+          class="resume-cancel position-absolute d-flex align-items-center justify-content-center"
+        >
+          <i class="fas fa-times" />
+        </NuxtLink>
+        <div class="top_pdf">
+          <button class="btn angle-l" @click="angleLeft">
+            <i class="fas fa-angle-left" />
+          </button>
+          <div class="page_count">
+            {{ currentPage }} / {{ pageCount }}
           </div>
-          <div class="resume__preview-container">
-            <div class="viewer-content position-relative">
-              <div class="resume__viewer-canvas">
-                <template v-if="pageCount > 0">
-                  <pdf
-                    v-for="(i, k) in pageCount"
-                    :key="k"
-                    ref="myPdfComponent"
-                    class="show_pdf"
-                    :src="src"
-                    :page="currentPage"
-                  />
-                </template>
-              </div>
+          <button class="btn angle-r" @click="angleRight">
+            <i class="fas fa-angle-right" />
+          </button>
+        </div>
+        <div class="resume__preview-container">
+          <div class="viewer-content position-relative">
+            <div class="resume__viewer-canvas">
+              <template v-if="pageCount > 0">
+                <pdf
+                  v-for="(i, k) in pageCount"
+                  :key="k"
+                  ref="myPdfComponent"
+                  class="show_pdf"
+                  :src="src"
+                  :page="currentPage"
+                />
+              </template>
             </div>
           </div>
-          <div
-            class="resume__preview-footer position-absolute d-flex align-items-center justify-content-between"
-          >
+        </div>
+        <div
+          class="resume__preview-footer position-absolute d-flex align-items-center justify-content-between"
+        >
             <span class="btn-select-template d-flex align-items-center justify-content-center">
               <div class="btn-select-template-icon d-flex align-items-center justify-content-center">
                 <i class="fas fa-th-large" />
@@ -593,33 +593,32 @@
                 Select template
               </NuxtLink>
             </span>
-            <div>
-              <button class="btn bnt-lg btn-primary font-weight-bold">
-                Download PDF
-              </button>
+          <div>
+            <button class="btn bnt-lg btn-primary font-weight-bold">
+              Download PDF
+            </button>
+            <button
+              id="dropdownMenuButton"
+              class="btn bnt-lg btn-primary font-weight-bold dropdown-toggle no-icon"
+              type="button"
+              data-toggle="dropdown"
+              aria-haspopup="true"
+              aria-expanded="false"
+            >
+              <i class="fas fa-ellipsis-h" />
+            </button>
+            <div
+              class="dropdown-menu custom-position dropdown-menu-right"
+              aria-labelledby="dropdownMenuButton"
+            >
               <button
-                id="dropdownMenuButton"
-                class="btn bnt-lg btn-primary font-weight-bold dropdown-toggle no-icon"
+                class="dropdown-item"
                 type="button"
-                data-toggle="dropdown"
-                aria-haspopup="true"
-                aria-expanded="false"
+                data-toggle="modal"
+                data-target="#shareLink"
               >
-                <i class="fas fa-ellipsis-h" />
+                <i class="fas fa-link" /> Share a link
               </button>
-              <div
-                class="dropdown-menu custom-position dropdown-menu-right"
-                aria-labelledby="dropdownMenuButton"
-              >
-                <button
-                  class="dropdown-item"
-                  type="button"
-                  data-toggle="modal"
-                  data-target="#shareLink"
-                >
-                  <i class="fas fa-link" /> Share a link
-                </button>
-              </div>
             </div>
           </div>
         </div>
