@@ -662,7 +662,7 @@ import ModalContent from '@/components/resume/ModalContent'
 
 export default {
   name: 'Edit',
-  layout: 'default',
+  layout: 'secondary',
   components: {
     ModalContent,
     UploadAvatar,
