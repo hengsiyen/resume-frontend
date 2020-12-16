@@ -52,7 +52,7 @@ export const resume = {
         this.currentPage += 1
       }
     },
-    refreshResume () {
+    refreshResume: debounce(function () {
       this.$axios
         .post(this.$base_api + '/api/frontend/resume/store', this.resume)
         .then((res) => {
@@ -61,7 +61,7 @@ export const resume = {
         }).catch((error) => {
           this.onResponseError(error)
         })
-    },
+    }, 500),
     logContent: debounce(function () {
       this.resume_pdf_src = this.$pdf.createLoadingTask(this.$base_api + '/resume/testing/hello/world/example@gmail.com')
       if (this.resume_pdf_src) {
