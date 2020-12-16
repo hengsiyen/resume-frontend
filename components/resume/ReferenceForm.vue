@@ -4,14 +4,26 @@
       <div class="col-12 col-sm-6">
         <div class="form-group">
           <label for="name" class="resume-label-control">Referent's Full Name</label>
-          <input id="name" v-model="item.name" type="text" class="resume-form-control">
+          <input
+            id="name"
+            v-model="item.name"
+            type="text"
+            class="resume-form-control"
+            @input="refreshResume"
+          >
           <div class="line" />
         </div>
       </div>
       <div class="col-12 col-sm-6">
         <div class="form-group">
           <label for="company" class="resume-label-control">Company</label>
-          <input id="company" v-model="item.company" type="text" class="resume-form-control">
+          <input
+            id="company"
+            v-model="item.company"
+            type="text"
+            class="resume-form-control"
+            @input="refreshResume"
+          >
           <div class="line" />
         </div>
       </div>
@@ -20,14 +32,26 @@
       <div class="col-12 col-sm-6">
         <div class="form-group mb-0">
           <label for="phone" class="resume-label-control">Phone</label>
-          <input id="phone" v-model="item.phone" type="text" class="resume-form-control">
+          <input
+            id="phone"
+            v-model="item.phone"
+            type="text"
+            class="resume-form-control"
+            @input="refreshResume"
+          >
           <div class="line" />
         </div>
       </div>
       <div class="col-12 col-sm-6">
         <div class="form-group mb-0">
           <label for="email" class="resume-label-control">Email</label>
-          <input id="email" v-model="item.email" type="text" class="resume-form-control">
+          <input
+            id="email"
+            v-model="item.email"
+            type="text"
+            class="resume-form-control"
+            @input="refreshResume"
+          >
           <div class="line" />
         </div>
       </div>

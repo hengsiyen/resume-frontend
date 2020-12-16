@@ -4,14 +4,26 @@
       <div class="col-12 col-sm-6">
         <div class="form-group">
           <label for="jobTitle" class="resume-label-control">Job Title</label>
-          <input id="jobTitle" v-model="item.title" type="text" class="resume-form-control">
+          <input
+            id="jobTitle"
+            v-model="item.title"
+            type="text"
+            class="resume-form-control"
+            @input="refreshResume"
+          >
           <div class="line" />
         </div>
       </div>
       <div class="col-12 col-sm-6">
         <div class="form-group">
           <label for="employer" class="resume-label-control">Employer</label>
-          <input id="employer" v-model="item.employer" type="text" class="resume-form-control">
+          <input
+            id="employer"
+            v-model="item.employer"
+            type="text"
+            class="resume-form-control"
+            @input="refreshResume"
+          >
           <div class="line" />
         </div>
       </div>
@@ -31,6 +43,7 @@
                   calendar-class="resume_calendar"
                   :minimum-view="'month'"
                   :maximum-view="'month'"
+                  @input="refreshResume"
                   @closed="selectedStartDate"
                 />
                 <div class="line" />
@@ -44,6 +57,7 @@
                   calendar-class="resume_calendar"
                   :minimum-view="'month'"
                   :maximum-view="'month'"
+                  @input="refreshResume"
                   @closed="selectedEndDate"
                 />
                 <div class="line" />
@@ -54,9 +68,23 @@
       </div>
       <div class="col-12 col-sm-6">
         <div class="form-group">
-          <label for="city" class="resume-label-control">City</label>
-          <input id="city" v-model="item.city" type="text" class="resume-form-control">
-          <div class="line" />
+          <label class="resume-label-control">City / Province</label>
+          <autocomplete
+            :search="search"
+            :default-value="provinceVal"
+            aria-label="Search city / province"
+            :get-result-value="getProvinceResultValue"
+            @update="updateProvince"
+            @submit="submitProvince"
+          >
+            <template #result="{ result, props }">
+              <li v-bind="props">
+                <div class="wiki-title">
+                  {{ result.name_en }}
+                </div>
+              </li>
+            </template>
+          </autocomplete>
         </div>
       </div>
     </div>
@@ -72,6 +100,7 @@
               :options="editorOption"
               @blur="onEditorBlur($event)"
               @focus="onEditorFocus($event)"
+              @change="refreshResume"
             />
             <div class="ql-editor-line" />
           </div>
@@ -93,6 +122,12 @@ export default {
       default: () => {
         return null
       }
+    },
+    dataProvinces: {
+      type: Array,
+      default: () => {
+        return []
+      }
     }
   },
   data () {
@@ -104,6 +139,14 @@ export default {
       editorOption: dataOptions.editorOption
     }
   },
+  computed: {
+    provinceVal () {
+      if (this.item) {
+        return this.item.province
+      }
+      return null
+    }
+  },
   mounted () {
     if (this.item) {
       this.start_date = this.convertDateFormat(this.item.start_date)
@@ -111,15 +154,48 @@ export default {
     }
   },
   methods: {
+    search (input) {
+      this.item.province = input
+      this.refreshResume()
+      if (input < 1) {
+        return []
+      }
+      return this.dataProvinces.filter((province) => {
+        return province.name_en.toLowerCase().startsWith(input.toLowerCase())
+      })
+    },
+
+    getProvinceResultValue (result) {
+      return result.name_en
+    },
+
+    updateProvince (results, selectedIndex) {
+      if (selectedIndex > -1) {
+        if (results[selectedIndex]) {
+          this.item.province = results[selectedIndex].name_en
+        }
+      }
+    },
+
+    submitProvince (result) {
+      if (result) {
+        this.item.province = result.name_en
+        this.refreshResume()
+      }
+    },
+
     onEditorBlur (editor) {
       this.show_line = false
     },
+
     onEditorFocus (editor) {
       this.show_line = true
     },
+
     selectedStartDate () {
       this.item.start_date = this.convertDateFormat(this.start_date, 'YYYY-MM-DD')
     },
+
     selectedEndDate () {
       this.item.end_date = this.convertDateFormat(this.end_date, 'YYYY-MM-DD')
     }

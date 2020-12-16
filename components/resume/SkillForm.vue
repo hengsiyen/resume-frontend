@@ -91,6 +91,7 @@ export default {
     submit (result) {
       if (result) {
         this.item.skill = result.name_en
+        this.refreshResume()
       }
     },
     getResultValue (result) {
@@ -98,6 +99,7 @@ export default {
     },
     search (input) {
       this.item.skill = input
+      this.refreshResume()
       if (input < 1) {
         return []
       }

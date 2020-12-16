@@ -16,9 +16,7 @@ export const dataOptions = {
     'educations',
     'workExperiences',
     'socialProfiles',
-    'skills',
-    'custom:2293734973',
-    'custom:2293733234'
+    'skills'
   ],
 
   addSections: [

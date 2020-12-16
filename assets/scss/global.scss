@@ -157,7 +157,8 @@ div[aria-owns="autosuggest-autosuggest__results"][aria-expanded="true"] + .line,
   background-color: $resume-bg-color-gray !important;
   border: unset !important;
   top: 55px;
-  width: 350px !important;
+  width: 100% !important;
+  min-width: 350px !important;
 
   & header .month__year_btn {
     padding: 0 16px;

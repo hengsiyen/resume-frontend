@@ -4,14 +4,26 @@
       <div class="col-12 col-sm-6">
         <div class="form-group">
           <label for="course" class="resume-label-control">Course</label>
-          <input id="course" v-model="item.course" type="text" class="resume-form-control">
+          <input
+            id="course"
+            v-model="item.course"
+            type="text"
+            class="resume-form-control"
+            @input="refreshResume"
+          >
           <div class="line" />
         </div>
       </div>
       <div class="col-12 col-sm-6">
         <div class="form-group">
           <label for="institution" class="resume-label-control">Institution</label>
-          <input id="institution" v-model="item.institution" type="text" class="resume-form-control">
+          <input
+            id="institution"
+            v-model="item.institution"
+            type="text"
+            class="resume-form-control"
+            @input="refreshResume"
+          >
           <div class="line" />
         </div>
       </div>
@@ -24,13 +36,14 @@
             <div class="row">
               <div class="col-12 col-sm-6 pr-sm-1">
                 <datepicker
-                  v-model=" start_date"
+                  v-model="start_date"
                   placeholder="MM / YYYY"
                   :format="empDateFormat"
                   input-class="resume_date_picker"
                   calendar-class="resume_calendar"
                   :minimum-view="'month'"
                   :maximum-view="'month'"
+                  @input="refreshResume"
                   @closed="selectedStartDate"
                 />
                 <div class="line" />
@@ -44,6 +57,7 @@
                   calendar-class="resume_calendar"
                   :minimum-view="'month'"
                   :maximum-view="'month'"
+                  @input="refreshResume"
                   @closed="selectedEndDate"
                 />
                 <div class="line" />

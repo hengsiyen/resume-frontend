@@ -11,6 +11,7 @@
             cols="30"
             rows="5"
             class="resume-form-control"
+            @input="refreshResume"
           />
           <div class="line" />
         </div>

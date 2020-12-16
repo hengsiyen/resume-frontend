@@ -95,6 +95,7 @@ export default {
     submit (result) {
       if (result) {
         this.item.language = result.name_en
+        this.refreshResume()
       }
     },
     getResultValue (result) {
@@ -105,6 +106,7 @@ export default {
       if (input < 1) {
         return []
       }
+      this.refreshResume()
       return this.languages.filter((language) => {
         return language.name_en.toLowerCase().startsWith(input.toLowerCase())
       })
