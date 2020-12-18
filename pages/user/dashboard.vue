@@ -122,7 +122,7 @@ export default {
     return {
       resume_lists: [],
       user: {
-        user_id: 1,
+        user_id: process.env.VUE_APP_USER_ID_TEST,
         first_name: 'Sok',
         last_name: 'Dara',
         sections_order: dataOptions.sectionOrders

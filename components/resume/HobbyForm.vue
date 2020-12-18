@@ -25,9 +25,9 @@ export default {
   name: 'HobbyForm',
   props: {
     item: {
-      type: Object,
+      type: Array,
       default: () => {
-        return null
+        return []
       }
     }
   },
@@ -39,12 +39,17 @@ export default {
     }
   },
   mounted () {
-    if (this.item) {
-      this.data = this.item
+    if (this.item.length > 0) {
+      this.data = this.item[0]
+    } else {
+      this.item.push(this.data)
     }
   },
   methods: {
     refreshResume () {
+      if (this.item.length > 0) {
+        this.item[0].hobby = this.data.hobby
+      }
       this.$emit('refreshResume')
     }
   }

@@ -133,7 +133,7 @@ export default {
   data () {
     return {
       eduDateFormat: 'MMM, yyyy',
-      start_date: new Date(),
+      date_from: new Date(),
       date_until: new Date(),
       show_line: false,
       editorOption: dataOptions.editorOption

@@ -2,7 +2,7 @@
   <div class="change-avatar">
     <template v-if="imgDataUrl">
       <div class="d-flex upload-field">
-        <div class="upload-icon" :style="`background-image: url('${imgDataUrl}')`" />
+        <div class="upload-icon" :style="`background-image: url('${checkImageUrl(imgDataUrl)}')`" />
         <div class="upload-label">
           <a
             class="d-flex align-items-center edit-photo"
@@ -38,38 +38,45 @@
           </div>
         </div>
       </a>
-      <avatar
-        v-model="show"
-        field="avatar"
-        :width="200"
-        :height="200"
-        :lang-type="'en'"
-        :lang-ext="en"
-        url="https://httpbin.org/post"
-        :params="params"
-        :headers="headers"
-        img-format="png"
-        @crop-success="cropSuccess"
-        @crop-upload-success="cropUploadSuccess"
-        @crop-upload-fail="cropUploadFail"
-      />
     </template>
+    <avatar
+      v-model="show"
+      field="avatar"
+      :width="200"
+      :height="200"
+      :lang-type="'en'"
+      :lang-ext="en"
+      :url="`${base_api}/api/frontend/resume/upload-avatar`"
+      :params="params"
+      :headers="headers"
+      img-format="png"
+      @crop-success="cropSuccess"
+      @crop-upload-success="cropUploadSuccess"
+      @crop-upload-fail="cropUploadFail"
+    />
   </div>
 </template>
 
 <script>
 export default {
   name: 'UploadAvatar',
+  props: {
+    item: {
+      type: Object,
+      default: () => {
+        return {}
+      }
+    }
+  },
   data () {
     return {
       show: false,
+      base_api: this.$base_api,
       params: {
-        token: '123456798',
+        ruuid: null,
         name: 'avatar'
       },
-      headers: {
-        smail: '*_~'
-      },
+      headers: null,
       imgDataUrl: null,
       en: {
         hint: 'Click or drag the file here to upload!',
@@ -112,29 +119,33 @@ export default {
     }
   },
   mounted () {
+    this.params = {
+      ruuid: this.item.uuid,
+      name: 'avatar'
+    }
+    if (this.item.avatar) {
+      this.imgDataUrl = this.item.avatar.src
+    }
     this.headers = {
-      Authorization: 'Bearer ' + localStorage.getItem(this.$token),
+      // Authorization: 'Bearer ' + localStorage.getItem(this.$token),
       Accept: 'application/json'
     }
   },
   methods: {
+    callMethod () {
+      this.$emit('callMethod')
+    },
     toggleShow () {
-      console.log('-------- toggle Show --------')
       this.show = !this.show
     },
     cropSuccess (imgDataUrl, field) {
       this.imgDataUrl = imgDataUrl
-      this.toggleShow()
     },
     cropUploadSuccess (jsonData, field) {
-      console.log('-------- upload success --------')
-      console.log(jsonData)
-      console.log('field: ' + field)
+      this.imgDataUrl = jsonData.data.src
+      this.callMethod()
     },
     cropUploadFail (status, field) {
-      console.log('-------- upload fail --------')
-      console.log(status)
-      console.log('field: ' + field)
     },
 
     removePhoto () {
@@ -149,7 +160,17 @@ export default {
         cancelButtonColor: '#909090'
       }).then((result) => {
         if (result.value) {
-          this.imgDataUrl = null
+          this.$axios
+            .post(this.$base_api + '/api/frontend/resume/delete-avatar', {
+              ruuid: this.params.ruuid
+            })
+            .then((res) => {
+              this.imgDataUrl = res.data.data
+              this.callMethod()
+            })
+            .catch((error) => {
+              this.onResponseError(error)
+            })
         }
       })
     }

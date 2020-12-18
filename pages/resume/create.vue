@@ -155,7 +155,7 @@
       </div>
     </div>
     <div class="d-flex align-items-center justify-content-center">
-      <span class="mr-1 text-muted">Copyright © 2020 All rights reserved by {{ app_name }}. Power by</span>
+      <span class="mr-1 text-muted">Copyright © 2020 All rights reserved by {{ app_name }}. Powered by</span>
       <a href="http://asorasoft.com/" class="text-muted"> Asorasoft</a>
     </div>
   </div>

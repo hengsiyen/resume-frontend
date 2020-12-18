@@ -69,10 +69,9 @@
               </FormSection>
               <draggable v-model="user_resume.sections_order" draggable=".item">
                 <template v-for="(element, key) in user_resume.sections_order">
-                  <div :key="key">
+                  <div :key="key" class="item">
                     <template v-if="element === 'educations'">
                       <FormSection
-                        class="item"
                         :draggable="true"
                         :title="sectionOrdersSubTitle[element].title"
                         :sub-title="sectionOrdersSubTitle[element].sub_title"
@@ -106,7 +105,6 @@
                     <template v-if="element === 'workExperiences'">
                       <FormSection
                         :draggable="true"
-                        class="item"
                         :title="sectionOrdersSubTitle[element].title"
                         :sub-title="sectionOrdersSubTitle[element].sub_title"
                       >
@@ -319,7 +317,7 @@
                         :sub-title="sectionOrdersSubTitle[element].sub_title"
                         @onDelete="removeSection(element)"
                       >
-                        <HobbyForm :item="user_resume.hobbies[0]" @refreshResume="refreshResume" />
+                        <HobbyForm :item="user_resume.hobbies" @refreshResume="refreshResume" />
                       </FormSection>
                     </template>
                     <template v-if="element === 'references'">
@@ -684,7 +682,6 @@ export default {
       }
     },
     removeSection (item) {
-      console.log(item)
       if (this.user_resume.sections_order.includes(item)) {
         const self = this
         self.$swal({
@@ -755,7 +752,17 @@ export default {
         }).catch((error) => {
           this.onResponseError(error)
         })
-    }, 2000)
+    }, 2000),
+
+    logContent: debounce(function () {
+      this.resume_pdf_src = this.$pdf.createLoadingTask(this.$base_api + `/resume/testing/${this.user_resume.uuid}`)
+      if (this.resume_pdf_src) {
+        this.resume_pdf_src.promise.then((pdf) => {
+          this.pageCount = pdf.numPages
+          this.currentPage = 1
+        })
+      }
+    }, 800)
 
   }
 }

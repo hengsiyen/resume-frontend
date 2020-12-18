@@ -1,4 +1,3 @@
-import { debounce } from 'debounce'
 import { dataOptions } from '@/mixins/dataOptions'
 export const resumes = {
   data () {
@@ -9,7 +8,7 @@ export const resumes = {
       provinces: [],
       user_resume: {
         uuid: null,
-        user_id: 1,
+        user_id: process.env.VUE_APP_USER_ID_TEST,
         name: 'Untitled',
         position: null,
         first_name: null,
@@ -54,15 +53,6 @@ export const resumes = {
         this.currentPage += 1
       }
     },
-    logContent: debounce(function () {
-      this.resume_pdf_src = this.$pdf.createLoadingTask(this.$base_api + '/resume/testing/hello/world/example@gmail.com')
-      if (this.resume_pdf_src) {
-        this.resume_pdf_src.promise.then((pdf) => {
-          this.pageCount = pdf.numPages
-          this.currentPage = 1
-        })
-      }
-    }, 800),
     getProvinces () {
       this.$axios
         .post(this.$base_api + '/api/frontend/location/get-option')
