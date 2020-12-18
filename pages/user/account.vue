@@ -89,7 +89,16 @@
 
 <script>
 export default {
-  name: 'Account'
+  name: 'Account',
+  layout: 'default',
+  data () {
+    return {
+      first_name: '',
+      last_name: '',
+      email: '',
+      phone: ''
+    }
+  }
 }
 </script>
 

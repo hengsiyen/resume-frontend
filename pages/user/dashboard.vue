@@ -11,12 +11,13 @@
           </div>
           <div class="tabs-resume" />
         </div>
-        <NuxtLink
-          :to="{name: 'resume-uuid-edit', params: {uuid: '66856'}}"
+        <a
+          href="javascript:void(0)"
           class="btn btn-primary btn-create-new font-weight-bold"
+          @click="createNewResume"
         >
           <i class="fas fa-plus" style="margin-right: 10px" /> Create New Resume
-        </NuxtLink>
+        </a>
       </div>
       <div class="w-100 flex-wrap">
         <div class="position-relative">
@@ -24,14 +25,19 @@
             <div :key="key" class="each-resume">
               <div style="margin-right: 30px">
                 <NuxtLink :to="{name: 'resume-uuid-edit', params: {uuid: item.uuid}}">
-                  <div class="resume-thumbnail" :style="`background-image: url('${item.img}')`" />
+                  <template v-if="item.img">
+                    <div class="resume-thumbnail" :style="`background-image: url('${item.img}')`" />
+                  </template>
+                  <template v-else>
+                    <div class="resume-thumbnail" style="background-image: url('https://s3.resume.io/uploads/local_template_image/image/389/13c8b24d2950-0.jpg')" />
+                  </template>
                 </NuxtLink>
               </div>
               <div class="w-100" style="max-width: 226px;">
                 <div class="resume-title ellipsis">
                   <div>
                     <NuxtLink :to="{name: 'resume-uuid-edit', params: {uuid: item.uuid}}">
-                      {{ item.name }}
+                      {{ item.name ? item.name : 'Untitled' }}
                     </NuxtLink>
                   </div>
                 </div>
@@ -107,77 +113,33 @@
 
 <script>
 import ModalContent from '@/components/resume/ModalContent'
+import { dataOptions } from '@/mixins/dataOptions'
 export default {
   name: 'Dashboard',
-  components: { ModalContent },
   layout: 'default',
+  components: { ModalContent },
   data () {
     return {
-      resume_lists: [
-        {
-          uuid: '12342dhw-qui232-3o9',
-          name: 'Template 1',
-          img: 'https://s3.resume.io/uploads/local_template_image/image/370/4940f3218b3f-0.jpg',
-          updated_at: '2020-12-06'
-        },
-        {
-          uuid: '22342dhw-qui232-3o9',
-          name: 'Template 2',
-          img: 'https://s3.resume.io/uploads/local_template_image/image/389/13c8b24d2950-0.jpg',
-          updated_at: '2020-12-06'
-        },
-        {
-          uuid: '32342dhw-qui232-3o9',
-          name: 'Template 3',
-          img: 'https://s3.resume.io/uploads/local_template_image/image/406/9ae3309eadcd-0.jpg',
-          updated_at: '2020-12-06'
-        },
-        {
-          uuid: '42342dhw-qui232-3o9',
-          name: 'Template 4',
-          img: 'https://s3.resume.io/uploads/local_template_image/image/441/f66fa998e20b-0.jpg',
-          updated_at: '2020-12-06'
-        },
-        {
-          uuid: '52342dhw-qui232-3o9',
-          name: 'Template 5',
-          img: 'https://s3.resume.io/uploads/local_template_image/image/481/533d164042a1-0.jpg',
-          updated_at: '2020-12-06'
-        },
-        {
-          uuid: '62342dhw-qui232-3o9',
-          name: 'Template 6',
-          img: 'https://s3.resume.io/uploads/local_template_image/image/488/e45b66b0a26c-0.jpg',
-          updated_at: '2020-12-06'
-        },
-        {
-          uuid: '72342dhw-qui232-3o9',
-          name: 'Template 7',
-          img: 'https://s3.resume.io/uploads/local_template_image/image/503/cbd4ebb3adcd-0.jpg',
-          updated_at: '2020-12-06'
-        },
-        {
-          uuid: '82342dhw-qui232-3o9',
-          name: 'Template 8',
-          img: 'https://s3.resume.io/uploads/local_template_image/image/160/0b9b714d9842-0.jpg',
-          updated_at: '2020-12-06'
-        },
-        {
-          uuid: '92342dhw-qui232-3o9',
-          name: 'Template 9',
-          img: 'https://s3.resume.io/uploads/local_template_image/image/511/eb9bc174923d-0.jpg',
-          updated_at: '2020-12-06'
-        },
-        {
-          uuid: '102342dhw-qui232-3o9',
-          name: 'Template 10',
-          img: 'https://s3.resume.io/uploads/local_template_image/image/504/71eefda42ffb-0.jpg',
-          updated_at: '2020-12-06'
-        }
-      ]
+      resume_lists: [],
+      user: {
+        user_id: 1,
+        first_name: 'Sok',
+        last_name: 'Dara',
+        sections_order: dataOptions.sectionOrders
+      }
     }
   },
+  mounted () {
+    this.listResume()
+  },
   methods: {
+    listResume () {
+      this.$axios
+        .get(this.$base_api + '/api/frontend/resume/list')
+        .then((res) => {
+          this.resume_lists = res.data.data
+        })
+    },
     deleteResume (item) {
       if (this.resume_lists.includes(item)) {
         const self = this
@@ -198,6 +160,16 @@ export default {
           }
         })
       }
+    },
+    createNewResume () {
+      this.$axios
+        .post(this.$base_api + '/api/frontend/resume/store', this.user)
+        .then((res) => {
+          const data = res.data.data
+          this.$router.push({ name: 'resume-uuid-edit', params: { uuid: data.uuid } })
+        }).catch((error) => {
+          this.onResponseError(error)
+        })
     }
   }
 }

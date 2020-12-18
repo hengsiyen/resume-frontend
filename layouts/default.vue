@@ -13,6 +13,7 @@ import { themeMixin } from '~/mixins/main'
 
 Vue.use(helpers)
 export default {
+  name: 'Default',
   components: { Header },
   mixins: [themeMixin]
 }

@@ -100,21 +100,30 @@ export const helpers = {
           newItem = {
             school: null,
             degree: null,
-            start_date: null,
-            end_date: null,
-            city: null,
+            date_from: null,
+            date_until: null,
+            province: null,
+            description: null
+          }
+          break
+        case 'activities':
+          newItem = {
+            job_title: null,
+            employer: null,
+            date_from: null,
+            date_until: null,
+            province: null,
             description: null
           }
           break
         case 'workExperiences':
         case 'internships':
-        case 'activities':
           newItem = {
-            title: null,
+            job_title: null,
             employer: null,
-            start_date: null,
-            end_date: null,
-            city: null,
+            date_from: null,
+            date_until: null,
+            province: null,
             description: null
           }
           break
@@ -134,11 +143,11 @@ export const helpers = {
           newItem = {
             course: null,
             institution: null,
-            start_date: null,
-            end_date: null
+            date_from: null,
+            date_until: null
           }
           break
-        case 'languages':
+        case 'langs':
           newItem = {
             language: null,
             level: null
@@ -155,11 +164,12 @@ export const helpers = {
         case 'custom':
           newItem = {
             title: null,
-            start_date: null,
-            end_date: null,
-            city: null,
+            date_from: null,
+            date_until: null,
+            province: null,
             description: null
           }
+          break
       }
       model.push(newItem)
     },

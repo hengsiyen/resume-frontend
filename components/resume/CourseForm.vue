@@ -101,6 +101,9 @@ export default {
     },
     selectedEndDate () {
       this.item.end_date = this.convertDateFormat(this.end_date, 'YYYY-MM-DD')
+    },
+    refreshResume () {
+      this.$emit('refreshResume')
     }
   }
 }

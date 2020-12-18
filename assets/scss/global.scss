@@ -149,6 +149,8 @@ div[aria-owns="autosuggest-autosuggest__results"][aria-expanded="true"] + .line,
   color: rgb(38, 43, 51);
   pointer-events: unset;
   transition: .3s width ease-in-out;
+  font-weight: 500;
+  font-size: 19px;
 }
 
 .resume_calendar {

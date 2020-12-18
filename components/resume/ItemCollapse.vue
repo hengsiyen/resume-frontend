@@ -92,6 +92,8 @@ export default {
       if (this.item) {
         if (this.item.title) {
           return this.item.title
+        } else if (this.item.job_title) {
+          return this.item.job_title
         } else if (this.item.school) {
           return this.item.school
         } else if (this.item.label) {
@@ -112,8 +114,8 @@ export default {
     },
     subTabLabel () {
       if (this.item) {
-        if (this.item.start_date || this.item.end_date) {
-          return this.concatDates(this.item.start_date, this.item.end_date)
+        if (this.item.date_from || this.item.date_until) {
+          return this.concatDates(this.item.date_from, this.item.date_until)
         } else if (this.item.level) {
           return this.item.level
         } else if (this.item.company) {

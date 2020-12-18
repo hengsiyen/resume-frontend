@@ -7,12 +7,13 @@
 <script>
 import Vue from 'vue'
 import helpers from '@/mixins/helpers'
-import resume from '@/mixins/resume'
+import resumes from '@/mixins/resume'
 import { themeMixin } from '~/mixins/main'
 
 Vue.use(helpers)
-Vue.use(resume)
+Vue.use(resumes)
 export default {
+  name: 'Secondary',
   mixins: [themeMixin]
 }
 </script>

@@ -6,7 +6,7 @@
           <label for="hobby" class="resume-label-control">What do you like?</label>
           <textarea
             id="hobby"
-            v-model="item.hobby"
+            v-model="data.hobby"
             name="hobby"
             cols="30"
             rows="5"
@@ -29,6 +29,23 @@ export default {
       default: () => {
         return null
       }
+    }
+  },
+  data () {
+    return {
+      data: {
+        hobby: null
+      }
+    }
+  },
+  mounted () {
+    if (this.item) {
+      this.data = this.item
+    }
+  },
+  methods: {
+    refreshResume () {
+      this.$emit('refreshResume')
     }
   }
 }

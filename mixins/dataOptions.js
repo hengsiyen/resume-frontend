@@ -22,7 +22,7 @@ export const dataOptions = {
   addSections: [
     { name_en: 'Courses', value: 'courses', active: false },
     { name_en: 'Internships', value: 'internships', active: false },
-    { name_en: 'Languages', value: 'languages', active: false },
+    { name_en: 'Languages', value: 'langs', active: false },
     { name_en: 'Activities', value: 'activities', active: false },
     { name_en: 'Hobbies', value: 'hobbies', active: false },
     { name_en: 'References', value: 'references', active: false }
@@ -54,7 +54,7 @@ export const dataOptions = {
       title: 'Internships',
       sub_title: null
     },
-    languages: {
+    langs: {
       title: 'Languages',
       sub_title: null
     },

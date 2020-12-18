@@ -3,15 +3,23 @@
     <div class="row">
       <div class="col-12 col-sm-6">
         <div class="form-group">
-          <label for="jobTitle" class="resume-label-control">Job Title</label>
-          <input
-            id="jobTitle"
-            v-model="item.title"
-            type="text"
-            class="resume-form-control"
-            @input="refreshResume"
+          <label class="resume-label-control">Job Title</label>
+          <autocomplete
+            :search="searchPosition"
+            :default-value="positionVal"
+            aria-label="Search city / province"
+            :get-result-value="getPositionResultValue"
+            @update="updatePosition"
+            @submit="submitPosition"
           >
-          <div class="line" />
+            <template #result="{ result, props }">
+              <li v-bind="props">
+                <div class="wiki-title">
+                  {{ result.name_en }}
+                </div>
+              </li>
+            </template>
+          </autocomplete>
         </div>
       </div>
       <div class="col-12 col-sm-6">
@@ -128,6 +136,12 @@ export default {
       default: () => {
         return []
       }
+    },
+    dataPositions: {
+      type: Array,
+      default: () => {
+        return []
+      }
     }
   },
   data () {
@@ -145,6 +159,12 @@ export default {
         return this.item.province
       }
       return null
+    },
+    positionVal () {
+      if (this.item) {
+        return this.item.job_title
+      }
+      return null
     }
   },
   mounted () {
@@ -154,6 +174,9 @@ export default {
     }
   },
   methods: {
+    refreshResume () {
+      this.$emit('refreshResume')
+    },
     search (input) {
       this.item.province = input
       this.refreshResume()
@@ -164,11 +187,9 @@ export default {
         return province.name_en.toLowerCase().startsWith(input.toLowerCase())
       })
     },
-
     getProvinceResultValue (result) {
       return result.name_en
     },
-
     updateProvince (results, selectedIndex) {
       if (selectedIndex > -1) {
         if (results[selectedIndex]) {
@@ -176,7 +197,6 @@ export default {
         }
       }
     },
-
     submitProvince (result) {
       if (result) {
         this.item.province = result.name_en
@@ -184,18 +204,42 @@ export default {
       }
     },
 
+    searchPosition (input) {
+      this.item.job_title = input
+      this.refreshResume()
+      if (input < 1) {
+        return []
+      }
+      return this.dataPositions.filter((position) => {
+        return position.name_en.toLowerCase().startsWith(input.toLowerCase())
+      })
+    },
+    getPositionResultValue (result) {
+      return result.name_en
+    },
+    updatePosition (results, selectedIndex) {
+      if (selectedIndex > -1) {
+        if (results[selectedIndex]) {
+          this.item.job_title = results[selectedIndex].name_en
+        }
+      }
+    },
+    submitPosition (result) {
+      if (result) {
+        this.item.position = result.name_en
+        this.refreshResume()
+      }
+    },
+
     onEditorBlur (editor) {
       this.show_line = false
     },
-
     onEditorFocus (editor) {
       this.show_line = true
     },
-
     selectedStartDate () {
       this.item.start_date = this.convertDateFormat(this.start_date, 'YYYY-MM-DD')
     },
-
     selectedEndDate () {
       this.item.end_date = this.convertDateFormat(this.end_date, 'YYYY-MM-DD')
     }

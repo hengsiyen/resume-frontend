@@ -70,6 +70,11 @@ export default {
         return null
       }
     }
+  },
+  methods: {
+    refreshResume () {
+      this.$emit('refreshResume')
+    }
   }
 }
 </script>

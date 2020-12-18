@@ -16,15 +16,22 @@
       </div>
       <div class="col-12 col-sm-6">
         <div class="form-group">
-          <label for="degree" class="resume-label-control">Degree</label>
-          <input
-            id="degree"
-            v-model="item.degree"
-            type="text"
-            class="resume-form-control"
-            @input="refreshResume"
+          <label class="resume-label-control">Degree</label>
+          <autocomplete
+            :search="searchDegree"
+            :default-value="degreeVal"
+            :get-result-value="getDegreeResultValue"
+            @update="updateDegree"
+            @submit="submitDegree"
           >
-          <div class="line" />
+            <template #result="{ result, props }">
+              <li v-bind="props">
+                <div class="wiki-title">
+                  {{ result.name_en }}
+                </div>
+              </li>
+            </template>
+          </autocomplete>
         </div>
       </div>
     </div>
@@ -36,7 +43,7 @@
             <div class="row">
               <div class="col-12 col-sm-6 pr-sm-1">
                 <datepicker
-                  v-model="start_date"
+                  v-model="date_from"
                   placeholder="MM / YYYY"
                   :format="eduDateFormat"
                   input-class="resume_date_picker"
@@ -50,7 +57,7 @@
               </div>
               <div class="col-12 col-sm-6 pl-sm-1">
                 <datepicker
-                  v-model="end_date"
+                  v-model="date_until"
                   placeholder="MM / YYYY"
                   :format="eduDateFormat"
                   input-class="resume_date_picker"
@@ -128,6 +135,12 @@ export default {
       default: () => {
         return []
       }
+    },
+    dataDegree: {
+      type: Array,
+      default: () => {
+        return []
+      }
     }
   },
   data () {
@@ -135,8 +148,8 @@ export default {
       eduDateFormat: 'MMM, yyyy',
       show_line: false,
       editorOption: dataOptions.editorOption,
-      start_date: new Date(),
-      end_date: new Date()
+      date_from: new Date(),
+      date_until: new Date()
     }
   },
   computed: {
@@ -145,15 +158,24 @@ export default {
         return this.item.province
       }
       return null
+    },
+    degreeVal () {
+      if (this.item) {
+        return this.item.province
+      }
+      return null
     }
   },
   mounted () {
     if (this.item) {
-      this.start_date = this.convertDateFormat(this.item.start_date)
-      this.end_date = this.convertDateFormat(this.item.end_date)
+      this.date_from = this.convertDateFormat(this.item.date_from)
+      this.date_until = this.convertDateFormat(this.item.date_until)
     }
   },
   methods: {
+    refreshResume () {
+      this.$emit('refreshResume')
+    },
     search (input) {
       this.item.province = input
       this.refreshResume()
@@ -164,11 +186,9 @@ export default {
         return province.name_en.toLowerCase().startsWith(input.toLowerCase())
       })
     },
-
     getProvinceResultValue (result) {
       return result.name_en
     },
-
     updateProvince (results, selectedIndex) {
       if (selectedIndex > -1) {
         if (results[selectedIndex]) {
@@ -176,7 +196,6 @@ export default {
         }
       }
     },
-
     submitProvince (result) {
       if (result) {
         this.item.province = result.name_en
@@ -184,20 +203,44 @@ export default {
       }
     },
 
+    searchDegree (input) {
+      this.item.degree = input
+      this.refreshResume()
+      if (input < 1) {
+        return []
+      }
+      return this.dataDegree.filter((province) => {
+        return province.name_en.toLowerCase().startsWith(input.toLowerCase())
+      })
+    },
+    getDegreeResultValue (result) {
+      return result.name_en
+    },
+    updateDegree (results, selectedIndex) {
+      if (selectedIndex > -1) {
+        if (results[selectedIndex]) {
+          this.item.degree = results[selectedIndex].name_en
+        }
+      }
+    },
+    submitDegree (result) {
+      if (result) {
+        this.item.degree = result.name_en
+        this.refreshResume()
+      }
+    },
+
     onEditorBlur (editor) {
       this.show_line = false
     },
-
     onEditorFocus (editor) {
       this.show_line = true
     },
-
     selectedStartDate () {
-      this.item.start_date = this.convertDateFormat(this.start_date, 'YYYY-MM-DD')
+      this.item.date_from = this.convertDateFormat(this.date_from, 'YYYY-MM-DD')
     },
-
     selectedEndDate () {
-      this.item.end_date = this.convertDateFormat(this.end_date, 'YYYY-MM-DD')
+      this.item.date_until = this.convertDateFormat(this.date_until, 'YYYY-MM-DD')
     }
   }
 }

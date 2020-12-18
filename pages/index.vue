@@ -69,6 +69,8 @@
 <script>
 import Banner from '~/components/section/Banner'
 export default {
+  name: 'Index',
+  layout: 'default',
   components: { Banner }
 }
 </script>

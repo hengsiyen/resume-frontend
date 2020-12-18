@@ -25,7 +25,13 @@
       <div class="col-12 col-sm-6">
         <div class="form-group">
           <label for="level" class="resume-label-control">Level</label>
-          <select id="level" v-model="item.level" name="level" class="resume-form-control">
+          <select
+            id="level"
+            v-model="item.level"
+            name="level"
+            class="resume-form-control"
+            @change="refreshResume"
+          >
             <option :value="null">
               Select level
             </option>
@@ -81,6 +87,9 @@ export default {
     this.getSkills()
   },
   methods: {
+    refreshResume () {
+      this.$emit('refreshResume')
+    },
     update (results, selectedIndex) {
       if (selectedIndex > -1) {
         if (results[selectedIndex]) {
