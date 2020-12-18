@@ -104,7 +104,7 @@
       aria-hidden="true"
     >
       <div class="modal-dialog modal-dialog-centered modal-lg">
-        <ModalContent></ModalContent>
+        <ModalContent />
       </div>
     </div>
   </div>

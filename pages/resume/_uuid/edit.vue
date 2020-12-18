@@ -9,21 +9,20 @@
                 <template v-if="editable_title">
                   <div class="form-group mb-0 mr-2">
                     <input
-                      v-model="resume.name"
+                      v-model="user_resume.name"
                       type="text"
                       class="resume-form-control"
-                      @input="updateDataResume"
                     >
                     <div class="line" />
                   </div>
                   <a
                     href="javascript:void(0)"
                     class="rf-section__confirm-lg mr-2"
-                    @click="editable_title = false"
+                    @click="confirmResumeName"
                   ><i class="fas fa-check-circle" /></a>
                 </template>
                 <template v-else>
-                  <span class="mr-1">{{ resume.name }}</span>
+                  <span class="mr-1">{{ user_resume.name ? user_resume.name : 'Untitled' }}</span>
                   <a
                     href="javascript:void(0)"
                     class="rf-section__edit hover"
@@ -32,212 +31,18 @@
                 </template>
               </div>
               <FormSection title="Personal Details">
-                <div class="row">
-                  <div class="col-12 col-sm-6">
-                    <div class="form-group">
-                      <label for="wantJob" class="resume-label-control">Want Job Title</label>
-                      <input
-                        id="wantJob"
-                        v-model="resume.position"
-                        type="text"
-                        class="resume-form-control"
-                        @input="updateDataResume"
-                      >
-                      <div class="line" />
-                    </div>
-                  </div>
-                  <div class="col-12 col-sm-6 d-flex align-items-center">
-                    <div class="form-group mb-0 w-100">
-                      <UploadAvatar />
-                    </div>
-                  </div>
-                </div>
-                <div class="row">
-                  <div class="col-12 col-sm-6">
-                    <div class="form-group">
-                      <label for="firstName" class="resume-label-control">First Name</label>
-                      <input
-                        id="firstName"
-                        v-model="resume.first_name"
-                        type="text"
-                        class="resume-form-control"
-                        @input="updateDataResume"
-                      >
-                      <div class="line" />
-                    </div>
-                  </div>
-                  <div class="col-12 col-sm-6">
-                    <div class="form-group">
-                      <label for="lastName" class="resume-label-control">Last Name</label>
-                      <input
-                        id="lastName"
-                        v-model="resume.last_name"
-                        type="text"
-                        class="resume-form-control"
-                        @input="updateDataResume"
-                      >
-                      <div class="line" />
-                    </div>
-                  </div>
-                </div>
-                <div class="row">
-                  <div class="col-12 col-sm-6">
-                    <div class="form-group">
-                      <label for="email" class="resume-label-control">Email</label>
-                      <input
-                        id="email"
-                        v-model="resume.email"
-                        type="email"
-                        class="resume-form-control"
-                        @input="updateDataResume"
-                      >
-                      <div class="line" />
-                    </div>
-                  </div>
-                  <div class="col-12 col-sm-6">
-                    <div class="form-group">
-                      <label for="phone" class="resume-label-control">Phone</label>
-                      <input
-                        id="phone"
-                        v-model="resume.phone"
-                        type="text"
-                        class="resume-form-control"
-                        @input="updateDataResume"
-                      >
-                      <div class="line" />
-                    </div>
-                  </div>
-                </div>
-                <div id="showAdditionalDetail" class="collapse">
-                  <div class="row">
-                    <div class="col-12 col-sm-6">
-                      <div class="form-group">
-                        <label for="country" class="resume-label-control">Country</label>
-                        <input
-                          id="country"
-                          v-model="resume.country"
-                          type="text"
-                          class="resume-form-control"
-                          @input="updateDataResume"
-                        >
-                        <div class="line" />
-                      </div>
-                    </div>
-                    <div class="col-12 col-sm-6">
-                      <div class="form-group">
-                        <label class="resume-label-control">City / Province</label>
-                        <autocomplete
-                          :search="search"
-                          :default-value="resumeProvince"
-                          aria-label="Search city / province"
-                          :get-result-value="getProvinceResultValue"
-                          @update="updateProvince"
-                          @submit="submitProvince"
-                        >
-                          <template #result="{ result, props }">
-                            <li v-bind="props">
-                              <div class="wiki-title">
-                                {{ result.name_en }}
-                              </div>
-                            </li>
-                          </template>
-                        </autocomplete>
-                      </div>
-                    </div>
-                  </div>
-                  <div class="row">
-                    <div class="col-12 col-sm-6">
-                      <div class="form-group">
-                        <label for="address" class="resume-label-control">Address</label>
-                        <input
-                          id="address"
-                          v-model="resume.address"
-                          type="text"
-                          class="resume-form-control"
-                          @input="updateDataResume"
-                        >
-                        <div class="line" />
-                      </div>
-                    </div>
-                    <div class="col-12 col-sm-6">
-                      <div class="form-group">
-                        <label for="postalCode" class="resume-label-control">Postal Code</label>
-                        <input
-                          id="postalCode"
-                          v-model="resume.postal_code"
-                          type="text"
-                          class="resume-form-control"
-                          @input="updateDataResume"
-                        >
-                        <div class="line" />
-                      </div>
-                    </div>
-                  </div>
-                  <div class="row">
-                    <div class="col-12 col-sm-6">
-                      <div class="form-group">
-                        <label for="drivingLicense" class="resume-label-control">Driving License</label>
-                        <input id="drivingLicense" v-model="resume.driving_license" type="text" class="resume-form-control" @input="updateDataResume">
-                        <div class="line" />
-                      </div>
-                    </div>
-                    <div class="col-12 col-sm-6">
-                      <div class="form-group">
-                        <label for="nationality" class="resume-label-control">Nationality</label>
-                        <input id="nationality" v-model="resume.nationality" type="text" class="resume-form-control" @input="updateDataResume">
-                        <div class="line" />
-                      </div>
-                    </div>
-                  </div>
-                  <div class="row">
-                    <div class="col-12 col-sm-6">
-                      <div class="form-group">
-                        <label for="pob" class="resume-label-control">Place Of Birth</label>
-                        <input
-                          id="pob"
-                          v-model="resume.pod"
-                          type="text"
-                          class="resume-form-control"
-                          @input="updateDataResume"
-                        >
-                        <div class="line" />
-                      </div>
-                    </div>
-                    <div class="col-12 col-sm-6">
-                      <div class="form-group">
-                        <label for="dob" class="resume-label-control">Date Of Birth</label>
-                        <datepicker
-                          id="dob"
-                          v-model="resume.dob"
-                          placeholder="dd / MM / YYYY"
-                          :format="dateForm"
-                          input-class="resume_date_picker"
-                          calendar-class="resume_calendar"
-                          :initial-view="'year'"
-                          @input="updateDataResume"
-                          @closed="selectedBirthDate"
-                        />
-                        <div class="line" />
-                      </div>
-                    </div>
-                  </div>
-                </div>
-                <a
-                  class="btn-link underline-none font-weight-bold"
-                  data-toggle="collapse"
-                  href="#showAdditionalDetail"
-                  role="button"
-                  aria-expanded="false"
-                  aria-controls="showAdditionalDetail"
-                  @click="showAdditionalDetail = !showAdditionalDetail"
-                >
-                  Edit additional details
-                  <i
-                    class="fas d-inline-block"
-                    :class="showAdditionalDetail ? 'fa-angle-up' : 'fa-angle-down'"
-                    style="vertical-align: middle"
-                  />
-                </a>
+                <PersonalDetailForm
+                  :item="user_resume"
+                  :data-position="positions"
+                  :data-country="countries"
+                  :data-province="provinces"
+                  :data-nationality="nationalities"
+                  :resume-position="resumePosition"
+                  :resume-country="resumeCountry"
+                  :resume-province="resumeProvince"
+                  :resume-nationality="resumeNationality"
+                  @refreshResume="refreshResume"
+                />
               </FormSection>
               <FormSection
                 title="Professional Summary"
@@ -249,7 +54,7 @@
                       <div class="form-group mb-0">
                         <quill-editor
                           ref="editor"
-                          v-model="resume.profile"
+                          v-model="user_resume.profile"
                           :class="{'editor': show_line}"
                           :options="editorOption"
                           @blur="onEditorBlur($event)"
@@ -262,33 +67,36 @@
                   </div>
                 </client-only>
               </FormSection>
-              <draggable v-model="resume.sections_order" draggable=".item">
-                <template v-for="(element, key) in resume.sections_order">
-                  <div
-                    :key="key"
-                    class="item"
-                  >
+              <draggable v-model="user_resume.sections_order" draggable=".item">
+                <template v-for="(element, key) in user_resume.sections_order">
+                  <div :key="key">
                     <template v-if="element === 'educations'">
                       <FormSection
+                        class="item"
                         :draggable="true"
                         :title="sectionOrdersSubTitle[element].title"
                         :sub-title="sectionOrdersSubTitle[element].sub_title"
                       >
-                        <template v-for="(item, edu_key) in resume.educations">
+                        <template v-for="(item, edu_key) in user_resume.educations">
                           <ItemCollapse
                             :key="edu_key"
                             :item="item"
                             :active-tab="false"
                             :has-sub-title="true"
-                            @onDelete="removeSectionItem(resume.educations, item)"
+                            @onDelete="removeSectionItem(user_resume.educations, item)"
                           >
-                            <EducationForm :item="item" :data-provinces="provinces" />
+                            <EducationForm
+                              :item="item"
+                              :data-provinces="provinces"
+                              :data-degree="degrees"
+                              @refreshResume="refreshResume"
+                            />
                           </ItemCollapse>
                         </template>
                         <a
                           href="javascript:void(0)"
                           class="btn-add-item"
-                          @click="addSectionItem(resume.educations, element)"
+                          @click="addSectionItem(user_resume.educations, element)"
                         >
                           <i class="fas fa-plus mr-2" />
                           <span>Add item</span>
@@ -298,24 +106,30 @@
                     <template v-if="element === 'workExperiences'">
                       <FormSection
                         :draggable="true"
+                        class="item"
                         :title="sectionOrdersSubTitle[element].title"
                         :sub-title="sectionOrdersSubTitle[element].sub_title"
                       >
-                        <template v-for="(item, emp_key) in resume.work_experiences">
+                        <template v-for="(item, emp_key) in user_resume.work_experiences">
                           <ItemCollapse
                             :key="emp_key"
                             :item="item"
                             :active-tab="false"
                             :has-sub-title="true"
-                            @onDelete="removeSectionItem(resume.work_experiences, item)"
+                            @onDelete="removeSectionItem(user_resume.work_experiences, item)"
                           >
-                            <EmploymentForm :item="item" :data-provinces="provinces" />
+                            <EmploymentForm
+                              :item="item"
+                              :data-provinces="provinces"
+                              :data-positions="positions"
+                              @refreshResume="refreshResume"
+                            />
                           </ItemCollapse>
                         </template>
                         <a
                           href="javascript:void(0)"
                           class="btn-add-item"
-                          @click="addSectionItem(resume.work_experiences, element)"
+                          @click="addSectionItem(user_resume.work_experiences, element)"
                         >
                           <i class="fas fa-plus mr-2" />
                           <span>Add item</span>
@@ -328,21 +142,21 @@
                         :title="sectionOrdersSubTitle[element].title"
                         :sub-title="sectionOrdersSubTitle[element].sub_title"
                       >
-                        <template v-for="(item, skill_key) in resume.skills">
+                        <template v-for="(item, skill_key) in user_resume.skills">
                           <ItemCollapse
                             :key="skill_key"
                             :item="item"
                             :active-tab="false"
                             :has-sub-title="true"
-                            @onDelete="removeSectionItem(resume.skills, item)"
+                            @onDelete="removeSectionItem(user_resume.skills, item)"
                           >
-                            <SkillForm :item="item" />
+                            <SkillForm :item="item" @refreshResume="refreshResume" />
                           </ItemCollapse>
                         </template>
                         <a
                           href="javascript:void(0)"
                           class="btn-add-item"
-                          @click="addSectionItem(resume.skills, element)"
+                          @click="addSectionItem(user_resume.skills, element)"
                         >
                           <i class="fas fa-plus mr-2" />
                           <span>Add item</span>
@@ -355,21 +169,21 @@
                         :title="sectionOrdersSubTitle[element].title"
                         :sub-title="sectionOrdersSubTitle[element].sub_title"
                       >
-                        <template v-for="(item, soc_key) in resume.social_profiles">
+                        <template v-for="(item, soc_key) in user_resume.social_profiles">
                           <ItemCollapse
                             :key="soc_key"
                             :item="item"
                             :active-tab="false"
                             :has-sub-title="true"
-                            @onDelete="removeSectionItem(resume.social_profiles, item)"
+                            @onDelete="removeSectionItem(user_resume.social_profiles, item)"
                           >
-                            <SocialProfileForm :item="item" />
+                            <SocialProfileForm :item="item" @refreshResume="refreshResume" />
                           </ItemCollapse>
                         </template>
                         <a
                           href="javascript:void(0)"
                           class="btn-add-item"
-                          @click="addSectionItem(resume.social_profiles, element)"
+                          @click="addSectionItem(user_resume.social_profiles, element)"
                         >
                           <i class="fas fa-plus mr-2" />
                           <span>Add item</span>
@@ -384,21 +198,21 @@
                         :sub-title="sectionOrdersSubTitle[element].sub_title"
                         @onDelete="removeSection(element)"
                       >
-                        <template v-for="(item, course_key) in resume.courses">
+                        <template v-for="(item, course_key) in user_resume.courses">
                           <ItemCollapse
                             :key="course_key"
                             :item="item"
                             :active-tab="false"
                             :has-sub-title="true"
-                            @onDelete="removeSectionItem(resume.courses, item)"
+                            @onDelete="removeSectionItem(user_resume.courses, item)"
                           >
-                            <CourseForm :item="item" />
+                            <CourseForm :item="item" @refreshResume="refreshResume" />
                           </ItemCollapse>
                         </template>
                         <a
                           href="javascript:void(0)"
                           class="btn-add-item"
-                          @click="addSectionItem(resume.courses, element)"
+                          @click="addSectionItem(user_resume.courses, element)"
                         >
                           <i class="fas fa-plus mr-2" />
                           <span>Add item</span>
@@ -413,28 +227,33 @@
                         :sub-title="sectionOrdersSubTitle[element].sub_title"
                         @onDelete="removeSection(element)"
                       >
-                        <template v-for="(item, intern_key) in resume.internships">
+                        <template v-for="(item, intern_key) in user_resume.internships">
                           <ItemCollapse
                             :key="intern_key"
                             :item="item"
                             :active-tab="false"
                             :has-sub-title="true"
-                            @onDelete="removeSectionItem(resume.internships, item)"
+                            @onDelete="removeSectionItem(user_resume.internships, item)"
                           >
-                            <InternshipForm :item="item" :data-provinces="provinces" />
+                            <InternshipForm
+                              :item="item"
+                              :data-provinces="provinces"
+                              :data-positions="positions"
+                              @refreshResume="refreshResume"
+                            />
                           </ItemCollapse>
                         </template>
                         <a
                           href="javascript:void(0)"
                           class="btn-add-item"
-                          @click="addSectionItem(resume.internships, element)"
+                          @click="addSectionItem(user_resume.internships, element)"
                         >
                           <i class="fas fa-plus mr-2" />
                           <span>Add item</span>
                         </a>
                       </FormSection>
                     </template>
-                    <template v-if="element === 'languages'">
+                    <template v-if="element === 'langs'">
                       <FormSection
                         :draggable="true"
                         :has-delete-button="true"
@@ -442,21 +261,21 @@
                         :sub-title="sectionOrdersSubTitle[element].sub_title"
                         @onDelete="removeSection(element)"
                       >
-                        <template v-for="(item, lang_key) in resume.languages">
+                        <template v-for="(item, lang_key) in user_resume.langs">
                           <ItemCollapse
                             :key="lang_key"
                             :item="item"
                             :has-sub-title="true"
                             :active-tab="false"
-                            @onDelete="removeSectionItem(resume.languages, item)"
+                            @onDelete="removeSectionItem(user_resume.lang, item)"
                           >
-                            <LanguageForm :item="item" />
+                            <LanguageForm :item="item" @refreshResume="refreshResume" />
                           </ItemCollapse>
                         </template>
                         <a
                           href="javascript:void(0)"
                           class="btn-add-item"
-                          @click="addSectionItem(resume.languages, element)"
+                          @click="addSectionItem(user_resume.langs, element)"
                         >
                           <i class="fas fa-plus mr-2" />
                           <span>Add item</span>
@@ -471,21 +290,21 @@
                         :sub-title="sectionOrdersSubTitle[element].sub_title"
                         @onDelete="removeSection(element)"
                       >
-                        <template v-for="(item, act_key) in resume.activities">
+                        <template v-for="(item, act_key) in user_resume.activities">
                           <ItemCollapse
                             :key="act_key"
                             :item="item"
                             :has-sub-title="true"
                             :active-tab="false"
-                            @onDelete="removeSectionItem(resume.activities, item)"
+                            @onDelete="removeSectionItem(user_resume.activities, item)"
                           >
-                            <ActivityForm :item="item" :data-provinces="provinces" />
+                            <ActivityForm :item="item" :data-provinces="provinces" @refreshResume="refreshResume" />
                           </ItemCollapse>
                         </template>
                         <a
                           href="javascript:void(0)"
                           class="btn-add-item"
-                          @click="addSectionItem(resume.activities, element)"
+                          @click="addSectionItem(user_resume.activities, element)"
                         >
                           <i class="fas fa-plus mr-2" />
                           <span>Add item</span>
@@ -500,7 +319,7 @@
                         :sub-title="sectionOrdersSubTitle[element].sub_title"
                         @onDelete="removeSection(element)"
                       >
-                        <HobbyForm :item="resume.hobbies[0]" />
+                        <HobbyForm :item="user_resume.hobbies[0]" @refreshResume="refreshResume" />
                       </FormSection>
                     </template>
                     <template v-if="element === 'references'">
@@ -511,29 +330,29 @@
                         :sub-title="sectionOrdersSubTitle[element].sub_title"
                         @onDelete="removeSection(element)"
                       >
-                        <template v-for="(item, ref_key) in resume.references">
+                        <template v-for="(item, ref_key) in user_resume.references">
                           <ItemCollapse
                             :key="ref_key"
                             :item="item"
                             :active-tab="false"
                             :has-sub-title="true"
-                            @onDelete="removeSectionItem(resume.references, item)"
+                            @onDelete="removeSectionItem(user_resume.references, item)"
                           >
-                            <ReferenceForm :item="item" />
+                            <ReferenceForm :item="item" @refreshResume="refreshResume" />
                           </ItemCollapse>
                         </template>
                         <a
                           href="javascript:void(0)"
                           class="btn-add-item"
-                          @click="addSectionItem(resume.references, element)"
+                          @click="addSectionItem(user_resume.references, element)"
                         >
                           <i class="fas fa-plus mr-2" />
                           <span>Add item</span>
                         </a>
                       </FormSection>
                     </template>
-                    <template v-for="(customSection, custom_key) in resume.custom_sections">
-                      <template v-if="customSection && element === 'custom:' + customSection.externalId">
+                    <template v-for="(customSection, custom_key) in user_resume.custom_sections">
+                      <template v-if="customSection && element === 'custom:' + customSection.external_id">
                         <FormSection
                           :key="custom_key"
                           :draggable="true"
@@ -543,9 +362,9 @@
                           :item="customSection"
                           :title="customSection.title ? customSection.title : 'Untitled'"
                           @onDelete="removeSection(element)"
-                          @onEdit="editableCustomSection(customSection, true, true)"
-                          @onConfirm="editableCustomSection(customSection, true, false)"
-                          @onCancel="editableCustomSection(customSection, true, false)"
+                          @onEdit="editableCustomSection(customSection, true, true, false)"
+                          @onConfirm="editableCustomSection(customSection, true, false, true)"
+                          @onCancel="editableCustomSection(customSection, true, false, false)"
                         >
                           <template v-if="customSection.items && customSection.items.length">
                             <template v-for="(item, item_key) in customSection.items">
@@ -557,7 +376,7 @@
                                 :has-sub-title="true"
                                 @onDelete="removeSectionItem(customSection.items, item)"
                               >
-                                <CustomSectionForm :item="item" />
+                                <CustomSectionForm :item="item" :data-provinces="provinces" @refreshResume="refreshResume" />
                               </ItemCollapse>
                             </template>
                           </template>
@@ -582,7 +401,7 @@
                       :key="key"
                       href="javascript:void(0)"
                       class="list-section-item"
-                      :class="{'active': checkSectionActive(resume.sections_order, item.value)}"
+                      :class="{'active': checkSectionActive(user_resume.sections_order, item.value)}"
                       @click="addSection(item)"
                     >
                       <div>
@@ -605,7 +424,7 @@
               </FormSection>
             </div>
             <div class="d-flex align-items-center justify-content-center pb-2">
-              <span class="mr-1 text-muted">Copyright © 2020 by {{ app_name }}. Power by</span>
+              <span class="mr-1 text-muted">Copyright © 2020 by {{ app_name }}. Powered by</span>
               <a href="http://asorasoft.com/" class="text-muted"> Asorasoft</a>
             </div>
           </div>
@@ -721,17 +540,16 @@ import HobbyForm from '@/components/resume/HobbyForm'
 import SkillForm from '@/components/resume/SkillForm'
 import ActivityForm from '@/components/resume/ActivityForm'
 import CustomSectionForm from '@/components/resume/CustomSectionForm'
-import { mapState } from 'vuex'
-import UploadAvatar from '@/components/UploadAvatar'
 import ModalContent from '@/components/resume/ModalContent'
-import resume from '@/mixins/resume'
+import { debounce } from 'debounce'
+import PersonalDetailForm from '@/components/resume/PersonalDetailForm'
 
 export default {
   name: 'Edit',
   layout: 'secondary',
   components: {
+    PersonalDetailForm,
     ModalContent,
-    UploadAvatar,
     FormSection,
     draggable,
     EducationForm,
@@ -747,58 +565,98 @@ export default {
     ItemCollapse,
     EmploymentForm
   },
+  asyncData (ctx) {
+    return ctx.$axios.post(ctx.env.VUE_APP_API + '/api/frontend/resume/show', {
+      uuid: ctx.params.uuid
+    }).then((res) => {
+      return {
+        fetchDataResume: res.data.data
+      }
+    })
+  },
   data () {
     return {
-      dateForm: 'dd MMM, yyyy',
       show_pdf: false,
       app_name: process.env.VUE_APP_NAME,
       editable_title: false,
       show_line: false,
-      showAdditionalDetail: false,
       sectionOrdersSubTitle: dataOptions.sectionOrdersSubTitle,
       editorOption: dataOptions.editorOption,
-      addSections: dataOptions.addSections
+      addSections: dataOptions.addSections,
+      positions: [],
+      nationalities: [],
+      countries: [],
+      degrees: []
     }
   },
   computed: {
-    ...mapState({
-      user: state => state.user.user
-    }),
+    resumePosition () {
+      if (this.user_resume.position) {
+        return this.user_resume.position
+      }
+      return null
+    },
     resumeProvince () {
-      return resume.province
+      if (this.user_resume.province) {
+        return this.user_resume.province
+      }
+      return null
+    },
+    resumeNationality () {
+      if (this.user_resume.nationality) {
+        return this.user_resume.nationality
+      }
+      return null
+    },
+    resumeCountry () {
+      if (this.user_resume.country) {
+        return this.user_resume.country
+      }
+      return null
     }
+  },
+  created () {
+    this.user_resume = this.fetchDataResume
   },
   mounted () {
     this.getProvinces()
-    this.resume.first_name = this.user.first_name
-    this.resume.last_name = this.user.last_name
-    this.resume.email = this.user.email
+    this.getPosition()
+    this.getNationality()
+    this.getCountry()
+    this.getDegree()
     this.logContent()
   },
   methods: {
+    confirmResumeName () {
+      this.editable_title = false
+      this.updateDataResume()
+    },
     updateDataResume () {
       this.refreshResume()
     },
     addCustomSection () {
       const newCustomSection = {
-        externalId: this.makeExternalId(8),
+        external_id: this.makeExternalId(8),
         title: '',
         editable: false,
         items: []
       }
       this.addSectionItem(newCustomSection.items, 'custom')
-      this.resume.custom_sections.push(newCustomSection)
-      this.resume.sections_order.push('custom:' + newCustomSection.externalId)
+      this.user_resume.custom_sections.push(newCustomSection)
+      this.user_resume.sections_order.push('custom:' + newCustomSection.external_id)
     },
-    editableCustomSection (item, isCustom = false, isEdit = false) {
+    editableCustomSection (item, isCustom = false, isEdit = false, isRefresh = false) {
       if (isCustom) {
         item.editable = isEdit
+        if (isRefresh) {
+          this.refreshResume()
+        }
       }
     },
     addSection (item) {
       if (item) {
-        if (!this.resume.sections_order.includes(item.value)) {
-          this.resume.sections_order.push(item.value)
+        if (!this.user_resume.sections_order.includes(item.value)) {
+          this.user_resume.sections_order.push(item.value)
         }
       }
     },
@@ -826,7 +684,8 @@ export default {
       }
     },
     removeSection (item) {
-      if (this.resume.sections_order.includes(item)) {
+      console.log(item)
+      if (this.user_resume.sections_order.includes(item)) {
         const self = this
         self.$swal({
           title: 'Delete Section',
@@ -838,9 +697,9 @@ export default {
           cancelButtonColor: '#909090'
         }).then((result) => {
           if (result.value) {
-            const index = this.sectionsOrder.indexOf(item)
+            const index = this.user_resume.sections_order.indexOf(item)
             if (index > -1) {
-              this.sectionsOrder.splice(index, 1)
+              this.user_resume.sections_order.splice(index, 1)
             }
           }
         })
@@ -858,35 +717,46 @@ export default {
     onEditorFocus (editor) {
       this.show_line = true
     },
-    selectedBirthDate () {
-      this.resume.dob = this.convertDateFormat(this.resume.dob, 'YYYY-MM-DD')
+    getDegree () {
+      this.$axios
+        .get(this.$base_api + '/api/frontend/degree/get-option')
+        .then((res) => {
+          this.degrees = res.data.data
+        })
     },
-    search (input) {
-      this.resume.province = input
-      this.refreshResume()
-      if (input < 1) {
-        return []
-      }
-      return this.provinces.filter((province) => {
-        return province.name_en.toLowerCase().startsWith(input.toLowerCase())
-      })
+    getPosition () {
+      this.$axios
+        .get(this.$base_api + '/api/frontend/position/get-option')
+        .then((res) => {
+          this.positions = res.data.data
+        })
     },
-    getProvinceResultValue (result) {
-      return result.name_en
+    getNationality () {
+      this.$axios
+        .get(this.$base_api + '/api/frontend/nationality/get-option')
+        .then((res) => {
+          this.nationalities = res.data.data
+        })
     },
-    updateProvince (results, selectedIndex) {
-      if (selectedIndex > -1) {
-        if (results[selectedIndex]) {
-          this.resume.province = results[selectedIndex].name_en
-        }
-      }
+    getCountry () {
+      this.$axios
+        .get(this.$base_api + '/api/frontend/country/get-option')
+        .then((res) => {
+          this.countries = res.data.data
+        })
     },
-    submitProvince (result) {
-      if (result) {
-        this.resume.province = result.name_en
-        this.refreshResume()
-      }
-    }
+
+    refreshResume: debounce(function () {
+      this.$axios
+        .post(this.$base_api + '/api/frontend/resume/store', this.user_resume)
+        .then((res) => {
+          this.user_resume = res.data.data
+          this.logContent()
+        }).catch((error) => {
+          this.onResponseError(error)
+        })
+    }, 2000)
+
   }
 }
 </script>
