@@ -755,19 +755,21 @@ export default {
     }, 2000),
 
     logContent: debounce(function () {
-      this.resume_pdf_src = this.$pdf.createLoadingTask(this.$base_api + `/resume/testing/${this.user_resume.uuid}`)
+      this.resume_pdf_src = this.$pdf.createLoadingTask(this.$base_api + `/resume/testing/${this.user_resume.uuid}`, {
+        responseType: 'blob'
+      })
       if (this.resume_pdf_src) {
         this.resume_pdf_src.promise.then((pdf) => {
           this.pageCount = pdf.numPages
           this.currentPage = 1
         })
       }
-    }, 800)
+    }, 500)
 
   }
 }
 </script>
 
 <style scoped lang="scss">
-@import "~assets/scss/resume.scss";
+@import "@/assets/scss/resume.scss";
 </style>
