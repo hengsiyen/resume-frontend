@@ -24,7 +24,7 @@
       </div>
       <div class="col-12 col-sm-6 d-flex align-items-center">
         <div class="form-group mb-0 w-100">
-          <UploadAvatar :item="item" @callMethod="refreshResume"/>
+          <UploadAvatar :item="item" @callMethod="refreshResume" />
         </div>
       </div>
     </div>

@@ -46,6 +46,7 @@
                   <a
                     :key="key"
                     href="javascript:void(0)"
+                    @click="statusChangeCallback"
                     class="d-flex justify-content-between align-items-center w-100 position-relative"
                   >
                     <div class="social-name d-flex align-items-center">
@@ -162,9 +163,12 @@
 </template>
 
 <script>
+import { facebookSdkMixin } from '~/mixins/facebookSdkMixin'
+
 export default {
   name: 'Create',
   layout: 'secondary',
+  mixins: [facebookSdkMixin],
   data () {
     return {
       step: 1,
