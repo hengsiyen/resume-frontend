@@ -133,12 +133,21 @@
                 <div class="form-group">
                   <label
                     class="resume-label-control"
-                    :class="{'text-danger': checkKeyObj(validate, 'Email')}"
+                    :class="{'text-danger': checkKeyObj(validate, 'email')}"
                   >Email</label>
                   <input v-model="email" type="email" class="resume-form-control">
-                  <div class="line" :class="{'line-red': checkKeyObj(validate, 'Email')}" />
+                  <div class="line" :class="{'line-red': checkKeyObj(validate, 'email')}" />
                   <template v-if="checkKeyObj(validate, 'email')">
-                    <small class="text-muted">{{ validate.email[0] }}</small>
+                    <template v-if="validate.email[0].includes('taken')">
+                      <small class="text-muted" style="font-size: 15px">
+                        This email is already registered.
+                        <NuxtLink :to="{name: 'user_login'}">Log In</NuxtLink>
+                        or try another email
+                      </small>
+                    </template>
+                    <template v-else>
+                      <small class="text-muted">{{ validate.email[0] }}</small>
+                    </template>
                   </template>
                 </div>
               </div>
@@ -163,6 +172,7 @@
 </template>
 
 <script>
+import { dataOptions } from '@/mixins/dataOptions'
 import { facebookSdkMixin } from '~/mixins/facebookSdkMixin'
 
 export default {
@@ -184,7 +194,10 @@ export default {
       socials: [
         { id: 1, icon: 'fab fa-facebook-f', label: 'Facebook', code: 'facebook' }
         // { id: 2, icon: 'fab fa-google', label: 'Google', code: 'google' }
-      ]
+      ],
+      sections_order: dataOptions.sectionOrders,
+      resume_type_name: dataOptions.resume_type_name,
+      resume_template_name: dataOptions.resume_template_name
     }
   },
   methods: {
@@ -209,18 +222,61 @@ export default {
     },
     registerEmail () {
       this.validate = {}
-
-      if (!this.email) {
-        this.validate.email = ['this field is required.']
-      }
-      if (!this.notEmptyObject(this.validate)) {
-        this.$store.dispatch('user/setUser', {
+      this.$axios
+        .post(this.$base_api + '/api/auth/frontend/resume-register', {
           first_name: this.first_name,
           last_name: this.last_name,
           email: this.email
         })
-        this.$router.push({ name: 'resume-uuid-edit', params: { uuid: '23523' } })
-      }
+        .then((res) => {
+          if (res.status === 200) {
+            const result = res.data.data
+
+            localStorage.setItem(process.env.VUE_APP_TOKEN, result.access_token)
+            localStorage.setItem(process.env.VUE_APP_REFRESH_TOKEN, result.refresh_token)
+            localStorage.setItem('user', JSON.stringify(result.user))
+
+            self.$axios.defaults.headers.common.Authorization = 'Bearer ' + result.access_token
+            self.$axios.defaults.headers.common.Accept = 'application/json'
+
+            this.$store.dispatch('user/setUser', result.user)
+            this.$store.dispatch('user/loggedIn')
+          }
+        })
+        .catch((error) => {
+          const e = error.response
+          if (e) {
+            if (e.status === 422) {
+              this.validate = e.data.errors
+            } else {
+              this.onResponseError(error)
+            }
+          }
+        })
+        .finally(() => {
+          if (localStorage && localStorage.hasOwnProperty('user')) {
+            this.createResume(JSON.parse(localStorage.getItem('user')))
+          }
+        })
+    },
+    createResume (data) {
+      this.$axios
+        .post(this.$base_api + '/api/frontend/resume/store', {
+          first_name: data.first_name,
+          last_name: data.last_name,
+          email: data.email,
+          user_id: data.id,
+          sections_order: this.sectionOrders,
+          resume_type_name: this.resume_type_name,
+          resume_template_name: this.resume_template_name
+        })
+        .then((res) => {
+          const result = res.data.data
+          this.$router.push({ name: 'resume-uuid-edit', params: { uuid: result.uuid } })
+        })
+        .catch((error) => {
+          this.onResponseError(error)
+        })
     },
     onClickNext () {
       this.step += 1

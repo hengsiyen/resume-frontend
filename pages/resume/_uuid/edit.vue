@@ -374,7 +374,11 @@
                                 :has-sub-title="true"
                                 @onDelete="removeSectionItem(customSection.items, item)"
                               >
-                                <CustomSectionForm :item="item" :data-provinces="provinces" @refreshResume="refreshResume" />
+                                <CustomSectionForm
+                                  :item="item"
+                                  :data-provinces="provinces"
+                                  @refreshResume="refreshResume"
+                                />
                               </ItemCollapse>
                             </template>
                           </template>
@@ -430,7 +434,7 @@
       </div>
       <div class="resume__preview">
         <NuxtLink
-          :to="{name: 'index'}"
+          :to="{name: apiBack}"
           class="resume-cancel position-absolute d-flex align-items-center justify-content-center"
         >
           <i class="fas fa-times" />
@@ -588,6 +592,13 @@ export default {
     }
   },
   computed: {
+    apiBack () {
+      if (this.$store.state.user.authenticated) {
+        return 'user-dashboard'
+      } else {
+        return 'index'
+      }
+    },
     resumePosition () {
       if (this.user_resume.position) {
         return this.user_resume.position

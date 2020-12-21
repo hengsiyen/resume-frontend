@@ -1,6 +1,7 @@
 /* eslint-disable */
 export const themeMixin = {
   // eslint-disable-next-line require-await
+
   async mounted () {
     if (process.browser && process.client) {
       (function ($) {

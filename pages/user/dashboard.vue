@@ -114,18 +114,32 @@
 <script>
 import ModalContent from '@/components/resume/ModalContent'
 import { dataOptions } from '@/mixins/dataOptions'
+import { mapState } from 'vuex'
 export default {
   name: 'Dashboard',
   layout: 'default',
   components: { ModalContent },
+  computed: {
+    ...mapState({
+      logged_user: state => state.user.user
+    })
+  },
+  asyncData (ctx) {
+    if (!ctx.store.state.user.authenticated) {
+      ctx.redirect({ name: 'index' })
+    }
+  },
   data () {
     return {
       resume_lists: [],
       user: {
-        user_id: process.env.VUE_APP_USER_ID_TEST,
-        first_name: 'Sok',
-        last_name: 'Dara',
-        sections_order: dataOptions.sectionOrders
+        user_id: null,
+        first_name: null,
+        last_name: null,
+        email: null,
+        sections_order: dataOptions.sectionOrders,
+        resume_type_name: dataOptions.resume_type_name,
+        resume_template_name: dataOptions.resume_template_name
       }
     }
   },
@@ -135,7 +149,7 @@ export default {
   methods: {
     listResume () {
       this.$axios
-        .get(this.$base_api + '/api/frontend/resume/list')
+        .post(this.$base_api + '/api/frontend/resume/list')
         .then((res) => {
           this.resume_lists = res.data.data
         })
@@ -162,6 +176,10 @@ export default {
       }
     },
     createNewResume () {
+      this.user.user_id = this.logged_user.id
+      this.user.first_name = this.logged_user.first_name
+      this.user.last_name = this.logged_user.last_name
+      this.user.email = this.logged_user.email
       this.$axios
         .post(this.$base_api + '/api/frontend/resume/store', this.user)
         .then((res) => {

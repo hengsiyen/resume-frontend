@@ -72,7 +72,7 @@
   padding-right: 0 !important;
 }
 
-.nav-menu a {
+.nav-menu a.nav_bar_item {
   display: block;
   position: relative;
   color: #222222;
@@ -84,7 +84,7 @@
   font-family: var(--font-family-sans-serif);
 }
 
-.nav-menu > ul > li > a:before {
+.nav-menu > ul > li > a.nav_bar_item:before {
   content: "";
   position: absolute;
   width: 100%;
@@ -97,7 +97,7 @@
   transition: all 0.3s ease-in-out 0s;
 }
 
-.nav-menu a:hover:before, .nav-menu li:hover > a:before, .nav-menu .active > a:before {
+.nav-menu a:hover:before, .nav-menu li:hover > a.nav_bar_item:before, .nav-menu .active > a:before {
   visibility: visible;
   width: 100%;
 }
