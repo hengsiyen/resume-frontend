@@ -4,8 +4,9 @@ export const facebookSdkMixin = {
       window.fbAsyncInit = function () {
         FB.init({
           appId: process.env.FACEBOOK_CLIENT_ID,
+          cookie: true,
           xfbml: true,
-          version: 'v8.0'
+          version: process.env.FACEBOOK_VERSION
         })
         FB.AppEvents.logPageView()
       };
@@ -75,7 +76,6 @@ export const facebookSdkMixin = {
       // The current login status of the person.
       const self = this
       if (response && response.status === 'connected') { // Logged into your webpage and Facebook.
-        $('#loginModal').modal('hide')
         self.$store.dispatch('user/setFacebookAuth', response.authResponse)
         localStorage.setItem('f.a', JSON.stringify(response.authResponse))
         self.resultCallback(response.authResponse.accessToken)
