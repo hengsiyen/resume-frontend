@@ -18,7 +18,7 @@
         </NuxtLink>
       </div>
       <div>
-        <button class="btn bnt-lg btn-primary font-weight-bold">
+        <button class="btn bnt-lg btn-primary font-weight-bold" @click="downloadResume($route.params.uuid)">
           Download PDF
         </button>
         <button
@@ -104,7 +104,7 @@
       aria-hidden="true"
     >
       <div class="modal-dialog modal-dialog-centered modal-lg">
-        <ModalContent />
+        <ModalContent :link="fetchDataResume ? fetchDataResume.link_code : ''" />
       </div>
     </div>
   </div>
@@ -134,6 +134,7 @@ export default {
       first_name: null,
       last_name: null,
       email: null,
+      fetchDataResume: null,
       templateLists: [
         { name: 'Template 1', img: 'https://s3.resume.io/uploads/local_template_image/image/370/4940f3218b3f-0.jpg' },
         { name: 'Template 2', img: 'https://s3.resume.io/uploads/local_template_image/image/389/13c8b24d2950-0.jpg' },
@@ -148,11 +149,19 @@ export default {
       ]
     }
   },
+  beforeMount () {
+    this.$axios.post(this.$base_api + '/api/frontend/resume/show', {
+      uuid: this.$route.params.uuid
+    }).then((res) => {
+      this.fetchDataResume = res.data.data
+    })
+  },
   mounted () {
     this.first_name = this.user.first_name
     this.last_name = this.user.last_name
     this.email = this.user.email
     this.logContent()
+    this.getResumeTemplates()
   },
   methods: {
     angleLeft () {
@@ -166,14 +175,21 @@ export default {
       }
     },
     logContent: debounce(function () {
-      this.src = this.$pdf.createLoadingTask(this.$base_api + `/resume/testing/${this.first_name}/${this.last_name}/${this.email}`)
+      this.src = this.$pdf.createLoadingTask(this.$base_api + `/resume/preview-resume/${this.$route.params.uuid}`)
       if (this.src) {
         this.src.promise.then((pdf) => {
           this.pageCount = pdf.numPages
           this.currentPage = 1
         })
       }
-    }, 800)
+    }, 800),
+    getResumeTemplates () {
+      this.$axios
+        .post(this.$base_api + '/api/frontend/resume-template/get-option')
+        .then((res) => {
+          this.templateLists = res.data.data
+        })
+    }
   }
 }
 </script>

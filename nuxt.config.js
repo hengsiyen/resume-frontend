@@ -41,6 +41,8 @@ export default {
 
   // Plugins to run before rendering page (https://go.nuxtjs.dev/config-plugins)
   plugins: [
+    { src: '~/plugins/axios.js', mode: 'client', ssr: false },
+    { src: '~/plugins/authenticate.js', mode: 'client', ssr: false },
     { src: '~/plugins/date-picker.js', mode: 'client', ssr: false },
     { src: '~/plugins/avatar.js', mode: 'client', ssr: false },
     { src: '~/plugins/vue-clipboard2.js', mode: 'client', ssr: false },
@@ -75,8 +77,6 @@ export default {
     defaultLocale: 'km',
     locales: ['km']
   },
-  // Axios module configuration (https://go.nuxtjs.dev/config-axios)
-  axios: {},
 
   // Build Configuration (https://go.nuxtjs.dev/config-build)
   build: {

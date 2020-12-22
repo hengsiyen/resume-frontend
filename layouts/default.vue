@@ -16,15 +16,13 @@ export default {
   name: 'Default',
   components: { Header },
   mixins: [themeMixin],
-  beforeCreate () {
-    if (process.browser && process.client) {
-      if (localStorage && localStorage.hasOwnProperty(process.env.VUE_APP_TOKEN)) {
-        this.$router.push({ name: 'user-dashboard', replace: true })
-        this.$axios.setHeader('Authorization', `Bearer ${localStorage.getItem(process.env.VUE_APP_TOKEN)}`)
-        this.$axios.setHeader('Accept', 'application/json')
-        this.$store.dispatch('user/setUser', JSON.parse(localStorage.getItem('user')))
-        this.$store.dispatch('user/loggedIn')
-      }
+  created () {
+    if (this.$store.state.user.authenticated) {
+      console.log('1')
+      this.$router.push({ path: this.$route.path, replace: true })
+    } else {
+      console.log('0')
+      this.$router.push({ name: 'index', replace: true })
     }
   }
 }

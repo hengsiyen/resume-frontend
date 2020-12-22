@@ -115,12 +115,11 @@ export default {
           localStorage.setItem('user', JSON.stringify(result.user))
 
           // set authorization on axios
-          this.$axios.defaults.headers.common.Authorization = 'Bearer ' + result.access_token
+          this.$axios.setToken(result.access_token, 'Bearer')
           this.$axios.defaults.headers.common.Accept = 'application/json'
 
           this.$store.dispatch('user/setUser', result.user)
           this.$store.dispatch('user/loggedIn')
-
           this.$router.push({
             name: 'user-dashboard',
             replace: true

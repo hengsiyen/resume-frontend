@@ -19,7 +19,7 @@
         <input
           readonly
           class="resume-form-control"
-          :value="resume_url"
+          :value="resume_url + link"
           style="pointer-events: unset"
         >
         <div class="line" />
@@ -61,7 +61,13 @@
 
 <script>
 export default {
-  name: 'ModalContent'
+  name: 'ModalContent',
+  props: {
+    link: {
+      type: String,
+      default: ''
+    }
+  }
 }
 </script>
 

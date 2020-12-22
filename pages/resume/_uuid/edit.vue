@@ -1,5 +1,5 @@
 <template>
-  <div id="resume-editor">
+  <div id="resume-editor" v-if="user_resume">
     <div class="resume-container d-flex">
       <div class="resume__left-block">
         <div class="resume__form">
@@ -481,7 +481,7 @@
             </NuxtLink>
           </span>
           <div>
-            <button class="btn bnt-lg btn-primary font-weight-bold">
+            <button class="btn bnt-lg btn-primary font-weight-bold" @click="downloadResume(user_resume.uuid)">
               Download PDF
             </button>
             <button
@@ -520,7 +520,7 @@
       aria-hidden="true"
     >
       <div class="modal-dialog modal-dialog-centered modal-lg">
-        <ModalContent />
+        <ModalContent :link="user_resume.link_code" />
       </div>
     </div>
   </div>
@@ -588,7 +588,9 @@ export default {
       positions: [],
       nationalities: [],
       countries: [],
-      degrees: []
+      degrees: [],
+      show_pdf_0: true,
+      show_pdf_1: false
     }
   },
   computed: {
@@ -633,7 +635,6 @@ export default {
     this.getNationality()
     this.getCountry()
     this.getDegree()
-    this.logContent()
   },
   methods: {
     confirmResumeName () {
@@ -766,7 +767,7 @@ export default {
     }, 2000),
 
     logContent: debounce(function () {
-      this.resume_pdf_src = this.$pdf.createLoadingTask(this.$base_api + `/resume/testing/${this.user_resume.uuid}`, {
+      this.resume_pdf_src = this.$pdf.createLoadingTask(this.$base_api + `/resume/preview-resume/${this.user_resume.uuid}`, {
         responseType: 'blob'
       })
       if (this.resume_pdf_src) {
@@ -783,4 +784,18 @@ export default {
 
 <style scoped lang="scss">
 @import "@/assets/scss/resume.scss";
+
+.pdf_1 {
+  transform: scale(1);
+  transform-origin: left top;
+  opacity: 1;
+  transition: none 0s ease 0s;
+}
+
+.pdf_0 {
+  transform: scale(1);
+  transform-origin: left top;
+  opacity: 0;
+  transition: opacity 0.2s ease 0s;
+}
 </style>

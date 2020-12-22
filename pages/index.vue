@@ -71,7 +71,14 @@ import Banner from '~/components/section/Banner'
 export default {
   name: 'Index',
   layout: 'default',
-  components: { Banner }
+  components: { Banner },
+  created () {
+    if (this.$store.state.user.authenticated) {
+      this.$router.push({ name: 'user-dashboard', replace: true })
+    } else {
+      this.$router.push({ name: 'index', replace: true })
+    }
+  }
 }
 </script>
 

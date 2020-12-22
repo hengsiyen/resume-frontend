@@ -382,7 +382,7 @@ export default {
   min-height: calc(100vh - 80px);
 }
 .form__body-container {
-  padding: 64px 44px 48px;
+  padding: 144px 44px 48px;
 }
 
 .form__body-wrapper {

@@ -2,7 +2,8 @@ export const helpers = {
   data () {
     return {
       is_copy: false,
-      resume_url: 'https://resume.io/r/MzfhECgWs',
+      resume_url: 'https://resume.io/r/',
+      item_link_code: null,
       shareSocial: [
         {
           icon: 'fab fa-facebook-f',
@@ -13,6 +14,14 @@ export const helpers = {
     }
   },
   methods: {
+    downloadResume (item_uuid) {
+      console.log(item_uuid)
+      window.open(this.$base_api + `/resume/download-resume/${item_uuid}`, '_blank')
+    },
+    shareLink (item) {
+      this.item_link_code = null
+      this.item_link_code = item
+    },
     notEmptyObject (someObject) {
       return Object.keys(someObject).length > 0
     },

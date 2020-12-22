@@ -29,7 +29,10 @@
                     <div class="resume-thumbnail" :style="`background-image: url('${item.img}')`" />
                   </template>
                   <template v-else>
-                    <div class="resume-thumbnail" style="background-image: url('https://s3.resume.io/uploads/local_template_image/image/389/13c8b24d2950-0.jpg')" />
+                    <div
+                      class="resume-thumbnail"
+                      style="background-image: url('https://s3.resume.io/uploads/local_template_image/image/389/13c8b24d2950-0.jpg')"
+                    />
                   </template>
                 </NuxtLink>
               </div>
@@ -43,7 +46,7 @@
                 </div>
                 <div class="d-flex align-items-center justify-content-center mb-3">
                   <div class="resume-updated">
-                    Updated {{ $moment(item.updated_at).locale('en').format('DD MMMM, hh:mm' ) }}
+                    Updated {{ $moment(item.updated_at).locale('en').format('DD MMMM, hh:mm') }}
                   </div>
                 </div>
                 <NuxtLink :to="{name: 'resume-uuid-edit', params: {uuid: item.uuid}}">
@@ -62,7 +65,7 @@
                     Make a copy
                   </div>
                 </a>
-                <a href="javascript:void(0)">
+                <a href="javascript:void(0)" @click="downloadResume(item.uuid)">
                   <div class="resume-action">
                     <div class="icon">
                       <i class="fas fa-download" />
@@ -75,6 +78,7 @@
                   type="button"
                   data-toggle="modal"
                   data-target="#shareLink"
+                  @click="shareLink(item.link_code)"
                 >
                   <div class="resume-action">
                     <div class="icon">
@@ -105,7 +109,7 @@
       aria-hidden="true"
     >
       <div class="modal-dialog modal-dialog-centered modal-lg">
-        <ModalContent />
+        <ModalContent :link="item_link_code" />
       </div>
     </div>
   </div>
@@ -115,6 +119,7 @@
 import ModalContent from '@/components/resume/ModalContent'
 import { dataOptions } from '@/mixins/dataOptions'
 import { mapState } from 'vuex'
+
 export default {
   name: 'Dashboard',
   layout: 'default',
@@ -123,11 +128,6 @@ export default {
     ...mapState({
       logged_user: state => state.user.user
     })
-  },
-  asyncData (ctx) {
-    if (!ctx.store.state.user.authenticated) {
-      ctx.redirect({ name: 'index' })
-    }
   },
   data () {
     return {
@@ -141,6 +141,19 @@ export default {
         resume_type_name: dataOptions.resume_type_name,
         resume_template_name: dataOptions.resume_template_name
       }
+    }
+  },
+  created () {
+    if (this.$store.state.user.authenticated) {
+      this.$router.push({
+        name: 'user-dashboard',
+        replace: true
+      })
+    } else {
+      this.$router.push({
+        name: 'index',
+        replace: true
+      })
     }
   },
   mounted () {
@@ -167,10 +180,16 @@ export default {
           cancelButtonColor: '#909090'
         }).then((result) => {
           if (result.value) {
-            const index = this.resume_lists.indexOf(item)
-            if (index > -1) {
-              this.resume_lists.splice(index, 1)
-            }
+            this.$axios
+              .post(this.$base_api + '/api/frontend/resume/delete', {
+                uuid: item.uuid
+              })
+              .then((res) => {
+                this.listResume()
+              })
+              .catch((error) => {
+                this.onResponseError(error)
+              })
           }
         })
       }
@@ -184,7 +203,10 @@ export default {
         .post(this.$base_api + '/api/frontend/resume/store', this.user)
         .then((res) => {
           const data = res.data.data
-          this.$router.push({ name: 'resume-uuid-edit', params: { uuid: data.uuid } })
+          this.$router.push({
+            name: 'resume-uuid-edit',
+            params: { uuid: data.uuid }
+          })
         }).catch((error) => {
           this.onResponseError(error)
         })
