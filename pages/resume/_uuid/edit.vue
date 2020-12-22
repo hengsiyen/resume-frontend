@@ -628,6 +628,7 @@ export default {
   },
   created () {
     this.user_resume = this.fetchDataResume
+    this.logContent()
   },
   mounted () {
     this.getProvinces()
@@ -767,9 +768,7 @@ export default {
     }, 2000),
 
     logContent: debounce(function () {
-      this.resume_pdf_src = this.$pdf.createLoadingTask(this.$base_api + `/resume/preview-resume/${this.user_resume.uuid}`, {
-        responseType: 'blob'
-      })
+      this.resume_pdf_src = this.$pdf.createLoadingTask(this.$base_api + `/resume/preview-resume/${this.user_resume.uuid}`)
       if (this.resume_pdf_src) {
         this.resume_pdf_src.promise.then((pdf) => {
           this.pageCount = pdf.numPages
@@ -784,18 +783,4 @@ export default {
 
 <style scoped lang="scss">
 @import "@/assets/scss/resume.scss";
-
-.pdf_1 {
-  transform: scale(1);
-  transform-origin: left top;
-  opacity: 1;
-  transition: none 0s ease 0s;
-}
-
-.pdf_0 {
-  transform: scale(1);
-  transform-origin: left top;
-  opacity: 0;
-  transition: opacity 0.2s ease 0s;
-}
 </style>

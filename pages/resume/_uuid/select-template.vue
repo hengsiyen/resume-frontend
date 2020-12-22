@@ -55,7 +55,16 @@
                 <div class="template-name">
                   {{ item.name }}
                 </div>
-                <div class="template-item-show" :style="`background-image: url('${item.img}')`" />
+                <a href="javascript:void(0)" class="position-relative d-block" @click="selectTemplate(item.id)">
+                  <div
+                    class="template-item-show"
+                    :class="{'template-item-show-selected': item.id === selected_id}"
+                    :style="`background-image: url('${item.img}')`"
+                  />
+                  <div :class="{'selected': item.id === selected_id}">
+                    <i class="fas fa-check" v-if="item.id === selected_id"></i>
+                  </div>
+                </a>
               </div>
             </template>
           </div>
@@ -135,18 +144,8 @@ export default {
       last_name: null,
       email: null,
       fetchDataResume: null,
-      templateLists: [
-        { name: 'Template 1', img: 'https://s3.resume.io/uploads/local_template_image/image/370/4940f3218b3f-0.jpg' },
-        { name: 'Template 2', img: 'https://s3.resume.io/uploads/local_template_image/image/389/13c8b24d2950-0.jpg' },
-        { name: 'Template 3', img: 'https://s3.resume.io/uploads/local_template_image/image/406/9ae3309eadcd-0.jpg' },
-        { name: 'Template 4', img: 'https://s3.resume.io/uploads/local_template_image/image/441/f66fa998e20b-0.jpg' },
-        { name: 'Template 5', img: 'https://s3.resume.io/uploads/local_template_image/image/481/533d164042a1-0.jpg' },
-        { name: 'Template 6', img: 'https://s3.resume.io/uploads/local_template_image/image/488/e45b66b0a26c-0.jpg' },
-        { name: 'Template 7', img: 'https://s3.resume.io/uploads/local_template_image/image/503/cbd4ebb3adcd-0.jpg' },
-        { name: 'Template 8', img: 'https://s3.resume.io/uploads/local_template_image/image/160/0b9b714d9842-0.jpg' },
-        { name: 'Template 9', img: 'https://s3.resume.io/uploads/local_template_image/image/511/eb9bc174923d-0.jpg' },
-        { name: 'Template 10', img: 'https://s3.resume.io/uploads/local_template_image/image/504/71eefda42ffb-0.jpg' }
-      ]
+      templateLists: [],
+      selected_id: null
     }
   },
   beforeMount () {
@@ -164,6 +163,10 @@ export default {
     this.getResumeTemplates()
   },
   methods: {
+    selectTemplate (template_id) {
+      this.selected_id = template_id
+      console.log(template_id)
+    },
     angleLeft () {
       if (this.currentPage > 1) {
         this.currentPage -= 1
@@ -270,5 +273,33 @@ export default {
 
 .deactive {
   color: #a9a9a9 !important;
+}
+.selected {
+  position: absolute;
+  width: 40px;
+  height: 40px;
+  left: 50%;
+  top: 50%;
+  margin-left: -20px;
+  margin-top: -20px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: rgb(33, 150, 243);
+  color: rgb(255, 255, 255);
+  border-radius: 50%;
+  opacity: 1;
+}
+
+.template-item-show-selected:after {
+  content: "";
+  position: absolute;
+  inset: -4px;
+  border-width: 4px;
+  border-style: solid;
+  border-color: rgb(33, 150, 243);
+  border-radius: 7px;
+  opacity: 1;
+  transition: opacity 0.15s ease 0s;
 }
 </style>
