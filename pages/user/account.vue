@@ -153,6 +153,14 @@ export default {
       return this.$store.state.user.user
     }
   },
+  created () {
+    if (!this.$store.state.user.authenticated) {
+      this.$router.push({
+        name: 'index',
+        replace: true
+      })
+    }
+  },
   mounted () {
     this.first_name = this.user.first_name
     this.last_name = this.user.last_name

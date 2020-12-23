@@ -51,7 +51,7 @@
         <template v-else>
           <div class="login-buttons">
             <div class="login-button">
-              <a href="#" class="btn-facebook">
+              <a href="javascript:void(0)" @click="statusChangeCallback" class="btn-facebook">
                 <span>
                   <i class="fab fa-facebook-f"></i>
                 </span>
@@ -74,9 +74,12 @@
 </template>
 
 <script>
+import { facebookSdkMixin } from '~/mixins/facebookSdkMixin'
+
 export default {
   name: 'Login',
   layout: 'default',
+  mixins: [facebookSdkMixin],
   data () {
     return {
       log_with_email: false,
@@ -84,6 +87,14 @@ export default {
       password: null,
       sub_title: 'We are happy to see you back!',
       validate: null
+    }
+  },
+  created () {
+    if (this.$store.state.user.authenticated) {
+      this.$router.push({
+        name: 'user-dashboard',
+        replace: true
+      })
     }
   },
   methods: {

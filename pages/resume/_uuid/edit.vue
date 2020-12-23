@@ -457,8 +457,18 @@
                 <pdf
                   v-for="(i, k) in pageCount"
                   :key="k"
+                  ref="myPdfComponent1"
+                  class="show_pdf"
+                  :class="old_pdf_class"
+                  :src="old_pdf"
+                  :page="currentPage"
+                />
+                <pdf
+                  v-for="(i, k) in pageCount"
+                  :key="k"
                   ref="myPdfComponent"
                   class="show_pdf"
+                  :class="pdf_class"
                   :src="resume_pdf_src"
                   :page="currentPage"
                 />
@@ -578,7 +588,7 @@ export default {
   },
   data () {
     return {
-      show_pdf: false,
+      show_pdf: true,
       app_name: process.env.VUE_APP_NAME,
       editable_title: false,
       show_line: false,
@@ -589,8 +599,9 @@ export default {
       nationalities: [],
       countries: [],
       degrees: [],
-      show_pdf_0: true,
-      show_pdf_1: false
+      old_pdf: null,
+      old_pdf_class: 'hiddenpdf',
+      pdf_class: 'showpdf'
     }
   },
   computed: {
@@ -628,7 +639,12 @@ export default {
   },
   created () {
     this.user_resume = this.fetchDataResume
-    this.logContent()
+    if (!this.$store.state.user.authenticated) {
+      this.$router.push({
+        name: 'index',
+        replace: true
+      })
+    }
   },
   mounted () {
     this.getProvinces()
@@ -636,6 +652,9 @@ export default {
     this.getNationality()
     this.getCountry()
     this.getDegree()
+    if (this.user_resume) {
+      this.logContent()
+    }
   },
   methods: {
     confirmResumeName () {
@@ -757,17 +776,21 @@ export default {
     },
 
     refreshResume: debounce(function () {
+      this.old_pdf_class = 'showpdf'
+      this.pdf_class = 'hiddenpdf'
       this.$axios
         .post(this.$base_api + '/api/frontend/resume/store', this.user_resume)
         .then((res) => {
           this.user_resume = res.data.data
-          this.logContent()
         }).catch((error) => {
           this.onResponseError(error)
+        }).finally(() => {
+          this.logContent()
+          this.old_pdf = this.resume_pdf_src
         })
     }, 2000),
 
-    logContent: debounce(function () {
+    logContent () {
       this.resume_pdf_src = this.$pdf.createLoadingTask(this.$base_api + `/resume/preview-resume/${this.user_resume.uuid}`)
       if (this.resume_pdf_src) {
         this.resume_pdf_src.promise.then((pdf) => {
@@ -775,12 +798,29 @@ export default {
           this.currentPage = 1
         })
       }
-    }, 500)
-
+      if (!this.old_pdf) {
+        this.old_pdf = this.resume_pdf_src
+      }
+    }
   }
 }
 </script>
 
 <style scoped lang="scss">
 @import "@/assets/scss/resume.scss";
+
+.showpdf {
+  transform: scale(1);
+  transform-origin: left top;
+  opacity: 1 !important;
+  transition: none 0.2s ease 0s;
+  z-index: 1;
+}
+.hiddenpdf {
+  transform: scale(1);
+  transform-origin: left top;
+  opacity: 0 !important;
+  transition: opacity 0.2s ease 0s;
+  z-index: 2;
+}
 </style>

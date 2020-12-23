@@ -200,6 +200,14 @@ export default {
       resume_template_name: dataOptions.resume_template_name
     }
   },
+  created () {
+    if (this.$store.state.user.authenticated) {
+      this.$router.push({
+        name: 'user-dashboard',
+        replace: true
+      })
+    }
+  },
   methods: {
     clearData () {
       this.validate = null

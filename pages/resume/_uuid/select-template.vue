@@ -148,6 +148,14 @@ export default {
       selected_id: null
     }
   },
+  created () {
+    if (!this.$store.state.user.authenticated) {
+      this.$router.push({
+        name: 'index',
+        replace: true
+      })
+    }
+  },
   beforeMount () {
     this.$axios.post(this.$base_api + '/api/frontend/resume/show', {
       uuid: this.$route.params.uuid

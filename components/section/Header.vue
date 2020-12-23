@@ -12,13 +12,13 @@
 
       <nav class="nav-menu d-none d-lg-block">
         <ul>
-          <li :class="{'active' : $route.name === 'user-dashboard'}">
-            <NuxtLink :to="{name: 'user-dashboard'}" class="nav_bar_item">
-              Dashboard
-            </NuxtLink>
-          </li>
-          <li>|</li>
           <template v-if="checkAuth">
+            <li :class="{'active' : $route.name === 'user-dashboard'}">
+              <NuxtLink :to="{name: 'user-dashboard'}" class="nav_bar_item">
+                Dashboard
+              </NuxtLink>
+            </li>
+            <li>|</li>
             <li>
               <button
                 id="dropdownMenuButton"
