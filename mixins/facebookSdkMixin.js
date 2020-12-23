@@ -44,13 +44,13 @@ export const facebookSdkMixin = {
           // self.$setLocalStorage('user', JSON.stringify(result.user))
 
           // set authorization on axios
-          self.$axios.defaults.headers.common.Authorization = 'Bearer ' + result.access_token
-          self.$axios.defaults.headers.common.Accept = 'application/json'
+          this.$axios.setToken(result.access_token, 'Bearer')
+          this.$axios.defaults.headers.common.Accept = 'application/json'
           // set value on vuex
-          // self.$store.dispatch('user/loggedIn')
-          // self.$store.dispatch('user/setUser', result)
-          self.$router.push({
-            name: 'index',
+          this.$store.dispatch('user/setUser', result.user)
+          this.$store.dispatch('user/loggedIn')
+          this.$router.push({
+            name: 'user-dashboard',
             replace: true
           })
         }

@@ -57,7 +57,7 @@
                     Edit
                   </div>
                 </NuxtLink>
-                <a href="javascript:void(0)">
+                <a href="javascript:void(0)" @click="copyResume(item.uuid)">
                   <div class="resume-action">
                     <div class="icon">
                       <i class="fas fa-clone" />
@@ -193,6 +193,18 @@ export default {
           }
         })
       }
+    },
+    copyResume (uuid) {
+      this.$axios
+        .post(this.$base_api + '/api/frontend/resume/copy-resume', {
+          uuid
+        })
+        .then((res) => {
+          this.listResume()
+        })
+        .catch((error) => {
+          this.onResponseError(error)
+        })
     },
     createNewResume () {
       this.user.user_id = this.logged_user.id
