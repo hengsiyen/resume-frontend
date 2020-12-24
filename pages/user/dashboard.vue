@@ -1,117 +1,120 @@
 <template>
-  <div class="section-container">
-    <div class="section-wrapper">
-      <div class="sect-title">
-        Dashboard
-      </div>
-      <div class="position-relative" style="margin-bottom: 40px">
-        <div class="position-relative d-flex tabs">
-          <div class="tabs-item">
-            Resume
-          </div>
-          <div class="tabs-resume" />
+  <div class="dashboard-content">
+    <div class="section-container">
+      <div class="section-wrapper">
+        <div class="sect-title">
+          Dashboard
         </div>
-        <a
-          href="javascript:void(0)"
-          class="btn btn-primary btn-create-new font-weight-bold"
-          @click="createNewResume"
-        >
-          <i class="fas fa-plus" style="margin-right: 10px" /> Create New Resume
-        </a>
-      </div>
-      <div class="w-100 flex-wrap">
-        <div class="position-relative">
-          <template v-for="(item, key) in resume_lists">
-            <div :key="key" class="each-resume">
-              <div style="margin-right: 30px">
-                <NuxtLink :to="{name: 'resume-uuid-edit', params: {uuid: item.uuid}}">
-                  <template v-if="item.img">
-                    <div class="resume-thumbnail" :style="`background-image: url('${item.img}')`" />
-                  </template>
-                  <template v-else>
-                    <div
-                      class="resume-thumbnail"
-                      style="background-image: url('https://s3.resume.io/uploads/local_template_image/image/389/13c8b24d2950-0.jpg')"
-                    />
-                  </template>
-                </NuxtLink>
-              </div>
-              <div class="w-100" style="max-width: 226px;">
-                <div class="resume-title ellipsis">
-                  <div>
-                    <NuxtLink :to="{name: 'resume-uuid-edit', params: {uuid: item.uuid}}">
-                      {{ item.name ? item.name : 'Untitled' }}
-                    </NuxtLink>
-                  </div>
-                </div>
-                <div class="d-flex align-items-center justify-content-center mb-3">
-                  <div class="resume-updated">
-                    Updated {{ $moment(item.updated_at).locale('en').format('DD MMMM, hh:mm') }}
-                  </div>
-                </div>
-                <NuxtLink :to="{name: 'resume-uuid-edit', params: {uuid: item.uuid}}">
-                  <div class="resume-action">
-                    <div class="icon">
-                      <i class="fas fa-pencil-alt" />
-                    </div>
-                    Edit
-                  </div>
-                </NuxtLink>
-                <a href="javascript:void(0)" @click="copyResume(item.uuid)">
-                  <div class="resume-action">
-                    <div class="icon">
-                      <i class="fas fa-clone" />
-                    </div>
-                    Make a copy
-                  </div>
-                </a>
-                <a href="javascript:void(0)" @click="downloadResume(item.uuid)">
-                  <div class="resume-action">
-                    <div class="icon">
-                      <i class="fas fa-download" />
-                    </div>
-                    Download PDF
-                  </div>
-                </a>
-                <a
-                  href="javascript:void(0)"
-                  type="button"
-                  data-toggle="modal"
-                  data-target="#shareLink"
-                  @click="shareLink(item.link_code)"
-                >
-                  <div class="resume-action">
-                    <div class="icon">
-                      <i class="fas fa-link" />
-                    </div>
-                    Share Link
-                  </div>
-                </a>
-                <a href="javascript:void(0)" @click="deleteResume(item)">
-                  <div class="resume-action">
-                    <div class="icon">
-                      <i class="fas fa-trash-alt" />
-                    </div>
-                    Delete
-                  </div>
-                </a>
-              </div>
+        <div class="position-relative" style="margin-bottom: 40px">
+          <div class="position-relative d-flex tabs">
+            <div class="tabs-item">
+              Resume
             </div>
-          </template>
+            <div class="tabs-resume" />
+          </div>
+          <a
+            href="javascript:void(0)"
+            class="btn btn-primary btn-create-new font-weight-bold"
+            @click="createNewResume"
+          >
+            <i class="fas fa-plus" style="margin-right: 10px" /> Create New Resume
+          </a>
+        </div>
+        <div class="w-100 flex-wrap">
+          <div class="position-relative">
+            <template v-for="(item, key) in resume_lists">
+              <div :key="key" class="each-resume">
+                <div style="margin-right: 30px">
+                  <NuxtLink :to="{name: 'resume-uuid-edit', params: {uuid: item.uuid}}">
+                    <template v-if="item.img">
+                      <div class="resume-thumbnail" :style="`background-image: url('${item.img}')`" />
+                    </template>
+                    <template v-else>
+                      <div
+                        class="resume-thumbnail"
+                        style="background-image: url('https://s3.resume.io/uploads/local_template_image/image/389/13c8b24d2950-0.jpg')"
+                      />
+                    </template>
+                  </NuxtLink>
+                </div>
+                <div class="w-100" style="max-width: 226px;">
+                  <div class="resume-title ellipsis">
+                    <div>
+                      <NuxtLink :to="{name: 'resume-uuid-edit', params: {uuid: item.uuid}}">
+                        {{ item.name ? item.name : 'Untitled' }}
+                      </NuxtLink>
+                    </div>
+                  </div>
+                  <div class="d-flex align-items-center justify-content-center mb-3">
+                    <div class="resume-updated">
+                      Updated {{ $moment(item.updated_at).locale('en').format('DD MMMM, hh:mm') }}
+                    </div>
+                  </div>
+                  <NuxtLink :to="{name: 'resume-uuid-edit', params: {uuid: item.uuid}}">
+                    <div class="resume-action">
+                      <div class="icon">
+                        <i class="fas fa-pencil-alt" />
+                      </div>
+                      Edit
+                    </div>
+                  </NuxtLink>
+                  <a href="javascript:void(0)" @click="copyResume(item.uuid)">
+                    <div class="resume-action">
+                      <div class="icon">
+                        <i class="fas fa-clone" />
+                      </div>
+                      Make a copy
+                    </div>
+                  </a>
+                  <a href="javascript:void(0)" @click="downloadResume(item.uuid)">
+                    <div class="resume-action">
+                      <div class="icon">
+                        <i class="fas fa-download" />
+                      </div>
+                      Download PDF
+                    </div>
+                  </a>
+                  <a
+                    href="javascript:void(0)"
+                    type="button"
+                    data-toggle="modal"
+                    data-target="#shareLinkDashboard"
+                    @click="shareLink(item.link_code)"
+                  >
+                    <div class="resume-action">
+                      <div class="icon">
+                        <i class="fas fa-link" />
+                      </div>
+                      Share Link
+                    </div>
+                  </a>
+                  <a href="javascript:void(0)" @click="deleteResume(item)">
+                    <div class="resume-action">
+                      <div class="icon">
+                        <i class="fas fa-trash-alt" />
+                      </div>
+                      Delete
+                    </div>
+                  </a>
+                </div>
+              </div>
+            </template>
+          </div>
+        </div>
+      </div>
+      <div
+        id="shareLinkDashboard"
+        class="modal fade"
+        tabindex="-1"
+        aria-labelledby="shareLinkDashboard"
+        aria-hidden="true"
+      >
+        <div class="modal-dialog modal-dialog-centered modal-lg">
+          <ModalContent :link="item_link_code" />
         </div>
       </div>
     </div>
-    <div
-      id="shareLink"
-      class="modal fade"
-      tabindex="-1"
-      aria-labelledby="shareLink"
-      aria-hidden="true"
-    >
-      <div class="modal-dialog modal-dialog-centered modal-lg">
-        <ModalContent :link="item_link_code" />
-      </div>
-    </div>
+    <SmallFooter />
   </div>
 </template>
 
@@ -119,11 +122,12 @@
 import ModalContent from '@/components/resume/ModalContent'
 import { dataOptions } from '@/mixins/dataOptions'
 import { mapState } from 'vuex'
+import SmallFooter from '~/components/section/SmallFooter'
 
 export default {
   name: 'Dashboard',
   layout: 'default',
-  components: { ModalContent },
+  components: { SmallFooter, ModalContent },
   computed: {
     ...mapState({
       logged_user: state => state.user.user
@@ -228,6 +232,5 @@ export default {
 </script>
 
 <style scoped lang="scss">
-@import "~assets/scss/elements/default";
-@import "~assets/scss/user";
+@import "@/assets/scss/user.scss";
 </style>

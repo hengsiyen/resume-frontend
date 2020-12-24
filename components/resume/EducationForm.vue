@@ -161,7 +161,7 @@ export default {
     },
     degreeVal () {
       if (this.item) {
-        return this.item.province
+        return this.item.degree
       }
       return null
     }

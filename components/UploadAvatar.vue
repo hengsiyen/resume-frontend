@@ -127,7 +127,7 @@ export default {
       this.imgDataUrl = this.item.avatar.src
     }
     this.headers = {
-      // Authorization: 'Bearer ' + localStorage.getItem(this.$token),
+      Authorization: 'Bearer ' + localStorage.getItem(process.env.VUE_APP_TOKEN),
       Accept: 'application/json'
     }
   },

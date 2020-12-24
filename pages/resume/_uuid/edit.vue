@@ -425,10 +425,7 @@
                 </div>
               </FormSection>
             </div>
-            <div class="d-flex align-items-center justify-content-center pb-2">
-              <span class="mr-1 text-muted">Copyright © 2020 by {{ app_name }}. Powered by</span>
-              <a href="http://asorasoft.com/" class="text-muted"> Asorasoft</a>
-            </div>
+            <SmallFooter />
           </div>
         </div>
       </div>
@@ -457,18 +454,8 @@
                 <pdf
                   v-for="(i, k) in pageCount"
                   :key="k"
-                  ref="myPdfComponent1"
+                  ref="viewPdfEdit"
                   class="show_pdf"
-                  :class="old_pdf_class"
-                  :src="old_pdf"
-                  :page="currentPage"
-                />
-                <pdf
-                  v-for="(i, k) in pageCount"
-                  :key="k"
-                  ref="myPdfComponent"
-                  class="show_pdf"
-                  :class="pdf_class"
                   :src="resume_pdf_src"
                   :page="currentPage"
                 />
@@ -512,7 +499,7 @@
                 class="dropdown-item"
                 type="button"
                 data-toggle="modal"
-                data-target="#shareLink"
+                data-target="#shareLinkEdit"
               >
                 <i class="fas fa-link" /> Share a link
               </button>
@@ -523,10 +510,10 @@
     </div>
     <!--      model share resume-->
     <div
-      id="shareLink"
+      id="shareLinkEdit"
       class="modal fade"
       tabindex="-1"
-      aria-labelledby="shareLink"
+      aria-labelledby="shareLinkEdit"
       aria-hidden="true"
     >
       <div class="modal-dialog modal-dialog-centered modal-lg">
@@ -555,11 +542,13 @@ import CustomSectionForm from '@/components/resume/CustomSectionForm'
 import ModalContent from '@/components/resume/ModalContent'
 import { debounce } from 'debounce'
 import PersonalDetailForm from '@/components/resume/PersonalDetailForm'
+import SmallFooter from '~/components/section/SmallFooter'
 
 export default {
   name: 'Edit',
   layout: 'secondary',
   components: {
+    SmallFooter,
     PersonalDetailForm,
     ModalContent,
     FormSection,

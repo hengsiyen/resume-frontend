@@ -6,7 +6,7 @@ export default {
     title: 'Talent Plus Resume',
     meta: [
       { charset: 'utf-8' },
-      { name: 'viewport', content: 'width=device-width, initial-scale=1' },
+      { name: 'viewport', content: 'width=device-width, initial-scale=1.0' },
       { hid: 'description', name: 'description', content: '' },
       { 'http-equiv': 'X-UA-Compatible', content: 'IE=edge' },
       {
@@ -35,8 +35,8 @@ export default {
   css: [
     { src: 'quill/dist/quill.snow.css', lang: 'css' },
     { src: '@fortawesome/fontawesome-free/css/all.min.css', lang: 'css' },
-    { src: '@/assets/scss/style.scss', lang: 'css' },
-    { src: '@/assets/css/style.css', lang: 'css' }
+    { src: '@/assets/css/style.css', lang: 'css' },
+    { src: '@/assets/scss/style.scss', lang: 'css' }
   ],
 
   // Plugins to run before rendering page (https://go.nuxtjs.dev/config-plugins)

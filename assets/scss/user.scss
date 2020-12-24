@@ -1,8 +1,12 @@
+@import "elements/_default.scss";
+
+.dashboard-content {
+  background-color: rgb(242, 245, 250);
+}
 .section-container {
   display: block;
   width: 100%;
   min-height: calc(100vh - 80px);
-  background-color: rgb(242, 245, 250);
   padding: 60px 32px;
 }
 
@@ -57,7 +61,6 @@
   max-width: 524px;
   margin-bottom: 42px;
 }
-
 .each-resume:nth-child(odd) {
   margin-right: 72px;
 }

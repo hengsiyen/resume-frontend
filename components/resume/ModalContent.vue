@@ -39,15 +39,16 @@
       </template>
       <div>
         <a
-          :href="resume_url"
+          href="javascript:void(0)"
           type="button"
           class="btn btn-link btn-lg font-weight-bold a-no-underline"
+          @click="showResumeLink"
           data-dismiss="modal"
         >
           Open Link
         </a>
         <button
-          v-clipboard:copy="resume_url"
+          v-clipboard:copy="resume_url + link"
           v-clipboard:success="onCopy"
           type="button"
           class="btn btn-primary btn-lg font-weight-bold"
@@ -66,6 +67,20 @@ export default {
     link: {
       type: String,
       default: ''
+    }
+  },
+  methods: {
+    // changeCopyLabel () {
+    //   if (this.is_copy) {
+    // this.$nextTick(() => {
+    //   setTimeout(function () {
+    //     this.is_copy = false
+    //   }, 1000)
+    // })
+    //   }
+    // },
+    showResumeLink () {
+      window.open(`${this.resume_url}${this.link}`, '_blank')
     }
   }
 }

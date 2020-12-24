@@ -2,7 +2,7 @@ export const helpers = {
   data () {
     return {
       is_copy: false,
-      resume_url: 'https://resume.io/r/',
+      resume_url: process.env.VUE_APP_BASE_URL + '/r/',
       item_link_code: null,
       shareSocial: [
         {
@@ -184,9 +184,6 @@ export const helpers = {
     },
     onCopy () {
       this.is_copy = true
-      setTimeout(function () {
-        this.is_copy = false
-      }, 1000)
     }
   }
 }

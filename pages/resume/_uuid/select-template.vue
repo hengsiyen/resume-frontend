@@ -39,7 +39,7 @@
             class="dropdown-item"
             type="button"
             data-toggle="modal"
-            data-target="#shareLink"
+            data-target="#shareLinkTemplate"
           >
             <i class="fas fa-link" /> Share a link
           </button>
@@ -59,7 +59,7 @@
                   <div
                     class="template-item-show"
                     :class="{'template-item-show-selected': item.id === selected_id}"
-                    :style="`background-image: url('${item.img}')`"
+                    :style="`background-image: url('${$base_api}/${item.image}')`"
                   />
                   <div :class="{'selected': item.id === selected_id}">
                     <i class="fas fa-check" v-if="item.id === selected_id"></i>
@@ -76,7 +76,7 @@
             <pdf
               v-for="(i, k) in pageCount"
               :key="k"
-              ref="myPdfComponent"
+              ref="viewPdfTemplate"
               class="position-absolute d-inline-block pdf"
               :src="src"
               :page="currentPage"
@@ -106,10 +106,10 @@
     </div>
     <!--      model share resume-->
     <div
-      id="shareLink"
+      id="shareLinkTemplate"
       class="modal fade"
       tabindex="-1"
-      aria-labelledby="shareLink"
+      aria-labelledby="shareLinkTemplate"
       aria-hidden="true"
     >
       <div class="modal-dialog modal-dialog-centered modal-lg">
@@ -161,6 +161,7 @@ export default {
       uuid: this.$route.params.uuid
     }).then((res) => {
       this.fetchDataResume = res.data.data
+      this.selectTemplate(this.fetchDataResume.resume_template_id)
     })
   },
   mounted () {
@@ -173,7 +174,6 @@ export default {
   methods: {
     selectTemplate (template_id) {
       this.selected_id = template_id
-      console.log(template_id)
     },
     angleLeft () {
       if (this.currentPage > 1) {
@@ -196,7 +196,9 @@ export default {
     }, 800),
     getResumeTemplates () {
       this.$axios
-        .post(this.$base_api + '/api/frontend/resume-template/get-option')
+        .post(this.$base_api + '/api/frontend/resume-template/get-option', {
+          query_text: 'Premium'
+        })
         .then((res) => {
           this.templateLists = res.data.data
         })
@@ -247,7 +249,9 @@ export default {
   height: 225px;
   border-radius: 3px;
   background-color: rgb(255, 255, 255);
-  background-size: cover;
+  background-size: contain;
+  background-repeat: no-repeat;
+  background-position: center top;
 }
 
 .resume__preview-container {
