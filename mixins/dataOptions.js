@@ -22,14 +22,22 @@ export const dataOptions = {
   ],
 
   addSections: [
-    { name_en: 'Courses', value: 'courses', active: false },
-    { name_en: 'Internships', value: 'internships', active: false },
-    { name_en: 'Languages', value: 'langs', active: false },
-    { name_en: 'Activities', value: 'activities', active: false },
-    { name_en: 'Hobbies', value: 'hobbies', active: false },
-    { name_en: 'References', value: 'references', active: false }
+    { name_en: 'Courses', value: 'courses', active: false, icon: 'fas fa-graduation-cap' },
+    { name_en: 'Internships', value: 'internships', active: false, icon: 'fas fa-briefcase' },
+    { name_en: 'Languages', value: 'langs', active: false, icon: 'fas fa-language' },
+    { name_en: 'Activities', value: 'activities', active: false, icon: 'fas fa-chess' },
+    { name_en: 'Hobbies', value: 'hobbies', active: false, icon: 'fas fa-gamepad' },
+    { name_en: 'References', value: 'references', active: false, icon: 'fas fa-bullhorn' }
   ],
   sectionOrdersSubTitle: {
+    personal_details: {
+      title: 'Personal Details',
+      sub_title: ''
+    },
+    summary: {
+      title: 'Professional Summary',
+      sub_title: 'Include 2-3 clear sentences about your overall experience'
+    },
     educations: {
       title: 'Education',
       sub_title: 'If relevant, include your most recent educational achievements and the dates here'

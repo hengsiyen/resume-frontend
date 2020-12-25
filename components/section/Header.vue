@@ -48,16 +48,18 @@
             </li>
           </template>
           <template v-else>
-            <li class="px-0">
-              <NuxtLink :to="{name: 'user-login'}" class="btn btn-link underline-none text-dark">
-                Log In
-              </NuxtLink>
-            </li>
-            <li>
-              <NuxtLink :to="{name: 'resume-create'}" class="btn btn-primary">
-                Sign up
-              </NuxtLink>
-            </li>
+            <template v-if="$route.name != 'user-login'">
+              <li class="px-0">
+                <NuxtLink :to="{name: 'user-login'}" class="btn btn-link underline-none text-dark">
+                  Log In
+                </NuxtLink>
+              </li>
+              <li>
+                <NuxtLink :to="{name: 'resume-create'}" class="btn btn-primary">
+                  Sign up
+                </NuxtLink>
+              </li>
+            </template>
           </template>
         </ul>
       </nav><!-- .nav-menu -->

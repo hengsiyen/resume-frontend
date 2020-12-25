@@ -67,6 +67,9 @@
               </a>
             </div>
           </div>
+          <div>
+            I am not registered — <NuxtLink :to="{name: 'resume-create'}">Sign Up</NuxtLink>
+          </div>
         </template>
       </div>
     </div>
@@ -173,7 +176,6 @@ export default {
   flex-wrap: wrap;
   -webkit-box-pack: justify;
   justify-content: space-between;
-  margin-bottom: 18px;
 }
 
 .login-button {

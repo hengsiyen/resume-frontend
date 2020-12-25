@@ -26,3 +26,8 @@ $font-family-sans-serif: 'Open khmer school', 'Nunito', 'Roboto', 'Arial', sans-
 @import "./custom-quill-editor";
 @import "./custom-sweetalert";
 
+
+.annotationLayer {
+  opacity: 1;
+  transition: opacity .5s ease 0s;
+}

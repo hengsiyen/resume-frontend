@@ -188,11 +188,24 @@ export default {
       validate: null,
       app_name: process.env.VUE_APP_NAME,
       steppers: [
-        { number: 1, label: 'Enter your details', active: true },
-        { number: 2, label: 'Create your resume', active: false }
+        {
+          number: 1,
+          label: 'Enter your details',
+          active: true
+        },
+        {
+          number: 2,
+          label: 'Create your resume',
+          active: false
+        }
       ],
       socials: [
-        { id: 1, icon: 'fab fa-facebook-f', label: 'Facebook', code: 'facebook' }
+        {
+          id: 1,
+          icon: 'fab fa-facebook-f',
+          label: 'Facebook',
+          code: 'facebook'
+        }
         // { id: 2, icon: 'fab fa-google', label: 'Google', code: 'google' }
       ],
       sections_order: dataOptions.sectionOrders,
@@ -237,50 +250,48 @@ export default {
           email: this.email
         })
         .then((res) => {
-          if (res.status === 200) {
-            const result = res.data.data
+          const result = res.data.data
+          localStorage.setItem(process.env.VUE_APP_TOKEN, result.access_token)
+          localStorage.setItem(process.env.VUE_APP_REFRESH_TOKEN, result.refresh_token)
+          localStorage.setItem('user', JSON.stringify(result.user))
 
-            localStorage.setItem(process.env.VUE_APP_TOKEN, result.access_token)
-            localStorage.setItem(process.env.VUE_APP_REFRESH_TOKEN, result.refresh_token)
-            localStorage.setItem('user', JSON.stringify(result.user))
+          this.$store.dispatch('user/setUser', result.user)
+          this.$store.dispatch('user/loggedIn')
 
-            self.$axios.defaults.headers.common.Authorization = 'Bearer ' + result.access_token
-            self.$axios.defaults.headers.common.Accept = 'application/json'
-
-            this.$store.dispatch('user/setUser', result.user)
-            this.$store.dispatch('user/loggedIn')
-          }
+          this.$axios.defaults.headers.common.Authorization = 'Bearer ' + result.access_token
+          this.$axios.defaults.headers.common.Accept = 'application/json'
+          this.createResume(result.user)
         })
         .catch((error) => {
           const e = error.response
-          if (e) {
-            if (e.status === 422) {
-              this.validate = e.data.errors
-            } else {
-              this.onResponseError(error)
-            }
-          }
-        })
-        .finally(() => {
-          if (localStorage && localStorage.hasOwnProperty('user')) {
-            this.createResume(JSON.parse(localStorage.getItem('user')))
+          if (e.status === 422) {
+            this.validate = e.data.errors
+          } else {
+            this.onResponseError(error)
           }
         })
     },
     createResume (data) {
+      console.log('sectionOrders')
+      console.log(this.sectionOrders)
       this.$axios
         .post(this.$base_api + '/api/frontend/resume/store', {
           first_name: data.first_name,
           last_name: data.last_name,
           email: data.email,
           user_id: data.id,
-          sections_order: this.sectionOrders,
+          sections_order: this.sections_order,
           resume_type_name: this.resume_type_name,
           resume_template_name: this.resume_template_name
         })
         .then((res) => {
+          console.log(res)
           const result = res.data.data
-          this.$router.push({ name: 'resume-uuid-edit', params: { uuid: result.uuid } })
+          console.log(result)
+          this.$router.push({
+            name: 'resume-uuid-edit',
+            params: { uuid: result.uuid }
+          })
         })
         .catch((error) => {
           this.onResponseError(error)
@@ -289,7 +300,6 @@ export default {
     onClickNext () {
       this.step += 1
     },
-
     onClickPrev () {
       this.step -= 1
     }
@@ -313,28 +323,34 @@ export default {
 .logo {
   & img {
     display: inline-block;
-    width: 45px;
-    height: 45px;
+    width: 40px;
+    height: 40px;
     vertical-align: middle;
   }
+
   & span {
-    font-size: 20px;
+    font-size: 24px;
     color: var(--dark);
+    font-weight: 600;
   }
 }
 
 .stepper {
   position: absolute;
   width: 700px;
+  top: 15px;
   left: calc(50% - 350px);
+
   &-content {
     width: 100%;
     display: flex;
     align-items: center;
     justify-content: center;
+
     &_item {
       display: flex;
       align-items: center;
+
       &:after {
         content: "";
         width: 32px;
@@ -343,11 +359,13 @@ export default {
         margin: 0px 8px;
         color: rgb(221, 227, 240);
       }
+
       &:last-child:after {
         content: unset;
       }
     }
   }
+
   &-item__number {
     width: 28px;
     height: 28px;
@@ -359,14 +377,17 @@ export default {
     font-weight: 600;
     margin-right: 12px;
     transition: background-color 0.2s ease 0s, color 0.2s ease 0s;
+
     &.active {
       background-color: rgb(33, 150, 243);
     }
   }
+
   &-item__label {
     font-size: 20px;
     color: rgb(152, 161, 179);
     transition: color 0.2s ease 0s;
+
     &.active {
       color: rgb(38, 43, 51);
     }
@@ -377,10 +398,11 @@ export default {
   width: 30px;
   height: 30px;
   right: 32px;
-  bottom: 10px;
+  top: 15px;
   cursor: pointer;
   transition: color 0.2s ease 0s;
   font-size: 24px;
+
   & a {
     color: #cfd6e6;
   }
@@ -389,12 +411,14 @@ export default {
 .form__body_block {
   min-height: calc(100vh - 80px);
 }
+
 .form__body-container {
   padding: 144px 44px 48px;
 }
 
 .form__body-wrapper {
   max-width: 1120px;
+
   & .body__title {
     font-size: 46px;
     line-height: 48px;
@@ -402,14 +426,18 @@ export default {
     color: rgb(33, 150, 243);
     margin-bottom: 12px;
   }
+
   & .body__sub-title {
     margin-bottom: 32px;
   }
+
   & .body_content {
     max-width: 416px;
+
     & .social-list {
       background-color: rgb(242, 245, 250);
       border-radius: 8px;
+
       & a {
         font-size: 19px;
         color: var(--dark);
@@ -423,6 +451,7 @@ export default {
           color: rgb(33, 150, 243);
           background-color: rgba(204, 232, 255, 0.5);
         }
+
         &:last-child {
           border: none;
           margin: 0;

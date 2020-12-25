@@ -1,6 +1,6 @@
 <template>
-  <div class="rf-section">
-    <div class="rf-section__title" :style="!subTitle ? 'margin-bottom: 1.5rem;' : ''">
+  <div class="rf-section" v-if="sectionLabel">
+    <div class="rf-section__title" :style="!(sectionLabel.sub_title) ? 'margin-bottom: 1.5rem;' : ''">
       <template v-if="editable">
         <div class="form-group mb-0 mr-2">
           <input v-model="section_title" type="text" class="resume-form-control ">
@@ -9,7 +9,7 @@
       </template>
       <template v-else>
         <div class="ellipsis mr-2">
-          {{ section_title }}
+          {{ sectionLabel.title }}
         </div>
       </template>
       <template v-if="hasEditButton">
@@ -40,19 +40,11 @@
           @click="onDelete"
         ><i class="far fa-trash-alt" /></a>
       </template>
-      <div
-        v-if="draggable"
-        class="rf-section__draggable"
-        data-toggle="tooltip"
-        data-placement="top"
-        title="Tooltip on top"
-      >
-        <i class="fas fa-ellipsis-v" />
-      </div>
+
     </div>
-    <div class="rf-section__sub-title">
+    <div class="rf-section__sub-title" v-if="sectionLabel.sub_title">
       <div>
-        {{ subTitle }}
+        {{ sectionLabel.sub_title }}
       </div>
     </div>
     <slot />
@@ -60,6 +52,8 @@
 </template>
 
 <script>
+import { dataOptions } from '~/mixins/dataOptions'
+
 export default {
   name: 'FormSection',
   props: {
@@ -83,9 +77,9 @@ export default {
       type: String,
       default: 'Untitled'
     },
-    subTitle: {
+    customTitle: {
       type: String,
-      default: null
+      default: 'Untitled'
     },
     item: {
       type: Object,
@@ -96,7 +90,48 @@ export default {
   },
   data () {
     return {
-      section_title: null
+      section_title: null,
+      sectionsTitle: dataOptions.sectionOrdersSubTitle
+    }
+  },
+  computed: {
+    sectionLabel () {
+      if (this.title === 'personal_details') {
+        return this.sectionsTitle.personal_details
+      } else if (this.title === 'summary') {
+        return this.sectionsTitle.summary
+      } else if (this.title === 'educations') {
+        return this.sectionsTitle.educations
+      } else if (this.title === 'workExperiences') {
+        return this.sectionsTitle.workExperiences
+      } else if (this.title === 'socialProfiles') {
+        return this.sectionsTitle.socialProfiles
+      } else if (this.title === 'skills') {
+        return this.sectionsTitle.skills
+      } else if (this.title === 'references') {
+        return this.sectionsTitle.references
+      } else if (this.title === 'courses') {
+        return this.sectionsTitle.courses
+      } else if (this.title === 'langs') {
+        return this.sectionsTitle.langs
+      } else if (this.title === 'hobbies') {
+        return this.sectionsTitle.hobbies
+      } else if (this.title === 'activities') {
+        return this.sectionsTitle.activities
+      } else if (this.title === 'internships') {
+        return this.sectionsTitle.internships
+      } else if (this.title === 'custom') {
+        console.log(this.title)
+        return {
+          title: this.customTitle ? this.customTitle : 'Untitled',
+          sub_title: null
+        }
+      } else {
+        return {
+          title: this.title,
+          sub_title: null
+        }
+      }
     }
   },
   mounted () {

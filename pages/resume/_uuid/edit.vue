@@ -30,7 +30,7 @@
                   ><i class="fas fa-pencil-alt" /></a>
                 </template>
               </div>
-              <FormSection title="Personal Details">
+              <FormSection title="personal_details">
                 <PersonalDetailForm
                   :item="user_resume"
                   :data-position="positions"
@@ -44,360 +44,451 @@
                   @refreshResume="refreshResume"
                 />
               </FormSection>
-              <FormSection
-                title="Professional Summary"
-                sub-title="Include 2-3 clear sentences about your overall experience"
-              >
-                <client-only>
-                  <div class="row">
-                    <div class="col-12">
-                      <div class="form-group mb-0">
-                        <quill-editor
-                          ref="editor"
-                          v-model="user_resume.profile"
-                          :class="{'editor': show_line}"
-                          :options="editorOption"
-                          @blur="onEditorBlur($event)"
-                          @focus="onEditorFocus($event)"
-                          @change="updateDataResume"
-                        />
-                        <div class="ql-editor-line" />
-                      </div>
+              <FormSection title="summary">
+                <div class="row">
+                  <div class="col-12">
+                    <div class="form-group mb-0">
+                      <quill-editor
+                        ref="editor"
+                        v-model="user_resume.profile"
+                        :class="{'editor': show_line}"
+                        :options="editorOption"
+                        @blur="onEditorBlur($event)"
+                        @focus="onEditorFocus($event)"
+                        @change="updateDataResume"
+                      />
+                      <div class="ql-editor-line"/>
                     </div>
                   </div>
-                </client-only>
+                </div>
               </FormSection>
-              <draggable v-model="user_resume.sections_order" draggable=".item">
-                <template v-for="(element, key) in user_resume.sections_order">
-                  <div :key="key" class="item">
-                    <template v-if="element === 'educations'">
-                      <FormSection
-                        :draggable="true"
-                        :title="sectionOrdersSubTitle[element].title"
-                        :sub-title="sectionOrdersSubTitle[element].sub_title"
+              <draggable
+                v-model="user_resume.sections_order"
+                class="list-group"
+                @update="refreshResume"
+                handle=".handle"
+              >
+                <transition-group type="transition" name="flip-list">
+                  <template v-for="(element, key) in user_resume.sections_order">
+                    <div :key="key" class="item position-relative" v-if="key > 0">
+                      <div
+                        class="rf-section__draggable handle"
+                        data-toggle="tooltip"
+                        data-placement="top"
+                        title="Click and drag to move"
                       >
-                        <template v-for="(item, edu_key) in user_resume.educations">
-                          <ItemCollapse
-                            :key="edu_key"
-                            :item="item"
-                            :active-tab="false"
-                            :has-sub-title="true"
-                            @onDelete="removeSectionItem(user_resume.educations, item)"
-                          >
-                            <EducationForm
-                              :item="item"
-                              :data-provinces="provinces"
-                              :data-degree="degrees"
-                              @refreshResume="refreshResume"
-                            />
-                          </ItemCollapse>
-                        </template>
-                        <a
-                          href="javascript:void(0)"
-                          class="btn-add-item"
-                          @click="addSectionItem(user_resume.educations, element)"
-                        >
-                          <i class="fas fa-plus mr-2" />
-                          <span>Add item</span>
-                        </a>
-                      </FormSection>
-                    </template>
-                    <template v-if="element === 'workExperiences'">
-                      <FormSection
-                        :draggable="true"
-                        :title="sectionOrdersSubTitle[element].title"
-                        :sub-title="sectionOrdersSubTitle[element].sub_title"
-                      >
-                        <template v-for="(item, emp_key) in user_resume.work_experiences">
-                          <ItemCollapse
-                            :key="emp_key"
-                            :item="item"
-                            :active-tab="false"
-                            :has-sub-title="true"
-                            @onDelete="removeSectionItem(user_resume.work_experiences, item)"
-                          >
-                            <EmploymentForm
-                              :item="item"
-                              :data-provinces="provinces"
-                              :data-positions="positions"
-                              @refreshResume="refreshResume"
-                            />
-                          </ItemCollapse>
-                        </template>
-                        <a
-                          href="javascript:void(0)"
-                          class="btn-add-item"
-                          @click="addSectionItem(user_resume.work_experiences, element)"
-                        >
-                          <i class="fas fa-plus mr-2" />
-                          <span>Add item</span>
-                        </a>
-                      </FormSection>
-                    </template>
-                    <template v-if="element === 'skills'">
-                      <FormSection
-                        :draggable="true"
-                        :title="sectionOrdersSubTitle[element].title"
-                        :sub-title="sectionOrdersSubTitle[element].sub_title"
-                      >
-                        <template v-for="(item, skill_key) in user_resume.skills">
-                          <ItemCollapse
-                            :key="skill_key"
-                            :item="item"
-                            :active-tab="false"
-                            :has-sub-title="true"
-                            @onDelete="removeSectionItem(user_resume.skills, item)"
-                          >
-                            <SkillForm :item="item" @refreshResume="refreshResume" />
-                          </ItemCollapse>
-                        </template>
-                        <a
-                          href="javascript:void(0)"
-                          class="btn-add-item"
-                          @click="addSectionItem(user_resume.skills, element)"
-                        >
-                          <i class="fas fa-plus mr-2" />
-                          <span>Add item</span>
-                        </a>
-                      </FormSection>
-                    </template>
-                    <template v-if="element === 'socialProfiles'">
-                      <FormSection
-                        :draggable="true"
-                        :title="sectionOrdersSubTitle[element].title"
-                        :sub-title="sectionOrdersSubTitle[element].sub_title"
-                      >
-                        <template v-for="(item, soc_key) in user_resume.social_profiles">
-                          <ItemCollapse
-                            :key="soc_key"
-                            :item="item"
-                            :active-tab="false"
-                            :has-sub-title="true"
-                            @onDelete="removeSectionItem(user_resume.social_profiles, item)"
-                          >
-                            <SocialProfileForm :item="item" @refreshResume="refreshResume" />
-                          </ItemCollapse>
-                        </template>
-                        <a
-                          href="javascript:void(0)"
-                          class="btn-add-item"
-                          @click="addSectionItem(user_resume.social_profiles, element)"
-                        >
-                          <i class="fas fa-plus mr-2" />
-                          <span>Add item</span>
-                        </a>
-                      </FormSection>
-                    </template>
-                    <template v-if="element === 'courses'">
-                      <FormSection
-                        :draggable="true"
-                        :has-delete-button="true"
-                        :title="sectionOrdersSubTitle[element].title"
-                        :sub-title="sectionOrdersSubTitle[element].sub_title"
-                        @onDelete="removeSection(element)"
-                      >
-                        <template v-for="(item, course_key) in user_resume.courses">
-                          <ItemCollapse
-                            :key="course_key"
-                            :item="item"
-                            :active-tab="false"
-                            :has-sub-title="true"
-                            @onDelete="removeSectionItem(user_resume.courses, item)"
-                          >
-                            <CourseForm :item="item" @refreshResume="refreshResume" />
-                          </ItemCollapse>
-                        </template>
-                        <a
-                          href="javascript:void(0)"
-                          class="btn-add-item"
-                          @click="addSectionItem(user_resume.courses, element)"
-                        >
-                          <i class="fas fa-plus mr-2" />
-                          <span>Add item</span>
-                        </a>
-                      </FormSection>
-                    </template>
-                    <template v-if="element === 'internships'">
-                      <FormSection
-                        :draggable="true"
-                        :has-delete-button="true"
-                        :title="sectionOrdersSubTitle[element].title"
-                        :sub-title="sectionOrdersSubTitle[element].sub_title"
-                        @onDelete="removeSection(element)"
-                      >
-                        <template v-for="(item, intern_key) in user_resume.internships">
-                          <ItemCollapse
-                            :key="intern_key"
-                            :item="item"
-                            :active-tab="false"
-                            :has-sub-title="true"
-                            @onDelete="removeSectionItem(user_resume.internships, item)"
-                          >
-                            <InternshipForm
-                              :item="item"
-                              :data-provinces="provinces"
-                              :data-positions="positions"
-                              @refreshResume="refreshResume"
-                            />
-                          </ItemCollapse>
-                        </template>
-                        <a
-                          href="javascript:void(0)"
-                          class="btn-add-item"
-                          @click="addSectionItem(user_resume.internships, element)"
-                        >
-                          <i class="fas fa-plus mr-2" />
-                          <span>Add item</span>
-                        </a>
-                      </FormSection>
-                    </template>
-                    <template v-if="element === 'langs'">
-                      <FormSection
-                        :draggable="true"
-                        :has-delete-button="true"
-                        :title="sectionOrdersSubTitle[element].title"
-                        :sub-title="sectionOrdersSubTitle[element].sub_title"
-                        @onDelete="removeSection(element)"
-                      >
-                        <template v-for="(item, lang_key) in user_resume.langs">
-                          <ItemCollapse
-                            :key="lang_key"
-                            :item="item"
-                            :has-sub-title="true"
-                            :active-tab="false"
-                            @onDelete="removeSectionItem(user_resume.lang, item)"
-                          >
-                            <LanguageForm :item="item" @refreshResume="refreshResume" />
-                          </ItemCollapse>
-                        </template>
-                        <a
-                          href="javascript:void(0)"
-                          class="btn-add-item"
-                          @click="addSectionItem(user_resume.langs, element)"
-                        >
-                          <i class="fas fa-plus mr-2" />
-                          <span>Add item</span>
-                        </a>
-                      </FormSection>
-                    </template>
-                    <template v-if="element === 'activities'">
-                      <FormSection
-                        :draggable="true"
-                        :has-delete-button="true"
-                        :title="sectionOrdersSubTitle[element].title"
-                        :sub-title="sectionOrdersSubTitle[element].sub_title"
-                        @onDelete="removeSection(element)"
-                      >
-                        <template v-for="(item, act_key) in user_resume.activities">
-                          <ItemCollapse
-                            :key="act_key"
-                            :item="item"
-                            :has-sub-title="true"
-                            :active-tab="false"
-                            @onDelete="removeSectionItem(user_resume.activities, item)"
-                          >
-                            <ActivityForm :item="item" :data-provinces="provinces" @refreshResume="refreshResume" />
-                          </ItemCollapse>
-                        </template>
-                        <a
-                          href="javascript:void(0)"
-                          class="btn-add-item"
-                          @click="addSectionItem(user_resume.activities, element)"
-                        >
-                          <i class="fas fa-plus mr-2" />
-                          <span>Add item</span>
-                        </a>
-                      </FormSection>
-                    </template>
-                    <template v-if="element === 'hobbies'">
-                      <FormSection
-                        :draggable="true"
-                        :has-delete-button="true"
-                        :title="sectionOrdersSubTitle[element].title"
-                        :sub-title="sectionOrdersSubTitle[element].sub_title"
-                        @onDelete="removeSection(element)"
-                      >
-                        <HobbyForm :item="user_resume.hobbies" @refreshResume="refreshResume" />
-                      </FormSection>
-                    </template>
-                    <template v-if="element === 'references'">
-                      <FormSection
-                        :draggable="true"
-                        :has-delete-button="true"
-                        :title="sectionOrdersSubTitle[element].title"
-                        :sub-title="sectionOrdersSubTitle[element].sub_title"
-                        @onDelete="removeSection(element)"
-                      >
-                        <template v-for="(item, ref_key) in user_resume.references">
-                          <ItemCollapse
-                            :key="ref_key"
-                            :item="item"
-                            :active-tab="false"
-                            :has-sub-title="true"
-                            @onDelete="removeSectionItem(user_resume.references, item)"
-                          >
-                            <ReferenceForm :item="item" @refreshResume="refreshResume" />
-                          </ItemCollapse>
-                        </template>
-                        <a
-                          href="javascript:void(0)"
-                          class="btn-add-item"
-                          @click="addSectionItem(user_resume.references, element)"
-                        >
-                          <i class="fas fa-plus mr-2" />
-                          <span>Add item</span>
-                        </a>
-                      </FormSection>
-                    </template>
-                    <template v-for="(customSection, custom_key) in user_resume.custom_sections">
-                      <template v-if="customSection && element === 'custom:' + customSection.external_id">
+                        <i class="fas fa-ellipsis-v" />
+                      </div>
+                      <template v-if="element === 'educations'">
                         <FormSection
-                          :key="custom_key"
                           :draggable="true"
-                          :has-delete-button="true"
-                          :has-edit-button="true"
-                          :editable="customSection.editable"
-                          :item="customSection"
-                          :title="customSection.title ? customSection.title : 'Untitled'"
-                          @onDelete="removeSection(element)"
-                          @onEdit="editableCustomSection(customSection, true, true, false)"
-                          @onConfirm="editableCustomSection(customSection, true, false, true)"
-                          @onCancel="editableCustomSection(customSection, true, false, false)"
+                          :title="element"
                         >
-                          <template v-if="customSection.items && customSection.items.length">
-                            <template v-for="(item, item_key) in customSection.items">
-                              <ItemCollapse
-                                v-if="item"
-                                :key="item_key"
-                                :item="item"
-                                :active-tab="false"
-                                :has-sub-title="true"
-                                @onDelete="removeSectionItem(customSection.items, item)"
-                              >
-                                <CustomSectionForm
+                          <draggable
+                            v-model="user_resume.educations"
+                            class="list-group"
+                            @update="refreshResume"
+                          >
+                            <transition-group type="transition" name="flip-list">
+                              <template v-for="(item, edu_key) in user_resume.educations">
+                                <ItemCollapse
+                                  :key="edu_key"
                                   :item="item"
-                                  :data-provinces="provinces"
-                                  @refreshResume="refreshResume"
-                                />
-                              </ItemCollapse>
-                            </template>
-                          </template>
+                                  :active-tab="false"
+                                  :has-sub-title="true"
+                                  @onDelete="removeSectionItem(user_resume.educations, item)"
+                                >
+                                  <EducationForm
+                                    :item="item"
+                                    :data-provinces="provinces"
+                                    :data-degree="degrees"
+                                    @refreshResume="refreshResume"
+                                  />
+                                </ItemCollapse>
+                              </template>
+                            </transition-group>
+                          </draggable>
                           <a
                             href="javascript:void(0)"
                             class="btn-add-item"
-                            @click="addSectionItem(customSection.items, 'custom')"
+                            @click="addSectionItem(user_resume.educations, element)"
                           >
                             <i class="fas fa-plus mr-2" />
-                            <span>Add item</span>
+                            <span>Add education</span>
                           </a>
                         </FormSection>
                       </template>
-                    </template>
-                  </div>
-                </template>
+                      <template v-else-if="element === 'workExperiences'">
+                        <FormSection
+                          :draggable="true"
+                          :title="element"
+                        >
+                          <draggable
+                            v-model="user_resume.work_experiences"
+                            class="list-group"
+                            @update="refreshResume"
+                          >
+                            <transition-group type="transition" name="flip-list">
+                              <template v-for="(item, emp_key) in user_resume.work_experiences">
+                                <ItemCollapse
+                                  :key="emp_key"
+                                  :item="item"
+                                  :active-tab="false"
+                                  :has-sub-title="true"
+                                  @onDelete="removeSectionItem(user_resume.work_experiences, item)"
+                                >
+                                  <EmploymentForm
+                                    :item="item"
+                                    :data-provinces="provinces"
+                                    :data-positions="positions"
+                                    @refreshResume="refreshResume"
+                                  />
+                                </ItemCollapse>
+                              </template>
+                            </transition-group>
+                          </draggable>
+                          <a
+                            href="javascript:void(0)"
+                            class="btn-add-item"
+                            @click="addSectionItem(user_resume.work_experiences, element)"
+                          >
+                            <i class="fas fa-plus mr-2" />
+                            <span>Add employment</span>
+                          </a>
+                        </FormSection>
+                      </template>
+                      <template v-else-if="element === 'skills'">
+                        <FormSection
+                          :draggable="true"
+                          :title="element"
+                        >
+                          <draggable
+                            v-model="user_resume.skills"
+                            class="list-group"
+                            @update="refreshResume"
+                          >
+                            <transition-group type="transition" name="flip-list">
+                              <template v-for="(item, skill_key) in user_resume.skills">
+                                <ItemCollapse
+                                  :key="skill_key"
+                                  :item="item"
+                                  :active-tab="false"
+                                  :has-sub-title="true"
+                                  @onDelete="removeSectionItem(user_resume.skills, item)"
+                                >
+                                  <SkillForm :item="item" @refreshResume="refreshResume" />
+                                </ItemCollapse>
+                              </template>
+                            </transition-group>
+                          </draggable>
+                          <a
+                            href="javascript:void(0)"
+                            class="btn-add-item"
+                            @click="addSectionItem(user_resume.skills, element)"
+                          >
+                            <i class="fas fa-plus mr-2" />
+                            <span>Add skill</span>
+                          </a>
+                        </FormSection>
+                      </template>
+                      <template v-else-if="element === 'socialProfiles'">
+                        <FormSection
+                          :draggable="true"
+                          :title="element"
+                        >
+                          <draggable
+                            v-model="user_resume.social_profiles"
+                            class="list-group"
+                            @update="refreshResume"
+                          >
+                            <transition-group type="transition" name="flip-list">
+                              <template v-for="(item, soc_key) in user_resume.social_profiles">
+                                <ItemCollapse
+                                  :key="soc_key"
+                                  :item="item"
+                                  :active-tab="false"
+                                  :has-sub-title="true"
+                                  @onDelete="removeSectionItem(user_resume.social_profiles, item)"
+                                >
+                                  <SocialProfileForm :item="item" @refreshResume="refreshResume" />
+                                </ItemCollapse>
+                              </template>
+                            </transition-group>
+                          </draggable>
+                          <a
+                            href="javascript:void(0)"
+                            class="btn-add-item"
+                            @click="addSectionItem(user_resume.social_profiles, element)"
+                          >
+                            <i class="fas fa-plus mr-2" />
+                            <span>Add social link</span>
+                          </a>
+                        </FormSection>
+                      </template>
+                      <template v-else-if="element === 'courses'">
+                        <FormSection
+                          :draggable="true"
+                          :has-delete-button="true"
+                          :title="element"
+                          @onDelete="removeSection(element)"
+                        >
+                          <draggable
+                            v-model="user_resume.courses"
+                            class="list-group"
+                            @update="refreshResume"
+                          >
+                            <transition-group type="transition" name="flip-list">
+                              <template v-for="(item, course_key) in user_resume.courses">
+                                <ItemCollapse
+                                  :key="course_key"
+                                  :item="item"
+                                  :active-tab="false"
+                                  :has-sub-title="true"
+                                  @onDelete="removeSectionItem(user_resume.courses, item)"
+                                >
+                                  <CourseForm :item="item" @refreshResume="refreshResume" />
+                                </ItemCollapse>
+                              </template>
+                            </transition-group>
+                          </draggable>
+                          <a
+                            href="javascript:void(0)"
+                            class="btn-add-item"
+                            @click="addSectionItem(user_resume.courses, element)"
+                          >
+                            <i class="fas fa-plus mr-2" />
+                            <span>Add course</span>
+                          </a>
+                        </FormSection>
+                      </template>
+                      <template v-else-if="element === 'internships'">
+                        <FormSection
+                          :draggable="true"
+                          :has-delete-button="true"
+                          :title="element"
+                          @onDelete="removeSection(element)"
+                        >
+                          <draggable
+                            v-model="user_resume.internships"
+                            class="list-group"
+                            @update="refreshResume"
+                          >
+                            <transition-group type="transition" name="flip-list">
+                              <template v-for="(item, intern_key) in user_resume.internships">
+                                <ItemCollapse
+                                  :key="intern_key"
+                                  :item="item"
+                                  :active-tab="false"
+                                  :has-sub-title="true"
+                                  @onDelete="removeSectionItem(user_resume.internships, item)"
+                                >
+                                  <InternshipForm
+                                    :item="item"
+                                    :data-provinces="provinces"
+                                    :data-positions="positions"
+                                    @refreshResume="refreshResume"
+                                  />
+                                </ItemCollapse>
+                              </template>
+                            </transition-group>
+                          </draggable>
+                          <a
+                            href="javascript:void(0)"
+                            class="btn-add-item"
+                            @click="addSectionItem(user_resume.internships, element)"
+                          >
+                            <i class="fas fa-plus mr-2" />
+                            <span>Add internship</span>
+                          </a>
+                        </FormSection>
+                      </template>
+                      <template v-else-if="element === 'langs'">
+                        <FormSection
+                          :draggable="true"
+                          :has-delete-button="true"
+                          :title="element"
+                          @onDelete="removeSection(element)"
+                        >
+                          <draggable
+                            v-model="user_resume.langs"
+                            class="list-group"
+                            @update="refreshResume"
+                          >
+                            <transition-group type="transition" name="flip-list">
+                              <template v-for="(item, lang_key) in user_resume.langs">
+                                <ItemCollapse
+                                  :key="lang_key"
+                                  :item="item"
+                                  :has-sub-title="true"
+                                  :active-tab="false"
+                                  @onDelete="removeSectionItem(user_resume.lang, item)"
+                                >
+                                  <LanguageForm :item="item" @refreshResume="refreshResume" />
+                                </ItemCollapse>
+                              </template>
+                            </transition-group>
+                          </draggable>
+                          <a
+                            href="javascript:void(0)"
+                            class="btn-add-item"
+                            @click="addSectionItem(user_resume.langs, element)"
+                          >
+                            <i class="fas fa-plus mr-2" />
+                            <span>Add language</span>
+                          </a>
+                        </FormSection>
+                      </template>
+                      <template v-else-if="element === 'activities'">
+                        <FormSection
+                          :draggable="true"
+                          :has-delete-button="true"
+                          :title="element"
+                          @onDelete="removeSection(element)"
+                        >
+                          <draggable
+                            v-model="user_resume.activities"
+                            class="list-group"
+                            @update="refreshResume"
+                          >
+                            <transition-group type="transition" name="flip-list">
+                              <template v-for="(item, act_key) in user_resume.activities">
+                                <ItemCollapse
+                                  :key="act_key"
+                                  :item="item"
+                                  :has-sub-title="true"
+                                  :active-tab="false"
+                                  @onDelete="removeSectionItem(user_resume.activities, item)"
+                                >
+                                  <ActivityForm :item="item" :data-provinces="provinces" @refreshResume="refreshResume" />
+                                </ItemCollapse>
+                              </template>
+                            </transition-group>
+                          </draggable>
+                          <a
+                            href="javascript:void(0)"
+                            class="btn-add-item"
+                            @click="addSectionItem(user_resume.activities, element)"
+                          >
+                            <i class="fas fa-plus mr-2" />
+                            <span>Add Activity</span>
+                          </a>
+                        </FormSection>
+                      </template>
+                      <template v-else-if="element === 'hobbies'">
+                        <FormSection
+                          :draggable="true"
+                          :has-delete-button="true"
+                          :title="element"
+                          @onDelete="removeSection(element)"
+                        >
+                          <HobbyForm :item="user_resume.hobbies" @refreshResume="refreshResume" />
+                        </FormSection>
+                      </template>
+                      <template v-else-if="element === 'references'">
+                        <FormSection
+                          :draggable="true"
+                          :has-delete-button="true"
+                          :title="element"
+                          @onDelete="removeSection(element)"
+                        >
+                          <draggable
+                            v-model="user_resume.references"
+                            class="list-group"
+                            @update="refreshResume"
+                          >
+                            <transition-group type="transition" name="flip-list">
+                              <template v-for="(item, ref_key) in user_resume.references">
+                                <ItemCollapse
+                                  :key="ref_key"
+                                  :item="item"
+                                  :active-tab="false"
+                                  :has-sub-title="true"
+                                  @onDelete="removeSectionItem(user_resume.references, item)"
+                                >
+                                  <ReferenceForm :item="item" @refreshResume="refreshResume" />
+                                </ItemCollapse>
+                              </template>
+                            </transition-group>
+                          </draggable>
+                          <a
+                            href="javascript:void(0)"
+                            class="btn-add-item"
+                            @click="addSectionItem(user_resume.references, element)"
+                          >
+                            <i class="fas fa-plus mr-2" />
+                            <span>Add reference</span>
+                          </a>
+                        </FormSection>
+                      </template>
+                      <template v-for="(customSection, custom_key) in user_resume.custom_sections">
+                        <template v-if="customSection && element === 'custom:' + customSection.external_id">
+                          <FormSection
+                            :key="custom_key"
+                            :draggable="true"
+                            :has-delete-button="true"
+                            :has-edit-button="true"
+                            :editable="customSection.editable"
+                            :item="customSection"
+                            title="custom"
+                            :custom-title="customSection.title"
+                            @onDelete="removeSection(element)"
+                            @onEdit="editableCustomSection(customSection, true, true, false)"
+                            @onConfirm="editableCustomSection(customSection, true, false, true)"
+                            @onCancel="editableCustomSection(customSection, true, false, false)"
+                          >
+                            <template v-if="customSection.items && customSection.items.length">
+                              <draggable
+                                v-model="customSection.items"
+                                class="list-group"
+                                @update="refreshResume"
+                              >
+                                <transition-group type="transition" name="flip-list">
+                                  <template v-for="(item, item_key) in customSection.items">
+                                    <ItemCollapse
+                                      v-if="item"
+                                      :key="item_key"
+                                      :item="item"
+                                      :active-tab="false"
+                                      :has-sub-title="true"
+                                      @onDelete="removeSectionItem(customSection.items, item)"
+                                    >
+                                      <CustomSectionForm
+                                        :item="item"
+                                        :data-provinces="provinces"
+                                        @refreshResume="refreshResume"
+                                      />
+                                    </ItemCollapse>
+                                  </template>
+                                </transition-group>
+                              </draggable>
+                            </template>
+                            <a
+                              href="javascript:void(0)"
+                              class="btn-add-item"
+                              @click="addSectionItem(customSection.items, 'custom')"
+                            >
+                              <i class="fas fa-plus mr-2" />
+                              <span>Add item</span>
+                            </a>
+                          </FormSection>
+                        </template>
+                      </template>
+                    </div>
+                  </template>
+                </transition-group>
               </draggable>
               <FormSection title="Add Section">
                 <div class="list-section">
+                  <a
+                    href="javascript:void(0)"
+                    class="list-section-item"
+                    @click="addCustomSection"
+                  >
+                    <div>
+                      <i class="fas fa-sliders-h add-section-icon mr-2"></i>
+                      Custom Section
+                    </div>
+                  </a>
                   <template v-for="(item, key) in addSections">
                     <a
                       :key="key"
@@ -407,21 +498,11 @@
                       @click="addSection(item)"
                     >
                       <div>
-                        <i class="fas fa-question-circle fa-2x mr-2" />
+                        <i class="add-section-icon mr-2" :class="item.icon" />
                         {{ item.name_en }}
                       </div>
                     </a>
                   </template>
-                  <a
-                    href="javascript:void(0)"
-                    class="list-section-item"
-                    @click="addCustomSection"
-                  >
-                    <div>
-                      <i class="fas fa-question-circle fa-2x mr-2" />
-                      Custom Section
-                    </div>
-                  </a>
                 </div>
               </FormSection>
             </div>
@@ -437,6 +518,14 @@
           <i class="fas fa-times" />
         </NuxtLink>
         <div class="top_pdf">
+          <div class="resume-saved position-absolute d-flex align-items-center justify-content-center">
+            <template v-if="in_progress">
+              <i class="fas fa-circle-notch fa-spin"></i> Saving...
+            </template>
+            <template v-else>
+              <i class="fas fa-cloud-upload-alt"></i> Saved
+            </template>
+          </div>
           <button class="btn angle-l" @click="angleLeft">
             <i class="fas fa-angle-left" />
           </button>
@@ -581,19 +670,27 @@ export default {
       app_name: process.env.VUE_APP_NAME,
       editable_title: false,
       show_line: false,
-      sectionOrdersSubTitle: dataOptions.sectionOrdersSubTitle,
       editorOption: dataOptions.editorOption,
       addSections: dataOptions.addSections,
       positions: [],
       nationalities: [],
       countries: [],
       degrees: [],
+      in_progress: 0,
       old_pdf: null,
       old_pdf_class: 'hiddenpdf',
       pdf_class: 'showpdf'
     }
   },
   computed: {
+    dragOptions () {
+      return {
+        animation: 0,
+        group: 'description',
+        disabled: false,
+        ghostClass: 'ghost'
+      }
+    },
     apiBack () {
       if (this.$store.state.user.authenticated) {
         return 'user-dashboard'
@@ -654,6 +751,7 @@ export default {
       this.refreshResume()
     },
     addCustomSection () {
+      console.log('hello')
       const newCustomSection = {
         external_id: this.makeExternalId(8),
         title: '',
@@ -764,7 +862,7 @@ export default {
         })
     },
 
-    refreshResume: debounce(function () {
+    storeResume: debounce(function () {
       this.old_pdf_class = 'showpdf'
       this.pdf_class = 'hiddenpdf'
       this.$axios
@@ -777,7 +875,12 @@ export default {
           this.logContent()
           this.old_pdf = this.resume_pdf_src
         })
-    }, 2000),
+    }, 1500),
+
+    refreshResume () {
+      this.in_progress = 1
+      this.storeResume()
+    },
 
     logContent () {
       this.resume_pdf_src = this.$pdf.createLoadingTask(this.$base_api + `/resume/preview-resume/${this.user_resume.uuid}`)
@@ -785,6 +888,7 @@ export default {
         this.resume_pdf_src.promise.then((pdf) => {
           this.pageCount = pdf.numPages
           this.currentPage = 1
+          this.in_progress = 0
         })
       }
       if (!this.old_pdf) {
