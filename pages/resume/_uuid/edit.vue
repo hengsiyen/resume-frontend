@@ -755,7 +755,6 @@ export default {
       this.refreshResume()
     },
     addCustomSection () {
-      console.log('hello')
       const newCustomSection = {
         external_id: this.makeExternalId(8),
         title: '',
@@ -782,6 +781,7 @@ export default {
       }
     },
     removeSectionItem (model, item, section) {
+      this.in_progress = 1
       if (Array.isArray(model)) {
         if (model.includes(item)) {
           const self = this
@@ -803,6 +803,7 @@ export default {
                 })
                 .then((res) => {
                   this.user_resume = res.data.data
+                  this.logContent()
                 })
               // const index = model.indexOf(item)
               // if (index > -1) {
@@ -814,7 +815,7 @@ export default {
       }
     },
     removeSection (item) {
-      console.log(item)
+      this.in_progress = 1
       if (this.user_resume.sections_order.includes(item)) {
         const self = this
         self.$swal({
@@ -834,6 +835,7 @@ export default {
               })
               .then((res) => {
                 this.user_resume = res.data.data
+                this.logContent()
               })
             // const index = this.user_resume.sections_order.indexOf(item)
             // if (index > -1) {
