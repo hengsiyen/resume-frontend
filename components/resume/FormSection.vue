@@ -121,7 +121,6 @@ export default {
       } else if (this.title === 'internships') {
         return this.sectionsTitle.internships
       } else if (this.title === 'custom') {
-        console.log(this.title)
         return {
           title: this.customTitle ? this.customTitle : 'Untitled',
           sub_title: null
@@ -135,7 +134,11 @@ export default {
     }
   },
   mounted () {
-    this.section_title = this.title
+    if (this.title === 'custom') {
+      this.section_title = this.customTitle
+    } else {
+      this.section_title = this.title
+    }
   },
   methods: {
     onDelete () {

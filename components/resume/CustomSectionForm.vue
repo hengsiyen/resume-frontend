@@ -6,7 +6,13 @@
           <label for="title" class="resume-label-control">
             <span class="ellipsis">Activity name, job title, book title ect.</span>
           </label>
-          <input id="title" v-model="item.title" type="text" class="resume-form-control">
+          <input
+            id="title"
+            v-model="item.title"
+            type="text"
+            class="resume-form-control"
+            @input="refreshResume"
+          >
           <div class="line" />
         </div>
       </div>
@@ -46,8 +52,8 @@
                   input-class="resume_date_picker"
                   calendar-class="resume_calendar"
                   :minimum-view="'month'"
-                  :maximum-view="'month'"
-                  @input="refreshResume"
+                  :maximum-view="'year'"
+                  :initial-view="'year'"
                   @closed="selectedStartDate"
                 />
                 <div class="line" />
@@ -60,8 +66,8 @@
                   input-class="resume_date_picker"
                   calendar-class="resume_calendar"
                   :minimum-view="'month'"
-                  :maximum-view="'month'"
-                  @input="refreshResume"
+                  :maximum-view="'year'"
+                  :initial-view="'year'"
                   @closed="selectedEndDate"
                 />
                 <div class="line" />
@@ -83,6 +89,7 @@
               :options="editorOption"
               @blur="onEditorBlur($event)"
               @focus="onEditorFocus($event)"
+              @change="refreshResume"
             />
             <div class="ql-editor-line" />
           </div>
@@ -179,10 +186,12 @@ export default {
 
     selectedStartDate () {
       this.item.date_from = this.convertDateFormat(this.date_from, 'YYYY-MM-DD')
+      this.refreshResume()
     },
 
     selectedEndDate () {
       this.item.date_until = this.convertDateFormat(this.date_until, 'YYYY-MM-DD')
+      this.refreshResume()
     }
   }
 }

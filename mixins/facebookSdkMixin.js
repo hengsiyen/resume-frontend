@@ -39,9 +39,9 @@ export const facebookSdkMixin = {
           localStorage.setItem('user', JSON.stringify(result.user))
 
           // set cross-domain
-          // self.$setLocalStorage(process.env.VUE_APP_TOKEN, result.access_token)
-          // self.$setLocalStorage(process.env.VUE_APP_REFRESH_TOKEN, result.refresh_token)
-          // self.$setLocalStorage('user', JSON.stringify(result.user))
+          // this.$setLocalStorage(process.env.VUE_APP_TOKEN, result.access_token)
+          // this.$setLocalStorage(process.env.VUE_APP_REFRESH_TOKEN, result.refresh_token)
+          // this.$setLocalStorage('user', JSON.stringify(result.user))
 
           // set authorization on axios
           this.$axios.setToken(result.access_token, 'Bearer')

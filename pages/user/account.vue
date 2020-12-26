@@ -120,7 +120,7 @@
               </div>
               <div class="text-primary d-flex align-items-center justify-content-center">
                 <template v-if="user.provider_id">
-                  <a href="javascript:void(0)">Disconnect</a>
+                  <a href="javascript:void(0)">Connected</a>
                 </template>
                 <template v-else>
                   <a href="javascript:void(0)">Connect</a>

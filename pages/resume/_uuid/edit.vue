@@ -57,7 +57,7 @@
                         @focus="onEditorFocus($event)"
                         @change="updateDataResume"
                       />
-                      <div class="ql-editor-line"/>
+                      <div class="ql-editor-line" />
                     </div>
                   </div>
                 </div>
@@ -96,7 +96,7 @@
                                   :item="item"
                                   :active-tab="false"
                                   :has-sub-title="true"
-                                  @onDelete="removeSectionItem(user_resume.educations, item)"
+                                  @onDelete="removeSectionItem(user_resume.educations, item, element)"
                                 >
                                   <EducationForm
                                     :item="item"
@@ -135,7 +135,7 @@
                                   :item="item"
                                   :active-tab="false"
                                   :has-sub-title="true"
-                                  @onDelete="removeSectionItem(user_resume.work_experiences, item)"
+                                  @onDelete="removeSectionItem(user_resume.work_experiences, item, element)"
                                 >
                                   <EmploymentForm
                                     :item="item"
@@ -174,7 +174,7 @@
                                   :item="item"
                                   :active-tab="false"
                                   :has-sub-title="true"
-                                  @onDelete="removeSectionItem(user_resume.skills, item)"
+                                  @onDelete="removeSectionItem(user_resume.skills, item, element)"
                                 >
                                   <SkillForm :item="item" @refreshResume="refreshResume" />
                                 </ItemCollapse>
@@ -208,7 +208,7 @@
                                   :item="item"
                                   :active-tab="false"
                                   :has-sub-title="true"
-                                  @onDelete="removeSectionItem(user_resume.social_profiles, item)"
+                                  @onDelete="removeSectionItem(user_resume.social_profiles, item, element)"
                                 >
                                   <SocialProfileForm :item="item" @refreshResume="refreshResume" />
                                 </ItemCollapse>
@@ -244,7 +244,7 @@
                                   :item="item"
                                   :active-tab="false"
                                   :has-sub-title="true"
-                                  @onDelete="removeSectionItem(user_resume.courses, item)"
+                                  @onDelete="removeSectionItem(user_resume.courses, item, element)"
                                 >
                                   <CourseForm :item="item" @refreshResume="refreshResume" />
                                 </ItemCollapse>
@@ -280,7 +280,7 @@
                                   :item="item"
                                   :active-tab="false"
                                   :has-sub-title="true"
-                                  @onDelete="removeSectionItem(user_resume.internships, item)"
+                                  @onDelete="removeSectionItem(user_resume.internships, item, element)"
                                 >
                                   <InternshipForm
                                     :item="item"
@@ -321,7 +321,7 @@
                                   :item="item"
                                   :has-sub-title="true"
                                   :active-tab="false"
-                                  @onDelete="removeSectionItem(user_resume.lang, item)"
+                                  @onDelete="removeSectionItem(user_resume.langs, item, element)"
                                 >
                                   <LanguageForm :item="item" @refreshResume="refreshResume" />
                                 </ItemCollapse>
@@ -357,9 +357,13 @@
                                   :item="item"
                                   :has-sub-title="true"
                                   :active-tab="false"
-                                  @onDelete="removeSectionItem(user_resume.activities, item)"
+                                  @onDelete="removeSectionItem(user_resume.activities, item, element)"
                                 >
-                                  <ActivityForm :item="item" :data-provinces="provinces" @refreshResume="refreshResume" />
+                                  <ActivityForm
+                                    :item="item"
+                                    :data-provinces="provinces"
+                                    @refreshResume="refreshResume"
+                                  />
                                 </ItemCollapse>
                               </template>
                             </transition-group>
@@ -403,7 +407,7 @@
                                   :item="item"
                                   :active-tab="false"
                                   :has-sub-title="true"
-                                  @onDelete="removeSectionItem(user_resume.references, item)"
+                                  @onDelete="removeSectionItem(user_resume.references, item, element)"
                                 >
                                   <ReferenceForm :item="item" @refreshResume="refreshResume" />
                                 </ItemCollapse>
@@ -450,7 +454,7 @@
                                       :item="item"
                                       :active-tab="false"
                                       :has-sub-title="true"
-                                      @onDelete="removeSectionItem(customSection.items, item)"
+                                      @onDelete="removeSectionItem(customSection.items, item, element)"
                                     >
                                       <CustomSectionForm
                                         :item="item"
@@ -777,7 +781,7 @@ export default {
         }
       }
     },
-    removeSectionItem (model, item) {
+    removeSectionItem (model, item, section) {
       if (Array.isArray(model)) {
         if (model.includes(item)) {
           const self = this
@@ -791,16 +795,26 @@ export default {
             cancelButtonColor: '#909090'
           }).then((result) => {
             if (result.value) {
-              const index = model.indexOf(item)
-              if (index > -1) {
-                model.splice(index, 1)
-              }
+              this.$axios
+                .post(this.$base_api + '/api/frontend/resume/delete-section-item', {
+                  resume_uuid: this.user_resume.uuid,
+                  uuid: item.uuid,
+                  section
+                })
+                .then((res) => {
+                  this.user_resume = res.data.data
+                })
+              // const index = model.indexOf(item)
+              // if (index > -1) {
+              //   model.splice(index, 1)
+              // }
             }
           })
         }
       }
     },
     removeSection (item) {
+      console.log(item)
       if (this.user_resume.sections_order.includes(item)) {
         const self = this
         self.$swal({
@@ -813,10 +827,18 @@ export default {
           cancelButtonColor: '#909090'
         }).then((result) => {
           if (result.value) {
-            const index = this.user_resume.sections_order.indexOf(item)
-            if (index > -1) {
-              this.user_resume.sections_order.splice(index, 1)
-            }
+            this.$axios
+              .post(this.$base_api + '/api/frontend/resume/delete-section', {
+                uuid: this.user_resume.uuid,
+                section: item
+              })
+              .then((res) => {
+                this.user_resume = res.data.data
+              })
+            // const index = this.user_resume.sections_order.indexOf(item)
+            // if (index > -1) {
+            //   this.user_resume.sections_order.splice(index, 1)
+            // }
           }
         })
       }
@@ -863,6 +885,7 @@ export default {
     },
 
     storeResume: debounce(function () {
+      this.resume_pdf_src = null
       this.old_pdf_class = 'showpdf'
       this.pdf_class = 'hiddenpdf'
       this.$axios
@@ -873,9 +896,8 @@ export default {
           this.onResponseError(error)
         }).finally(() => {
           this.logContent()
-          this.old_pdf = this.resume_pdf_src
         })
-    }, 1500),
+    }, 2000),
 
     refreshResume () {
       this.in_progress = 1
@@ -909,6 +931,7 @@ export default {
   transition: none 0.2s ease 0s;
   z-index: 1;
 }
+
 .hiddenpdf {
   transform: scale(1);
   transform-origin: left top;

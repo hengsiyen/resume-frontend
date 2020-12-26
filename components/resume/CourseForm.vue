@@ -42,8 +42,8 @@
                   input-class="resume_date_picker"
                   calendar-class="resume_calendar"
                   :minimum-view="'month'"
-                  :maximum-view="'month'"
-                  @input="refreshResume"
+                  :maximum-view="'year'"
+                  :initial-view="'year'"
                   @closed="selectedStartDate"
                 />
                 <div class="line" />
@@ -56,8 +56,8 @@
                   input-class="resume_date_picker"
                   calendar-class="resume_calendar"
                   :minimum-view="'month'"
-                  :maximum-view="'month'"
-                  @input="refreshResume"
+                  :maximum-view="'year'"
+                  :initial-view="'year'"
                   @closed="selectedEndDate"
                 />
                 <div class="line" />
@@ -98,9 +98,11 @@ export default {
   methods: {
     selectedStartDate () {
       this.item.date_from = this.convertDateFormat(this.date_from, 'YYYY-MM-DD')
+      this.refreshResume()
     },
     selectedEndDate () {
       this.item.date_until = this.convertDateFormat(this.date_until, 'YYYY-MM-DD')
+      this.refreshResume()
     },
     refreshResume () {
       this.$emit('refreshResume')

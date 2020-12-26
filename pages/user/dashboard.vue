@@ -32,7 +32,7 @@
                     <template v-else>
                       <div
                         class="resume-thumbnail"
-                        style="background-image: url('https://s3.resume.io/uploads/local_template_image/image/389/13c8b24d2950-0.jpg')"
+                        style="background-image: url('http://127.0.0.1:8000/storage/templates/premium.png')"
                       />
                     </template>
                   </NuxtLink>
