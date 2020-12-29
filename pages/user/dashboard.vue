@@ -26,8 +26,8 @@
               <div :key="key" class="each-resume">
                 <div style="margin-right: 30px">
                   <NuxtLink :to="{name: 'resume-uuid-edit', params: {uuid: item.uuid}}">
-                    <template v-if="item.img">
-                      <div class="resume-thumbnail" :style="`background-image: url('${item.img}')`" />
+                    <template v-if="item.thumbnail">
+                      <div class="resume-thumbnail" :style="`background-image: url('${$base_api}/${item.thumbnail}')`" />
                     </template>
                     <template v-else>
                       <div
@@ -79,7 +79,7 @@
                     type="button"
                     data-toggle="modal"
                     data-target="#shareLinkDashboard"
-                    @click="shareLink(item.link_code)"
+                    @click="shareLink(item)"
                   >
                     <div class="resume-action">
                       <div class="icon">
@@ -88,14 +88,39 @@
                       Share Link
                     </div>
                   </a>
-                  <a href="javascript:void(0)" @click="deleteResume(item)">
+                  <a
+                    href="javascript:void(0)"
+                    id="dropdownMenuButton"
+                    data-toggle="dropdown"
+                    aria-haspopup="true"
+                    aria-expanded="false"
+                  >
                     <div class="resume-action">
                       <div class="icon">
-                        <i class="fas fa-trash-alt" />
+                        <i class="fas fa-ellipsis-h" />
                       </div>
-                      Delete
+                      More
                     </div>
                   </a>
+                  <div
+                    class="dropdown-menu custom-position-5"
+                    aria-labelledby="dropdownMenuButton"
+                  >
+                    <button
+                      class="dropdown-item"
+                      type="button"
+                      @click="regenerateLink(item)"
+                    >
+                      <i class="fas fa-sync-alt"></i> Regenerate Link
+                    </button>
+                    <button
+                      class="dropdown-item"
+                      type="button"
+                      @click="deleteResume(item)"
+                    >
+                      <i class="fas fa-trash-alt" /> Delete
+                    </button>
+                  </div>
                 </div>
               </div>
             </template>
@@ -110,7 +135,7 @@
         aria-hidden="true"
       >
         <div class="modal-dialog modal-dialog-centered modal-lg">
-          <ModalContent :link="item_link_code" />
+          <ModalContent :link="item_link_code" :resume="active_item"/>
         </div>
       </div>
     </div>
@@ -186,6 +211,34 @@ export default {
           if (result.value) {
             this.$axios
               .post(this.$base_api + '/api/frontend/resume/delete', {
+                uuid: item.uuid
+              })
+              .then((res) => {
+                this.listResume()
+              })
+              .catch((error) => {
+                this.onResponseError(error)
+              })
+          }
+        })
+      }
+    },
+    regenerateLink (item) {
+      if (this.resume_lists.includes(item)) {
+        const self = this
+        self.$swal({
+          title: 'Regenerate Resume Link',
+          text: 'Are you sure you want to regenerate link for this resume? ' +
+            'The previous link that you shared no longer can be open with this resume.',
+          showCancelButton: true,
+          confirmButtonText: 'Regenerate',
+          cancelButtonText: 'Cancel',
+          confirmButtonColor: '#FF4C4C',
+          cancelButtonColor: '#909090'
+        }).then((result) => {
+          if (result.value) {
+            this.$axios
+              .post(this.$base_api + '/api/frontend/resume/regenerate-link', {
                 uuid: item.uuid
               })
               .then((res) => {

@@ -22,9 +22,11 @@ h1, h2, h3, h4, h5, h6 {
   font-family: var(--font-family-sans-serif);
 }
 
+.swal2-styled:focus,
 button:active,
 button:focus {
   outline: unset;
+  box-shadow: none;
 }
 
 .no-border {
@@ -45,8 +47,12 @@ button:focus {
   content: unset !important;
 }
 
-.dropdown-menu.custom-position {
+.dropdown-menu.custom-position-5[x-placement^=bottom] {
   top: -5px !important;
+}
+
+.dropdown-menu.custom-position-25[x-placement^=bottom] {
+  top: -25px !important;
 }
 
 .dropdown-menu .dropdown-item {

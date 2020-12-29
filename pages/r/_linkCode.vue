@@ -15,12 +15,32 @@
             v-for="(i, k) in pageCount"
             :key="k"
             ref="viewPdfPublic"
-            class="w-100 mx-auto pdf"
+            class="w-100 mx-auto "
             :src="src"
             :page="i"
           />
         </template>
+        <template v-else>
+          <div class="pdf mb-0 mx-auto" style="height: 840px; width: 640px">
+            <template v-if="show_sms_error">
+              <div class="d-flex align-items-center justify-content-center w-100 h-100">
+                <div class="d-block text-center">
+                  <p style="font-size: 5rem" class="mb-0">😞</p>
+                  <h4>Sorry, You can't open this resume</h4>
+                </div>
+              </div>
+            </template>
+          </div>
+        </template>
       </div>
+    </div>
+    <div class="button-download" v-if="pageCount > 0">
+      <button
+        class="btn-download d-block align-items-center justify-content-center m-0 p-0 text-white position-relative"
+        @click="downloadPublicResume"
+      >
+        <i class="fas fa-download w-100 h-100 d-flex align-items-center justify-content-center" style="font-size: 24px"></i>
+      </button>
     </div>
 
     <!--    <div>-->
@@ -76,11 +96,31 @@ export default {
   name: 'LinkCode',
   components: { SmallFooter },
   layout: 'secondary',
+  asyncData (ctx) {
+    return ctx.$axios.post(ctx.env.VUE_APP_API + '/api/frontend/resume/show', {
+      uuid: ctx.params.uuid
+    }).then((res) => {
+      const result = res.data.data
+      return {
+        resume: result,
+        show_image: result ? ctx.env.VUE_APP_API + '/' + result.thumbnail : '/thumbnail.jpg',
+        url: ctx.env.VUE_APP_BASE_URL + ctx.route.fullPath
+      }
+    })
+  },
+  head () {
+    return {
+      title: this.meta.title,
+      titleTemplate: '%s | ' + process.env.VUE_APP_NAME,
+      meta: this.renderMeta(this.meta)
+    }
+  },
   data () {
     return {
       src: null,
       pageCount: 0,
-      app_name: process.env.VUE_APP_NAME
+      app_name: process.env.VUE_APP_NAME,
+      show_sms_error: false
       // show: true,
       // pdfList: [
       //   'https://api-talentplus-job.asoradev.com/resume/preview-resume/44cefb9c-f7a9-479d-aa0f-347e04db84ef',
@@ -100,6 +140,24 @@ export default {
       // progress: 0
     }
   },
+  computed: {
+    meta () {
+      const data = {
+        title: 'Resume',
+        description: 'TalentPlus Resume',
+        thumbnail: '/thumbnail.jpg',
+        url: process.env.VUE_APP_BASE_URL + this.$route.fullPath
+      }
+
+      if (this.resume) {
+        data.title = this.resume.name
+        data.description = this.resume.profile
+        data.url = process.env.VUE_APP_BASE_URL + this.$route.fullPath
+        data.thumbnail = this.show_image
+      }
+      return data
+    }
+  },
   mounted () {
     this.logContent()
   },
@@ -110,8 +168,9 @@ export default {
         this.src.promise.then((pdf) => {
           this.pageCount = pdf.numPages
         }).catch((err) => {
-          if (err) {
-            this.$router.push({ name: 'all', params: 0 })
+          if (err.name === 'MissingPDFException') {
+            this.src = null
+            this.show_sms_error = true
           }
         })
       }
@@ -124,6 +183,9 @@ export default {
         this.$store.dispatch('user/loggedOut')
         this.$router.push({ name: 'index' })
       }
+    },
+    downloadPublicResume () {
+      window.open(this.$base_api + `/resume/download-resume-public/${this.$route.params.linkCode}`, '_blank')
     }
     // test () {
     //   this.progress = 0
@@ -152,7 +214,7 @@ export default {
 .template-preview {
   position: relative;
   width: 100%;
-  min-height: 80vh;
+  min-height: 90vh;
   height: 100%;
   padding: 20px 0;
 }
@@ -182,5 +244,35 @@ export default {
   color: #222222;
   letter-spacing: 0.8px;
   font-family: var(--font-family-sans-serif);
+}
+
+.button-download {
+  border-radius: 60px;
+  position: fixed;
+  transform: scale(1);
+  z-index: 1049;
+  bottom: 45px;
+  right: 45px;
+}
+
+.btn-download {
+  appearance: none;
+  border-radius: 200px;
+  bottom: 0;
+  line-height: 60px;
+  outline: none;
+  user-select: none;
+  z-index: 999;
+  background-color: rgb(35, 146, 236);
+  border: none;
+  cursor: pointer;
+  min-width: 60px;
+  transition: background-color 200ms linear 0s, transform 200ms linear 0s;
+}
+
+.button-download,
+.btn-download {
+  height: 60px;
+  width: 60px;
 }
 </style>

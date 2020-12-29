@@ -26,16 +26,18 @@
       </div>
     </div>
     <div class="modal-footer no-border justify-content-between custom-padding">
-      <template v-for="(item, k) in shareSocial">
-        <div :key="k" class="share-social" :class="item.label">
-          <a
-            target="_blank"
-            :href="item.url"
-            :class="item.label"
-          >
-            <i :class="item.icon" />
-          </a>
-        </div>
+      <template v-if="resume">
+        {{ `${base_api}/r/${resume.link_code}` }}
+        <ShareNetwork
+          network="facebook"
+          class="share-social"
+          :url="`${base_api}/r/${resume.link_code}`"
+          :title="resume.name ? resume.name : 'Untitled'"
+          description="This week, I’d like to introduce you to 'Vite', which means 'Fast'. It’s a brand new development setup created by Evan You."
+          hashtags="TalentPlus_Resume"
+        >
+          <i class="fab fa-facebook-f" />
+        </ShareNetwork>
       </template>
       <div>
         <a
@@ -67,6 +69,17 @@ export default {
     link: {
       type: String,
       default: ''
+    },
+    resume: {
+      type: Object,
+      default: () => {
+        return null
+      }
+    }
+  },
+  data () {
+    return {
+      base_api: process.env.VUE_APP_BASE_URL
     }
   },
   methods: {

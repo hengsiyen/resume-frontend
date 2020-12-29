@@ -585,7 +585,7 @@
               <i class="fas fa-ellipsis-h" />
             </button>
             <div
-              class="dropdown-menu custom-position dropdown-menu-right"
+              class="dropdown-menu custom-position-5 dropdown-menu-right"
               aria-labelledby="dropdownMenuButton"
             >
               <button
@@ -610,7 +610,7 @@
       aria-hidden="true"
     >
       <div class="modal-dialog modal-dialog-centered modal-lg">
-        <ModalContent :link="user_resume.link_code" />
+        <ModalContent :link="user_resume.link_code" :resume="user_resume"/>
       </div>
     </div>
   </div>

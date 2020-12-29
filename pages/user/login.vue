@@ -68,7 +68,10 @@
             </div>
           </div>
           <div>
-            I am not registered — <NuxtLink :to="{name: 'resume-create'}">Sign Up</NuxtLink>
+            I am not registered —
+            <NuxtLink :to="{name: 'resume-create'}">
+              Sign Up
+            </NuxtLink>
           </div>
         </template>
       </div>

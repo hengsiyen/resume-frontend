@@ -4,6 +4,7 @@ export const helpers = {
       is_copy: false,
       resume_url: process.env.VUE_APP_BASE_URL + '/r/',
       item_link_code: null,
+      active_item: null,
       shareSocial: [
         {
           icon: 'fab fa-facebook-f',
@@ -15,12 +16,12 @@ export const helpers = {
   },
   methods: {
     downloadResume (item_uuid) {
-      console.log(item_uuid)
       window.open(this.$base_api + `/resume/download-resume/${item_uuid}`, '_blank')
     },
     shareLink (item) {
       this.item_link_code = null
-      this.item_link_code = item
+      this.active_item = item
+      this.item_link_code = item.link_code
     },
     notEmptyObject (someObject) {
       return Object.keys(someObject).length > 0
@@ -74,6 +75,105 @@ export const helpers = {
       // eslint-disable-next-line no-console
       console.log(error)
       // }
+    },
+    renderMeta ({ title, description, thumbnail, url }) {
+      return [
+        {
+          hid: 'description',
+          name: 'description',
+          content: description
+        },
+        {
+          hid: 'keywords',
+          name: 'keywords',
+          keywords: 'ecommerce, commerce, shopping, online shopping'
+        },
+        {
+          hid: 'al:ios:url',
+          property: 'al:ios:url',
+          content: ''
+        },
+        {
+          hid: 'al:ios:app_store_id',
+          property: 'al:ios:app_store_id',
+          content: ''
+        },
+        {
+          hid: 'al:ios:app_name',
+          property: 'al:ios:app_name',
+          content: ''
+        },
+        {
+          hid: 'al:android:url',
+          property: 'al:android:url',
+          content: ''
+        },
+        {
+          hid: 'al:android:package',
+          property: 'al:android:package',
+          content: ''
+        },
+        {
+          hid: 'al:android:app_name',
+          property: 'al:android:app_name',
+          content: ''
+        },
+        {
+          hid: 'fb:pages',
+          property: 'fb:pages',
+          content: ''
+        },
+        {
+          hid: 'twitter:card',
+          property: 'twitter:card',
+          content: 'summary_large_image'
+        },
+        {
+          hid: 'twitter:image',
+          property: 'twitter:image',
+          content: thumbnail
+        },
+        {
+          hid: 'og:title',
+          property: 'og:title',
+          content: title
+        },
+        {
+          hid: 'og:type',
+          property: 'og:type',
+          content: 'website'
+        },
+        {
+          hid: 'og:url',
+          property: 'og:url',
+          content: url
+        },
+        {
+          hid: 'og:site_name',
+          property: 'og:site_name',
+          content: 'Ecommerce'
+        },
+        {
+          hid: 'og:description',
+          property: 'og:description',
+          content: description
+        },
+        {
+          hid: 'og:image',
+          property: 'og:image',
+          content: thumbnail
+        },
+        {
+          hid: 'og:image:with',
+          property: 'og:image:with',
+          content: 960
+        },
+        {
+          hid: 'og:image:height',
+          property: 'og:image:height',
+          content: 639
+        }
+      ]
     },
     makeExternalId (length) {
       let result = ''

@@ -70,7 +70,8 @@ export default {
     '@nuxtjs/dotenv',
     '@nuxt/content',
     '@nuxtjs/moment',
-    'vue-sweetalert2/nuxt'
+    'vue-sweetalert2/nuxt',
+    'vue-social-sharing/nuxt'
   ],
 
   moment: {

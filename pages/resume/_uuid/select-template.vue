@@ -113,7 +113,7 @@
       aria-hidden="true"
     >
       <div class="modal-dialog modal-dialog-centered modal-lg">
-        <ModalContent :link="fetchDataResume ? fetchDataResume.link_code : ''" />
+        <ModalContent :link="fetchDataResume.link_code" :resume="fetchDataResume" />
       </div>
     </div>
   </div>
