@@ -73,6 +73,10 @@ export default {
     'vue-sweetalert2/nuxt',
     'vue-social-sharing/nuxt'
   ],
+  
+  server: {
+    port: 3002
+  },
 
   moment: {
     defaultLocale: 'km',
