@@ -98,7 +98,7 @@ export default {
   layout: 'secondary',
   asyncData (ctx) {
     return ctx.$axios.post(ctx.env.VUE_APP_API + '/api/frontend/resume/show', {
-      uuid: ctx.params.uuid
+      link_code: ctx.params.linkCode
     }).then((res) => {
       const result = res.data.data
       return {

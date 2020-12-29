@@ -27,7 +27,6 @@
     </div>
     <div class="modal-footer no-border justify-content-between custom-padding">
       <template v-if="resume">
-        {{ `${base_api}/r/${resume.link_code}` }}
         <ShareNetwork
           network="facebook"
           class="share-social"
