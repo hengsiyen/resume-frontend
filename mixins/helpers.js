@@ -77,6 +77,7 @@ export const helpers = {
       // }
     },
     renderMeta ({ title, description, thumbnail, url }) {
+      console.log(thumbnail)
       return [
         {
           hid: 'description',

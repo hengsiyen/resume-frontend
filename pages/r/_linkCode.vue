@@ -101,9 +101,11 @@ export default {
       link_code: ctx.params.linkCode
     }).then((res) => {
       const result = res.data.data
+      const image = result ? ctx.env.VUE_APP_API + '/' + result.thumbnail : '/thumbnail.jpg'
+      console.log(image)
       return {
         resume: result,
-        show_image: result ? ctx.env.VUE_APP_API + '/' + result.thumbnail : '/thumbnail.jpg',
+        show_image: image,
         url: ctx.env.VUE_APP_BASE_URL + ctx.route.fullPath
       }
     })
@@ -144,14 +146,13 @@ export default {
     meta () {
       const data = {
         title: 'Resume',
-        description: 'TalentPlus Resume',
+        description: 'Powered by TalentPlus Resume',
         thumbnail: '/thumbnail.jpg',
         url: process.env.VUE_APP_BASE_URL + this.$route.fullPath
       }
 
       if (this.resume) {
-        data.title = this.resume.name
-        data.description = this.resume.profile
+        data.title = this.resume.first_name + ' ' + this.resume.last_name
         data.url = process.env.VUE_APP_BASE_URL + this.$route.fullPath
         data.thumbnail = this.show_image
       }
