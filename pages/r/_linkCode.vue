@@ -25,7 +25,9 @@
             <template v-if="show_sms_error">
               <div class="d-flex align-items-center justify-content-center w-100 h-100">
                 <div class="d-block text-center">
-                  <p style="font-size: 5rem" class="mb-0">😞</p>
+                  <p style="font-size: 5rem" class="mb-0">
+                    😞
+                  </p>
                   <h4>Sorry, You can't open this resume</h4>
                 </div>
               </div>

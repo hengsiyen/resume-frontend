@@ -49,7 +49,8 @@ export default {
     { src: '~/plugins/vue-autocomplete.js', mode: 'client', ssr: false },
     { src: '~/plugins/main.js', mode: 'client', ssr: false },
     { src: '~/plugins/quill-editor', mode: 'client', ssr: false },
-    { src: '~/plugins/vue-pdf.js', mode: 'client', ssr: false }
+    { src: '~/plugins/vue-pdf.js', mode: 'client', ssr: false },
+    { src: '~plugins/vue-js-toggle-button', mode: 'client', ssr: false }
   ],
 
   // Auto import components (https://go.nuxtjs.dev/config-components)
@@ -73,7 +74,7 @@ export default {
     'vue-sweetalert2/nuxt',
     'vue-social-sharing/nuxt'
   ],
-  
+
   server: {
     port: 3002
   },

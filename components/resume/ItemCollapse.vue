@@ -115,7 +115,7 @@ export default {
     subTabLabel () {
       if (this.item) {
         if (this.item.date_from || this.item.date_until) {
-          return this.concatDates(this.item.date_from, this.item.date_until)
+          return this.concatDates(this.item.date_from, this.item.date_until, this.item.date_from_format, this.item.date_until_format)
         } else if (this.item.level) {
           return this.item.level
         } else if (this.item.company) {

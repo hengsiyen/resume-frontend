@@ -135,7 +135,7 @@
         aria-hidden="true"
       >
         <div class="modal-dialog modal-dialog-centered modal-lg">
-          <ModalContent :link="item_link_code" :resume="active_item"/>
+          <ModalContent :link="item_link_code" :resume="active_item" />
         </div>
       </div>
     </div>

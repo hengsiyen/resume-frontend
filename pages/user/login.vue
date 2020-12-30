@@ -12,28 +12,50 @@
         </div>
         <template v-if="log_with_email">
           <div class="row">
+            <div class="col-12" v-if="message_error">
+              <div class="alert alert-danger alert-dismissible fade show" role="alert">
+                {{ message_error.message_en }}
+                <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                  <span aria-hidden="true">&times;</span>
+                </button>
+              </div>
+            </div>
             <div class="col-12 col-sm-12">
               <div class="form-group">
-                <label for="email" class="resume-label-control">Email</label>
+                <label
+                  for="email"
+                  class="resume-label-control"
+                  :class="{'text-danger': checkKeyObj(validate, 'email')}"
+                >Email</label>
                 <input
                   id="email"
                   v-model="email"
                   type="text"
                   class="resume-form-control"
                 >
-                <div class="line" />
+                <div class="line" :class="{'line-red': checkKeyObj(validate, 'email')}" />
+                <template v-if="checkKeyObj(validate, 'email')">
+                  <small class="text-muted">{{ validate.email[0] }}</small>
+                </template>
               </div>
             </div>
             <div class="col-12 col-sm-12">
               <div class="form-group">
-                <label for="password" class="resume-label-control">Password</label>
+                <label
+                  for="password"
+                  class="resume-label-control"
+                  :class="{'text-danger': checkKeyObj(validate, 'password')}"
+                >Password</label>
                 <input
                   id="password"
                   v-model="password"
                   type="password"
                   class="resume-form-control"
                 >
-                <div class="line" />
+                <div class="line" :class="{'line-red': checkKeyObj(validate, 'password')}" />
+                <template v-if="checkKeyObj(validate, 'password')">
+                  <small class="text-muted">{{ validate.password[0] }}</small>
+                </template>
               </div>
             </div>
           </div>
@@ -92,7 +114,8 @@ export default {
       email: null,
       password: null,
       sub_title: 'We are happy to see you back!',
-      validate: null
+      validate: null,
+      message_error: null
     }
   },
   created () {
@@ -107,7 +130,8 @@ export default {
     clearData () {
       this.email = null
       this.password = null
-      this.validate = {}
+      this.validate = null
+      this.message_error = null
     },
     enterEmail () {
       this.sub_title = 'Enter your email'
@@ -119,6 +143,8 @@ export default {
       this.log_with_email = false
     },
     login () {
+      this.validate = null
+      this.message_error = null
       this.$axios
         .post(this.$base_api + '/api/auth/frontend/login', {
           email: this.email,
@@ -143,8 +169,11 @@ export default {
           })
         })
         .catch((error) => {
-          if (error) {
-            console.log(error)
+          const e = error.response
+          if (e.status === 422) {
+            this.validate = e.data.errors
+          } else {
+            this.message_error = e.data.message
           }
         })
     }

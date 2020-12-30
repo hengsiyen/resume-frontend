@@ -167,12 +167,12 @@ export const helpers = {
         {
           hid: 'og:image:with',
           property: 'og:image:with',
-          content: 960
+          content: 1200
         },
         {
           hid: 'og:image:height',
           property: 'og:image:height',
-          content: 639
+          content: 630
         }
       ]
     },
@@ -191,9 +191,13 @@ export const helpers = {
       }
       return null
     },
-    concatDates (startDate, endDate) {
-      const d1 = this.convertDateFormat(startDate)
-      const d2 = this.convertDateFormat(endDate)
+    concatDates (startDate, endDate, sdf, edf) {
+      let d1 = null
+      let d2 = null
+      sdf = this.displayDateFormat(sdf)
+      edf = this.displayDateFormat(edf)
+      d1 = this.convertDateFormat(startDate, sdf)
+      d2 = this.convertDateFormat(endDate, edf)
       if (d1 && d2) {
         return d1 + ' - ' + d2
       } else if (d1 && !d2) {
@@ -202,6 +206,37 @@ export const helpers = {
         return d2
       }
       return null
+    },
+    displayDateFormat (format) {
+      if (format) {
+        if (format === 'Y-m-d') {
+          return 'DD MMM yyyy'
+        } else if (format === 'Y-m') {
+          return 'MMM yyyy'
+        } else if (format === 'Y') {
+          return 'yyyy'
+        }
+      }
+      return 'yyyy'
+    },
+    explodeDate (date, origin_format) {
+      const result = {
+        year: null,
+        month: null,
+        day: null
+      }
+      if (date && origin_format) {
+        if (origin_format.includes('Y')) {
+          result.year = this.convertDateFormat(date, 'YYYY')
+        }
+        if (origin_format.includes('m')) {
+          result.month = this.convertDateFormat(date, 'MM')
+        }
+        if (origin_format.includes('d')) {
+          result.day = this.convertDateFormat(date, 'DD')
+        }
+      }
+      return result
     },
     addSectionItem (model, type) {
       let newItem = null
@@ -213,7 +248,10 @@ export const helpers = {
             date_from: null,
             date_until: null,
             province: null,
-            description: null
+            description: null,
+            is_date_until_present: false,
+            date_from_format: null,
+            date_until_format: null
           }
           break
         case 'activities':
@@ -223,7 +261,10 @@ export const helpers = {
             date_from: null,
             date_until: null,
             province: null,
-            description: null
+            description: null,
+            is_date_until_present: false,
+            date_from_format: null,
+            date_until_format: null
           }
           break
         case 'workExperiences':
@@ -234,7 +275,10 @@ export const helpers = {
             date_from: null,
             date_until: null,
             province: null,
-            description: null
+            description: null,
+            is_date_until_present: false,
+            date_from_format: null,
+            date_until_format: null
           }
           break
         case 'socialProfiles':
@@ -254,7 +298,10 @@ export const helpers = {
             course: null,
             institution: null,
             date_from: null,
-            date_until: null
+            date_until: null,
+            is_date_until_present: false,
+            date_from_format: null,
+            date_until_format: null
           }
           break
         case 'langs':
@@ -277,7 +324,8 @@ export const helpers = {
             date_from: null,
             date_until: null,
             province: null,
-            description: null
+            description: null,
+            is_date_until_present: false
           }
           break
       }

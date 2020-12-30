@@ -610,7 +610,7 @@
       aria-hidden="true"
     >
       <div class="modal-dialog modal-dialog-centered modal-lg">
-        <ModalContent :link="user_resume.link_code" :resume="user_resume"/>
+        <ModalContent :link="user_resume.link_code" :resume="user_resume" />
       </div>
     </div>
   </div>
@@ -795,20 +795,23 @@ export default {
             cancelButtonColor: '#909090'
           }).then((result) => {
             if (result.value) {
-              this.$axios
-                .post(this.$base_api + '/api/frontend/resume/delete-section-item', {
-                  resume_uuid: this.user_resume.uuid,
-                  uuid: item.uuid,
-                  section
-                })
-                .then((res) => {
-                  this.user_resume = res.data.data
-                  this.logContent()
-                })
-              // const index = model.indexOf(item)
-              // if (index > -1) {
-              //   model.splice(index, 1)
-              // }
+              if (!item.uuid) {
+                const index = model.indexOf(item)
+                if (index > -1) {
+                  model.splice(index, 1)
+                }
+              } else {
+                this.$axios
+                  .post(this.$base_api + '/api/frontend/resume/delete-section-item', {
+                    resume_uuid: this.user_resume.uuid,
+                    uuid: item.uuid,
+                    section
+                  })
+                  .then((res) => {
+                    this.user_resume = res.data.data
+                    this.logContent()
+                  })
+              }
             }
           })
         }
@@ -828,19 +831,22 @@ export default {
           cancelButtonColor: '#909090'
         }).then((result) => {
           if (result.value) {
-            this.$axios
-              .post(this.$base_api + '/api/frontend/resume/delete-section', {
-                uuid: this.user_resume.uuid,
-                section: item
-              })
-              .then((res) => {
-                this.user_resume = res.data.data
-                this.logContent()
-              })
-            // const index = this.user_resume.sections_order.indexOf(item)
-            // if (index > -1) {
-            //   this.user_resume.sections_order.splice(index, 1)
-            // }
+            if (this.user_resume.uuid) {
+              this.$axios
+                .post(this.$base_api + '/api/frontend/resume/delete-section', {
+                  uuid: this.user_resume.uuid,
+                  section: item
+                })
+                .then((res) => {
+                  this.user_resume = res.data.data
+                  this.logContent()
+                })
+            } else {
+              const index = this.user_resume.sections_order.indexOf(item)
+              if (index > -1) {
+                this.user_resume.sections_order.splice(index, 1)
+              }
+            }
           }
         })
       }
