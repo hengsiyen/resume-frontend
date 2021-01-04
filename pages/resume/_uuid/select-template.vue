@@ -112,7 +112,7 @@
       aria-labelledby="shareLinkTemplate"
       aria-hidden="true"
     >
-      <div class="modal-dialog modal-dialog-centered modal-lg">
+      <div class="modal-dialog modal-dialog-centered modal-lg" v-if="fetchDataResume">
         <ModalContent :link="fetchDataResume.link_code" :resume="fetchDataResume" />
       </div>
     </div>
@@ -258,6 +258,7 @@ export default {
   position: relative;
   height: 1313px;
 }
+
 .pdf {
   width: 928px;
   background: #fff;
@@ -285,6 +286,7 @@ export default {
 
 .deactive {
   color: #a9a9a9 !important;
+  cursor: alias !important;
 }
 .selected {
   position: absolute;
@@ -313,5 +315,32 @@ export default {
   border-radius: 7px;
   opacity: 1;
   transition: opacity 0.15s ease 0s;
+}
+
+@media screen and (max-width: 1354px) {
+  .template-list {
+    width: 242px;
+  }
+  .template-item {
+    width: 100%;
+  }
+  .resume__preview-container {
+    height: auto;
+  }
+  .pdf {
+    width: 85%;
+    height: auto;
+  }
+}
+
+@media screen and (max-width: 991.98px) {
+  .template-list {
+    display: none;
+  }
+  .link_page {
+    left: 50%;
+    transform: translate(-50%, 0);
+  }
+
 }
 </style>

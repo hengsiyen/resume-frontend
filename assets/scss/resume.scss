@@ -118,6 +118,7 @@
   width: 100%;
   max-width: 100%;
   flex: 1 1 0;
+  position: relative;
 
   & .form__content {
     flex: 1 1 0;
@@ -429,18 +430,15 @@
   .resume-saved i{
     margin-right: 4px;
   }
-  .resume-cancel {
-    cursor: pointer;
-    top: 16px;
-    right: 16px;
-    width: 40px;
-    height: 40px;
-    border-radius: 20px;
-    color: var(--white);
-    font-size: 19px;
-    background-color: rgba(15, 20, 31, 0.3);
-    transition: background-color 0.1s ease 0s;
-  }
+  //.resume-cancel {
+  //  position: absolute;
+  //  display: block;
+  //  cursor: pointer;
+  //  border-radius: 20px;
+  //  color: var(--white);
+  //  font-size: 19px;
+  //  transition: background-color 0.1s ease 0s;
+  //}
 
   .resume__preview-footer {
     width: 85%;
@@ -478,6 +476,10 @@
   }
 }
 
+.show-button-preview {
+  display: none;
+}
+
 @media (max-width: 1279px) {
   .resume__left-block {
     width: 100%;
@@ -487,11 +489,15 @@
   .resume__preview {
     display: none;
   }
+
+  .show-button-preview {
+    display: block;
+  }
 }
 
 @media (max-width: 767px) {
   .rf-padding {
-    padding: 20px;
+    padding: 32px;
   }
 
   .list-section-item {

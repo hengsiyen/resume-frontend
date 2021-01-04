@@ -58,6 +58,13 @@
                 </template>
               </div>
             </div>
+            <div class="col-12 col-sm-12">
+              <div class="form-group">
+                <NuxtLink :to="{ name: 'auth-forget-password' }">
+                  Forget password?
+                </NuxtLink>
+              </div>
+            </div>
           </div>
           <div class="row">
             <div class="col-12 text-right">
@@ -182,84 +189,5 @@ export default {
 </script>
 
 <style scoped lang="scss">
-@import "@/assets/scss/elements/default";
 @import "@/assets/scss/user";
-.login-container {
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  position: relative;
-  width: 100%;
-  -webkit-box-flex: 1;
-  flex-grow: 1;
-  padding: 40px 32px 220px;
-  height: 92.5vh;
-}
-
-.login-title {
-  font-size: 46px;
-  line-height: 48px;
-  color: rgb(33, 150, 243);
-  font-weight: bold;
-}
-
-.login-buttons {
-  display: flex;
-  flex-wrap: wrap;
-  -webkit-box-pack: justify;
-  justify-content: space-between;
-}
-
-.login-button {
-  width: 50%;
-  margin-bottom: 18px;
-}
-.login-button:nth-child(2n+1) {
-  padding-right: 8px;
-}
-
-.btn-email,
-.btn-facebook {
-  position: relative;
-  display: block;
-  width: 100%;
-  padding: 13px 10px 13px 30px;
-  border-radius: 4px;
-  font-size: 18px;
-  line-height: 22px;
-  font-weight: 600;
-  text-align: center;
-  cursor: pointer;
-  outline: none;
-  transition: background-color 0.2s ease 0s, border-color 0.2s ease 0s, color 0.2s ease 0s;
-}
-
-.btn-email span,
-.btn-facebook span {
-  position: absolute;
-  left: 24px;
-  top: 55%;
-  margin-top: -12px;
-}
-
-.btn-facebook {
-  border: 1px solid rgb(59, 89, 152);
-  background-color: rgb(59, 89, 152);
-  color: white;
-}
-
-.btn-email {
-  border: 1px solid rgb(221, 227, 240);
-  background-color: white;
-  color: rgb(38, 43, 51);
-
-  &:hover {
-    color: $resume-blue;
-    border-color: $resume-blue;
-  }
-}
-
-.btn-email span {
-  color: $resume-blue;
-}
 </style>

@@ -22,107 +22,129 @@
         </div>
         <div class="w-100 flex-wrap">
           <div class="position-relative">
-            <template v-for="(item, key) in resume_lists">
-              <div :key="key" class="each-resume">
-                <div style="margin-right: 30px">
-                  <NuxtLink :to="{name: 'resume-uuid-edit', params: {uuid: item.uuid}}">
-                    <template v-if="item.thumbnail">
-                      <div class="resume-thumbnail" :style="`background-image: url('${$base_api}/${item.thumbnail}')`" />
-                    </template>
-                    <template v-else>
-                      <div
-                        class="resume-thumbnail"
-                        style="background-image: url('http://127.0.0.1:8000/storage/templates/premium.png')"
-                      />
-                    </template>
-                  </NuxtLink>
-                </div>
-                <div class="w-100" style="max-width: 226px;">
-                  <div class="resume-title ellipsis">
-                    <div>
+           <template v-if="onLoading">
+             <div class="d-flex align-items-center justify-content-center" style="height: 50vh;">
+               <i class="fas fa-circle-notch fa-spin fa-2x mr-2"></i>
+               <p class="mb-0 fa-2x">Loading resumes...</p>
+             </div>
+           </template>
+            <template v-else>
+              <template v-if="resume_lists.length > 0">
+                <template v-for="(item, key) in resume_lists">
+                  <div :key="key" class="each-resume">
+                    <div style="margin-right: 30px">
                       <NuxtLink :to="{name: 'resume-uuid-edit', params: {uuid: item.uuid}}">
-                        {{ item.name ? item.name : 'Untitled' }}
+                        <template v-if="item.thumbnail">
+                          <div class="resume-thumbnail" :style="`background-image: url('${$base_api}/${item.thumbnail}')`" />
+                        </template>
+                        <template v-else>
+                          <div
+                            class="resume-thumbnail"
+                            style="background-image: url('http://127.0.0.1:8000/storage/templates/premium.png')"
+                          />
+                        </template>
                       </NuxtLink>
                     </div>
+                    <div class="w-100" style="max-width: 226px;">
+                      <div class="resume-title ellipsis">
+                        <div>
+                          <NuxtLink :to="{name: 'resume-uuid-edit', params: {uuid: item.uuid}}">
+                            {{ item.name ? item.name : 'Untitled' }}
+                          </NuxtLink>
+                        </div>
+                      </div>
+                      <div class="d-flex align-items-center justify-content-center mb-3">
+                        <div class="resume-updated">
+                          Updated {{ $moment(item.updated_at).locale('en').format('DD MMMM, hh:mm') }}
+                        </div>
+                      </div>
+                      <NuxtLink :to="{name: 'resume-uuid-edit', params: {uuid: item.uuid}}">
+                        <div class="resume-action">
+                          <div class="icon">
+                            <i class="fas fa-pencil-alt" />
+                          </div>
+                          Edit
+                        </div>
+                      </NuxtLink>
+                      <a href="javascript:void(0)" @click="copyResume(item.uuid)">
+                        <div class="resume-action">
+                          <div class="icon">
+                            <i class="fas fa-clone" />
+                          </div>
+                          Make a copy
+                        </div>
+                      </a>
+                      <a href="javascript:void(0)" @click="downloadResume(item.uuid)">
+                        <div class="resume-action">
+                          <div class="icon">
+                            <i class="fas fa-download" />
+                          </div>
+                          Download PDF
+                        </div>
+                      </a>
+                      <a
+                        href="javascript:void(0)"
+                        type="button"
+                        data-toggle="modal"
+                        data-target="#shareLinkDashboard"
+                        @click="shareLink(item)"
+                      >
+                        <div class="resume-action">
+                          <div class="icon">
+                            <i class="fas fa-link" />
+                          </div>
+                          Share Link
+                        </div>
+                      </a>
+                      <a
+                        href="javascript:void(0)"
+                        id="dropdownMenuButton"
+                        data-toggle="dropdown"
+                        aria-haspopup="true"
+                        aria-expanded="false"
+                      >
+                        <div class="resume-action">
+                          <div class="icon">
+                            <i class="fas fa-ellipsis-h" />
+                          </div>
+                          More
+                        </div>
+                      </a>
+                      <div
+                        class="dropdown-menu custom-position-5"
+                        aria-labelledby="dropdownMenuButton"
+                      >
+                        <button
+                          class="dropdown-item"
+                          type="button"
+                          @click="regenerateLink(item)"
+                        >
+                          <i class="fas fa-sync-alt"></i> Regenerate Link
+                        </button>
+                        <button
+                          class="dropdown-item"
+                          type="button"
+                          @click="deleteResume(item)"
+                        >
+                          <i class="fas fa-trash-alt" /> Delete
+                        </button>
+                      </div>
+                    </div>
                   </div>
-                  <div class="d-flex align-items-center justify-content-center mb-3">
-                    <div class="resume-updated">
-                      Updated {{ $moment(item.updated_at).locale('en').format('DD MMMM, hh:mm') }}
-                    </div>
-                  </div>
-                  <NuxtLink :to="{name: 'resume-uuid-edit', params: {uuid: item.uuid}}">
-                    <div class="resume-action">
-                      <div class="icon">
-                        <i class="fas fa-pencil-alt" />
-                      </div>
-                      Edit
-                    </div>
-                  </NuxtLink>
-                  <a href="javascript:void(0)" @click="copyResume(item.uuid)">
-                    <div class="resume-action">
-                      <div class="icon">
-                        <i class="fas fa-clone" />
-                      </div>
-                      Make a copy
-                    </div>
-                  </a>
-                  <a href="javascript:void(0)" @click="downloadResume(item.uuid)">
-                    <div class="resume-action">
-                      <div class="icon">
-                        <i class="fas fa-download" />
-                      </div>
-                      Download PDF
-                    </div>
-                  </a>
-                  <a
-                    href="javascript:void(0)"
-                    type="button"
-                    data-toggle="modal"
-                    data-target="#shareLinkDashboard"
-                    @click="shareLink(item)"
-                  >
-                    <div class="resume-action">
-                      <div class="icon">
-                        <i class="fas fa-link" />
-                      </div>
-                      Share Link
-                    </div>
-                  </a>
-                  <a
-                    href="javascript:void(0)"
-                    id="dropdownMenuButton"
-                    data-toggle="dropdown"
-                    aria-haspopup="true"
-                    aria-expanded="false"
-                  >
-                    <div class="resume-action">
-                      <div class="icon">
-                        <i class="fas fa-ellipsis-h" />
-                      </div>
-                      More
-                    </div>
-                  </a>
-                  <div
-                    class="dropdown-menu custom-position-5"
-                    aria-labelledby="dropdownMenuButton"
-                  >
-                    <button
-                      class="dropdown-item"
-                      type="button"
-                      @click="regenerateLink(item)"
-                    >
-                      <i class="fas fa-sync-alt"></i> Regenerate Link
-                    </button>
-                    <button
-                      class="dropdown-item"
-                      type="button"
-                      @click="deleteResume(item)"
-                    >
-                      <i class="fas fa-trash-alt" /> Delete
+                </template>
+              </template>
+              <template v-else>
+                <div class="d-flex align-items-center justify-content-center">
+                  <div class="show_no_data">
+                    <img src="/img/choose_us.png" alt="dashboard" width="100%">
+                    <p class="title"><strong>Your shining professional image</strong></p>
+                    <p class="sub-title mb-4">Custom-built, amazing resumes. Empower your job search in just a few clicks!</p>
+                    <button class="btn btn-primary">
+                      <i class="fas fa-plus" style="margin-right: 10px" /> New Resume
                     </button>
                   </div>
                 </div>
-              </div>
+              </template>
             </template>
           </div>
         </div>
@@ -169,7 +191,8 @@ export default {
         sections_order: dataOptions.sectionOrders,
         resume_type_name: dataOptions.resume_type_name,
         resume_template_name: dataOptions.resume_template_name
-      }
+      },
+      onLoading: true
     }
   },
   created () {
@@ -193,7 +216,10 @@ export default {
       this.$axios
         .post(this.$base_api + '/api/frontend/resume/list')
         .then((res) => {
-          this.resume_lists = res.data.data
+          // this.resume_lists = res.data.data
+        })
+        .finally(() => {
+          this.onLoading = false
         })
     },
     deleteResume (item) {

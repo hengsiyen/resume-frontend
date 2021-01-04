@@ -11,6 +11,9 @@
       </NuxtLink>
 
       <nav class="nav-menu d-none d-lg-block">
+        <div class="nav_user_name">
+          {{ getUserName }}
+        </div>
         <ul>
           <template v-if="checkAuth">
             <li :class="{'active' : $route.name === 'user-dashboard'}">
@@ -18,17 +21,31 @@
                 Dashboard
               </NuxtLink>
             </li>
-            <li>|</li>
-            <li>
+            <li class="d-block d-lg-none" :class="{'active' : $route.name === 'user-account'}">
+              <NuxtLink :to="{name: 'user-account'}" class="nav_bar_item">
+                Account Settings
+              </NuxtLink>
+            </li>
+            <li class="d-block d-lg-none">
+              <a
+                href="javascript:void(0)"
+                @click="logout"
+                class="nav_bar_item"
+              >
+                Log Out
+              </a>
+            </li>
+            <li class="d-none d-lg-block">|</li>
+            <li class="d-none d-lg-block">
               <button
                 id="dropdownMenuButton"
-                class="btn bnt-lg btn-primary font-weight-bold dropdown-toggle no-icon"
+                class="btn bnt-lg btn-primary font-weight-bold dropdown-toggle"
                 type="button"
                 data-toggle="dropdown"
                 aria-haspopup="true"
                 aria-expanded="false"
               >
-                My Account
+                {{ getUserName }}
               </button>
               <div
                 class="dropdown-menu dropdown-menu-right"
@@ -48,9 +65,9 @@
             </li>
           </template>
           <template v-else>
-            <template v-if="$route.name != 'user-login'">
+            <template v-if="!$route.name.includes('auth')">
               <li class="px-0">
-                <NuxtLink :to="{name: 'user-login'}" class="btn btn-link underline-none text-dark">
+                <NuxtLink :to="{name: 'auth-login'}" class="btn btn-link underline-none text-dark">
                   Log In
                 </NuxtLink>
               </li>
@@ -75,6 +92,11 @@ export default {
   computed: {
     checkAuth () {
       return this.$store.state.user.authenticated
+    },
+    getUserName () {
+      const first_name = this.$store.state.user.user.first_name
+      const last_name = this.$store.state.user.user.last_name
+      return first_name + ' ' + last_name
     }
   },
   data () {

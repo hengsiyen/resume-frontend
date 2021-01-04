@@ -1,7 +1,7 @@
 <template>
-  <div class="section-container">
+  <div class="section-container dashboard-content">
     <div class="section-wrapper" style="width: 856px">
-      <div class="sect-title">
+      <div class="sect-title sect-title-ml-40">
         Account Settings
       </div>
       <div class="w-100" style="margin-bottom: 28px">
@@ -123,7 +123,7 @@
                   <a href="javascript:void(0)">Connected</a>
                 </template>
                 <template v-else>
-                  <a href="javascript:void(0)">Connect</a>
+                  <a href="javascript:void(0)" @click="connectWithFB">Connect</a>
                 </template>
               </div>
             </div>
@@ -135,9 +135,12 @@
 </template>
 
 <script>
+import { facebookSdkMixin } from '~/mixins/facebookSdkMixin'
+
 export default {
   name: 'Account',
   layout: 'default',
+  mixins: [facebookSdkMixin],
   data () {
     return {
       first_name: '',

@@ -515,12 +515,14 @@
         </div>
       </div>
       <div class="resume__preview">
-        <NuxtLink
-          :to="{name: apiBack}"
-          class="resume-cancel position-absolute d-flex align-items-center justify-content-center"
-        >
-          <i class="fas fa-times" />
-        </NuxtLink>
+        <div class="button-float button-float-sm position-absolute button-float-top-right">
+          <NuxtLink
+            :to="{name: apiBack}"
+            class="btn-float btn-float-gray"
+          >
+            <i class="fas fa-times" />
+          </NuxtLink>
+        </div>
         <div class="top_pdf">
           <div class="resume-saved position-absolute d-flex align-items-center justify-content-center">
             <template v-if="in_progress">
@@ -600,6 +602,25 @@
           </div>
         </div>
       </div>
+    </div>
+    <div class="button-float button-float-sm position-absolute button-float-top-right show-button-preview">
+      <NuxtLink
+        :to="{name: apiBack}"
+        class="btn-float btn-float-gray"
+      >
+        <i class="fas fa-times" />
+      </NuxtLink>
+    </div>
+    <div class="button-float button-float-lg button-float-bottom-right show-button-preview">
+      <NuxtLink
+        :to="{name: 'resume-uuid-select-template', params: {uuid: $route.params.uuid}}"
+        class="btn-float"
+      >
+        <i
+          class="fas fa-file-alt w-100 h-100 d-flex align-items-center justify-content-center"
+          style="font-size: 24px"
+        ></i>
+      </NuxtLink>
     </div>
     <!--      model share resume-->
     <div
@@ -946,5 +967,19 @@ export default {
   opacity: 0 !important;
   transition: opacity 0.2s ease 0s;
   z-index: 2;
+}
+
+.text-btn-preview {
+  font-size: 18px;
+  line-height: 22px;
+  font-weight: 600;
+  display: block;
+  position: relative;
+  color: rgb(255, 255, 255);
+  padding: 0 16px 0 4px;
+  opacity: 1;
+  transition-property: opacity;
+  transition-duration: 0.3s;
+  transition-delay: 0.2s;
 }
 </style>

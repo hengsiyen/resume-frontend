@@ -26,6 +26,22 @@ $font-family-sans-serif: 'Open khmer school', 'Nunito', 'Roboto', 'Arial', sans-
 @import "./custom-quill-editor";
 @import "./custom-sweetalert";
 
+.not-supp-mobile-screen {
+  display: none;
+}
+
+@media only screen and (max-width: 767px) {
+  .not-supp-mobile-screen {
+    width: 100%;
+    height: 100vh;
+    background: white;
+    display: flex;
+  }
+
+  .mobile-nav-toggle {
+    display: none;
+  }
+}
 
 .annotationLayer {
   opacity: 1;

@@ -171,6 +171,10 @@
   right: 15px;
 }
 
+.nav-menu .nav_user_name {
+  display: none;
+}
+
 @media (max-width: 1366px) {
 .nav-menu .drop-down .drop-down ul {
   left: -90%;
@@ -216,7 +220,15 @@
   opacity: 0;
   visibility: hidden;
   border-radius: 10px;
-  padding: 10px 0;
+  padding: 30px 0;
+}
+
+.mobile-nav .nav_user_name {
+  display: block;
+  font-size: 30px;
+  line-height: 40px;
+  font-weight: 700;
+  padding: 8px 30px;
 }
 
 .mobile-nav * {
@@ -229,9 +241,10 @@
   display: block;
   position: relative;
   color: #222222;
-  padding: 10px 20px;
+  padding: 8px 30px;
   font-weight: 500;
   outline: none;
+  font-size: 19px;
 }
 
 .mobile-nav a:hover, .mobile-nav .active > a, .mobile-nav li:hover > a {

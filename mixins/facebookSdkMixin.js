@@ -94,6 +94,28 @@ export const facebookSdkMixin = {
       FB.logout(function (response) {
         console.log('facebook logout')
       })
+    },
+
+    connectWithFB () {
+      console.log('here')
+      const self = this
+      FB.login(function (response) {
+        if (response && response.status === 'connected') { // Logged into your webpage and Facebook.
+          self.$store.dispatch('user/setFacebookAuth', response.authResponse)
+          localStorage.setItem('f.a', JSON.stringify(response.authResponse))
+          self.connectWithFacebook(response.authResponse.accessToken)
+        }
+      }, { scope: 'email' })
+    },
+    connectWithFacebook (access_token) {
+      const self = this
+      this.$axios.post(this.$base_api + '/api/auth/frontend/connect-with-facebook', {
+        access_token
+      }).then((response) => {
+        if (response.status === 200) {
+          const result = response.data.data
+        }
+      })
     }
   }
 }

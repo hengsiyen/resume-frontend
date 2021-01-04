@@ -36,9 +36,9 @@
         </template>
       </div>
     </div>
-    <div class="button-download" v-if="pageCount > 0">
+    <div class="button-float button-float-bottom-right button-float-lg" v-if="pageCount > 0">
       <button
-        class="btn-download d-block align-items-center justify-content-center m-0 p-0 text-white position-relative"
+        class="btn-float"
         @click="downloadPublicResume"
       >
         <i class="fas fa-download w-100 h-100 d-flex align-items-center justify-content-center" style="font-size: 24px"></i>
@@ -247,35 +247,5 @@ export default {
   color: #222222;
   letter-spacing: 0.8px;
   font-family: var(--font-family-sans-serif);
-}
-
-.button-download {
-  border-radius: 60px;
-  position: fixed;
-  transform: scale(1);
-  z-index: 1049;
-  bottom: 45px;
-  right: 45px;
-}
-
-.btn-download {
-  appearance: none;
-  border-radius: 200px;
-  bottom: 0;
-  line-height: 60px;
-  outline: none;
-  user-select: none;
-  z-index: 999;
-  background-color: rgb(35, 146, 236);
-  border: none;
-  cursor: pointer;
-  min-width: 60px;
-  transition: background-color 200ms linear 0s, transform 200ms linear 0s;
-}
-
-.button-download,
-.btn-download {
-  height: 60px;
-  width: 60px;
 }
 </style>
