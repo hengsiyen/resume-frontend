@@ -216,7 +216,7 @@ export default {
       this.$axios
         .post(this.$base_api + '/api/frontend/resume/list')
         .then((res) => {
-          // this.resume_lists = res.data.data
+          this.resume_lists = res.data.data
         })
         .finally(() => {
           this.onLoading = false
