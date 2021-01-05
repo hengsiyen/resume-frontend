@@ -42,27 +42,36 @@
             </div>
             <div class="body_content w-100">
               <div class="social-list d-flex justify-content-between flex-wrap">
-                <template v-for="(item, key) in socials">
-                  <a
-                    :key="key"
-                    href="javascript:void(0)"
-                    @click="statusChangeCallback"
-                    class="d-flex justify-content-between align-items-center w-100 position-relative"
-                  >
-                    <div class="social-name d-flex align-items-center">
-                      <div
-                        class="social-icon d-flex align-items-center justify-content-center"
-                        :class="item.code"
-                      >
-                        <i :class="item.icon" />
-                      </div>
-                      {{ item.label }}
+                <a
+                  href="javascript:void(0)"
+                  @click="statusChangeCallback"
+                  class="d-flex justify-content-between align-items-center w-100 position-relative"
+                >
+                  <div class="social-name d-flex align-items-center">
+                    <div class="social-icon d-flex align-items-center justify-content-center facebook">
+                      <i class="fab fa-facebook-f" />
                     </div>
-                    <div class="social-arrow">
-                      <i class="fas fa-angle-right" />
+                    Facebook
+                  </div>
+                  <div class="social-arrow">
+                    <i class="fas fa-angle-right" />
+                  </div>
+                </a>
+                <a
+                  href="javascript:void(0)"
+                  @click="loginWithGoogle"
+                  class="d-flex justify-content-between align-items-center w-100 position-relative"
+                >
+                  <div class="social-name d-flex align-items-center">
+                    <div class="social-icon d-flex align-items-center justify-content-center google">
+                      <i class="fab fa-google" />
                     </div>
-                  </a>
-                </template>
+                    Google
+                  </div>
+                  <div class="social-arrow">
+                    <i class="fas fa-angle-right" />
+                  </div>
+                </a>
               </div>
               <div class="d-flex align-items-center justify-content-between w-100">
                 <NuxtLink :to="{name: 'index'}" class="btn btn-outline-secondary btn-lg font-weight-bold">
@@ -174,11 +183,12 @@
 <script>
 import { dataOptions } from '@/mixins/dataOptions'
 import { facebookSdkMixin } from '~/mixins/facebookSdkMixin'
+import { googleSdkMixin } from '~/mixins/googleSdkMixin'
 
 export default {
   name: 'Create',
   layout: 'secondary',
-  mixins: [facebookSdkMixin],
+  mixins: [facebookSdkMixin, googleSdkMixin],
   data () {
     return {
       step: 1,
@@ -220,6 +230,9 @@ export default {
         replace: true
       })
     }
+  },
+  mounted () {
+    window.addEventListener('keypress', this.onPressEnter)
   },
   methods: {
     clearData () {
@@ -272,8 +285,6 @@ export default {
         })
     },
     createResume (data) {
-      console.log('sectionOrders')
-      console.log(this.sectionOrders)
       this.$axios
         .post(this.$base_api + '/api/frontend/resume/store', {
           first_name: data.first_name,
@@ -302,7 +313,17 @@ export default {
     },
     onClickPrev () {
       this.step -= 1
+    },
+    onPressEnter (e) {
+      if (e.key === 'Enter' && this.step === 2) {
+        this.registerByName()
+      } else if (e.key === 'Enter' && this.step === 3) {
+        this.registerEmail()
+      }
     }
+  },
+  destroyed () {
+    window.removeEventListener('keypress', this.onPressEnter)
   }
 }
 </script>

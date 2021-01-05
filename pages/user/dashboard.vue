@@ -22,12 +22,14 @@
         </div>
         <div class="w-100 flex-wrap">
           <div class="position-relative">
-           <template v-if="onLoading">
-             <div class="d-flex align-items-center justify-content-center" style="height: 50vh;">
-               <i class="fas fa-circle-notch fa-spin fa-2x mr-2"></i>
-               <p class="mb-0 fa-2x">Loading resumes...</p>
-             </div>
-           </template>
+            <template v-if="onLoading">
+              <div class="d-flex align-items-center justify-content-center" style="height: 50vh;">
+                <i class="fas fa-circle-notch fa-spin fa-2x mr-2"></i>
+                <p class="mb-0 fa-2x">
+                  Loading resumes...
+                </p>
+              </div>
+            </template>
             <template v-else>
               <template v-if="resume_lists.length > 0">
                 <template v-for="(item, key) in resume_lists">
@@ -137,8 +139,12 @@
                 <div class="d-flex align-items-center justify-content-center">
                   <div class="show_no_data">
                     <img src="/img/choose_us.png" alt="dashboard" width="100%">
-                    <p class="title"><strong>Your shining professional image</strong></p>
-                    <p class="sub-title mb-4">Custom-built, amazing resumes. Empower your job search in just a few clicks!</p>
+                    <p class="title">
+                      <strong>Your shining professional image</strong>
+                    </p>
+                    <p class="sub-title mb-4">
+                      Custom-built, amazing resumes. Empower your job search in just a few clicks!
+                    </p>
                     <button class="btn btn-primary">
                       <i class="fas fa-plus" style="margin-right: 10px" /> New Resume
                     </button>

@@ -105,29 +105,42 @@
           SOCIAL PROFILE
         </div>
         <div class="resume-card-body">
-          <template v-for="(item, k) in shareSocial">
-            <div :key="k" class="social-link">
-              <div class="d-flex align-items-center justify-content-center mr-2">
-                <div
-                  class="social-icon d-flex align-items-center justify-content-center mr-1"
-                  :class="item.label"
-                >
-                  <i :class="item.icon" />
-                </div>
-                <div class="social-label">
-                  {{ item.label }}
-                </div>
+          <div class="social-link">
+            <div class="d-flex align-items-center justify-content-center mr-2">
+              <div class="social-icon d-flex align-items-center justify-content-center mr-2 facebook">
+                <i class="fab fa-facebook-f" />
               </div>
-              <div class="text-primary d-flex align-items-center justify-content-center">
-                <template v-if="user.provider_id">
-                  <a href="javascript:void(0)">Connected</a>
-                </template>
-                <template v-else>
-                  <a href="javascript:void(0)" @click="connectWithFB">Connect</a>
-                </template>
+              <div class="social-label">
+                Facebook
               </div>
             </div>
-          </template>
+            <div class="d-flex align-items-center justify-content-center">
+              <template v-if="user.hasOwnProperty('connected_socials') && user.connected_socials.includes('facebook')">
+                <p class="text-muted mb-0">Connected</p>
+              </template>
+              <template v-else>
+                <a href="javascript:void(0)" class="text-primary" @click="connectWithFB">Connect</a>
+              </template>
+            </div>
+          </div>
+          <div class="social-link">
+            <div class="d-flex align-items-center justify-content-center mr-2">
+              <div class="social-icon d-flex align-items-center justify-content-center mr-2 google">
+                <i class="fab fa-google" />
+              </div>
+              <div class="social-label">
+                Google
+              </div>
+            </div>
+            <div class="d-flex align-items-center justify-content-center">
+              <template v-if="user.hasOwnProperty('connected_socials') && user.connected_socials.includes('google')">
+                <p class="text-muted mb-0">Connected</p>
+              </template>
+              <template v-else>
+                <a href="javascript:void(0)" class="text-primary" @click="connectWithFB">Connect</a>
+              </template>
+            </div>
+          </div>
         </div>
       </div>
     </div>

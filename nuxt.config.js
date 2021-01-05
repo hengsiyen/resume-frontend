@@ -50,7 +50,8 @@ export default {
     { src: '~/plugins/main.js', mode: 'client', ssr: false },
     { src: '~/plugins/quill-editor', mode: 'client', ssr: false },
     { src: '~/plugins/vue-pdf.js', mode: 'client', ssr: false },
-    { src: '~plugins/vue-js-toggle-button', mode: 'client', ssr: false }
+    { src: '~plugins/vue-js-toggle-button', mode: 'client', ssr: false },
+    { src: '~plugins/vue-google-oauth2', mode: 'client', ssr: false }
   ],
 
   // Auto import components (https://go.nuxtjs.dev/config-components)

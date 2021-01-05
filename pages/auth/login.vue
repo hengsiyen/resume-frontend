@@ -61,14 +61,14 @@
             <div class="col-12 col-sm-12">
               <div class="form-group">
                 <NuxtLink :to="{ name: 'auth-forget-password' }">
-                  Forget password?
+                  Don’t remember your password?
                 </NuxtLink>
               </div>
             </div>
           </div>
           <div class="row">
             <div class="col-12 text-right">
-              <button class="btn btn-link btn-lg font-weight-bold mr-3" @click="back">
+              <button class="btn btn-link text-muted btn-lg mr-3 underline-none" @click="back">
                 Back
               </button>
               <button class="btn btn-lg btn-primary font-weight-bold" @click="login">
@@ -80,7 +80,7 @@
         <template v-else>
           <div class="login-buttons">
             <div class="login-button">
-              <a href="javascript:void(0)" @click="statusChangeCallback" class="btn-facebook">
+              <a href="javascript:void(0)" @click="statusChangeCallback" class="btn-social btn-facebook">
                 <span>
                   <i class="fab fa-facebook-f"></i>
                 </span>
@@ -88,7 +88,15 @@
               </a>
             </div>
             <div class="login-button">
-              <a href="javascript:void(0)" class="btn-email" @click="enterEmail">
+              <a href="javascript:void(0)" @click="loginWithGoogle" class="btn-social btn-google">
+                <span>
+                  <i class="fab fa-google"></i>
+                </span>
+                Google
+              </a>
+            </div>
+            <div class="login-button">
+              <a href="javascript:void(0)" @click="enterEmail" class="btn-social btn-email">
                 <span>
                   <i class="far fa-envelope"></i>
                 </span>
@@ -110,11 +118,12 @@
 
 <script>
 import { facebookSdkMixin } from '~/mixins/facebookSdkMixin'
+import { googleSdkMixin } from '~/mixins/googleSdkMixin'
 
 export default {
   name: 'Login',
   layout: 'default',
-  mixins: [facebookSdkMixin],
+  mixins: [facebookSdkMixin, googleSdkMixin],
   data () {
     return {
       log_with_email: false,
@@ -132,6 +141,9 @@ export default {
         replace: true
       })
     }
+  },
+  mounted () {
+    window.addEventListener('keypress', this.onPressEnter)
   },
   methods: {
     clearData () {
@@ -183,7 +195,15 @@ export default {
             this.message_error = e.data.message
           }
         })
+    },
+    onPressEnter (e) {
+      if (e.key === 'Enter' && this.log_with_email) {
+        this.login()
+      }
     }
+  },
+  destroyed () {
+    window.removeEventListener('keypress', this.onPressEnter)
   }
 }
 </script>

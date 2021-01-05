@@ -209,8 +209,7 @@
   padding-right: 8px;
 }
 
-.btn-email,
-.btn-facebook {
+.btn-social {
   position: relative;
   display: block;
   width: 100%;
@@ -225,8 +224,7 @@
   transition: background-color 0.2s ease 0s, border-color 0.2s ease 0s, color 0.2s ease 0s;
 }
 
-.btn-email span,
-.btn-facebook span {
+.btn-social span {
   position: absolute;
   left: 24px;
   top: 55%;
@@ -236,6 +234,12 @@
 .btn-facebook {
   border: 1px solid rgb(59, 89, 152);
   background-color: rgb(59, 89, 152);
+  color: white;
+}
+
+.btn-google {
+  border: 1px solid #db4a39;
+  background-color: #db4a39;
   color: white;
 }
 

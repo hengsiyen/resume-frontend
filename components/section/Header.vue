@@ -29,13 +29,15 @@
             <li class="d-block d-lg-none">
               <a
                 href="javascript:void(0)"
-                @click="logout"
+                @click="test"
                 class="nav_bar_item"
               >
-                Log Out
+                Log Outg
               </a>
             </li>
-            <li class="d-none d-lg-block">|</li>
+            <li class="d-none d-lg-block">
+              |
+            </li>
             <li class="d-none d-lg-block">
               <button
                 id="dropdownMenuButton"
@@ -105,6 +107,9 @@ export default {
     }
   },
   methods: {
+    test () {
+      console.log('asdas')
+    },
     logout () {
       this.$axios.post(this.$base_api + '/api/auth/frontend/logout')
         .finally(() => {

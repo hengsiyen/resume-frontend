@@ -28,7 +28,7 @@ export const facebookSdkMixin = {
   methods: {
     resultCallback (access_token) {
       const self = this
-      this.$axios.post(this.$base_api + '/api/auth/frontend/login-with-facebook ', {
+      this.$axios.post(this.$base_api + '/api/auth/frontend/login-with-facebook', {
         access_token
       }).then((response) => {
         if (response.status === 200) {
