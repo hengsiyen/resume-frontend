@@ -1,33 +1,27 @@
 <template>
   <div class="resume__form">
-    <div class="form__header-block">
-      <NuxtLink :to="{name: 'index'}" class="logo mr-auto">
-        <img src="~/assets/img/logo/logo-rounded-backgroundx80.png" alt="logo">
-        <span class="mr-auto">
-          {{ app_name }}
-        </span>
-      </NuxtLink>
-      <div class="stepper d-flex align-items-center justify-content-center">
-        <div class="stepper-content">
-          <template v-for="(item, key) in steppers">
-            <div :key="key" class="stepper-content_item">
-              <div
-                class="stepper-item__number d-flex align-items-center justify-content-center"
-                :class="{'active': item.active}"
-              >
-                {{ item.number }}
-              </div>
-              <div class="stepper-item__label active">
-                {{ item.label }}
-              </div>
-            </div>
-          </template>
-        </div>
-      </div>
+    <HeaderSecondary>
       <div class="form__button-remove position-absolute">
         <NuxtLink :to="{name: 'index'}">
           <i class="fas fa-times" />
         </NuxtLink>
+      </div>
+    </HeaderSecondary>
+    <div class="stepper d-flex align-items-center justify-content-center">
+      <div class="stepper-content">
+        <template v-for="(item, key) in steppers">
+          <div :key="key" class="stepper-content_item">
+            <div
+              class="stepper-item__number d-flex align-items-center justify-content-center"
+              :class="{'active': item.active}"
+            >
+              {{ item.number }}
+            </div>
+            <div class="stepper-item__label active">
+              {{ item.label }}
+            </div>
+          </div>
+        </template>
       </div>
     </div>
     <div class="form__body_block position-relative d-flex flex-column">
@@ -173,10 +167,7 @@
         </template>
       </div>
     </div>
-    <div class="d-flex align-items-center justify-content-center">
-      <span class="mr-1 text-muted">Copyright © 2020 All rights reserved by {{ app_name }}. Powered by</span>
-      <a href="http://asorasoft.com/" class="text-muted"> Asorasoft</a>
-    </div>
+    <SmallFooter />
   </div>
 </template>
 
@@ -184,9 +175,12 @@
 import { dataOptions } from '@/mixins/dataOptions'
 import { facebookSdkMixin } from '~/mixins/facebookSdkMixin'
 import { googleSdkMixin } from '~/mixins/googleSdkMixin'
+import SmallFooter from '~/components/section/SmallFooter'
+import HeaderSecondary from '~/components/section/HeaderSecondary'
 
 export default {
   name: 'Create',
+  components: { HeaderSecondary, SmallFooter },
   layout: 'secondary',
   mixins: [facebookSdkMixin, googleSdkMixin],
   data () {
@@ -357,10 +351,7 @@ export default {
 }
 
 .stepper {
-  position: absolute;
-  width: 700px;
-  top: 15px;
-  left: calc(50% - 350px);
+  padding-top: 32px;
 
   &-content {
     width: 100%;
@@ -430,11 +421,11 @@ export default {
 }
 
 .form__body_block {
-  min-height: calc(100vh - 80px);
+  min-height: calc(100vh - 150px);
 }
 
 .form__body-container {
-  padding: 144px 44px 48px;
+  padding: 64px 44px 48px;
 }
 
 .form__body-wrapper {
@@ -485,6 +476,12 @@ export default {
     & .form__input {
       margin-bottom: 48px;
     }
+  }
+}
+
+@media screen and (max-width: 1080px) {
+  .stepper {
+    display: none;
   }
 }
 </style>

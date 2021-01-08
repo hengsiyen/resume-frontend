@@ -16,9 +16,9 @@
     display: flex;
     flex-flow: row nowrap;
     align-items: center;
-    height: 28px;
-    font-size: 22px;
-    line-height: 28px;
+    //height: 28px;
+    font-size: 20px;
+    line-height: 22px;
     font-weight: 600;
 
     & a.rf-section__edit,
@@ -124,7 +124,7 @@
     flex: 1 1 0;
     max-width: 860px;
     height: 100%;
-    background-color: rgb(255, 255, 255);
+    background-color: white;
     margin: auto;
   }
 }
@@ -181,7 +181,7 @@
   margin-bottom: 8px;
   font-size: 16px;
   line-height: 20px;
-  color: rgb(152, 161, 179);
+  color: $resume-gray;
 }
 
 .rfp-right {
@@ -205,7 +205,7 @@
   white-space: nowrap;
   font-size: 16px;
   line-height: 20px;
-  color: rgb(152, 161, 179);
+  color: $resume-gray;
   cursor: pointer;
   transition: opacity 0.4s ease 0s, transform 0.4s ease 0s;
   opacity: 1;
@@ -234,7 +234,7 @@
 
 .rfp-content-bar {
   height: 3px;
-  background-color: rgb(242, 245, 250);
+  background-color: $bg-color-gray;
 
   & .bar {
     height: 3px;
@@ -313,15 +313,15 @@
     margin-right: 32px;
     cursor: pointer;
     color: rgb(38, 43, 51);
-    font-size: 22px;
+    font-size: 20px;
 
     & .add-section-icon {
-      font-size: 30px;
+      font-size: 28px;
     }
 
     &.active {
       cursor: alias;
-      color: rgb(152, 161, 179);
+      color: $resume-gray;
     }
   }
 }
@@ -345,7 +345,7 @@
     width: 24px;
     height: 24px;
     cursor: pointer;
-    color: rgb(255, 255, 255) !important;
+    color: white !important;
     border-radius: 14px;
     background-color: rgba(15, 20, 31, 0);
     transition: background-color 0.1s ease 0s;
@@ -360,7 +360,7 @@
     text-align: center;
     font-size: 16px;
     line-height: 20px;
-    color: rgb(255, 255, 255);
+    color: white;
     margin: 0px 6px;
     font-variant-numeric: tabular-nums;
   }
@@ -410,7 +410,7 @@
   .resume__viewer-canvas {
     position: relative;
     border-radius: 6px;
-    background-color: rgb(255, 255, 255);
+    background-color: white;
     overflow: hidden;;
     height: 833px;
     width: 579px;
@@ -423,22 +423,13 @@
   }
   .resume-saved {
     left: 16px;
-    color: var(--white);
+    color: white;
     font-size: 16px;
     transition: background-color 0.1s ease 0s;
   }
   .resume-saved i{
     margin-right: 4px;
   }
-  //.resume-cancel {
-  //  position: absolute;
-  //  display: block;
-  //  cursor: pointer;
-  //  border-radius: 20px;
-  //  color: var(--white);
-  //  font-size: 19px;
-  //  transition: background-color 0.1s ease 0s;
-  //}
 
   .resume__preview-footer {
     width: 85%;
@@ -511,9 +502,9 @@
   display: flex;
   -webkit-box-align: center;
   align-items: center;
-  font-size: 16px;
+  font-size: $resume-font-size-label;
   line-height: 20px;
-  color: rgb(152, 161, 179);
+  color: $resume-gray;
   margin-bottom: 6px;
 }
 

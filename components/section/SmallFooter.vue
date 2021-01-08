@@ -1,5 +1,5 @@
 <template>
-  <div class="d-flex align-items-center justify-content-center pb-2">
+  <div class="d-block text-center pb-2">
     <span class="mr-1 text-muted">Copyright © 2020 by {{ app_name }}. Powered by</span>
     <a href="http://asorasoft.com/" class="text-muted"> Asorasoft</a>
   </div>

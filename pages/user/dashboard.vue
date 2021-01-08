@@ -226,6 +226,7 @@ export default {
         })
         .finally(() => {
           this.onLoading = false
+          this.$isLoading(false)
         })
     },
     deleteResume (item) {
@@ -233,7 +234,7 @@ export default {
         const self = this
         self.$swal({
           title: 'Delete Resume',
-          text: 'Are you sure you want to delete this resume? Once deleted this resume cannot be restored.',
+          text: 'Are you sure you want to delete this resume?\nOnce deleted this resume cannot be restored.',
           showCancelButton: true,
           confirmButtonText: 'Delete',
           cancelButtonText: 'Cancel',
@@ -241,6 +242,7 @@ export default {
           cancelButtonColor: '#909090'
         }).then((result) => {
           if (result.value) {
+            this.$isLoading(true)
             this.$axios
               .post(this.$base_api + '/api/frontend/resume/delete', {
                 uuid: item.uuid
@@ -250,6 +252,7 @@ export default {
               })
               .catch((error) => {
                 this.onResponseError(error)
+                this.$isLoading(false)
               })
           }
         })
@@ -260,7 +263,7 @@ export default {
         const self = this
         self.$swal({
           title: 'Regenerate Resume Link',
-          text: 'Are you sure you want to regenerate link for this resume? ' +
+          text: 'Are you sure you want to regenerate link for this resume?\n' +
             'The previous link that you shared no longer can be open with this resume.',
           showCancelButton: true,
           confirmButtonText: 'Regenerate',
@@ -269,6 +272,7 @@ export default {
           cancelButtonColor: '#909090'
         }).then((result) => {
           if (result.value) {
+            this.$isLoading(true)
             this.$axios
               .post(this.$base_api + '/api/frontend/resume/regenerate-link', {
                 uuid: item.uuid
@@ -278,12 +282,14 @@ export default {
               })
               .catch((error) => {
                 this.onResponseError(error)
+                this.$isLoading(false)
               })
           }
         })
       }
     },
     copyResume (uuid) {
+      this.$isLoading(true)
       this.$axios
         .post(this.$base_api + '/api/frontend/resume/copy-resume', {
           uuid
@@ -293,6 +299,7 @@ export default {
         })
         .catch((error) => {
           this.onResponseError(error)
+          this.$isLoading(false)
         })
     },
     createNewResume () {
@@ -300,6 +307,9 @@ export default {
       this.user.first_name = this.logged_user.first_name
       this.user.last_name = this.logged_user.last_name
       this.user.email = this.logged_user.email
+      this.user.hide_refs = false
+      this.user.hide_social = false
+      this.user.spacing = '0'
       this.$axios
         .post(this.$base_api + '/api/frontend/resume/store', this.user)
         .then((res) => {

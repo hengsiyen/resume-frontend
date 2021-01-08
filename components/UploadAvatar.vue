@@ -179,6 +179,7 @@ export default {
 </script>
 
 <style scoped lang="scss">
+@import "../assets/scss/elements/default";
 .upload-field {
   & .upload-icon {
     flex: 0 0 60px;
@@ -191,7 +192,7 @@ export default {
     justify-content: center;
     position: relative;
     overflow: hidden;
-    //background-color: rgb(242, 245, 250);
+    background-color: $bg-color-gray;
     background-size: cover;
     background-repeat: no-repeat;
     color: rgb(207, 214, 230);
@@ -202,11 +203,11 @@ export default {
     cursor: pointer;
     & .upload-icon {
       background-color: rgb(230, 244, 255);
-      color: rgb(33, 150, 243);
+      color: $resume-blue;
     }
 
     & .upload-label .label-text {
-      color: rgb(25, 118, 210);
+      color: $resume-blue;
     }
   }
 
@@ -219,7 +220,7 @@ export default {
       margin-bottom: 0;
       font-size: 16px;
       line-height: 20px;
-      color: rgb(33, 150, 243);
+      color: $resume-blue;
       transition: color 0.1s ease 0s
     }
   }
@@ -231,10 +232,10 @@ export default {
   flex-flow: row nowrap;
   align-items: center;
   transition: color 0.1s ease 0s;
-  color: rgb(152, 161, 179);
+  color: $resume-gray;
   padding: 2px 0;
   cursor: pointer;
-  font-size: 19px;
+  font-size: 16px;
   line-height: 1.5;
   & div i {
     margin-right: 4px;
@@ -242,11 +243,11 @@ export default {
 }
 
 .edit-photo:hover {
-  color: rgb(33, 150, 243);
+  color: $resume-blue;
 }
 
 .remove-photo:hover {
-  color: rgb(255, 76, 76);
+  color: $resume-red;
 }
 @media screen and (max-width: 767px) {
   .label-upload {

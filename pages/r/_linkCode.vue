@@ -15,7 +15,7 @@
             v-for="(i, k) in pageCount"
             :key="k"
             ref="viewPdfPublic"
-            class="w-100 mx-auto "
+            class="w-100 mx-auto mb-5 resume-pdf"
             :src="src"
             :page="i"
           />
@@ -247,5 +247,10 @@ export default {
   color: #222222;
   letter-spacing: 0.8px;
   font-family: var(--font-family-sans-serif);
+}
+
+.resume-pdf {
+  border: 8px solid white;
+  border-radius: 8px;
 }
 </style>

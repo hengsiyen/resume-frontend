@@ -1,90 +1,99 @@
 <template>
-  <!-- ======= Header ======= -->
-  <header id="header">
-    <div class="container-fluid d-flex align-items-center nav-container">
-      <!-- Uncomment below if you prefer to use an image logo -->
-      <NuxtLink :to="{name: checkAuth ? 'user-dashboard' : 'index'}" class="logo mr-auto">
-        <img src="~/assets/img/logo/logo-rounded-backgroundx80.png" alt="logo">
-        <span class="logo mr-auto">
-          {{ app_name }}
-        </span>
-      </NuxtLink>
-
-      <nav class="nav-menu d-none d-lg-block">
-        <div class="nav_user_name">
-          {{ getUserName }}
-        </div>
-        <ul>
-          <template v-if="checkAuth">
-            <li :class="{'active' : $route.name === 'user-dashboard'}">
-              <NuxtLink :to="{name: 'user-dashboard'}" class="nav_bar_item">
-                Dashboard
-              </NuxtLink>
-            </li>
-            <li class="d-block d-lg-none" :class="{'active' : $route.name === 'user-account'}">
-              <NuxtLink :to="{name: 'user-account'}" class="nav_bar_item">
+  <nav id="header" class="navbar navbar-expand-lg navbar-light">
+    <NuxtLink
+      :to="{name: checkAuth ? 'user-dashboard' : 'index'}"
+      class="navbar-brand logo mr-auto d-flex align-items-center"
+    >
+      <img
+        src="~/assets/img/logo/logo-rounded-backgroundx80.png"
+        class="d-inline-block align-top mr-2"
+        alt="logo"
+        loading="lazy"
+      >
+      <span class="logo mr-auto">{{ app_name }}</span>
+    </NuxtLink>
+    <button
+      class="navbar-toggler"
+      type="button"
+      data-toggle="collapse"
+      data-target="#navbarNavAltMarkup"
+      aria-controls="navbarNavAltMarkup"
+      aria-expanded="false"
+      aria-label="Toggle navigation"
+    >
+      <span class="fas fa-bars"></span>
+    </button>
+    <div class="collapse navbar-collapse nav-menu" id="navbarNavAltMarkup">
+      <ul class="navbar-nav ml-auto mt-2 mt-lg-0">
+        <template v-if="checkAuth">
+          <li class="nav-item d-block d-lg-none" :class="{'active' : $route.name === 'user-dashboard'}">
+            <div class="nav_user_name">
+              {{ getUserName }}
+            </div>
+          </li>
+          <li class="nav-item" :class="{'active' : $route.name === 'user-dashboard'}">
+            <NuxtLink :to="{name: 'user-dashboard'}" class="nav-link nav_bar_item">
+              Dashboard
+            </NuxtLink>
+          </li>
+          <li class="nav-item d-none d-lg-block">
+            <div class="nav-link">|</div>
+          </li>
+          <li class="nav-item d-block d-lg-none" :class="{'active' : $route.name === 'user-account'}">
+            <NuxtLink :to="{name: 'user-account'}" class="nav-link nav_bar_item">
+              Account Settings
+            </NuxtLink>
+          </li>
+          <li class="nav-item d-block d-lg-none">
+            <a href="javascript:void(0)" @click="logout" class="nav-link nav_bar_item">
+              Log Out
+            </a>
+          </li>
+          <li class="nav-item dropdown d-none d-lg-block">
+            <button
+              id="dropdownMenuButton1"
+              class="btn bnt-lg btn-primary font-weight-bold dropdown-toggle"
+              type="button"
+              data-toggle="dropdown"
+              aria-haspopup="true"
+              aria-expanded="false"
+            >
+              {{ getUserName }}
+            </button>
+            <div
+              class="dropdown-menu dropdown-menu-right"
+              aria-labelledby="dropdownMenuButton"
+            >
+              <NuxtLink :to="{name: 'user-account'}" class="dropdown-item">
                 Account Settings
               </NuxtLink>
-            </li>
-            <li class="d-block d-lg-none">
               <a
                 href="javascript:void(0)"
-                @click="test"
-                class="nav_bar_item"
+                @click="logout"
+                class="dropdown-item"
               >
-                Log Outg
+                Log Out
               </a>
+            </div>
+          </li>
+        </template>
+        <template v-else>
+          <template v-if="!$route.name.includes('auth')">
+            <li class="nav-item">
+              <NuxtLink :to="{name: 'auth-login'}" class="nav-link nav_bar_item">
+                Log In
+              </NuxtLink>
             </li>
-            <li class="d-none d-lg-block">
-              |
-            </li>
-            <li class="d-none d-lg-block">
-              <button
-                id="dropdownMenuButton"
-                class="btn bnt-lg btn-primary font-weight-bold dropdown-toggle"
-                type="button"
-                data-toggle="dropdown"
-                aria-haspopup="true"
-                aria-expanded="false"
-              >
-                {{ getUserName }}
-              </button>
-              <div
-                class="dropdown-menu dropdown-menu-right"
-                aria-labelledby="dropdownMenuButton"
-              >
-                <NuxtLink :to="{name: 'user-account'}" class="dropdown-item">
-                  Account Settings
-                </NuxtLink>
-                <a
-                  href="javascript:void(0)"
-                  @click="logout"
-                  class="dropdown-item"
-                >
-                  Log Out
-                </a>
-              </div>
+            <li class="nav-item">
+              <NuxtLink :to="{name: 'resume-create'}" class="btn btn-primary font-weight-bold">
+                Sign up
+              </NuxtLink>
             </li>
           </template>
-          <template v-else>
-            <template v-if="!$route.name.includes('auth')">
-              <li class="px-0">
-                <NuxtLink :to="{name: 'auth-login'}" class="btn btn-link underline-none text-dark">
-                  Log In
-                </NuxtLink>
-              </li>
-              <li>
-                <NuxtLink :to="{name: 'resume-create'}" class="btn btn-primary">
-                  Sign up
-                </NuxtLink>
-              </li>
-            </template>
-          </template>
-        </ul>
-      </nav><!-- .nav-menu -->
+        </template>
+      </ul>
     </div>
-  </header>
-  <!-- End Header -->
+  </nav>
 </template>
 
 <script>
@@ -107,9 +116,6 @@ export default {
     }
   },
   methods: {
-    test () {
-      console.log('asdas')
-    },
     logout () {
       this.$axios.post(this.$base_api + '/api/auth/frontend/logout')
         .finally(() => {

@@ -1,116 +1,119 @@
 <template>
-  <div class="login-container">
-    <div class="container">
-      <div style="max-width: 400px">
-        <div style="margin-bottom: 32px">
-          <div class="login-title">
-            Log In
+  <div>
+    <HeaderSecondary />
+    <div class="login-container">
+      <div class="container">
+        <div style="max-width: 400px">
+          <div style="margin-bottom: 32px">
+            <div class="login-title">
+              Log In
+            </div>
+            <div style="margin-top: 12px">
+              {{ sub_title }}
+            </div>
           </div>
-          <div style="margin-top: 12px">
-            {{ sub_title }}
-          </div>
-        </div>
-        <template v-if="log_with_email">
-          <div class="row">
-            <div class="col-12" v-if="message_error">
-              <div class="alert alert-danger alert-dismissible fade show" role="alert">
-                {{ message_error.message_en }}
-                <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-                  <span aria-hidden="true">&times;</span>
+          <template v-if="log_with_email">
+            <div class="row">
+              <div class="col-12" v-if="message_error">
+                <div class="alert alert-danger alert-dismissible fade show" role="alert">
+                  {{ message_error.message_en }}
+                  <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                  </button>
+                </div>
+              </div>
+              <div class="col-12 col-sm-12">
+                <div class="form-group">
+                  <label
+                    for="email"
+                    class="resume-label-control"
+                    :class="{'text-danger': checkKeyObj(validate, 'email')}"
+                  >Email</label>
+                  <input
+                    id="email"
+                    v-model="email"
+                    type="text"
+                    class="resume-form-control"
+                  >
+                  <div class="line" :class="{'line-red': checkKeyObj(validate, 'email')}" />
+                  <template v-if="checkKeyObj(validate, 'email')">
+                    <small class="text-muted">{{ validate.email[0] }}</small>
+                  </template>
+                </div>
+              </div>
+              <div class="col-12 col-sm-12">
+                <div class="form-group">
+                  <label
+                    for="password"
+                    class="resume-label-control"
+                    :class="{'text-danger': checkKeyObj(validate, 'password')}"
+                  >Password</label>
+                  <input
+                    id="password"
+                    v-model="password"
+                    type="password"
+                    class="resume-form-control"
+                  >
+                  <div class="line" :class="{'line-red': checkKeyObj(validate, 'password')}" />
+                  <template v-if="checkKeyObj(validate, 'password')">
+                    <small class="text-muted">{{ validate.password[0] }}</small>
+                  </template>
+                </div>
+              </div>
+              <div class="col-12 col-sm-12">
+                <div class="form-group">
+                  <NuxtLink :to="{ name: 'auth-forget-password' }">
+                    Don’t remember your password?
+                  </NuxtLink>
+                </div>
+              </div>
+            </div>
+            <div class="row">
+              <div class="col-12 text-right">
+                <button class="btn btn-link text-muted btn-lg mr-3 underline-none" @click="back">
+                  Back
+                </button>
+                <button class="btn btn-lg btn-primary font-weight-bold" @click="login">
+                  Continue
                 </button>
               </div>
             </div>
-            <div class="col-12 col-sm-12">
-              <div class="form-group">
-                <label
-                  for="email"
-                  class="resume-label-control"
-                  :class="{'text-danger': checkKeyObj(validate, 'email')}"
-                >Email</label>
-                <input
-                  id="email"
-                  v-model="email"
-                  type="text"
-                  class="resume-form-control"
-                >
-                <div class="line" :class="{'line-red': checkKeyObj(validate, 'email')}" />
-                <template v-if="checkKeyObj(validate, 'email')">
-                  <small class="text-muted">{{ validate.email[0] }}</small>
-                </template>
-              </div>
-            </div>
-            <div class="col-12 col-sm-12">
-              <div class="form-group">
-                <label
-                  for="password"
-                  class="resume-label-control"
-                  :class="{'text-danger': checkKeyObj(validate, 'password')}"
-                >Password</label>
-                <input
-                  id="password"
-                  v-model="password"
-                  type="password"
-                  class="resume-form-control"
-                >
-                <div class="line" :class="{'line-red': checkKeyObj(validate, 'password')}" />
-                <template v-if="checkKeyObj(validate, 'password')">
-                  <small class="text-muted">{{ validate.password[0] }}</small>
-                </template>
-              </div>
-            </div>
-            <div class="col-12 col-sm-12">
-              <div class="form-group">
-                <NuxtLink :to="{ name: 'auth-forget-password' }">
-                  Don’t remember your password?
-                </NuxtLink>
-              </div>
-            </div>
-          </div>
-          <div class="row">
-            <div class="col-12 text-right">
-              <button class="btn btn-link text-muted btn-lg mr-3 underline-none" @click="back">
-                Back
-              </button>
-              <button class="btn btn-lg btn-primary font-weight-bold" @click="login">
-                Continue
-              </button>
-            </div>
-          </div>
-        </template>
-        <template v-else>
-          <div class="login-buttons">
-            <div class="login-button">
-              <a href="javascript:void(0)" @click="statusChangeCallback" class="btn-social btn-facebook">
+          </template>
+          <template v-else>
+            <div class="login-buttons">
+              <div class="login-button">
+                <a href="javascript:void(0)" @click="statusChangeCallback" class="btn-social btn-facebook">
                 <span>
                   <i class="fab fa-facebook-f"></i>
                 </span>
-                Facebook
-              </a>
-            </div>
-            <div class="login-button">
-              <a href="javascript:void(0)" @click="loginWithGoogle" class="btn-social btn-google">
+                  Facebook
+                </a>
+              </div>
+              <div class="login-button">
+                <a href="javascript:void(0)" @click="loginWithGoogle" class="btn-social btn-google">
                 <span>
                   <i class="fab fa-google"></i>
                 </span>
-                Google
-              </a>
-            </div>
-            <div class="login-button">
-              <a href="javascript:void(0)" @click="enterEmail" class="btn-social btn-email">
+                  Google
+                </a>
+              </div>
+              <div class="login-button">
+                <a href="javascript:void(0)" @click="enterEmail" class="btn-social btn-email">
                 <span>
                   <i class="far fa-envelope"></i>
                 </span>
-                Email
-              </a>
+                  Email
+                </a>
+              </div>
             </div>
-          </div>
-          <div>
-            I am not registered —
-            <NuxtLink :to="{name: 'resume-create'}">
-              Sign Up
-            </NuxtLink>
-          </div>
-        </template>
+            <div>
+              I am not registered —
+              <NuxtLink :to="{name: 'resume-create'}">
+                Sign Up
+              </NuxtLink>
+            </div>
+          </template>
+        </div>
       </div>
     </div>
   </div>
@@ -119,10 +122,12 @@
 <script>
 import { facebookSdkMixin } from '~/mixins/facebookSdkMixin'
 import { googleSdkMixin } from '~/mixins/googleSdkMixin'
+import HeaderSecondary from '~/components/section/HeaderSecondary'
 
 export default {
   name: 'Login',
-  layout: 'default',
+  components: { HeaderSecondary },
+  layout: 'secondary',
   mixins: [facebookSdkMixin, googleSdkMixin],
   data () {
     return {

@@ -13,16 +13,91 @@
             @change="untilPresent"
           /> Currently work here
         </div>
-        <div class="row">
+      </div>
+      <div class="row">
+        <div class="col-12">
+          <div class="row">
+            <div class="col-12">
+              <label class="resume-label-control">Start Date</label>
+            </div>
+            <div class="col-12 col-sm-4">
+              <div class="form-group">
+                <select
+                  v-model="ssy"
+                  name="until_month"
+                  class="resume-form-control"
+                  @change="selectedDate('start')"
+                >
+                  <option :value="null">
+                    Year
+                  </option>
+                  <template v-for="(year, key) in date_years">
+                    <option :key="key" :value="year.value">
+                      {{ year.name_en }}
+                    </option>
+                  </template>
+                </select>
+                <i class="fa fa-chevron-down" />
+                <div class="line" />
+              </div>
+            </div>
+            <div class="col-12 col-sm-4 pl-0 pl-sm-1">
+              <div class="form-group">
+                <select
+                  v-model="ssm"
+                  name="until_month"
+                  class="resume-form-control"
+                  @change="selectedDate('start')"
+                >
+                  <option :value="null">
+                    Month
+                  </option>
+                  <template v-for="(month, key) in date_months">
+                    <option :key="key" :value="month.value">
+                      {{ month.name_en }}
+                    </option>
+                  </template>
+                </select>
+                <i class="fa fa-chevron-down" />
+                <div class="line" />
+              </div>
+            </div>
+            <div class="col-12 col-sm-4 pl-0 pl-sm-1">
+              <div class="form-group">
+                <select
+                  v-model="ssd"
+                  name="until_month"
+                  class="resume-form-control"
+                  @change="selectedDate('start')"
+                >
+                  <option :value="null">
+                    Day
+                  </option>
+                  <template v-for="(day, key) in date_days">
+                    <option :key="key" :value="day.value">
+                      {{ day.name_en }}
+                    </option>
+                  </template>
+                </select>
+                <i class="fa fa-chevron-down" />
+                <div class="line" />
+              </div>
+            </div>
+          </div>
+        </div>
+        <template v-if="!isDateUntilCurrent">
           <div class="col-12">
             <div class="row">
-              <div class="col-4">
+              <div class="col-12">
+                <label class="resume-label-control">End Date</label>
+              </div>
+              <div class="col-12 col-sm-4">
                 <div class="form-group">
                   <select
-                    v-model="ssy"
+                    v-model="suty"
                     name="until_month"
                     class="resume-form-control"
-                    @change="selectedDate('start')"
+                    @change="selectedDate('end')"
                   >
                     <option :value="null">
                       Year
@@ -37,128 +112,51 @@
                   <div class="line" />
                 </div>
               </div>
-              <template v-if="ssy">
-                <div class="col-4 pl-sm-1">
-                  <div class="form-group">
-                    <select
-                      v-model="ssm"
-                      name="until_month"
-                      class="resume-form-control"
-                      @change="selectedDate('start')"
-                    >
-                      <option :value="null">
-                        Month
+              <div class="col-12 col-sm-4 pl-0 pl-sm-1">
+                <div class="form-group">
+                  <select
+                    v-model="sutm"
+                    name="until_month"
+                    class="resume-form-control"
+                    @change="selectedDate('end')"
+                  >
+                    <option :value="null">
+                      Month
+                    </option>
+                    <template v-for="(month, key) in date_months">
+                      <option :key="key" :value="month.value">
+                        {{ month.name_en }}
                       </option>
-                      <template v-for="(month, key) in date_months">
-                        <option :key="key" :value="month.value">
-                          {{ month.name_en }}
-                        </option>
-                      </template>
-                    </select>
-                    <i class="fa fa-chevron-down" />
-                    <div class="line" />
-                  </div>
+                    </template>
+                  </select>
+                  <i class="fa fa-chevron-down" />
+                  <div class="line" />
                 </div>
-              </template>
-              <template v-if="ssm">
-                <div class="col-4 pl-sm-1">
-                  <div class="form-group">
-                    <select
-                      v-model="ssd"
-                      name="until_month"
-                      class="resume-form-control"
-                      @change="selectedDate('start')"
-                    >
-                      <option :value="null">
-                        Day
+              </div>
+              <div class="col-12 col-sm-4 pl-0 pl-sm-1">
+                <div class="form-group">
+                  <select
+                    v-model="sutd"
+                    name="until_month"
+                    class="resume-form-control"
+                    @change="selectedDate('end')"
+                  >
+                    <option :value="null">
+                      Day
+                    </option>
+                    <template v-for="(day, key) in date_days">
+                      <option :key="key" :value="day.value">
+                        {{ day.name_en }}
                       </option>
-                      <template v-for="(day, key) in date_days">
-                        <option :key="key" :value="day.value">
-                          {{ day.name_en }}
-                        </option>
-                      </template>
-                    </select>
-                    <i class="fa fa-chevron-down" />
-                    <div class="line" />
-                  </div>
+                    </template>
+                  </select>
+                  <i class="fa fa-chevron-down" />
+                  <div class="line" />
                 </div>
-              </template>
-            </div>
-          </div>
-          <template v-if="!isDateUntilCurrent">
-            <div class="col-12">
-              <div class="row">
-                <div class="col-4">
-                  <div class="form-group">
-                    <select
-                      v-model="suty"
-                      name="until_month"
-                      class="resume-form-control"
-                      @change="selectedDate('end')"
-                    >
-                      <option :value="null">
-                        Year
-                      </option>
-                      <template v-for="(year, key) in date_years">
-                        <option :key="key" :value="year.value">
-                          {{ year.name_en }}
-                        </option>
-                      </template>
-                    </select>
-                    <i class="fa fa-chevron-down" />
-                    <div class="line" />
-                  </div>
-                </div>
-                <template v-if="suty">
-                  <div class="col-4 pl-sm-1">
-                    <div class="form-group">
-                      <select
-                        v-model="sutm"
-                        name="until_month"
-                        class="resume-form-control"
-                        @change="selectedDate('end')"
-                      >
-                        <option :value="null">
-                          Month
-                        </option>
-                        <template v-for="(month, key) in date_months">
-                          <option :key="key" :value="month.value">
-                            {{ month.name_en }}
-                          </option>
-                        </template>
-                      </select>
-                      <i class="fa fa-chevron-down" />
-                      <div class="line" />
-                    </div>
-                  </div>
-                </template>
-                <template v-if="sutm">
-                  <div class="col-4 pl-sm-1">
-                    <div class="form-group">
-                      <select
-                        v-model="sutd"
-                        name="until_month"
-                        class="resume-form-control"
-                        @change="selectedDate('end')"
-                      >
-                        <option :value="null">
-                          Day
-                        </option>
-                        <template v-for="(day, key) in date_days">
-                          <option :key="key" :value="day.value">
-                            {{ day.name_en }}
-                          </option>
-                        </template>
-                      </select>
-                      <i class="fa fa-chevron-down" />
-                      <div class="line" />
-                    </div>
-                  </div>
-                </template>
               </div>
             </div>
-          </template>
-        </div>
+          </div>
+        </template>
       </div>
     </div>
   </div>
@@ -248,25 +246,32 @@ export default {
       this.refreshResume()
     },
     selectedDate (type) {
+      const year = this.date_current.getFullYear()
+      const month = this.date_current.getMonth()
       if (type === 'start') {
         let start_d = null
         let start_f = null
         if (this.ssy) {
           start_d = this.ssy + ''
           start_f = 'Y'
-        } else {
-          this.ssm = null
-          this.ssd = null
         }
-        if (this.ssy && this.ssm) {
-          start_d += '-' + this.ssm
-          start_f += '-m'
-        } else {
-          this.ssd = null
+        if (this.ssm) {
+          if (this.ssy) {
+            start_d += '-' + this.ssm
+            start_f += '-m'
+          } else {
+            start_d = year + '-' + this.ssm
+            start_f = 'm'
+          }
         }
-        if (this.ssy && this.ssm && this.ssd) {
-          start_d += '-' + this.ssd
-          start_f += '-d'
+        if (this.ssd) {
+          if (this.ssy || this.ssm) {
+            start_d += '-' + this.ssd
+            start_f += '-d'
+          } else {
+            start_d = year + '-' + month + '-' + this.ssd
+            start_f = 'd'
+          }
         }
         this.item.date_from = start_d
         this.item.date_from_format = start_f
@@ -276,21 +281,26 @@ export default {
         if (this.suty) {
           end_d = this.suty + ''
           end_f = 'Y'
-        } else {
-          this.sutm = null
-          this.sutd = null
         }
-        if (this.suty && this.sutm) {
-          end_d += '-' + this.sutm
-          end_f += '-m'
-        } else {
-          this.sutd = null
+        if (this.sutm) {
+          if (this.suty) {
+            end_d += '-' + this.sutm
+            end_f += '-m'
+          } else {
+            end_d = year + '-' + this.sutm
+            end_f = 'm'
+          }
         }
         if (this.sutd) {
-          end_d += '-' + this.sutd
-          end_f += '-d'
+          if (this.suty || this.sutm) {
+            end_d += '-' + this.sutd
+            end_f += '-d'
+          } else {
+            end_d = year + '-' + month + '-' + this.sutd
+            end_f = 'd'
+          }
         }
-        this.item.date_until = end_d.toString()
+        this.item.date_until = end_d
         this.item.date_until_format = end_f
       }
       this.refreshResume()
@@ -303,5 +313,6 @@ export default {
 }
 </script>
 
-<style scoped>
+<style scoped lang="scss">
+@import "../../assets/scss/resume";
 </style>

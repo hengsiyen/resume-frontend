@@ -8,7 +8,7 @@ a {
   color: $resume-blue;
 
   &:hover {
-    color: #3b8af2;
+    color: $resume-icon-color;
     text-decoration: none;
   }
 
@@ -57,38 +57,21 @@ button:focus {
 
 .dropdown-menu .dropdown-item {
   font-size: 20px;
-  font-weight: 600;
+  font-weight: 500;
   color: #262b33;
 
   & i {
-    color: #3b8af2;
+    color: $resume-icon-color;
   }
 
   &:hover {
-    color: #3b8af2;
+    color: $resume-icon-color;
   }
 
   &:active i,
   &:active {
     color: white;
   }
-}
-
-.autocomplete-input,
-.resume-form-control {
-  border-radius: 3px;
-  padding: 11px 16px;
-  width: 100%;
-  font-size: 19px;
-  display: block;
-  caret-color: $resume-blue;
-  background-color: $bg-color-gray;
-  outline: none;
-  border: 0;
-  color: rgb(38, 43, 51);
-  font-weight: 500;
-  pointer-events: unset;
-  transition: .3s width ease-in-out;
 }
 
 .form-group .line,
@@ -106,7 +89,7 @@ div[aria-owns="autosuggest-autosuggest__results"][aria-expanded="true"] + .line,
 .resume-form-control:focus + .line,
 .editor + .ql-editor-line {
   width: 100%;
-  background-color: #02add7;
+  background-color: $resume-cyan;
 }
 
 .line.line-red {
@@ -140,13 +123,13 @@ div[aria-owns="autosuggest-autosuggest__results"][aria-expanded="true"] + .line,
     }
   }
 }
-/*--------------------------------------------------------------
-# Date picker start
---------------------------------------------------------------*/
 
+.autocomplete-input,
+.resume-form-control,
 .resume_date_picker {
+  font-size: $resume-font-size-input;
+  padding: 8px 13px;
   border-radius: 3px;
-  padding: 11px 16px;
   width: 100%;
   display: block;
   caret-color: $resume-blue;
@@ -154,12 +137,14 @@ div[aria-owns="autosuggest-autosuggest__results"][aria-expanded="true"] + .line,
   outline: none;
   border: 0;
   color: rgb(38, 43, 51);
+  font-weight: 500;
   pointer-events: unset;
   transition: .3s width ease-in-out;
-  font-weight: 500;
-  font-size: 19px;
 }
 
+/*--------------------------------------------------------------
+# Date picker start
+--------------------------------------------------------------*/
 .resume_calendar {
   padding: 16px 24px;
   box-shadow: $resume-box-shadow;
@@ -171,7 +156,7 @@ div[aria-owns="autosuggest-autosuggest__results"][aria-expanded="true"] + .line,
 
   & header .month__year_btn {
     padding: 0 16px;
-    font-size: 19px;
+    font-size: $resume-font-size-input;
     font-weight: 700;
     line-height: 38px;
   }
@@ -225,11 +210,12 @@ select {
 
     & + i.fa {
       float: right;
-      margin-top: -30px;
+      margin-top: -25px;
       margin-right: 0;
       pointer-events: none;
       background-color: $resume-bg-color-gray;
       padding-right: 15px;
+      font-size: calc(var(--resume-font-size-input) - 5px);
     }
 
     & > option {
@@ -241,7 +227,7 @@ select {
   &:active + i.fa + .line,
   &:focus + i.fa + .line {
     width: 100%;
-    background-color: #02add7;
+    background-color: $resume-cyan;
   }
 }
 
@@ -267,7 +253,7 @@ select {
 
   &[data-expanded="true"]:after {
     width: 100%;
-    background-color: #02add7;
+    background-color: $resume-cyan;
   }
 }
 
@@ -377,11 +363,11 @@ select {
   margin-right: 16px;
 
   &.facebook {
-    color: #3b5997;
+    color: $facebook-color;
   }
 
   &.google {
-    color: #db4a39;
+    color: $google-color;
   }
 }
 
@@ -396,7 +382,7 @@ select {
   text-align: center;
 
   & .facebook {
-    color: #3b5997;
+    color: $facebook-color;
   }
 
   & i {
@@ -407,7 +393,7 @@ select {
   }
 
   &.facebook:hover {
-    background-color: #3b5997;
+    background-color: $facebook-color;
     & .facebook {
       color: white;
     }
@@ -461,7 +447,7 @@ select {
   user-select: none;
   z-index: 999;
   color: white !important;
-  background-color: rgb(35, 146, 236);
+  background-color: $resume-blue;
   border: none;
   cursor: pointer;
   margin: 0;
@@ -473,8 +459,6 @@ select {
   width: 100%;
   height: 100%;
 }
-
-
 
 .button-float-lg {
   height: 60px;

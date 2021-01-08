@@ -1,10 +1,15 @@
 export const googleSdkMixin = {
   methods: {
     async loginWithGoogle () {
-      const self = this
-      const googleUser = await this.$gAuth.signIn()
-      if (googleUser) {
+      try {
+        const self = this
+        const googleUser = await this.$gAuth.signIn()
+        console.log(googleUser)
+        if (!googleUser) {
+          return null
+        }
         const access_token = googleUser.getAuthResponse().access_token
+        this.$isLoading(true)
         this.$axios
           .post(this.$base_api + '/api/auth/frontend/login-with-google', {
             access_token
@@ -40,6 +45,12 @@ export const googleSdkMixin = {
               self.isLoginFail = true
             }
           })
+          .finally(() => {
+            this.$isLoading(false)
+          })
+      } catch (error) {
+        console.error(error)
+        return null
       }
     }
   }

@@ -94,7 +94,7 @@
                                 <ItemCollapse
                                   :key="edu_key"
                                   :item="item"
-                                  :active-tab="false"
+                                  :active-tab="activeTab(item)"
                                   :has-sub-title="true"
                                   @onDelete="removeSectionItem(user_resume.educations, item, element)"
                                 >
@@ -133,7 +133,7 @@
                                 <ItemCollapse
                                   :key="emp_key"
                                   :item="item"
-                                  :active-tab="false"
+                                  :active-tab="activeTab(item)"
                                   :has-sub-title="true"
                                   @onDelete="removeSectionItem(user_resume.work_experiences, item, element)"
                                 >
@@ -172,7 +172,7 @@
                                 <ItemCollapse
                                   :key="skill_key"
                                   :item="item"
-                                  :active-tab="false"
+                                  :active-tab="activeTab(item)"
                                   :has-sub-title="true"
                                   @onDelete="removeSectionItem(user_resume.skills, item, element)"
                                 >
@@ -196,6 +196,18 @@
                           :draggable="true"
                           :title="element"
                         >
+                          <div class="mb-2">
+                            <toggle-button
+                              :value="user_resume.hide_social"
+                              color="#2196f3"
+                              :sync="true"
+                              :width="35"
+                              class="mb-0 mr-1"
+                              id="toggleSocial"
+                              @change="toggleSection('hide_social')"
+                            />
+                            <label for="toggleSocial" class="mb-0">I'd like to hide websites & social links</label>
+                          </div>
                           <draggable
                             v-model="user_resume.social_profiles"
                             class="list-group"
@@ -206,7 +218,7 @@
                                 <ItemCollapse
                                   :key="soc_key"
                                   :item="item"
-                                  :active-tab="false"
+                                  :active-tab="activeTab(item)"
                                   :has-sub-title="true"
                                   @onDelete="removeSectionItem(user_resume.social_profiles, item, element)"
                                 >
@@ -242,7 +254,7 @@
                                 <ItemCollapse
                                   :key="course_key"
                                   :item="item"
-                                  :active-tab="false"
+                                  :active-tab="activeTab(item)"
                                   :has-sub-title="true"
                                   @onDelete="removeSectionItem(user_resume.courses, item, element)"
                                 >
@@ -278,7 +290,7 @@
                                 <ItemCollapse
                                   :key="intern_key"
                                   :item="item"
-                                  :active-tab="false"
+                                  :active-tab="activeTab(item)"
                                   :has-sub-title="true"
                                   @onDelete="removeSectionItem(user_resume.internships, item, element)"
                                 >
@@ -320,7 +332,7 @@
                                   :key="lang_key"
                                   :item="item"
                                   :has-sub-title="true"
-                                  :active-tab="false"
+                                  :active-tab="activeTab(item)"
                                   @onDelete="removeSectionItem(user_resume.langs, item, element)"
                                 >
                                   <LanguageForm :item="item" @refreshResume="refreshResume" />
@@ -356,7 +368,7 @@
                                   :key="act_key"
                                   :item="item"
                                   :has-sub-title="true"
-                                  :active-tab="false"
+                                  :active-tab="activeTab(item)"
                                   @onDelete="removeSectionItem(user_resume.activities, item, element)"
                                 >
                                   <ActivityForm
@@ -395,6 +407,18 @@
                           :title="element"
                           @onDelete="removeSection(element)"
                         >
+                          <div class="mb-3">
+                            <toggle-button
+                              :value="user_resume.hide_refs"
+                              color="#2196f3"
+                              :sync="true"
+                              :width="35"
+                              class="mb-0 mr-1"
+                              @change="toggleSection('hide_refs')"
+                              id="toggleRefs"
+                            />
+                            <label for="toggleRefs" class="mb-0">I'd like to hide references</label>
+                          </div>
                           <draggable
                             v-model="user_resume.references"
                             class="list-group"
@@ -405,7 +429,7 @@
                                 <ItemCollapse
                                   :key="ref_key"
                                   :item="item"
-                                  :active-tab="false"
+                                  :active-tab="activeTab(item)"
                                   :has-sub-title="true"
                                   @onDelete="removeSectionItem(user_resume.references, item, element)"
                                 >
@@ -452,7 +476,7 @@
                                       v-if="item"
                                       :key="item_key"
                                       :item="item"
-                                      :active-tab="false"
+                                      :active-tab="activeTab(item)"
                                       :has-sub-title="true"
                                       @onDelete="removeSectionItem(customSection.items, item, element)"
                                     >
@@ -768,6 +792,13 @@ export default {
     }
   },
   methods: {
+    activeTab (item) {
+      return item.hasOwnProperty('active_tab')
+    },
+    toggleSection (item) {
+      this.user_resume[item] = !this.user_resume[item]
+      this.refreshResume()
+    },
     confirmResumeName () {
       this.editable_title = false
       this.updateDataResume()

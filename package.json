@@ -34,7 +34,8 @@
     "vue-social-sharing": "^3.0.4",
     "vue-sweetalert2": "^4.1.1",
     "vuedraggable": "^2.24.3",
-    "vuejs-datepicker": "^1.6.2"
+    "vuejs-datepicker": "^1.6.2",
+    "vuejs-loading-screen": "^1.0.9"
   },
   "devDependencies": {
     "@nuxtjs/eslint-config": "^3.1.0",

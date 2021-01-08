@@ -85,146 +85,148 @@
       </div>
     </div>
     <div id="showAdditionalDetail" class="collapse">
-      <div class="row">
-        <div class="col-12 col-sm-6">
-          <div class="form-group">
-            <label class="resume-label-control">Country</label>
-            <autocomplete
-              :search="searchCountry"
-              :default-value="resumeCountry"
-              aria-label="Search city / province"
-              :get-result-value="getCountryResultValue"
-              @update="updateCountry"
-              @submit="submitCountry"
-            >
-              <template #result="{ result, props }">
-                <li v-bind="props">
-                  <div class="wiki-title">
-                    {{ result.name_en }}
-                  </div>
-                </li>
-              </template>
-            </autocomplete>
+      <template v-show="showAdditionalDetail">
+        <div class="row">
+          <div class="col-12 col-sm-6">
+            <div class="form-group">
+              <label class="resume-label-control">Country</label>
+              <autocomplete
+                  :search="searchCountry"
+                  :default-value="resumeCountry"
+                  aria-label="Search city / province"
+                  :get-result-value="getCountryResultValue"
+                  @update="updateCountry"
+                  @submit="submitCountry"
+              >
+                <template #result="{ result, props }">
+                  <li v-bind="props">
+                    <div class="wiki-title">
+                      {{ result.name_en }}
+                    </div>
+                  </li>
+                </template>
+              </autocomplete>
+            </div>
+          </div>
+          <div class="col-12 col-sm-6">
+            <div class="form-group">
+              <label class="resume-label-control">City / Province</label>
+              <autocomplete
+                  :search="searchProvince"
+                  :default-value="resumeProvince"
+                  aria-label="Search city / province"
+                  :get-result-value="getProvinceResultValue"
+                  @update="updateProvince"
+                  @submit="submitProvince"
+              >
+                <template #result="{ result, props }">
+                  <li v-bind="props">
+                    <div class="wiki-title">
+                      {{ result.name_en }}
+                    </div>
+                  </li>
+                </template>
+              </autocomplete>
+            </div>
           </div>
         </div>
-        <div class="col-12 col-sm-6">
-          <div class="form-group">
-            <label class="resume-label-control">City / Province</label>
-            <autocomplete
-              :search="searchProvince"
-              :default-value="resumeProvince"
-              aria-label="Search city / province"
-              :get-result-value="getProvinceResultValue"
-              @update="updateProvince"
-              @submit="submitProvince"
-            >
-              <template #result="{ result, props }">
-                <li v-bind="props">
-                  <div class="wiki-title">
-                    {{ result.name_en }}
-                  </div>
-                </li>
-              </template>
-            </autocomplete>
+        <div class="row">
+          <div class="col-12 col-sm-6">
+            <div class="form-group">
+              <label for="address" class="resume-label-control">Address</label>
+              <input
+                  id="address"
+                  v-model="item.address"
+                  type="text"
+                  class="resume-form-control"
+                  @input="refreshResume"
+              >
+              <div class="line" />
+            </div>
+          </div>
+          <div class="col-12 col-sm-6">
+            <div class="form-group">
+              <label for="postalCode" class="resume-label-control">Postal Code</label>
+              <input
+                  id="postalCode"
+                  v-model="item.postal_code"
+                  type="text"
+                  class="resume-form-control"
+                  @input="refreshResume"
+              >
+              <div class="line" />
+            </div>
           </div>
         </div>
-      </div>
-      <div class="row">
-        <div class="col-12 col-sm-6">
-          <div class="form-group">
-            <label for="address" class="resume-label-control">Address</label>
-            <input
-              id="address"
-              v-model="item.address"
-              type="text"
-              class="resume-form-control"
-              @input="refreshResume"
-            >
-            <div class="line" />
+        <div class="row">
+          <div class="col-12 col-sm-6">
+            <div class="form-group">
+              <label for="drivingLicense" class="resume-label-control">Driving License</label>
+              <input
+                  id="drivingLicense"
+                  v-model="item.driving_license"
+                  type="text"
+                  class="resume-form-control"
+                  @input="refreshResume"
+              >
+              <div class="line" />
+            </div>
+          </div>
+          <div class="col-12 col-sm-6">
+            <div class="form-group">
+              <label class="resume-label-control">Nationality</label>
+              <autocomplete
+                  :search="searchNationality"
+                  :default-value="resumeNationality"
+                  aria-label="Search city / province"
+                  :get-result-value="getNationalityResultValue"
+                  @update="updateNationality"
+                  @submit="submitNationality"
+              >
+                <template #result="{ result, props }">
+                  <li v-bind="props">
+                    <div class="wiki-title">
+                      {{ result.name_en }}
+                    </div>
+                  </li>
+                </template>
+              </autocomplete>
+            </div>
           </div>
         </div>
-        <div class="col-12 col-sm-6">
-          <div class="form-group">
-            <label for="postalCode" class="resume-label-control">Postal Code</label>
-            <input
-              id="postalCode"
-              v-model="item.postal_code"
-              type="text"
-              class="resume-form-control"
-              @input="refreshResume"
-            >
-            <div class="line" />
+        <div class="row">
+          <div class="col-12 col-sm-6">
+            <div class="form-group">
+              <label for="pob" class="resume-label-control">Place Of Birth</label>
+              <input
+                  id="pob"
+                  v-model="item.pod"
+                  type="text"
+                  class="resume-form-control"
+                  @input="refreshResume"
+              >
+              <div class="line" />
+            </div>
+          </div>
+          <div class="col-12 col-sm-6">
+            <div class="form-group">
+              <label for="dob" class="resume-label-control">Date Of Birth</label>
+              <datepicker
+                  id="dob"
+                  v-model="item.dob"
+                  placeholder="dd / MM / YYYY"
+                  :format="dateForm"
+                  input-class="resume_date_picker"
+                  calendar-class="resume_calendar"
+                  :initial-view="'year'"
+                  @input="refreshResume"
+                  @closed="selectedBirthDate"
+              />
+              <div class="line" />
+            </div>
           </div>
         </div>
-      </div>
-      <div class="row">
-        <div class="col-12 col-sm-6">
-          <div class="form-group">
-            <label for="drivingLicense" class="resume-label-control">Driving License</label>
-            <input
-              id="drivingLicense"
-              v-model="item.driving_license"
-              type="text"
-              class="resume-form-control"
-              @input="refreshResume"
-            >
-            <div class="line" />
-          </div>
-        </div>
-        <div class="col-12 col-sm-6">
-          <div class="form-group">
-            <label class="resume-label-control">Nationality</label>
-            <autocomplete
-              :search="searchNationality"
-              :default-value="resumeNationality"
-              aria-label="Search city / province"
-              :get-result-value="getNationalityResultValue"
-              @update="updateNationality"
-              @submit="submitNationality"
-            >
-              <template #result="{ result, props }">
-                <li v-bind="props">
-                  <div class="wiki-title">
-                    {{ result.name_en }}
-                  </div>
-                </li>
-              </template>
-            </autocomplete>
-          </div>
-        </div>
-      </div>
-      <div class="row">
-        <div class="col-12 col-sm-6">
-          <div class="form-group">
-            <label for="pob" class="resume-label-control">Place Of Birth</label>
-            <input
-              id="pob"
-              v-model="item.pod"
-              type="text"
-              class="resume-form-control"
-              @input="refreshResume"
-            >
-            <div class="line" />
-          </div>
-        </div>
-        <div class="col-12 col-sm-6">
-          <div class="form-group">
-            <label for="dob" class="resume-label-control">Date Of Birth</label>
-            <datepicker
-              id="dob"
-              v-model="item.dob"
-              placeholder="dd / MM / YYYY"
-              :format="dateForm"
-              input-class="resume_date_picker"
-              calendar-class="resume_calendar"
-              :initial-view="'year'"
-              @input="refreshResume"
-              @closed="selectedBirthDate"
-            />
-            <div class="line" />
-          </div>
-        </div>
-      </div>
+      </template>
     </div>
     <a
       class="btn-link underline-none font-weight-bold"
@@ -300,7 +302,7 @@ export default {
   },
   data () {
     return {
-      dateForm: 'dd MMM, yyyy',
+      dateForm: 'dd, MMMM, yyyy',
       showAdditionalDetail: false
     }
   },

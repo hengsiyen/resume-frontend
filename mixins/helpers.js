@@ -208,16 +208,29 @@ export const helpers = {
       return null
     },
     displayDateFormat (format) {
+      let result = null
       if (format) {
-        if (format === 'Y-m-d') {
-          return 'DD MMM yyyy'
-        } else if (format === 'Y-m') {
-          return 'MMM yyyy'
-        } else if (format === 'Y') {
-          return 'yyyy'
+        if (format.includes('Y')) {
+          result = 'yyyy'
         }
+        if (format.includes('m')) {
+          if (result) {
+            result = 'MMM ' + result
+          } else {
+            result = 'MMM'
+          }
+        }
+        if (format.includes('d')) {
+          if (result) {
+            result = 'DD ' + result
+          } else {
+            result = 'DD'
+          }
+        }
+      } else {
+        result = 'DD MMM yyyy'
       }
-      return 'yyyy'
+      return result
     },
     explodeDate (date, origin_format) {
       const result = {
@@ -251,7 +264,8 @@ export const helpers = {
             description: null,
             is_date_until_present: false,
             date_from_format: null,
-            date_until_format: null
+            date_until_format: null,
+            active_tab: true
           }
           break
         case 'activities':
@@ -264,7 +278,8 @@ export const helpers = {
             description: null,
             is_date_until_present: false,
             date_from_format: null,
-            date_until_format: null
+            date_until_format: null,
+            active_tab: true
           }
           break
         case 'workExperiences':
@@ -278,19 +293,22 @@ export const helpers = {
             description: null,
             is_date_until_present: false,
             date_from_format: null,
-            date_until_format: null
+            date_until_format: null,
+            active_tab: true
           }
           break
         case 'socialProfiles':
           newItem = {
             label: null,
-            link: null
+            link: null,
+            active_tab: true
           }
           break
         case 'skills':
           newItem = {
             skill: null,
-            level: null
+            level: null,
+            active_tab: true
           }
           break
         case 'courses':
@@ -301,13 +319,15 @@ export const helpers = {
             date_until: null,
             is_date_until_present: false,
             date_from_format: null,
-            date_until_format: null
+            date_until_format: null,
+            active_tab: true
           }
           break
         case 'langs':
           newItem = {
             language: null,
-            level: null
+            level: null,
+            active_tab: true
           }
           break
         case 'references':
@@ -315,7 +335,8 @@ export const helpers = {
             name: null,
             company: null,
             phone: null,
-            email: null
+            email: null,
+            active_tab: true
           }
           break
         case 'custom':
@@ -325,7 +346,8 @@ export const helpers = {
             date_until: null,
             province: null,
             description: null,
-            is_date_until_present: false
+            is_date_until_present: false,
+            active_tab: true
           }
           break
       }
