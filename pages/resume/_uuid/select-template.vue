@@ -2,11 +2,10 @@
   <!-- ======= Header ======= -->
   <div style="height: 100vh;">
     <div
-      class="container-fluid d-flex align-items-center justify-content-between nav-container bg-dark"
-      style="height: 6vh"
+      class="container-fluid d-flex align-items-center justify-content-between nav-container bg-dark nav-container-h"
     >
       <!-- Uncomment below if you prefer to use an image logo -->
-      <div class="btn-select-template d-flex align-items-center justify-content-center">
+      <div class="btn-select-template d-none d-md-flex align-items-center justify-content-center">
         <div class="btn-select-template-icon d-flex align-items-center justify-content-center">
           <i class="fas fa-angle-left" />
         </div>
@@ -17,13 +16,21 @@
           Back to editor
         </NuxtLink>
       </div>
+      <div class="d-flex d-md-none">
+        <NuxtLink
+          :to="{name: 'resume-uuid-edit', params: {uuid: $route.params.uuid}}"
+          class="btn-select-template-label"
+        >
+          <i class="fas fa-sliders-h" />
+        </NuxtLink>
+      </div>
       <div>
-        <button class="btn bnt-lg btn-primary font-weight-bold" @click="downloadResume($route.params.uuid)">
+        <button class="btn sm btn-primary font-weight-bold" @click="downloadResume($route.params.uuid)">
           Download PDF
         </button>
         <button
           id="dropdownMenuButton"
-          class="btn bnt-lg btn-primary font-weight-bold dropdown-toggle no-icon"
+          class="btn sm btn-primary font-weight-bold dropdown-toggle no-icon"
           type="button"
           data-toggle="dropdown"
           aria-haspopup="true"
@@ -32,7 +39,7 @@
           <i class="fas fa-ellipsis-h" />
         </button>
         <div
-          class="dropdown-menu"
+          class="dropdown-menu dropdown-menu-right"
           aria-labelledby="dropdownMenuButton"
         >
           <button
@@ -45,6 +52,14 @@
           </button>
         </div>
       </div>
+      <div class="d-flex d-md-none">
+        <NuxtLink
+          :to="{name: 'resume-uuid-edit', params: {uuid: $route.params.uuid}}"
+          class="btn-select-template-label"
+        >
+          <i class="fas fa-times" />
+        </NuxtLink>
+      </div>
     </div>
     <div class="d-flex section-body">
       <div class="template-list">
@@ -53,7 +68,7 @@
             <template v-for="(item, k) in templateLists">
               <div :key="k" class="template-item">
                 <div class="template-name">
-                  {{ item.name }}
+                  {{ item.name_en }}
                 </div>
                 <a href="javascript:void(0)" class="position-relative d-block" @click="selectTemplate(item.id)">
                   <div
@@ -70,7 +85,7 @@
           </div>
         </div>
       </div>
-      <div class="template-preview">
+      <div class="template-preview d-block">
         <div class="d-flex justify-content-center resume__preview-container w-100 mx-auto">
           <template v-if="pageCount > 0">
             <pdf
@@ -161,7 +176,7 @@ export default {
       uuid: this.$route.params.uuid
     }).then((res) => {
       this.fetchDataResume = res.data.data
-      this.selectTemplate(this.fetchDataResume.resume_template_id)
+      this.selectTemplate(this.fetchDataResume.resume_template_id, true)
     })
   },
   mounted () {
@@ -172,8 +187,23 @@ export default {
     this.getResumeTemplates()
   },
   methods: {
-    selectTemplate (template_id) {
+    selectTemplate (template_id, fetchData = false) {
       this.selected_id = template_id
+      if (!fetchData) {
+        this.$isLoading(true)
+        this.$axios
+          .post(this.$base_api + '/api/frontend/resume/select-resume-template', {
+            tid: template_id,
+            resume_uuid: this.$route.params.uuid
+          })
+          .then((res) => {
+            this.logContent()
+          })
+          .catch((error) => {
+            this.onResponseError(error)
+            this.$isLoading(false)
+          })
+      }
     },
     angleLeft () {
       if (this.currentPage > 1) {
@@ -191,14 +221,16 @@ export default {
         this.src.promise.then((pdf) => {
           this.pageCount = pdf.numPages
           this.currentPage = 1
+          this.$isLoading(false)
+        }).catch((err) => {
+          console.log(err)
+          this.$isLoading(false)
         })
       }
-    }, 800),
+    }, 1000),
     getResumeTemplates () {
       this.$axios
-        .post(this.$base_api + '/api/frontend/resume-template/get-option', {
-          query_text: 'Premium'
-        })
+        .post(this.$base_api + '/api/frontend/resume-template/get-option-for-resume')
         .then((res) => {
           this.templateLists = res.data.data
         })
@@ -208,12 +240,16 @@ export default {
 </script>
 
 <style scoped lang="scss">
+@import "../../../assets/scss/elements/default";
 .section-body {
   height: 94vh;
   background-color: #4f5259;
 }
+.nav-container-h {
+  height: 6vh;
+}
 .template-list {
-  width: 409px;
+  width: 610px;
   flex-shrink: 0;
   border-right: 1px solid rgba(255, 255, 255, 0.15);
   &-content {
@@ -238,7 +274,7 @@ export default {
 }
 
 .template-name {
-  color: rgb(255, 255, 255);
+  color: white;
   margin-bottom: 4px;
   text-align: center;
 }
@@ -246,12 +282,16 @@ export default {
 .template-item-show {
   position: relative;
   width: 100%;
-  height: 225px;
   border-radius: 3px;
-  background-color: rgb(255, 255, 255);
-  background-size: contain;
+  background-color: white;
+  background-size: cover;
   background-repeat: no-repeat;
-  background-position: center top;
+}
+
+.template-item-show:before {
+  content: "";
+  display: block;
+  padding-bottom: 140.845%;
 }
 
 .resume__preview-container {
@@ -261,8 +301,8 @@ export default {
 
 .pdf {
   width: 928px;
-  background: #fff;
-  border: 3px solid #fff;
+  background: white;
+  border: 3px solid white;
   border-radius: 6px;
   height: 1313px;
 }
@@ -273,8 +313,8 @@ export default {
   position: fixed !important;
   background: var(--dark);
   bottom: 3%;
-  left: 53%;
-  transform: translate(47%, 0);
+  left: 60%;
+  transform: translate(40%, 0);
   font-size: 20px;
   color: white;
   border-radius: 30px;
@@ -299,8 +339,8 @@ export default {
   display: flex;
   align-items: center;
   justify-content: center;
-  background-color: rgb(33, 150, 243);
-  color: rgb(255, 255, 255);
+  background-color: $resume-blue;
+  color: white;
   border-radius: 50%;
   opacity: 1;
 }
@@ -311,25 +351,37 @@ export default {
   inset: -4px;
   border-width: 4px;
   border-style: solid;
-  border-color: rgb(33, 150, 243);
+  border-color: $resume-blue;
   border-radius: 7px;
   opacity: 1;
   transition: opacity 0.15s ease 0s;
 }
 
-@media screen and (max-width: 1354px) {
+@media screen and (max-width: 1555px) {
   .template-list {
-    width: 242px;
+    width: 325px;
   }
   .template-item {
     width: 100%;
   }
+
+  .link_page {
+    left: 50%;
+    transform: translate(50%, 0);
+  }
+}
+
+@media screen and (max-width: 1354px) {
   .resume__preview-container {
     height: auto;
   }
   .pdf {
     width: 85%;
     height: auto;
+  }
+
+  .resume__preview-container {
+    height: 800px;
   }
 }
 
@@ -341,6 +393,33 @@ export default {
     left: 50%;
     transform: translate(-50%, 0);
   }
+}
 
+@media screen and (max-width: 767px) {
+  .nav-container {
+    padding: 5px 16px;
+  }
+}
+
+@media screen and (max-width: 576px) {
+  .section-body {
+    height: 93vh;
+  }
+  .nav-container-h {
+    height: 7vh;
+  }
+
+  .template-preview {
+    overflow-y: hidden;
+  }
+  .resume__preview-container {
+    height: 450px;
+  }
+  .btn.sm {
+    padding: 0.25rem 0.5rem;
+    font-size: 0.875rem;
+    line-height: 1.5;
+    border-radius: 0.2rem;
+  }
 }
 </style>
