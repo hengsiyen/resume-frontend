@@ -117,7 +117,9 @@
               </div>
               <div class="d-flex align-items-center justify-content-center">
                 <template v-if="user.hasOwnProperty('connected_socials') && user.connected_socials.includes('facebook')">
-                  <p class="text-muted mb-0">Connected</p>
+                  <p class="text-muted mb-0">
+                    Connected
+                  </p>
                 </template>
                 <template v-else>
                   <a href="javascript:void(0)" class="text-primary" @click="connectWithFB">Connect</a>
@@ -135,7 +137,9 @@
               </div>
               <div class="d-flex align-items-center justify-content-center">
                 <template v-if="user.hasOwnProperty('connected_socials') && user.connected_socials.includes('google')">
-                  <p class="text-muted mb-0">Connected</p>
+                  <p class="text-muted mb-0">
+                    Connected
+                  </p>
                 </template>
                 <template v-else>
                   <a href="javascript:void(0)" class="text-primary" @click="connectWithFB">Connect</a>

@@ -303,10 +303,19 @@ export default {
         })
     },
     createNewResume () {
+      let choose_template = this.$store.state.user.choose_template
+      if (!choose_template) {
+        if (localStorage.hasOwnProperty('template')) {
+          choose_template = localStorage.getItem('template')
+        } else {
+          choose_template = dataOptions.resume_template_name
+        }
+      }
       this.user.user_id = this.logged_user.id
       this.user.first_name = this.logged_user.first_name
       this.user.last_name = this.logged_user.last_name
       this.user.email = this.logged_user.email
+      this.user.resume_template_name = choose_template
       this.user.hide_refs = false
       this.user.hide_social = false
       this.user.spacing = '0'

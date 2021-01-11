@@ -34,6 +34,8 @@ export default {
   // Global CSS (https://go.nuxtjs.dev/config-css)
   css: [
     { src: 'quill/dist/quill.snow.css', lang: 'css' },
+    { src: 'vue-slick-carousel/dist/vue-slick-carousel.css', lang: 'css' },
+    { src: 'vue-slick-carousel/dist/vue-slick-carousel-theme.css', lang: 'css' },
     { src: '@fortawesome/fontawesome-free/css/all.min.css', lang: 'css' },
     { src: '@/assets/css/style.css', lang: 'css' },
     { src: '@/assets/scss/style.scss', lang: 'css' }
@@ -42,17 +44,18 @@ export default {
   // Plugins to run before rendering page (https://go.nuxtjs.dev/config-plugins)
   plugins: [
     { src: '~/plugins/axios.js', mode: 'client', ssr: false },
-    { src: '~plugins/vue-loading-screen', mode: 'client', ssr: false },
+    { src: '~/plugins/vue-loading-screen.js', mode: 'client', ssr: false },
     { src: '~/plugins/authenticate.js', mode: 'client', ssr: false },
     { src: '~/plugins/date-picker.js', mode: 'client', ssr: false },
     { src: '~/plugins/avatar.js', mode: 'client', ssr: false },
     { src: '~/plugins/vue-clipboard2.js', mode: 'client', ssr: false },
     { src: '~/plugins/vue-autocomplete.js', mode: 'client', ssr: false },
     { src: '~/plugins/main.js', mode: 'client', ssr: false },
-    { src: '~/plugins/quill-editor', mode: 'client', ssr: false },
+    { src: '~/plugins/quill-editor.js', mode: 'client', ssr: false },
     { src: '~/plugins/vue-pdf.js', mode: 'client', ssr: false },
-    { src: '~plugins/vue-js-toggle-button', mode: 'client', ssr: false },
-    { src: '~plugins/vue-google-oauth2', mode: 'client', ssr: false }
+    { src: '~/plugins/vue-js-toggle-button.js', mode: 'client', ssr: false },
+    { src: '~/plugins/vue-google-oauth2.js', mode: 'client', ssr: false },
+    { src: '~/plugins/vue-slick-carousel.js', mode: 'client', ssr: false }
   ],
 
   // Auto import components (https://go.nuxtjs.dev/config-components)

@@ -26,3 +26,10 @@
 .swal2-actions {
   padding: 0 !important;
 }
+
+@media screen and (max-width: 767px) {
+  .swal2-popup {
+    padding: 16px !important;
+  }
+
+}

@@ -10,7 +10,7 @@
           Stand out and get hired faster with field-tested resume templates.
         </p>
         <div class="banner-content_action">
-          <NuxtLink :to="{name: 'resume-create'}" class="btn btn-primary">
+          <NuxtLink :to="{name: 'resume-templates'}" class="btn btn-primary">
             Create My Resume
           </NuxtLink>
         </div>

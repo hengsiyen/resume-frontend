@@ -3,6 +3,7 @@ export const strict = false
 export const state = () => ({
   facebookAuth: null,
   authenticated: false,
+  choose_template: null,
   user: {
     id: null,
     first_name: null,
@@ -41,10 +42,16 @@ export const mutations = {
   },
   clearFacebookAuth (state) {
     state.facebookAuth = null
+  },
+  setChooseTemplate (state, data) {
+    state.choose_template = data
   }
 }
 
 export const actions = {
+  setChooseTemplate ({ commit, state }, data) {
+    commit('setChooseTemplate', data)
+  },
   setUser ({ commit, state }, data) {
     commit('setUser', data)
   },

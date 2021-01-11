@@ -48,4 +48,16 @@ export default {
     font-weight: 600;
   }
 }
+
+@media screen and (max-width: 576px) {
+  .form__header-block {
+    padding: 0 8px;
+  }
+
+  .logo {
+    & span {
+      font-size: 18px;
+    }
+  }
+}
 </style>

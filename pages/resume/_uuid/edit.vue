@@ -22,7 +22,7 @@
                   ><i class="fas fa-check-circle" /></a>
                 </template>
                 <template v-else>
-                  <span class="mr-1">{{ user_resume.name ? user_resume.name : 'Untitled' }}</span>
+                  <span class="mr-2 mr-sm-1">{{ user_resume.name ? user_resume.name : 'Untitled' }}</span>
                   <a
                     href="javascript:void(0)"
                     class="rf-section__edit hover"

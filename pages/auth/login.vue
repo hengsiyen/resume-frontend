@@ -83,32 +83,32 @@
             <div class="login-buttons">
               <div class="login-button">
                 <a href="javascript:void(0)" @click="statusChangeCallback" class="btn-social btn-facebook">
-                <span>
-                  <i class="fab fa-facebook-f"></i>
-                </span>
+                  <span>
+                    <i class="fab fa-facebook-f"></i>
+                  </span>
                   Facebook
                 </a>
               </div>
               <div class="login-button">
                 <a href="javascript:void(0)" @click="loginWithGoogle" class="btn-social btn-google">
-                <span>
-                  <i class="fab fa-google"></i>
-                </span>
+                  <span>
+                    <i class="fab fa-google"></i>
+                  </span>
                   Google
                 </a>
               </div>
               <div class="login-button">
                 <a href="javascript:void(0)" @click="enterEmail" class="btn-social btn-email">
-                <span>
-                  <i class="far fa-envelope"></i>
-                </span>
+                  <span>
+                    <i class="far fa-envelope"></i>
+                  </span>
                   Email
                 </a>
               </div>
             </div>
             <div>
               I am not registered —
-              <NuxtLink :to="{name: 'resume-create'}">
+              <NuxtLink :to="{name: 'resume-templates'}">
                 Sign Up
               </NuxtLink>
             </div>

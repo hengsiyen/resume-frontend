@@ -379,10 +379,6 @@
     flex-flow: column nowrap;
     background-color: rgb(122, 133, 153);
     height: 100vh;
-    & .viewer-content{
-      //width: 655px;
-      //height: 950px;
-    }
   }
 
   .resume__preview-container {
@@ -471,10 +467,21 @@
   display: none;
 }
 
-@media (max-width: 1279px) {
+.resume-label-control {
+  display: flex;
+  -webkit-box-align: center;
+  align-items: center;
+  font-size: $resume-font-size-label;
+  line-height: 20px;
+  color: $resume-gray;
+  margin-bottom: 6px;
+}
+
+@media screen and (max-width: 1279px) {
   .resume__left-block {
-    width: 100%;
-    margin: 0px auto;
+    display: block;
+    width: 99%;
+    margin: 0 auto;
   }
 
   .resume__preview {
@@ -486,27 +493,44 @@
   }
 }
 
-@media (max-width: 767px) {
+@media (max-width: 991.98px) {
+  .rf-section__draggable {
+    left: -30px;
+    width: 30px;
+  }
+
+  .rf-section__edit,
+  .rf-section__edit.hover {
+    opacity: 1 !important;
+  }
+}
+@media (max-width: 768px) {
   .rf-padding {
-    padding: 32px;
+    padding: 48px;
+  }
+
+  .rf-section {
+    &__title {
+      & a.rf-section__edit,
+      & a.rf-section__delete {
+        opacity: 1;
+      }
+    }
+  }
+}
+
+@media (max-width: 567px) {
+  .rf-padding {
+    padding: 30px 20px 30px 30px;
   }
 
   .list-section-item {
     width: 100%;
     flex: 0 0 100%;
-    margin-right: 0px;
+    margin-right: 0;
   }
 }
 
-.resume-label-control {
-  display: flex;
-  -webkit-box-align: center;
-  align-items: center;
-  font-size: $resume-font-size-label;
-  line-height: 20px;
-  color: $resume-gray;
-  margin-bottom: 6px;
-}
 
 /*--------------------------------------------------------------
 # Resume editor end

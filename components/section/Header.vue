@@ -37,7 +37,9 @@
             </NuxtLink>
           </li>
           <li class="nav-item d-none d-lg-block">
-            <div class="nav-link">|</div>
+            <div class="nav-link">
+              |
+            </div>
           </li>
           <li class="nav-item d-block d-lg-none" :class="{'active' : $route.name === 'user-account'}">
             <NuxtLink :to="{name: 'user-account'}" class="nav-link nav_bar_item">
@@ -85,7 +87,7 @@
               </NuxtLink>
             </li>
             <li class="nav-item">
-              <NuxtLink :to="{name: 'resume-create'}" class="btn btn-primary font-weight-bold">
+              <NuxtLink :to="{name: 'resume-templates'}" class="btn btn-primary font-weight-bold">
                 Sign up
               </NuxtLink>
             </li>

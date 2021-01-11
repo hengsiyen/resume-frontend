@@ -7,7 +7,7 @@
         </NuxtLink>
       </div>
     </HeaderSecondary>
-    <div class="stepper d-flex align-items-center justify-content-center">
+    <div class="stepper d-none d-md-flex align-items-center justify-content-center">
       <div class="stepper-content">
         <template v-for="(item, key) in steppers">
           <div :key="key" class="stepper-content_item">
@@ -28,10 +28,10 @@
       <div class="form__body-container">
         <template v-if="step === 1">
           <div class="form__body-wrapper w-100 mx-auto d-flex justify-content-center align-items-center flex-column">
-            <div class="body__title">
+            <div class="body__title d-block d-md-none">
               Connect your social profile
             </div>
-            <div class="body__sub-title text-center">
+            <div class="body__sub-title text-center d-block d-md-none">
               Prefill your resume with data from your social profile
             </div>
             <div class="body_content w-100">
@@ -68,7 +68,7 @@
                 </a>
               </div>
               <div class="d-flex align-items-center justify-content-between w-100">
-                <NuxtLink :to="{name: 'index'}" class="btn btn-outline-secondary btn-lg font-weight-bold">
+                <NuxtLink :to="{name: 'resume-templates'}" class="btn btn-outline-secondary btn-lg font-weight-bold">
                   Back
                 </NuxtLink>
                 <button class="btn btn-primary btn-lg font-weight-bold" @click="onClickNext()">
@@ -190,27 +190,22 @@ export default {
       last_name: null,
       email: null,
       validate: null,
-      app_name: process.env.VUE_APP_NAME,
       steppers: [
         {
           number: 1,
+          label: 'Choose template',
+          active: false
+        },
+        {
+          number: 2,
           label: 'Enter your details',
           active: true
         },
         {
-          number: 2,
+          number: 3,
           label: 'Create your resume',
           active: false
         }
-      ],
-      socials: [
-        {
-          id: 1,
-          icon: 'fab fa-facebook-f',
-          label: 'Facebook',
-          code: 'facebook'
-        }
-        // { id: 2, icon: 'fab fa-google', label: 'Google', code: 'google' }
       ],
       sections_order: dataOptions.sectionOrders,
       resume_type_name: dataOptions.resume_type_name,
@@ -249,6 +244,7 @@ export default {
       }
     },
     registerEmail () {
+      this.$isLoading(true)
       this.validate = {}
       this.$axios
         .post(this.$base_api + '/api/auth/frontend/resume-register', {
@@ -276,23 +272,33 @@ export default {
           } else {
             this.onResponseError(error)
           }
+          this.$isLoading(false)
         })
     },
     createResume (data) {
+      let choose_template = this.$store.state.user.choose_template
+      if (!choose_template) {
+        if (localStorage.hasOwnProperty('template')) {
+          choose_template = localStorage.getItem('template')
+        } else {
+          choose_template = dataOptions.resume_template_name
+        }
+      }
       this.$axios
         .post(this.$base_api + '/api/frontend/resume/store', {
+          user_id: data.id,
           first_name: data.first_name,
           last_name: data.last_name,
           email: data.email,
-          user_id: data.id,
           sections_order: this.sections_order,
           resume_type_name: this.resume_type_name,
-          resume_template_name: this.resume_template_name
+          resume_template_name: choose_template,
+          hide_refs: false,
+          hide_social: false,
+          spacing: '0'
         })
         .then((res) => {
-          console.log(res)
           const result = res.data.data
-          console.log(result)
           this.$router.push({
             name: 'resume-uuid-edit',
             params: { uuid: result.uuid }
@@ -300,6 +306,9 @@ export default {
         })
         .catch((error) => {
           this.onResponseError(error)
+        })
+        .finally(() => {
+          this.$isLoading(false)
         })
     },
     onClickNext () {
@@ -324,164 +333,140 @@ export default {
 
 <style scoped lang="scss">
 @import "~assets/scss/resume.scss";
+@import "~assets/scss/create-resume.scss";
 
-.form__header-block {
-  position: relative;
-  display: flex;
-  align-items: flex-end;
-  flex-shrink: 0;
-  width: 100%;
-  height: 54px;
-  padding: 0 32px;
-}
-
-.logo {
-  & img {
-    display: inline-block;
-    width: 40px;
-    height: 40px;
-    vertical-align: middle;
-  }
-
-  & span {
-    font-size: 24px;
-    color: var(--dark);
-    font-weight: 600;
-  }
-}
-
-.stepper {
-  padding-top: 32px;
-
-  &-content {
-    width: 100%;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-
-    &_item {
-      display: flex;
-      align-items: center;
-
-      &:after {
-        content: "";
-        width: 32px;
-        height: 1px;
-        background-color: rgb(221, 227, 240);
-        margin: 0px 8px;
-        color: rgb(221, 227, 240);
-      }
-
-      &:last-child:after {
-        content: unset;
-      }
-    }
-  }
-
-  &-item__number {
-    width: 28px;
-    height: 28px;
-    border-radius: 50%;
-    background-color: rgb(221, 227, 240);
-    font-size: 16px;
-    line-height: 20px;
-    color: rgb(255, 255, 255);
-    font-weight: 600;
-    margin-right: 12px;
-    transition: background-color 0.2s ease 0s, color 0.2s ease 0s;
-
-    &.active {
-      background-color: rgb(33, 150, 243);
-    }
-  }
-
-  &-item__label {
-    font-size: 20px;
-    color: rgb(152, 161, 179);
-    transition: color 0.2s ease 0s;
-
-    &.active {
-      color: rgb(38, 43, 51);
-    }
-  }
-}
-
-.form__button-remove {
-  width: 30px;
-  height: 30px;
-  right: 32px;
-  top: 15px;
-  cursor: pointer;
-  transition: color 0.2s ease 0s;
-  font-size: 24px;
-
-  & a {
-    color: #cfd6e6;
-  }
-}
-
-.form__body_block {
-  min-height: calc(100vh - 150px);
-}
-
-.form__body-container {
-  padding: 64px 44px 48px;
-}
-
-.form__body-wrapper {
-  max-width: 1120px;
-
-  & .body__title {
-    font-size: 46px;
-    line-height: 48px;
-    font-weight: 700;
-    color: rgb(33, 150, 243);
-    margin-bottom: 12px;
-  }
-
-  & .body__sub-title {
-    margin-bottom: 32px;
-  }
-
-  & .body_content {
-    max-width: 416px;
-
-    & .social-list {
-      background-color: rgb(242, 245, 250);
-      border-radius: 8px;
-
-      & a {
-        font-size: 19px;
-        color: var(--dark);
-        font-weight: 600;
-        border-radius: 8px 8px 0 0;
-        padding: 20px 32px;
-        border-bottom: 1px solid rgb(221, 227, 240);
-        transition: background-color 0.1s ease 0s, color 0.1s ease 0s;
-
-        &:hover {
-          color: rgb(33, 150, 243);
-          background-color: rgba(204, 232, 255, 0.5);
-        }
-
-        &:last-child {
-          border: none;
-          margin: 0;
-          border-radius: 0 0 8px 8px;
-        }
-      }
-    }
-
-    & .social-list,
-    & .form__input {
-      margin-bottom: 48px;
-    }
-  }
-}
-
-@media screen and (max-width: 1080px) {
-  .stepper {
-    display: none;
-  }
-}
+//.stepper {
+//  padding-top: 32px;
+//
+//  &-content {
+//    width: 100%;
+//    display: flex;
+//    align-items: center;
+//    justify-content: center;
+//
+//    &_item {
+//      display: flex;
+//      align-items: center;
+//
+//      &:after {
+//        content: "";
+//        width: 32px;
+//        height: 1px;
+//        background-color: rgb(221, 227, 240);
+//        margin: 0 8px;
+//        color: rgb(221, 227, 240);
+//      }
+//
+//      &:last-child:after {
+//        content: unset;
+//      }
+//    }
+//  }
+//
+//  &-item__number {
+//    width: 28px;
+//    height: 28px;
+//    border-radius: 50%;
+//    background-color: rgb(221, 227, 240);
+//    font-size: 16px;
+//    line-height: 20px;
+//    color: rgb(255, 255, 255);
+//    font-weight: 600;
+//    margin-right: 12px;
+//    transition: background-color 0.2s ease 0s, color 0.2s ease 0s;
+//
+//    &.active {
+//      background-color: rgb(33, 150, 243);
+//    }
+//  }
+//
+//  &-item__label {
+//    font-size: 20px;
+//    color: rgb(152, 161, 179);
+//    transition: color 0.2s ease 0s;
+//
+//    &.active {
+//      color: rgb(38, 43, 51);
+//    }
+//  }
+//}
+//
+//.form__button-remove {
+//  width: 30px;
+//  height: 30px;
+//  right: 32px;
+//  top: 15px;
+//  cursor: pointer;
+//  transition: color 0.2s ease 0s;
+//  font-size: 24px;
+//
+//  & a {
+//    color: #cfd6e6;
+//  }
+//}
+//
+//.form__body_block {
+//  min-height: calc(100vh - 150px);
+//}
+//
+//.form__body-container {
+//  padding: 64px 44px 48px;
+//}
+//
+//.form__body-wrapper {
+//  max-width: 1120px;
+//
+//  & .body__title {
+//    font-size: 46px;
+//    line-height: 48px;
+//    font-weight: 700;
+//    color: rgb(33, 150, 243);
+//    margin-bottom: 12px;
+//  }
+//
+//  & .body__sub-title {
+//    margin-bottom: 32px;
+//  }
+//
+//  & .body_content {
+//    max-width: 416px;
+//
+//    & .social-list {
+//      background-color: rgb(242, 245, 250);
+//      border-radius: 8px;
+//
+//      & a {
+//        font-size: 19px;
+//        color: var(--dark);
+//        font-weight: 600;
+//        border-radius: 8px 8px 0 0;
+//        padding: 20px 32px;
+//        border-bottom: 1px solid rgb(221, 227, 240);
+//        transition: background-color 0.1s ease 0s, color 0.1s ease 0s;
+//
+//        &:hover {
+//          color: rgb(33, 150, 243);
+//          background-color: rgba(204, 232, 255, 0.5);
+//        }
+//
+//        &:last-child {
+//          border: none;
+//          margin: 0;
+//          border-radius: 0 0 8px 8px;
+//        }
+//      }
+//    }
+//
+//    & .social-list,
+//    & .form__input {
+//      margin-bottom: 48px;
+//    }
+//  }
+//}
+//
+//@media screen and (max-width: 1080px) {
+//  .stepper {
+//    display: none;
+//  }
+//}
 </style>

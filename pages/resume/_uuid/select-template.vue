@@ -17,12 +17,13 @@
         </NuxtLink>
       </div>
       <div class="d-flex d-md-none">
-        <NuxtLink
-          :to="{name: 'resume-uuid-edit', params: {uuid: $route.params.uuid}}"
+        <a
+          href="javascript:void(0)"
+          @click="show_template_list = !show_template_list"
           class="btn-select-template-label"
         >
           <i class="fas fa-sliders-h" />
-        </NuxtLink>
+        </a>
       </div>
       <div>
         <button class="btn sm btn-primary font-weight-bold" @click="downloadResume($route.params.uuid)">
@@ -62,7 +63,7 @@
       </div>
     </div>
     <div class="d-flex section-body">
-      <div class="template-list">
+      <div class="template-list" :class="{'show': show_template_list}">
         <div class="template-list-content">
           <div class="d-flex flex-wrap justify-content-between">
             <template v-for="(item, k) in templateLists">
@@ -160,7 +161,8 @@ export default {
       email: null,
       fetchDataResume: null,
       templateLists: [],
-      selected_id: null
+      selected_id: null,
+      show_template_list: false
     }
   },
   created () {
@@ -387,7 +389,12 @@ export default {
 
 @media screen and (max-width: 991.98px) {
   .template-list {
-    display: none;
+    width: 240px;
+  }
+
+  .template-list-content {
+    height: 92.5vh;
+    padding: 32px 16px 18px;
   }
   .link_page {
     left: 50%;
@@ -420,6 +427,26 @@ export default {
     font-size: 0.875rem;
     line-height: 1.5;
     border-radius: 0.2rem;
+  }
+
+  .template-list {
+    display: block;
+    left: -325px;
+    position: absolute;
+    opacity: 0;
+    transition: opacity .2s ease-in;
+
+    &.show {
+      left: 0;
+      opacity: 1;
+      transition: opacity .2s ease-out;
+      width: 100%;
+      z-index: 1;
+      background: #4f5259;
+    }
+  }
+  .template-item {
+    width: 48%;
   }
 }
 </style>

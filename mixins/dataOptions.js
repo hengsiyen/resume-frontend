@@ -1,6 +1,6 @@
 export const dataOptions = {
   resume_type_name: 'resume',
-  resume_template_name: 'default',
+  resume_template_name: 'Phnom Penh',
   editorOption: {
     // Some Quill options...
     theme: 'snow',

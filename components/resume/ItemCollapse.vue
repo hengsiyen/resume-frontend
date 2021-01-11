@@ -3,44 +3,48 @@
     <div class="tab-collapse-col">
       <div class="tab-collapse">
         <div class="tab-collapse-item position-relative">
-          <a
-            href="javascript:void(0)"
-            class="a-link-title a-no-underline"
-            @click="active_tab = !active_tab"
-          >
-            <div class="collapse-header">
-              <div class="collapse-text">
-                <p class="collapse-header__title mb-0">
-                  <i v-if="icon" :class="icon" /> <strong>{{ title }}</strong>
-                </p>
-                <p v-if="hasSubTitle" class="collapse-header__subtitle mb-0"> {{ subTabLabel }}</p>
+          <div class="d-flex align-items-center">
+            <a
+              href="javascript:void(0)"
+              class="a-link-title a-no-underline"
+              @click="active_tab = !active_tab"
+            >
+              <div class="collapse-header">
+                <div class="collapse-text">
+                  <p class="collapse-header__title mb-0">
+                    <i v-if="icon" :class="icon" /> <strong>{{ title }}</strong>
+                  </p>
+                  <p v-if="hasSubTitle" class="collapse-header__subtitle mb-0"> {{ subTabLabel }}</p>
+                </div>
+                <div class="collapse-action d-flex align-content-center justify-items-center">
+                  <div class="collapse-btn d-none d-lg-block">
+                    <i class="fas " :class="active_tab ? 'fa-angle-up' : 'fa-angle-down'" />
+                  </div>
+                </div>
               </div>
-              <div class="collapse-action d-flex align-content-center justify-items-center">
-                <!--            <div class="dropdown collapse-btn collapse-dropdown">-->
-                <!--              <a-->
-                <!--                id="dropdownMenuLink"-->
-                <!--                class="btn-link dropdown-toggle"-->
-                <!--                href="javascript:void(0)"-->
-                <!--                role="button"-->
-                <!--                data-toggle="dropdown"-->
-                <!--                aria-haspopup="true"-->
-                <!--                aria-expanded="false"-->
-                <!--              >-->
-                <!--                <i class="fas fa-ellipsis-h" />-->
-                <!--              </a>-->
+            </a>
+            <div class="btn-dropdown position-relative d-block d-lg-none">
+              <div class="dropdown collapse-btn collapse-dropdown h-100 d-flex align-items-center justify-content-center">
+                <a
+                  id="dropdownMenuLink"
+                  class="btn-link dropdown-toggle"
+                  href="javascript:void(0)"
+                  role="button"
+                  data-toggle="dropdown"
+                  aria-haspopup="true"
+                  aria-expanded="false"
+                >
+                  <i class="fas fa-ellipsis-h" />
+                </a>
 
-                <!--              <div class="dropdown-menu dropdown-menu-right" aria-labelledby="dropdownMenuLink">-->
-                <!--                <a class="dropdown-item" href="javascript:void(0)" @click="onDelete">-->
-                <!--                  <i class="fas fa-trash mr-3 text-primary" /> Delete-->
-                <!--                </a>-->
-                <!--              </div>-->
-                <!--            </div>-->
-                <div class="collapse-btn">
-                  <i class="fas " :class="active_tab ? 'fa-angle-up' : 'fa-angle-down'" />
+                <div class="dropdown-menu dropdown-menu-right" aria-labelledby="dropdownMenuLink">
+                  <a class="dropdown-item" href="javascript:void(0)" @click="onDelete">
+                    <i class="fas fa-trash mr-3 text-primary" /> Delete
+                  </a>
                 </div>
               </div>
             </div>
-          </a>
+          </div>
           <div v-if="active_tab" class="collapse-body">
             <slot />
           </div>
@@ -50,7 +54,7 @@
               class="rf-section__delete"
               @click="onDelete"
             >
-              <i class="fas fa-trash-alt" />
+              <i class="far fa-trash-alt" />
             </a>
           </div>
         </div>
@@ -172,6 +176,11 @@ export default {
   pointer-events: auto !important;
   width: 100%;
 
+  & a.a-link-title {
+    width: 100%;
+    display: block;
+  }
+
   & a.dropdown-item,
   & a.a-link-title {
     color: #262b33;
@@ -198,6 +207,7 @@ export default {
   padding: 15px 20px;
   justify-content: space-between;
   cursor: pointer;
+  width: 100%;
 
   &__title {
     font-size: 18px;
@@ -254,6 +264,32 @@ export default {
   position: absolute;
   right: -25px;
   top: 20px;
+}
+
+@media screen and (max-width: 991.98px) {
+  .tab-collapse-col {
+    padding-right: 20px;
+  }
+  .tab-collapse-row {
+    & .btn-delete {
+      display: none;
+    }
+
+    &:hover .btn-delete {
+      opacity: 0 !important;
+    }
+  }
+
+  .tab-collapse-item {
+    & a.a-link-title {
+      width: 92%;
+    }
+  }
+
+  .btn-dropdown {
+    width: 7%;
+    text-align: center;
+  }
 }
 
 </style>

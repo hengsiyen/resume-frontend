@@ -23,7 +23,7 @@
         </div>
       </div>
       <div class="col-12 col-sm-6 d-flex align-items-center">
-        <div class="form-group mb-0 w-100">
+        <div class="form-group mb-sm-0 w-100">
           <UploadAvatar :item="item" @callMethod="refreshResume" />
         </div>
       </div>
@@ -91,12 +91,12 @@
             <div class="form-group">
               <label class="resume-label-control">Country</label>
               <autocomplete
-                  :search="searchCountry"
-                  :default-value="resumeCountry"
-                  aria-label="Search city / province"
-                  :get-result-value="getCountryResultValue"
-                  @update="updateCountry"
-                  @submit="submitCountry"
+                :search="searchCountry"
+                :default-value="resumeCountry"
+                aria-label="Search city / province"
+                :get-result-value="getCountryResultValue"
+                @update="updateCountry"
+                @submit="submitCountry"
               >
                 <template #result="{ result, props }">
                   <li v-bind="props">
@@ -112,12 +112,12 @@
             <div class="form-group">
               <label class="resume-label-control">City / Province</label>
               <autocomplete
-                  :search="searchProvince"
-                  :default-value="resumeProvince"
-                  aria-label="Search city / province"
-                  :get-result-value="getProvinceResultValue"
-                  @update="updateProvince"
-                  @submit="submitProvince"
+                :search="searchProvince"
+                :default-value="resumeProvince"
+                aria-label="Search city / province"
+                :get-result-value="getProvinceResultValue"
+                @update="updateProvince"
+                @submit="submitProvince"
               >
                 <template #result="{ result, props }">
                   <li v-bind="props">
@@ -135,11 +135,11 @@
             <div class="form-group">
               <label for="address" class="resume-label-control">Address</label>
               <input
-                  id="address"
-                  v-model="item.address"
-                  type="text"
-                  class="resume-form-control"
-                  @input="refreshResume"
+                id="address"
+                v-model="item.address"
+                type="text"
+                class="resume-form-control"
+                @input="refreshResume"
               >
               <div class="line" />
             </div>
@@ -148,11 +148,11 @@
             <div class="form-group">
               <label for="postalCode" class="resume-label-control">Postal Code</label>
               <input
-                  id="postalCode"
-                  v-model="item.postal_code"
-                  type="text"
-                  class="resume-form-control"
-                  @input="refreshResume"
+                id="postalCode"
+                v-model="item.postal_code"
+                type="text"
+                class="resume-form-control"
+                @input="refreshResume"
               >
               <div class="line" />
             </div>
@@ -163,11 +163,11 @@
             <div class="form-group">
               <label for="drivingLicense" class="resume-label-control">Driving License</label>
               <input
-                  id="drivingLicense"
-                  v-model="item.driving_license"
-                  type="text"
-                  class="resume-form-control"
-                  @input="refreshResume"
+                id="drivingLicense"
+                v-model="item.driving_license"
+                type="text"
+                class="resume-form-control"
+                @input="refreshResume"
               >
               <div class="line" />
             </div>
@@ -176,12 +176,12 @@
             <div class="form-group">
               <label class="resume-label-control">Nationality</label>
               <autocomplete
-                  :search="searchNationality"
-                  :default-value="resumeNationality"
-                  aria-label="Search city / province"
-                  :get-result-value="getNationalityResultValue"
-                  @update="updateNationality"
-                  @submit="submitNationality"
+                :search="searchNationality"
+                :default-value="resumeNationality"
+                aria-label="Search city / province"
+                :get-result-value="getNationalityResultValue"
+                @update="updateNationality"
+                @submit="submitNationality"
               >
                 <template #result="{ result, props }">
                   <li v-bind="props">
@@ -199,11 +199,11 @@
             <div class="form-group">
               <label for="pob" class="resume-label-control">Place Of Birth</label>
               <input
-                  id="pob"
-                  v-model="item.pod"
-                  type="text"
-                  class="resume-form-control"
-                  @input="refreshResume"
+                id="pob"
+                v-model="item.pod"
+                type="text"
+                class="resume-form-control"
+                @input="refreshResume"
               >
               <div class="line" />
             </div>
@@ -212,15 +212,15 @@
             <div class="form-group">
               <label for="dob" class="resume-label-control">Date Of Birth</label>
               <datepicker
-                  id="dob"
-                  v-model="item.dob"
-                  placeholder="dd / MM / YYYY"
-                  :format="dateForm"
-                  input-class="resume_date_picker"
-                  calendar-class="resume_calendar"
-                  :initial-view="'year'"
-                  @input="refreshResume"
-                  @closed="selectedBirthDate"
+                id="dob"
+                v-model="item.dob"
+                placeholder="dd / MM / YYYY"
+                :format="dateForm"
+                input-class="resume_date_picker"
+                calendar-class="resume_calendar"
+                :initial-view="'year'"
+                @input="refreshResume"
+                @closed="selectedBirthDate"
               />
               <div class="line" />
             </div>
