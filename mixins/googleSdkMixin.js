@@ -2,13 +2,13 @@ export const googleSdkMixin = {
   methods: {
     async loginWithGoogle () {
       try {
-        const self = this
         const googleUser = await this.$gAuth.signIn()
         if (!googleUser) {
           return null
         }
         const access_token = googleUser.getAuthResponse().access_token
         this.$isLoading(true)
+        const self = this
         this.$axios
           .post(this.$base_api + '/api/auth/frontend/login-with-google', {
             access_token
@@ -16,23 +16,29 @@ export const googleSdkMixin = {
           .then((response) => {
             if (response.status === 200) {
               const result = response.data.data
+
+              // set cookies
+              self.$cookies.set(process.env.VUE_APP_TOKEN, result.access_token)
+              self.$cookies.set(process.env.VUE_APP_REFRESH_TOKEN, result.refresh_token)
+
               // set token on local storage
               localStorage.setItem(process.env.VUE_APP_TOKEN, result.access_token)
               localStorage.setItem(process.env.VUE_APP_REFRESH_TOKEN, result.refresh_token)
               localStorage.setItem('user', JSON.stringify(result.user))
 
               // set cross-domain
-              // this.$setLocalStorage(process.env.VUE_APP_TOKEN, result.access_token)
-              // this.$setLocalStorage(process.env.VUE_APP_REFRESH_TOKEN, result.refresh_token)
-              // this.$setLocalStorage('user', JSON.stringify(result.user))
+              self.$setLocalStorage(process.env.VUE_APP_TOKEN, result.access_token)
+              self.$setLocalStorage(process.env.VUE_APP_REFRESH_TOKEN, result.refresh_token)
+              self.$setLocalStorage('user', JSON.stringify(result.user))
 
               // set authorization on axios
-              this.$axios.setToken(result.access_token, 'Bearer')
-              this.$axios.defaults.headers.common.Accept = 'application/json'
+              self.$axios.setToken(result.access_token, 'Bearer')
+              self.$axios.defaults.headers.common.Accept = 'application/json'
+
               // set value on vuex
-              this.$store.dispatch('user/setUser', result.user)
-              this.$store.dispatch('user/loggedIn')
-              this.$router.push({
+              self.$store.dispatch('user/loggedIn')
+              self.$store.dispatch('user/setUser', result.user)
+              self.$router.push({
                 name: 'user-dashboard',
                 replace: true
               })

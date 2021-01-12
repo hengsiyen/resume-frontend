@@ -119,10 +119,16 @@ export default {
   },
   methods: {
     logout () {
-      this.$axios.post(this.$base_api + '/api/auth/frontend/logout')
+      this.$isLoading(true)
+      this.$axios
+        .post(this.$base_api + '/api/auth/frontend/logout')
         .finally(() => {
           localStorage.clear()
           this.$store.dispatch('user/loggedOut')
+          this.$removeAllLocalStorages()
+          this.$cookies.set(process.env.VUE_APP_TOKEN)
+          this.$cookies.set(process.env.VUE_APP_REFRESH_TOKEN)
+          this.$isLoading(false)
           this.$router.push({ name: 'index', replace: true })
         })
     }

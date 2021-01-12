@@ -246,6 +246,7 @@ export default {
     registerEmail () {
       this.$isLoading(true)
       this.validate = {}
+      const self = this
       this.$axios
         .post(this.$base_api + '/api/auth/frontend/resume-register', {
           first_name: this.first_name,
@@ -254,15 +255,28 @@ export default {
         })
         .then((res) => {
           const result = res.data.data
+
+          // set cookies
+          self.$cookies.set(process.env.VUE_APP_TOKEN, result.access_token)
+          self.$cookies.set(process.env.VUE_APP_REFRESH_TOKEN, result.refresh_token)
+
+          // set token on local storage
           localStorage.setItem(process.env.VUE_APP_TOKEN, result.access_token)
           localStorage.setItem(process.env.VUE_APP_REFRESH_TOKEN, result.refresh_token)
           localStorage.setItem('user', JSON.stringify(result.user))
 
-          this.$store.dispatch('user/setUser', result.user)
-          this.$store.dispatch('user/loggedIn')
+          // set cross-domain
+          self.$setLocalStorage(process.env.VUE_APP_TOKEN, result.access_token)
+          self.$setLocalStorage(process.env.VUE_APP_REFRESH_TOKEN, result.refresh_token)
+          self.$setLocalStorage('user', JSON.stringify(result.user))
 
-          this.$axios.defaults.headers.common.Authorization = 'Bearer ' + result.access_token
-          this.$axios.defaults.headers.common.Accept = 'application/json'
+          // set authorization on axios
+          self.$axios.setToken(result.access_token, 'Bearer')
+          self.$axios.defaults.headers.common.Accept = 'application/json'
+
+          // set value on vuex
+          self.$store.dispatch('user/loggedIn')
+          self.$store.dispatch('user/setUser', result.user)
           this.createResume(result.user)
         })
         .catch((error) => {

@@ -1,150 +1,65 @@
-/* eslint-disable */
 export const themeMixin = {
-  // eslint-disable-next-line require-await
-  // async mounted () {
-  //   if (process.browser && process.client) {
-  //     (function ($) {
-  //       'use strict'
-  //       // Smooth scroll for the navigation menu and links with .scrollto classes
-  //       let scrolltoOffset = $('#header').outerHeight() - 21
-  //  /*     if (window.matchMedia('(max-width: 991px)').matches) {
-  //         scrolltoOffset += 20
-  //       }*/
-  //       $(document).on('click', '.nav-menu a, .mobile-nav a, .scrollto', function (e) {
-  //         if (location.pathname.replace(/^\//, '') === this.pathname.replace(/^\//, '') && location.hostname === this.hostname) {
-  //           const target = $(this.hash)
-  //           if (target.length) {
-  //             e.preventDefault()
-  //
-  //             let scrollto = target.offset().top - scrolltoOffset
-  //
-  //             if ($(this).attr('href') === '#header') {
-  //               scrollto = 0
-  //             }
-  //
-  //             $('html, body').animate({
-  //               scrollTop: scrollto
-  //             }, 1500, 'easeInOutExpo')
-  //
-  //             if ($(this).parents('.nav-menu, .mobile-nav').length) {
-  //               $('.nav-menu .active, .mobile-nav .active').removeClass('active')
-  //               $(this).closest('li').addClass('active')
-  //             }
-  //
-  //             if ($('body').hasClass('mobile-nav-active')) {
-  //               $('body').removeClass('mobile-nav-active')
-  //               $('.mobile-nav-toggle i').toggleClass('fa-times')
-  //               $('.mobile-nav-overly').fadeOut()
-  //             }
-  //             return false
-  //           }
-  //         }
-  //       })
-  //
-  //       // Activate smooth scroll on page load with hash links in the url
-  //       $(document).ready(function () {
-  //         if (window.location.hash) {
-  //           const initial_nav = window.location.hash
-  //           if ($(initial_nav).length) {
-  //             const scrollto = $(initial_nav).offset().top - scrolltoOffset
-  //             $('html, body').animate({
-  //               scrollTop: scrollto
-  //             }, 1500, 'easeInOutExpo')
-  //           }
-  //         }
-  //       })
-  //
-  //       // Navigation active state on scroll
-  //       // eslint-disable-next-line camelcase
-  //       let nav_sections = $('section')
-  //       const main_nav = $('.nav-menu, .mobile-nav')
-  //
-  //       $(window).on('scroll', function () {
-  //         const cur_pos = $(this).scrollTop() + 200
-  //
-  //         nav_sections.each(function () {
-  //           const top = $(this).offset().top
-  //           const bottom = top + $(this).outerHeight()
-  //
-  //           if (cur_pos >= top && cur_pos <= bottom) {
-  //             if (cur_pos <= bottom) {
-  //               main_nav.find('li').removeClass('active')
-  //             }
-  //             main_nav.find('a[href="#' + $(this).attr('id') + '"]').parent('li').addClass('active')
-  //           }
-  //           if (cur_pos < 300) {
-  //             $('.nav-menu ul:first li:first, .mobile-menu ul:first li:first').addClass('active')
-  //           }
-  //         })
-  //       })
-  //
-  //       // Mobile Navigation
-  //       if ($('.nav-menu').length) {
-  //         const $mobile_nav = $('.nav-menu').clone().prop({
-  //           class: 'mobile-nav d-lg-none'
-  //         })
-  //         $('body').append($mobile_nav)
-  //         $('body').prepend('<button type="button" class="mobile-nav-toggle d-lg-none"><i class="fas fa-bars"></i></button>')
-  //         $('body').append('<div class="mobile-nav-overly"></div>')
-  //
-  //         $(document).on('click', '.mobile-nav-toggle', function (e) {
-  //           $('body').toggleClass('mobile-nav-active')
-  //           $('.mobile-nav-toggle i').toggleClass('fa-times')
-  //           $('.mobile-nav-overly').toggle()
-  //         })
-  //
-  //         $(document).on('click', '.mobile-nav .drop-down > a', function (e) {
-  //           e.preventDefault()
-  //           $(this).next().slideToggle(300)
-  //           $(this).parent().toggleClass('active')
-  //         })
-  //
-  //         $(document).click(function (e) {
-  //           const container = $('.mobile-nav, .mobile-nav-toggle')
-  //           if (!container.is(e.target) && container.has(e.target).length === 0) {
-  //             if ($('body').hasClass('mobile-nav-active')) {
-  //               $('body').removeClass('mobile-nav-active')
-  //               $('.mobile-nav-toggle i').toggleClass('fa-times')
-  //               $('.mobile-nav-overly').fadeOut()
-  //             }
-  //           }
-  //         })
-  //       } else if ($('.mobile-nav, .mobile-nav-toggle').length) {
-  //         $('.mobile-nav, .mobile-nav-toggle').hide()
-  //       }
-  //
-  //       // Toggle .header-scrolled class to #header when page is scrolled
-  //       $(window).scroll(function () {
-  //         if ($(this).scrollTop() > 100) {
-  //           $('#header').addClass('header-scrolled')
-  //           $('#topbar').addClass('topbar-scrolled')
-  //         } else {
-  //           $('#header').removeClass('header-scrolled')
-  //           $('#topbar').removeClass('topbar-scrolled')
-  //         }
-  //       })
-  //
-  //       if ($(window).scrollTop() > 100) {
-  //         $('#header').addClass('header-scrolled')
-  //         $('#topbar').addClass('topbar-scrolled')
-  //       }
-  //
-  //       // Back to top button
-  //       $(window).scroll(function () {
-  //         if ($(this).scrollTop() > 100) {
-  //           $('.back-to-top').fadeIn('slow')
-  //         } else {
-  //           $('.back-to-top').fadeOut('slow')
-  //         }
-  //       })
-  //
-  //       $('.back-to-top').click(function () {
-  //         $('html, body').animate({
-  //           scrollTop: 0
-  //         }, 1500, 'easeInOutExpo')
-  //         return false
-  //       })
-  //     })(jQuery)
-  //   }
-  // }
+  methods: {
+    async copyAllLocalStorages () {
+      const self = this
+      const iframe = document.getElementById('iframe')
+      iframe.contentWindow.postMessage({ action: 'getAll' }, '*')
+      window.addEventListener('message', async (event) => {
+        if (window.origin !== process.env.VUE_APP_PARENT_URL) {
+          await self.$store.dispatch('user/loggedOut')
+          localStorage.clear()
+        }
+        if (event.data && event.data.action && event.data.action === 'returnAllLocalstorage') {
+          const localStorages = event.data.value
+          if (localStorages.length && (window.origin !== process.env.VUE_APP_PARENT_URL)) {
+            localStorages.forEach((item) => {
+              localStorage.setItem(item.key, item.value)
+              switch (item.key) {
+                case process.env.VUE_APP_TOKEN:
+                  self.$axios.setHeader('Authorization', `Bearer ${item.value}`)
+                  self.$axios.setHeader('Accept', 'application/json')
+                  break
+                case 'user':
+                  self.$store.dispatch('user/loggedIn')
+                  self.$store.dispatch('user/setUser', {
+                    user: JSON.parse(localStorage.getItem('user'))
+                  })
+                  break
+                case 'f.a':
+                  self.$store.dispatch('user/setFacebookAuth', JSON.parse(localStorage.getItem('f.a')))
+                  break
+              }
+            })
+          }
+        } else {
+          console.warn('Can not received iframe data.')
+          await this.copyAllLocalStorages()
+        }
+      })
+    },
+    setUserPreference () {
+      const access_token = this.$cookies.get(process.env.VUE_APP_TOKEN)
+      console.log(access_token)
+      if (access_token) {
+        this.$store.dispatch('user/loggedIn')
+        this.$axios.setHeader('Authorization', `Bearer ${access_token}`)
+        this.$axios.setHeader('Accept', 'application/json')
+        this.getUser()
+
+        if (localStorage.hasOwnProperty('f.a')) {
+          this.$store.dispatch('user/setFacebookAuth', JSON.parse(localStorage.getItem('f.a')))
+        }
+      }
+    },
+    async getUser () {
+      this.$axios.post(this.$base_api + '/api/auth/user')
+        .then(({ data }) => {
+          if (data.data) {
+            const user = data.data
+            localStorage.setItem('user', JSON.stringify(user))
+            this.$store.dispatch('user/setUser', user)
+          }
+        })
+    }
+  }
 }

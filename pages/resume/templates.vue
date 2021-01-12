@@ -50,7 +50,8 @@
                   <div class="btn-choose-template">
                     <button
                       class="btn btn-primary font-weight-bold"
-                      @click="chooseTemplate(item.name_en)">
+                      @click="chooseTemplate(item.name_en)"
+                    >
                       Use This Template
                     </button>
                   </div>
@@ -59,7 +60,8 @@
                   <div class="btn-choose-template">
                     <button
                       class="btn btn-primary font-weight-bold"
-                      @click="chooseTemplate(item.name_en)">
+                      @click="chooseTemplate(item.name_en)"
+                    >
                       Use This Template
                     </button>
                   </div>

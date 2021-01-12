@@ -169,6 +169,7 @@ export default {
     login () {
       this.validate = null
       this.message_error = null
+      const self = this
       this.$axios
         .post(this.$base_api + '/api/auth/frontend/login', {
           email: this.email,
@@ -176,18 +177,28 @@ export default {
         })
         .then((res) => {
           const result = res.data.data
+
+          // set cookies
+          self.$cookies.set(process.env.VUE_APP_TOKEN, result.access_token)
+          self.$cookies.set(process.env.VUE_APP_REFRESH_TOKEN, result.refresh_token)
+
           // set token on local storage
           localStorage.setItem(process.env.VUE_APP_TOKEN, result.access_token)
           localStorage.setItem(process.env.VUE_APP_REFRESH_TOKEN, result.refresh_token)
           localStorage.setItem('user', JSON.stringify(result.user))
 
-          // set authorization on axios
-          this.$axios.setToken(result.access_token, 'Bearer')
-          this.$axios.defaults.headers.common.Accept = 'application/json'
+          // set cross-domain
+          self.$setLocalStorage(process.env.VUE_APP_TOKEN, result.access_token)
+          self.$setLocalStorage(process.env.VUE_APP_REFRESH_TOKEN, result.refresh_token)
+          self.$setLocalStorage('user', JSON.stringify(result.user))
 
-          this.$store.dispatch('user/setUser', result.user)
-          this.$store.dispatch('user/loggedIn')
-          this.$router.push({
+          // set authorization on axios
+          self.$axios.setToken(result.access_token, 'Bearer')
+          self.$axios.defaults.headers.common.Accept = 'application/json'
+
+          self.$store.dispatch('user/setUser', result.user)
+          self.$store.dispatch('user/loggedIn')
+          self.$router.push({
             name: 'user-dashboard',
             replace: true
           })
