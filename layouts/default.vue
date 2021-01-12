@@ -19,12 +19,14 @@ export default {
   async beforeMount () {
     const self = this
     const env = process.env.VUE_APP_ENV
-    if (env === 'local') {
-      this.setUserPreference()
-    } else {
-      await self.copyAllLocalStorages().then(() => {
-        self.setUserPreference()
-      })
+    if (process.env.ENABLE_CROSS) {
+      if (env === 'local') {
+        this.setUserPreference()
+      } else {
+        await self.copyAllLocalStorages().then(() => {
+          self.setUserPreference()
+        })
+      }
     }
   },
   methods: {
@@ -49,10 +51,7 @@ export default {
                     self.$axios.setHeader('Accept', 'application/json')
                     break
                   case 'user':
-                    self.$store.dispatch('user/loggedIn')
-                    self.$store.dispatch('user/setUser', {
-                      user: JSON.parse(localStorage.getItem('user'))
-                    })
+                    self.$store.dispatch('user/setUser', JSON.parse(localStorage.getItem('user')))
                     break
                   case 'f.a':
                     self.$store.dispatch('user/setFacebookAuth', JSON.parse(localStorage.getItem('f.a')))
@@ -63,6 +62,9 @@ export default {
           } else {
             console.warn('Can not received iframe data.')
             await this.copyAllLocalStorages()
+          }
+          if (localStorage.hasOwnProperty(process.env.VUE_APP_TOKEN)) {
+            self.$store.dispatch('user/loggedIn')
           }
         })
       }
