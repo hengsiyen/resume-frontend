@@ -479,6 +479,12 @@ select {
   background-color: rgba(15, 20, 31, 0.3) !important;
 }
 
+@media screen and (max-width: 576px) {
+  .button-float-bottom-right {
+    bottom: 40px;
+  }
+}
+
 /*--------------------------------------------------------------
 # button float end
 --------------------------------------------------------------*/

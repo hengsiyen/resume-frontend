@@ -142,7 +142,7 @@
                   </p>
                 </template>
                 <template v-else>
-                  <a href="javascript:void(0)" class="text-primary" @click="connectWithFB">Connect</a>
+                  <a href="javascript:void(0)" class="text-primary" @click="connectWithGoogle">Connect</a>
                 </template>
               </div>
             </div>
@@ -157,12 +157,13 @@
 <script>
 import { facebookSdkMixin } from '~/mixins/facebookSdkMixin'
 import SmallFooter from '~/components/section/SmallFooter'
+import { googleSdkMixin } from '~/mixins/googleSdkMixin'
 
 export default {
   name: 'Account',
   components: { SmallFooter },
   layout: 'default',
-  mixins: [facebookSdkMixin],
+  mixins: [facebookSdkMixin, googleSdkMixin],
   data () {
     return {
       first_name: '',

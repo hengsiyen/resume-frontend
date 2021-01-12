@@ -97,7 +97,6 @@ export const facebookSdkMixin = {
     },
 
     connectWithFB () {
-      console.log('here')
       const self = this
       FB.login(function (response) {
         if (response && response.status === 'connected') { // Logged into your webpage and Facebook.
@@ -108,14 +107,20 @@ export const facebookSdkMixin = {
       }, { scope: 'email' })
     },
     connectWithFacebook (access_token) {
-      const self = this
-      this.$axios.post(this.$base_api + '/api/auth/frontend/connect-with-facebook', {
-        access_token
-      }).then((response) => {
-        if (response.status === 200) {
-          const result = response.data.data
-        }
-      })
+      this.$isLoading(true)
+      this.$axios
+        .post(this.$base_api + '/api/auth/frontend/connect-with-facebook', {
+          access_token
+        })
+        .then((response) => {
+          if (response.status === 200) {
+            const result = response.data.data
+            this.$store.dispatch('user/setUser', result)
+          }
+        })
+        .finally(() => {
+          this.$isLoading(false)
+        })
     }
   }
 }

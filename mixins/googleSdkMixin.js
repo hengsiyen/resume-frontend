@@ -4,7 +4,6 @@ export const googleSdkMixin = {
       try {
         const self = this
         const googleUser = await this.$gAuth.signIn()
-        console.log(googleUser)
         if (!googleUser) {
           return null
         }
@@ -44,6 +43,31 @@ export const googleSdkMixin = {
             if (e.status === 401) {
               self.isLoginFail = true
             }
+          })
+          .finally(() => {
+            this.$isLoading(false)
+          })
+      } catch (error) {
+        console.error(error)
+        return null
+      }
+    },
+    async connectWithGoogle () {
+      try {
+        const self = this
+        const googleUser = await this.$gAuth.signIn()
+        if (!googleUser) {
+          return null
+        }
+        const access_token = googleUser.getAuthResponse().access_token
+        this.$isLoading(true)
+        this.$axios
+          .post(this.$base_api + '/api/auth/frontend/connect-with-google', {
+            access_token
+          })
+          .then((response) => {
+            const result = response.data.data
+            this.$store.dispatch('user/setUser', result)
           })
           .finally(() => {
             this.$isLoading(false)
