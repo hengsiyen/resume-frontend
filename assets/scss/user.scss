@@ -307,3 +307,38 @@
 /*++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++*/
 /*                               end account                                */
 /*++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++*/
+
+@media screen and (max-width: 576px) {
+  .section-container {
+    padding: 50px 16px;
+  }
+
+  .resume-title {
+    padding-right: 0;
+  }
+
+  .resume-title div {
+    font-size: 20px;
+  }
+
+  .each-resume {
+    margin-bottom: 20px;
+  }
+
+  .each-resume:nth-child(odd) {
+    margin-right: 0;
+  }
+
+  .resume-thumbnail {
+    width: 195px;
+    height: 300px;
+  }
+
+  .resume-action {
+    font-size: 16px;
+  }
+
+  .resume-updated {
+
+  }
+}

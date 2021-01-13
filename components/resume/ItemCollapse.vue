@@ -111,10 +111,10 @@ export default {
         } else if (this.item.name) {
           return this.item.name
         } else {
-          return '(No specified)'
+          return ''
         }
       }
-      return '(No specified)'
+      return ''
     },
     subTabLabel () {
       if (this.item) {
