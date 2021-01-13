@@ -19,7 +19,7 @@ export default {
   async beforeMount () {
     const self = this
     const env = process.env.VUE_APP_ENV
-    if (process.env.ENABLE_CROSS) {
+    if (process.env.ENABLE_CROSS === 'true') {
       if (env === 'local') {
         this.setUserPreference()
       } else {
