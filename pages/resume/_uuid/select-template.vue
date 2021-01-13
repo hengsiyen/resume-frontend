@@ -397,8 +397,8 @@ export default {
     padding: 32px 16px 18px;
   }
   .link_page {
-    left: 50%;
-    transform: translate(-50%, 0);
+    left: 48%;
+    transform: unset;
   }
 }
 
@@ -447,6 +447,10 @@ export default {
   }
   .template-item {
     width: 48%;
+  }
+  .link_page {
+    left: 50%;
+    transform: translate(-50%, 0);
   }
 }
 </style>
