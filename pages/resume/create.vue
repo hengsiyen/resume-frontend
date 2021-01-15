@@ -68,10 +68,10 @@
                 </a>
               </div>
               <div class="d-flex align-items-center justify-content-between w-100">
-                <NuxtLink :to="{name: 'resume-templates'}" class="btn btn-outline-secondary btn-lg font-weight-bold">
+                <NuxtLink :to="{name: 'resume-templates'}" class="btn btn-outline-secondary font-weight-bold">
                   Back
                 </NuxtLink>
-                <button class="btn btn-primary btn-lg font-weight-bold" @click="onClickNext()">
+                <button class="btn btn-primary font-weight-bold" @click="onClickNext()">
                   Skip
                 </button>
               </div>
@@ -113,10 +113,10 @@
                 </div>
               </div>
               <div class="d-flex align-items-center justify-content-between w-100">
-                <button class="btn btn-outline-secondary btn-lg font-weight-bold" @click="onClickPrev">
+                <button class="btn btn-outline-secondary font-weight-bold" @click="onClickPrev">
                   Back
                 </button>
-                <button class="btn btn-primary btn-lg font-weight-bold" @click="registerByName">
+                <button class="btn btn-primary font-weight-bold" @click="registerByName">
                   Continue
                 </button>
               </div>
@@ -155,10 +155,10 @@
                 </div>
               </div>
               <div class="d-flex align-items-center justify-content-between w-100">
-                <button class="btn btn-outline-secondary btn-lg font-weight-bold" @click="onClickPrev">
+                <button class="btn btn-outline-secondary font-weight-bold" @click="onClickPrev">
                   Back
                 </button>
-                <button class="btn btn-primary btn-lg font-weight-bold" @click="registerEmail">
+                <button class="btn btn-primary font-weight-bold" @click="registerEmail">
                   Continue
                 </button>
               </div>

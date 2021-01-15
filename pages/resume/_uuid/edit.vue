@@ -597,12 +597,12 @@
             </NuxtLink>
           </span>
           <div>
-            <button class="btn bnt-lg btn-primary font-weight-bold" @click="downloadResume(user_resume.uuid)">
+            <button class="btn btn-primary font-weight-bold" @click="downloadResume(user_resume.uuid)">
               Download PDF
             </button>
             <button
               id="dropdownMenuButton"
-              class="btn bnt-lg btn-primary font-weight-bold dropdown-toggle no-icon"
+              class="btn btn-primary font-weight-bold dropdown-toggle no-icon"
               type="button"
               data-toggle="dropdown"
               aria-haspopup="true"

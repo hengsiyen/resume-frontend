@@ -17,9 +17,10 @@ $resume-bg-color-gray-hover: $bg-color-gray-hover;
 
 $resume-box-shadow: rgba(207, 214, 230, 0.7) 0px 14px 16px -10px, rgba(207, 214, 230, 0.12) 0px 20px 40px -8px;
 
-$resume-font-size-input: 16px;
-$resume-font-size-label: 16px;
+$resume-font-size-input: 15px;
+$resume-font-size-label: 15px;
+$resume-font-section-title: 18px;
 
 :root {
-  --resume-font-size-input: 16px;
+  --resume-font-size-input: 15px;
 }

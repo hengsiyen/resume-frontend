@@ -70,10 +70,10 @@
             </div>
             <div class="row">
               <div class="col-12 text-right">
-                <button class="btn btn-link text-muted btn-lg mr-3 underline-none" @click="back">
+                <button class="btn btn-link text-muted mr-3 underline-none" @click="back">
                   Back
                 </button>
-                <button class="btn btn-lg btn-primary font-weight-bold" @click="login">
+                <button class="btn btn-primary font-weight-bold" @click="login">
                   Continue
                 </button>
               </div>

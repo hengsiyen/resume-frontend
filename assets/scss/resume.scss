@@ -16,8 +16,7 @@
     display: flex;
     flex-flow: row nowrap;
     align-items: center;
-    //height: 28px;
-    font-size: 20px;
+    font-size: $resume-font-section-title;
     line-height: 22px;
     font-weight: 600;
 
@@ -313,7 +312,7 @@
     margin-right: 32px;
     cursor: pointer;
     color: rgb(38, 43, 51);
-    font-size: 20px;
+    font-size: $resume-font-section-title;
 
     & .add-section-icon {
       font-size: 28px;
@@ -537,16 +536,9 @@
   .rf-title {
     font-size: 24px;
   }
-  .rf-section__title {
-    font-size: 18px;
-  }
 
   .rf-section__sub-title {
     font-size: 14px;
-  }
-
-  .list-section-item {
-    font-size: 18px;
   }
 
   .list-section-item .add-section-icon {

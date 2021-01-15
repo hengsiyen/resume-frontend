@@ -42,7 +42,7 @@
         <a
           href="javascript:void(0)"
           type="button"
-          class="btn btn-link btn-lg font-weight-bold a-no-underline"
+          class="btn btn-link font-weight-bold a-no-underline"
           @click="showResumeLink"
           data-dismiss="modal"
         >
@@ -52,7 +52,7 @@
           v-clipboard:copy="resume_url + link"
           v-clipboard:success="onCopy"
           type="button"
-          class="btn btn-primary btn-lg font-weight-bold"
+          class="btn btn-primary font-weight-bold"
         >
           {{ is_copy ? 'Copied!' :'Copy Link' }}
         </button>

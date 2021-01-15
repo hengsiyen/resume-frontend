@@ -54,7 +54,7 @@
           <li class="nav-item dropdown d-none d-lg-block">
             <button
               id="dropdownMenuButton1"
-              class="btn bnt-lg btn-primary font-weight-bold dropdown-toggle"
+              class="btn btn-primary font-weight-bold dropdown-toggle"
               type="button"
               data-toggle="dropdown"
               aria-haspopup="true"
