@@ -26,10 +26,10 @@
     </div>
     <div class="form__body_block position-relative d-flex flex-column">
       <template v-if="onLoading">
-        <div class="d-flex align-items-center justify-content-center" style="height: 80vh;">
-          <i class="fas fa-circle-notch fa-spin fa-2x mr-2"></i>
-          <p class="mb-0 fa-2x">
-            Loading resume template...
+        <div class="d-flex align-items-center justify-content-center on-loading">
+          <i class="fas fa-circle-notch fa-spin mr-2"></i>
+          <p class="mb-0">
+            Loading resumes...
           </p>
         </div>
       </template>
@@ -194,6 +194,6 @@ export default {
 
 <style scoped lang="scss">
 @import "~assets/scss/resume.scss";
-@import "~assets/scss/user";
+@import "~assets/scss/user.scss";
 @import "~assets/scss/create-resume.scss";
 </style>

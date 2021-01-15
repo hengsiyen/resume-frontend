@@ -3,6 +3,15 @@
 .dashboard-content {
   background-color: rgb(242, 245, 250);
 }
+
+.on-loading {
+  height: 50vh;
+  & i,
+  & p {
+    font-size: 2em;
+  }
+}
+
 .section-container {
   display: block;
   width: 100%;
@@ -19,10 +28,15 @@
   font-size: 32px;
   line-height: 34px;
   margin-bottom: 16px;
+  font-weight: bold;
 }
 
 .sect-title-ml-40 {
   margin-left: 40px;
+}
+
+.block-tabs {
+  margin-bottom: 40px;
 }
 
 .tabs {
@@ -35,7 +49,7 @@
   padding-bottom: 16px;
   transition: color 0.1s ease 0s;
   cursor: pointer;
-  font-size: 19px;
+  font-size: 18px;
 }
 
 .tabs-resume {
@@ -74,11 +88,12 @@
 
 .resume-thumbnail {
   width: 278px;
-  height: 390px;
-  border-radius: 4px;
+  padding: 70% 0;
+  border-radius: 6px;
   background-repeat: no-repeat;
-  background-position: center;
+  background-position: top;
   background-size: contain;
+  background-color: white;
 }
 
 .resume-title {
@@ -125,7 +140,7 @@
   user-select: none;
   color: rgb(38, 43, 51);
   pointer-events: all;
-  font-size: 19px;
+  font-size: 18px;
   & .icon {
     display: flex;
     align-items: center;
@@ -164,7 +179,7 @@
   margin-bottom: 24px;
   border-bottom: 1px solid rgb(221, 227, 240);
   & div {
-    font-size: 19px;
+    font-size: 18px;
   }
   &:last-child {
     padding-bottom: 0;
@@ -275,8 +290,8 @@
 
 @media screen and (max-width: 576px) {
   .login-title {
-    font-size: 36px;
-    line-height: 36px;
+    font-size: 28px;
+    line-height: 30px;
   }
 }
 /*++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++*/
@@ -310,7 +325,17 @@
 
 @media screen and (max-width: 576px) {
   .section-container {
-    padding: 50px 16px;
+    padding: 32px 16px;
+  }
+
+  .sect-title {
+    font-size: 22px;
+    margin-bottom: 26px;
+    margin-left: 0;
+  }
+
+  .resume-card-title {
+    margin-left: 0;
   }
 
   .resume-title {
@@ -330,8 +355,8 @@
   }
 
   .resume-thumbnail {
-    width: 195px;
-    height: 300px;
+    width: 165px;
+    height: 250px;
   }
 
   .resume-action {
@@ -339,6 +364,41 @@
   }
 
   .resume-updated {
+    font-size: 13px;
+  }
 
+  .on-loading {
+    & i,
+    & p {
+      font-size: 22px;
+    }
+  }
+
+  .block-tabs {
+    margin-bottom: 32px;
+  }
+
+  .tabs-item {
+    font-size: 17px;
+  }
+
+  .btn-create-new {
+    display: block;
+    position: relative;
+    right: unset;
+    bottom: unset;
+    width: 100%;
+    margin: 16px 0 0;
+  }
+
+  .show_no_data {
+    max-width: 100%;
+    & .title {
+      font-size: 18px;
+    }
+  }
+
+  .btn-social span {
+   left: 15px;
   }
 }

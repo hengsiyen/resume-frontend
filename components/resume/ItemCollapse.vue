@@ -210,7 +210,7 @@ export default {
   width: 100%;
 
   &__title {
-    font-size: 18px;
+    font-size: 16px;
   }
 
   &__subtitle {
@@ -289,6 +289,17 @@ export default {
   .btn-dropdown {
     width: 7%;
     text-align: center;
+  }
+}
+@media screen and (max-width: 576px) {
+  .tab-collapse-item {
+    & a.a-link-title {
+      width: 88%;
+    }
+  }
+
+  .btn-dropdown {
+    width: 12%;
   }
 }
 

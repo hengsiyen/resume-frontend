@@ -5,7 +5,7 @@
         <div class="sect-title">
           Dashboard
         </div>
-        <div class="position-relative" style="margin-bottom: 40px">
+        <div class="position-relative block-tabs">
           <div class="position-relative d-flex tabs">
             <div class="tabs-item">
               Resume
@@ -23,9 +23,9 @@
         <div class="w-100 flex-wrap">
           <div class="position-relative">
             <template v-if="onLoading">
-              <div class="d-flex align-items-center justify-content-center" style="height: 50vh;">
-                <i class="fas fa-circle-notch fa-spin fa-2x mr-2"></i>
-                <p class="mb-0 fa-2x">
+              <div class="d-flex align-items-center justify-content-center on-loading">
+                <i class="fas fa-circle-notch fa-spin mr-2"></i>
+                <p class="mb-0">
                   Loading resumes...
                 </p>
               </div>
@@ -34,7 +34,7 @@
               <template v-if="resume_lists.length > 0">
                 <template v-for="(item, key) in resume_lists">
                   <div :key="key" class="each-resume">
-                    <div style="margin-right: 30px">
+                    <div class="mr-3 mr-sm-4">
                       <NuxtLink :to="{name: 'resume-uuid-edit', params: {uuid: item.uuid}}">
                         <template v-if="item.thumbnail">
                           <div class="resume-thumbnail" :style="`background-image: url('${$base_api}/${item.thumbnail}')`" />
@@ -42,7 +42,6 @@
                         <template v-else>
                           <div
                             class="resume-thumbnail"
-                            style="background-image: url('http://127.0.0.1:8000/storage/templates/premium.png')"
                           />
                         </template>
                       </NuxtLink>
@@ -55,7 +54,7 @@
                           </NuxtLink>
                         </div>
                       </div>
-                      <div class="d-flex align-items-center justify-content-center mb-3">
+                      <div class="d-flex align-items-center mb-3">
                         <div class="resume-updated">
                           Updated {{ $moment(item.updated_at).locale('en').format('DD MMMM, hh:mm') }}
                         </div>

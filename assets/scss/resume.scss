@@ -517,6 +517,10 @@
       }
     }
   }
+
+  .btn-add-item {
+    background-color: rgba(230, 244, 255, 0.5);
+  }
 }
 
 @media (max-width: 576px) {
@@ -528,6 +532,25 @@
     width: 100%;
     flex: 0 0 100%;
     margin-right: 0;
+  }
+
+  .rf-title {
+    font-size: 24px;
+  }
+  .rf-section__title {
+    font-size: 18px;
+  }
+
+  .rf-section__sub-title {
+    font-size: 14px;
+  }
+
+  .list-section-item {
+    font-size: 18px;
+  }
+
+  .list-section-item .add-section-icon {
+    font-size: 22px;
   }
 }
 

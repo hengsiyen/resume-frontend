@@ -196,7 +196,7 @@
                           :draggable="true"
                           :title="element"
                         >
-                          <div class="mb-2">
+                          <div class="mb-3">
                             <toggle-button
                               :value="user_resume.hide_social"
                               color="#2196f3"

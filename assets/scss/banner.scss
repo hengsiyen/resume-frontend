@@ -90,8 +90,15 @@
   }
 }
 
-@media (max-height: 500px) {
+@media screen and (max-width: 576px) {
   #hero {
-    height: 120vh;
+    height: 50vh;
+  }
+  #hero h1 {
+    font-size: 25px;
+  }
+
+  #hero h2 {
+    font-size: 16px;
   }
 }
