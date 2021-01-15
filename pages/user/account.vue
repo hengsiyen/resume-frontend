@@ -85,15 +85,15 @@
             <div class="row">
               <div class="col-12 text-right">
                 <template v-if="is_update">
-                  <button class="btn btn-lg btn-link underline-none mr-3 font-weight-bold text-muted" @click="is_update = false">
+                  <button class="btn btn-lg sm btn-link underline-none mr-3 font-weight-bold text-muted" @click="is_update = false">
                     Cancel
                   </button>
-                  <button class="btn btn-lg btn-primary font-weight-bold" @click="saveUser">
+                  <button class="btn btn-lg sm btn-primary font-weight-bold" @click="saveUser">
                     Save
                   </button>
                 </template>
                 <template v-else>
-                  <button class="btn btn-lg btn-link underline-none font-weight-bold" @click="updateUser">
+                  <button class="btn btn-lg sm btn-link underline-none font-weight-bold" @click="updateUser">
                     Update
                   </button>
                 </template>
@@ -228,4 +228,5 @@ export default {
 .autocomplete-input, .resume-form-control.read-only {
   color: #707070;
 }
+
 </style>
