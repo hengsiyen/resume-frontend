@@ -57,7 +57,7 @@ button:focus {
 }
 
 .dropdown-menu .dropdown-item {
-  font-size: 20px;
+  font-size: 18px;
   font-weight: 500;
   color: #262b33;
 
@@ -99,13 +99,14 @@ div[aria-owns="autosuggest-autosuggest__results"][aria-expanded="true"] + .line,
 }
 
 .btn-select-template {
-  padding: 0 16px 0 8px;
+  padding: 0 16px;
   height: 38px;
   border-radius: 19px;
   user-select: none;
   color: white;
   cursor: pointer;
-  background-color: rgba(15, 20, 31, 0);
+  //background-color: rgba(15, 20, 31, 0);
+  background-color: rgba(61, 64, 71, .7);
   transition: background-color 0.1s ease 0s;
   &-icon {
     width: 24px;
@@ -288,6 +289,27 @@ select {
   padding-left: 0;
   max-height: 300px;
 
+  &::-webkit-scrollbar-track {
+    background-color: #F5F5F5;
+  }
+
+  &::-webkit-scrollbar {
+    width: 10px;
+    background-color: #F5F5F5;
+  }
+
+  &::-webkit-scrollbar-thumb {
+    border-radius: 10px;
+    background-color: #c7c9d3;
+
+    &:hover,
+    &:focus {
+      background-color: $resume-bg-color-gray-hover;
+    }
+  }
+}
+
+.scroll {
   &::-webkit-scrollbar-track {
     background-color: #F5F5F5;
   }

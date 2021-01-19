@@ -64,7 +64,7 @@
     </div>
     <div class="d-flex section-body">
       <div class="template-list" :class="{'show': show_template_list}">
-        <div class="template-list-content">
+        <div class="template-list-content scroll">
           <div class="d-flex flex-wrap justify-content-between">
             <template v-for="(item, k) in templateLists">
               <div :key="k" class="template-item">
@@ -86,7 +86,7 @@
           </div>
         </div>
       </div>
-      <div class="template-preview d-block">
+      <div class="template-preview d-block scroll">
         <div class="d-flex justify-content-center resume__preview-container w-100 mx-auto">
           <template v-if="pageCount > 0">
             <pdf

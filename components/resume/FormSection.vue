@@ -30,7 +30,7 @@
             href="javascript:void(0)"
             class="rf-section__edit mr-2"
             @click="onEdit"
-          ><i class="fas fa-pencil-alt" /></a>
+          ><mdicon name="pencilOutline" /></a>
         </template>
       </template>
       <template v-if="hasDeleteButton && !editable">
@@ -38,7 +38,7 @@
           href="javascript:void(0)"
           class="rf-section__delete"
           @click="onDelete"
-        ><i class="far fa-trash-alt" /></a>
+        ><mdicon name="deleteOutline" /></a>
       </template>
 
     </div>

@@ -38,6 +38,27 @@
     <div class="row">
       <div class="col-12 col-sm-6">
         <div class="form-group">
+          <label class="resume-label-control">Country</label>
+          <autocomplete
+            :search="searchCountry"
+            :default-value="countryVal"
+            aria-label="Search city / province"
+            :get-result-value="getCountryResultValue"
+            @update="updateCountry"
+            @submit="submitCountry"
+          >
+            <template #result="{ result, props }">
+              <li v-bind="props">
+                <div class="wiki-title">
+                  {{ result.name_en }}
+                </div>
+              </li>
+            </template>
+          </autocomplete>
+        </div>
+      </div>
+      <div class="col-12 col-sm-6">
+        <div class="form-group">
           <label class="resume-label-control">City / Province</label>
           <autocomplete
             :search="search"
@@ -58,7 +79,7 @@
         </div>
       </div>
     </div>
-    <StartAndEndDate :item="item" @refreshResume="refreshResume" />
+    <StartAndEndDate :item="item" @refreshResume="refreshResume" :label-toggle="'Currently study here'" />
     <client-only>
       <div class="row">
         <div class="col-12">
@@ -96,6 +117,12 @@ export default {
         return null
       }
     },
+    dataCountry: {
+      type: Array,
+      default: () => {
+        return []
+      }
+    },
     dataProvinces: {
       type: Array,
       default: () => {
@@ -122,6 +149,12 @@ export default {
       }
       return null
     },
+    countryVal () {
+      if (this.item) {
+        return this.item.country
+      }
+      return null
+    },
     degreeVal () {
       if (this.item) {
         return this.item.degree
@@ -134,6 +167,34 @@ export default {
     refreshResume () {
       this.$emit('refreshResume')
     },
+
+    searchCountry (input) {
+      this.item.country = input
+      this.refreshResume()
+      if (input < 1) {
+        return []
+      }
+      return this.dataCountry.filter((country) => {
+        return country.name_en.toLowerCase().startsWith(input.toLowerCase())
+      })
+    },
+    getCountryResultValue (result) {
+      return result.name_en
+    },
+    updateCountry (results, selectedIndex) {
+      if (selectedIndex > -1) {
+        if (results[selectedIndex]) {
+          this.item.country = results[selectedIndex].name_en
+        }
+      }
+    },
+    submitCountry (result) {
+      if (result) {
+        this.item.country = result.name_en
+        this.refreshResume()
+      }
+    },
+
     search (input) {
       this.item.province = input
       this.refreshResume()

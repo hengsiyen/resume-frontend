@@ -1,7 +1,7 @@
 <template>
   <div id="resume-editor" v-if="user_resume">
     <div class="resume-container d-flex">
-      <div class="resume__left-block">
+      <div class="resume__left-block scroll">
         <div class="resume__form">
           <div class="form__content">
             <div class="rf-padding position-relative">
@@ -12,22 +12,25 @@
                       v-model="user_resume.name"
                       type="text"
                       class="resume-form-control"
+                      ref="resumeName"
                     >
                     <div class="line" />
                   </div>
-                  <a
-                    href="javascript:void(0)"
-                    class="rf-section__confirm-lg mr-2"
-                    @click="confirmResumeName"
-                  ><i class="fas fa-check-circle" /></a>
+<!--                  <a-->
+<!--                    href="javascript:void(0)"-->
+<!--                    class="rf-section__confirm-lg mr-2"-->
+<!--                    @click="confirmResumeName"-->
+<!--                  ><i class="fas fa-check-circle" /></a>-->
                 </template>
                 <template v-else>
                   <span class="mr-2 mr-sm-1">{{ user_resume.name ? user_resume.name : 'Untitled' }}</span>
                   <a
                     href="javascript:void(0)"
                     class="rf-section__edit hover"
-                    @click="editable_title = true"
-                  ><i class="fas fa-pencil-alt" /></a>
+                    @click="editTitle"
+                  >
+                    <mdicon name="pencilOutline" />
+                  </a>
                 </template>
               </div>
               <FormSection title="personal_details">
@@ -77,7 +80,7 @@
                         data-placement="top"
                         title="Click and drag to move"
                       >
-                        <i class="fas fa-ellipsis-v" />
+                        <mdicon name="dragVertical" :size="22" />
                       </div>
                       <template v-if="element === 'educations'">
                         <FormSection
@@ -102,6 +105,7 @@
                                     :item="item"
                                     :data-provinces="provinces"
                                     :data-degree="degrees"
+                                    :data-country="countries"
                                     @refreshResume="refreshResume"
                                   />
                                 </ItemCollapse>
@@ -113,7 +117,7 @@
                             class="btn-add-item"
                             @click="addSectionItem(user_resume.educations, element)"
                           >
-                            <i class="fas fa-plus mr-2" />
+                            <mdicon name="plus" class="mr-2" :size="22" />
                             <span>Add education</span>
                           </a>
                         </FormSection>
@@ -141,6 +145,7 @@
                                     :item="item"
                                     :data-provinces="provinces"
                                     :data-positions="positions"
+                                    :data-country="countries"
                                     @refreshResume="refreshResume"
                                   />
                                 </ItemCollapse>
@@ -152,7 +157,7 @@
                             class="btn-add-item"
                             @click="addSectionItem(user_resume.work_experiences, element)"
                           >
-                            <i class="fas fa-plus mr-2" />
+                            <mdicon name="plus" class="mr-2" :size="22" />
                             <span>Add employment</span>
                           </a>
                         </FormSection>
@@ -162,6 +167,18 @@
                           :draggable="true"
                           :title="element"
                         >
+                          <div v-if="skills" class="skills-suggestion mr-3">
+                            <template v-for="(item, key) in skills">
+                              <a
+                                href="javascript:void(0)"
+                                class="skill-suggestion-item"
+                                :key="key"
+                              >
+                                <span>{{ item.name_en }}</span>
+                                <mdicon name="plus" class="ski-item-icon" :size="16" />
+                              </a>
+                            </template>
+                          </div>
                           <draggable
                             v-model="user_resume.skills"
                             class="list-group"
@@ -186,7 +203,7 @@
                             class="btn-add-item"
                             @click="addSectionItem(user_resume.skills, element)"
                           >
-                            <i class="fas fa-plus mr-2" />
+                            <mdicon name="plus" class="mr-2" :size="22" />
                             <span>Add skill</span>
                           </a>
                         </FormSection>
@@ -232,7 +249,7 @@
                             class="btn-add-item"
                             @click="addSectionItem(user_resume.social_profiles, element)"
                           >
-                            <i class="fas fa-plus mr-2" />
+                            <mdicon name="plus" class="mr-2" :size="22" />
                             <span>Add social link</span>
                           </a>
                         </FormSection>
@@ -268,7 +285,7 @@
                             class="btn-add-item"
                             @click="addSectionItem(user_resume.courses, element)"
                           >
-                            <i class="fas fa-plus mr-2" />
+                            <mdicon name="plus" class="mr-2" :size="22" />
                             <span>Add course</span>
                           </a>
                         </FormSection>
@@ -309,7 +326,7 @@
                             class="btn-add-item"
                             @click="addSectionItem(user_resume.internships, element)"
                           >
-                            <i class="fas fa-plus mr-2" />
+                            <mdicon name="plus" class="mr-2" :size="22" />
                             <span>Add internship</span>
                           </a>
                         </FormSection>
@@ -345,7 +362,7 @@
                             class="btn-add-item"
                             @click="addSectionItem(user_resume.langs, element)"
                           >
-                            <i class="fas fa-plus mr-2" />
+                            <mdicon name="plus" class="mr-2" :size="22" />
                             <span>Add language</span>
                           </a>
                         </FormSection>
@@ -385,7 +402,7 @@
                             class="btn-add-item"
                             @click="addSectionItem(user_resume.activities, element)"
                           >
-                            <i class="fas fa-plus mr-2" />
+                            <mdicon name="plus" class="mr-2" :size="22" />
                             <span>Add Activity</span>
                           </a>
                         </FormSection>
@@ -443,7 +460,7 @@
                             class="btn-add-item"
                             @click="addSectionItem(user_resume.references, element)"
                           >
-                            <i class="fas fa-plus mr-2" />
+                            <mdicon name="plus" class="mr-2" :size="22" />
                             <span>Add reference</span>
                           </a>
                         </FormSection>
@@ -495,7 +512,7 @@
                               class="btn-add-item"
                               @click="addSectionItem(customSection.items, 'custom')"
                             >
-                              <i class="fas fa-plus mr-2" />
+                              <mdicon name="plus" class="mr-2" :size="22" />
                               <span>Add item</span>
                             </a>
                           </FormSection>
@@ -538,32 +555,32 @@
           </div>
         </div>
       </div>
-      <div class="resume__preview">
+      <div class="resume__preview scroll">
         <div class="button-float button-float-sm position-absolute button-float-top-right">
           <NuxtLink
             :to="{name: apiBack}"
             class="btn-float btn-float-gray"
           >
-            <i class="fas fa-times" />
+            <mdicon name="windowClose" :size="18" class="pb-3px" />
           </NuxtLink>
         </div>
         <div class="top_pdf">
           <div class="resume-saved position-absolute d-flex align-items-center justify-content-center">
             <template v-if="in_progress">
-              <i class="fas fa-circle-notch fa-spin"></i> Saving...
+              <mdicon name="rotateRight" :size="18" spin /> Saving...
             </template>
             <template v-else>
-              <i class="fas fa-cloud-upload-alt"></i> Saved
+              <mdicon name="cloudCheck" :size="18" /> Saved
             </template>
           </div>
           <button class="btn angle-l" @click="angleLeft">
-            <i class="fas fa-angle-left" />
+            <mdicon name="chevronLeft" />
           </button>
           <div class="page_count">
-            {{ currentPage }} / {{ pageCount }}
+            {{ currentPage }} <mdicon name="slashForward" :size="18" /> {{ pageCount }}
           </div>
           <button class="btn angle-r" @click="angleRight">
-            <i class="fas fa-angle-right" />
+            <mdicon name="chevronRight" />
           </button>
         </div>
         <div class="resume__preview-container">
@@ -582,12 +599,10 @@
             </div>
           </div>
         </div>
-        <div
-          class="resume__preview-footer position-absolute d-flex align-items-center justify-content-between"
-        >
+        <div class="resume__preview-footer d-flex align-items-center justify-content-between">
           <span class="btn-select-template d-flex align-items-center justify-content-center">
             <div class="btn-select-template-icon d-flex align-items-center justify-content-center">
-              <i class="fas fa-th-large" />
+              <mdicon name="viewGridOutline" :size="22" />
             </div>
             <NuxtLink
               :to="{name: 'resume-uuid-select-template', params: {uuid: $route.params.uuid}}"
@@ -608,7 +623,7 @@
               aria-haspopup="true"
               aria-expanded="false"
             >
-              <i class="fas fa-ellipsis-h" />
+              <mdicon name="dotsHorizontal" />
             </button>
             <div
               class="dropdown-menu custom-position-5 dropdown-menu-right"
@@ -620,7 +635,7 @@
                 data-toggle="modal"
                 data-target="#shareLinkEdit"
               >
-                <i class="fas fa-link" /> Share a link
+                <mdicon name="link" /> Share a link
               </button>
             </div>
           </div>
@@ -632,7 +647,7 @@
         :to="{name: apiBack}"
         class="btn-float btn-float-gray"
       >
-        <i class="fas fa-times" />
+        <mdicon name="windowClose" :size="18" class="pb-3px" />
       </NuxtLink>
     </div>
     <div class="button-float button-float-lg button-float-bottom-right show-button-preview">
@@ -660,6 +675,7 @@
     </div>
   </div>
 </template>
+
 <script>
 
 import { dataOptions } from '@/mixins/dataOptions'
@@ -728,7 +744,8 @@ export default {
       in_progress: 0,
       old_pdf: null,
       old_pdf_class: 'hiddenpdf',
-      pdf_class: 'showpdf'
+      pdf_class: 'showpdf',
+      skills: []
     }
   },
   computed: {
@@ -782,6 +799,7 @@ export default {
     }
   },
   mounted () {
+    window.addEventListener('keypress', this.onPressEnter)
     this.getProvinces()
     this.getPosition()
     this.getNationality()
@@ -790,8 +808,16 @@ export default {
     if (this.user_resume) {
       this.logContent()
     }
+    this.getSkills()
   },
   methods: {
+    getSkills () {
+      this.$axios
+        .post(this.$base_api + '/api/frontend/skill/suggestion')
+        .then((res) => {
+          this.skills = res.data.data
+        })
+    },
     activeTab (item) {
       return item.hasOwnProperty('active_tab')
     },
@@ -799,7 +825,30 @@ export default {
       this.user_resume[item] = !this.user_resume[item]
       this.refreshResume()
     },
+    editTitle () {
+      this.editable_title = true
+      this.$nextTick(() => {
+        const resumeInputName = this.$refs.resumeName
+        if (resumeInputName) {
+          resumeInputName.addEventListener('blur', (event) => {
+            this.confirmResumeName()
+          })
+          window.addEventListener('keypress', (e) => {
+            if (e.key === 'Enter') {
+              this.confirmResumeName()
+            }
+          })
+        }
+      })
+    },
     confirmResumeName () {
+      this.$nextTick(() => {
+        const resumeInputName = this.$refs.resumeName
+        if (resumeInputName) {
+          resumeInputName.removeEventListener('blur', (e) => {})
+          window.removeEventListener('keypress', (e) => {})
+        }
+      })
       this.editable_title = false
       this.updateDataResume()
     },

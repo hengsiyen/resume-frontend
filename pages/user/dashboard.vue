@@ -62,7 +62,7 @@
                       <NuxtLink :to="{name: 'resume-uuid-edit', params: {uuid: item.uuid}}">
                         <div class="resume-action">
                           <div class="icon">
-                            <i class="fas fa-pencil-alt" />
+                            <mdicon name="pencilOutline" />
                           </div>
                           Edit
                         </div>
@@ -127,7 +127,7 @@
                           type="button"
                           @click="deleteResume(item)"
                         >
-                          <i class="fas fa-trash-alt" /> Delete
+                          <mdicon name="deleteOutline" /> Delete
                         </button>
                       </div>
                     </div>

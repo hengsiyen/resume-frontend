@@ -91,16 +91,13 @@
 
   &__draggable {
     position: absolute;
-    left: -15px;
+    left: -25px;
     top: 12px;
-    margin-right: 2px;
-    margin-top: -10px;
-    font-size: 15px;
+    margin-top: -13px;
     flex-shrink: 0;
     color: rgb(184, 190, 204);
     transition: opacity 0.15s ease 0s;
     cursor: move;
-    width: 10px;
     text-align: center;
   }
 }
@@ -331,9 +328,8 @@
     display: flex;
     align-items: center;
     justify-content: center;
-    height: 6.5vh;
     width: 579px;
-    margin: 0 auto;
+    margin: 20px auto;
   }
 
   button.btn.angle-r,
@@ -378,11 +374,12 @@
     flex-flow: column nowrap;
     background-color: rgb(122, 133, 153);
     height: 100vh;
+    overflow-y: auto;
   }
 
   .resume__preview-container {
     position: relative;
-    height: 985px !important;
+
   }
 
   .show_pdf {
@@ -396,6 +393,7 @@
 
   .resume__preview .viewer-content {
     width: 100%;
+    height: 100%;
     display: flex;
     margin: 0 auto;
     justify-content: center;
@@ -422,17 +420,13 @@
     font-size: 16px;
     transition: background-color 0.1s ease 0s;
   }
-  .resume-saved i{
+  .resume-saved i, .resume-saved span {
     margin-right: 4px;
   }
 
   .resume__preview-footer {
     width: 85%;
-    margin: 0 auto;
-    bottom: 0;
-    height: 5.5vh;
-    right: 50%;
-    transform: translate(50%, 0);
+    margin: 20px auto;
   }
 }
 
@@ -453,7 +447,7 @@
   transition: background-color 0.15s ease 0s;
 
   & span {
-    font-size: 18px;
+    font-size: 16px;
   }
   &:hover,
   &:active,
@@ -474,6 +468,35 @@
   line-height: 20px;
   color: $resume-gray;
   margin-bottom: 6px;
+}
+
+.skills-suggestion {
+  display: flex;
+  flex-wrap: wrap;
+  margin: 0px -12px -8px 0px;
+  position: relative;
+}
+
+.skill-suggestion-item {
+  display: flex;
+  align-items: center;
+  margin: 0px 12px 12px 0px;
+  padding: 6px 6px 6px 10px;
+  border-radius: 4px;
+  background-color: rgb(242, 245, 250);
+  color: rgb(38, 43, 51);
+  font-size: 16px;
+  line-height: 20px;
+  white-space: nowrap;
+  transition: background-color 0.1s ease 0s, color 0.1s ease 0s;
+  will-change: opacity, transform;
+  cursor: pointer;
+}
+
+.ski-item-icon {
+  margin-left: 2px;
+  color: rgb(152, 161, 179);
+  transition: color 0.1s ease 0s;
 }
 
 @media screen and (max-width: 1279px) {
@@ -547,6 +570,9 @@
 }
 
 
+.pb-3px {
+  padding-bottom: 3px;
+}
 /*--------------------------------------------------------------
 # Resume editor end
 --------------------------------------------------------------*/

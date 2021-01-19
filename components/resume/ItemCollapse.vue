@@ -11,14 +11,15 @@
             >
               <div class="collapse-header">
                 <div class="collapse-text">
-                  <p class="collapse-header__title mb-0">
+                  <p class="collapse-header__title ellipsis w-100 mb-0">
                     <i v-if="icon" :class="icon" /> <strong>{{ title }}</strong>
                   </p>
                   <p v-if="hasSubTitle" class="collapse-header__subtitle mb-0"> {{ subTabLabel }}</p>
                 </div>
                 <div class="collapse-action d-flex align-content-center justify-items-center">
                   <div class="collapse-btn d-none d-lg-block">
-                    <i class="fas " :class="active_tab ? 'fa-angle-up' : 'fa-angle-down'" />
+                    <mdicon v-if="active_tab" name="chevronUp" />
+                    <mdicon v-else name="chevronDown" />
                   </div>
                 </div>
               </div>
@@ -39,7 +40,7 @@
 
                 <div class="dropdown-menu dropdown-menu-right" aria-labelledby="dropdownMenuLink">
                   <a class="dropdown-item" href="javascript:void(0)" @click="onDelete">
-                    <i class="fas fa-trash mr-3 text-primary" /> Delete
+                    <mdicon name="deleteOutline" class="mr-2 text-primary" :size="22" style="padding-bottom: 3px" /> Delete
                   </a>
                 </div>
               </div>
@@ -54,7 +55,7 @@
               class="rf-section__delete"
               @click="onDelete"
             >
-              <i class="far fa-trash-alt" />
+              <mdicon name="deleteOutline" />
             </a>
           </div>
         </div>
@@ -94,12 +95,29 @@ export default {
   computed: {
     title () {
       if (this.item) {
-        if (this.item.title) {
-          return this.item.title
-        } else if (this.item.job_title) {
-          return this.item.job_title
-        } else if (this.item.school) {
-          return this.item.school
+        if (this.item.title || this.item.job_title || this.item.employer) {
+          let title = null
+          if (this.item.title) {
+            title = this.item.title
+          } else if (this.item.job_title) {
+            title = this.item.job_title
+          }
+
+          if (title && this.item.employer) {
+            return title + ' at ' + this.item.employer
+          } else if (!title && this.item.employer) {
+            return this.item.employer
+          } else {
+            return title
+          }
+        } else if (this.item.school || this.item.degree) {
+          if (this.item.school && this.item.degree) {
+            return this.item.degree + ' at ' + this.item.school
+          } else if (!this.item.school && this.item.degree) {
+            return this.item.degree
+          } else {
+            return this.item.school
+          }
         } else if (this.item.label) {
           return this.item.label
         } else if (this.item.skill) {
@@ -168,6 +186,10 @@ export default {
   padding-bottom: 12px;
 }
 
+.collapse-text {
+  width: 90%;
+}
+
 .tab-collapse-item {
   border: 1px solid rgb(230, 235, 244);
   border-radius: 4px;
@@ -221,13 +243,13 @@ export default {
 
 .collapse-action {
   & .collapse-btn {
-    width: 40px;
-    height: 40px;
-    text-align: center;
-    margin-left: 8px;
+    //width: 40px;
+    //height: 40px;
+    //text-align: center;
+    //margin-left: 8px;
     color: rgb(184, 190, 204);
-    font-size: 22px;
-    padding: 5px 0;
+    //font-size: 22px;
+    //padding: 5px 0;
 
     & a.dropdown-toggle {
       color: rgb(184, 190, 204);
@@ -280,6 +302,10 @@ export default {
     }
   }
 
+  .collapse-text {
+    width: 100%;
+  }
+
   .tab-collapse-item {
     & a.a-link-title {
       width: 92%;
@@ -289,6 +315,7 @@ export default {
   .btn-dropdown {
     width: 7%;
     text-align: center;
+    height: 45px;
   }
 }
 @media screen and (max-width: 576px) {

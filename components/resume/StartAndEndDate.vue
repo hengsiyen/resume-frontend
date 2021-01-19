@@ -11,7 +11,7 @@
             :width="35"
             class="mb-0 mr-1"
             @change="untilPresent"
-          /> Currently work here
+          /> {{ labelToggle }}
         </div>
       </div>
       <div class="row">
@@ -171,6 +171,10 @@ export default {
       default: () => {
         return null
       }
+    },
+    labelToggle: {
+      type: String,
+      default: 'Currently work here'
     }
   },
   data () {

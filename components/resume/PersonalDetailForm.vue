@@ -226,6 +226,31 @@
             </div>
           </div>
         </div>
+        <div class="row">
+          <div class="col-12 col-sm-6">
+            <div class="form-group">
+              <label for="gender" class="resume-label-control">Gender</label>
+              <select
+                id="gender"
+                v-model="item.gender_id"
+                name="until_month"
+                class="resume-form-control"
+                @change="refreshResume"
+              >
+                <option :value="null">
+                  Select your gender
+                </option>
+                <template v-for="(item, key) in genders">
+                  <option :key="key" :value="item.id">
+                    {{ item.name_en }}
+                  </option>
+                </template>
+              </select>
+              <i class="fa fa-chevron-down" />
+              <div class="line" />
+            </div>
+          </div>
+        </div>
       </template>
     </div>
     <a
@@ -238,11 +263,13 @@
       @click="showAdditionalDetail = !showAdditionalDetail"
     >
       Edit additional details
-      <i
-        class="fas d-inline-block"
-        :class="showAdditionalDetail ? 'fa-angle-up' : 'fa-angle-down'"
-        style="vertical-align: middle"
-      />
+<!--      <i-->
+<!--        class="fas d-inline-block"-->
+<!--        :class="showAdditionalDetail ? 'fa-angle-up' : 'fa-angle-down'"-->
+<!--        style="vertical-align: middle"-->
+<!--      />-->
+      <mdicon v-if="showAdditionalDetail" name="chevronUp" :size="18" />
+      <mdicon v-else name="chevronDown" :size="18" />
     </a>
   </div>
 </template>
@@ -303,8 +330,12 @@ export default {
   data () {
     return {
       dateForm: 'dd, MMMM, yyyy',
-      showAdditionalDetail: false
+      showAdditionalDetail: false,
+      genders: []
     }
+  },
+  mounted () {
+    this.getGender()
   },
   methods: {
     refreshResume () {
@@ -419,6 +450,16 @@ export default {
       }
     },
 
+    getGender () {
+      this.$axios
+        .get(this.$base_api + '/api/frontend/gender/get-option')
+        .then((res) => {
+          this.genders = res.data.data
+        })
+        .catch((error) => {
+          console.log(error)
+        })
+    },
     selectedBirthDate () {
       this.item.dob = this.convertDateFormat(this.item.dob, 'YYYY-MM-DD')
     }
