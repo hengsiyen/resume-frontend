@@ -16,11 +16,11 @@
                     >
                     <div class="line" />
                   </div>
-<!--                  <a-->
-<!--                    href="javascript:void(0)"-->
-<!--                    class="rf-section__confirm-lg mr-2"-->
-<!--                    @click="confirmResumeName"-->
-<!--                  ><i class="fas fa-check-circle" /></a>-->
+                  <!--                  <a-->
+                  <!--                    href="javascript:void(0)"-->
+                  <!--                    class="rf-section__confirm-lg mr-2"-->
+                  <!--                    @click="confirmResumeName"-->
+                  <!--                  ><i class="fas fa-check-circle" /></a>-->
                 </template>
                 <template v-else>
                   <span class="mr-2 mr-sm-1">{{ user_resume.name ? user_resume.name : 'Untitled' }}</span>
@@ -167,14 +167,15 @@
                           :draggable="true"
                           :title="element"
                         >
-                          <div v-if="skills" class="skills-suggestion mr-3">
-                            <template v-for="(item, key) in skills">
+                          <div v-if="suggestionSkills" class="skills-suggestion mb-3">
+                            <template v-for="(item, key) in suggestionSkills">
                               <a
                                 href="javascript:void(0)"
                                 class="skill-suggestion-item"
                                 :key="key"
+                                @click="addSuggestion(item)"
                               >
-                                <span>{{ item.name_en }}</span>
+                                <span>{{ item }}</span>
                                 <mdicon name="plus" class="ski-item-icon" :size="16" />
                               </a>
                             </template>
@@ -193,7 +194,11 @@
                                   :has-sub-title="true"
                                   @onDelete="removeSectionItem(user_resume.skills, item, element)"
                                 >
-                                  <SkillForm :item="item" @refreshResume="refreshResume" />
+                                  <SkillForm
+                                    :item="item"
+                                    :data-skills="autocompleteSkills"
+                                    @refreshResume="refreshResume"
+                                  />
                                 </ItemCollapse>
                               </template>
                             </transition-group>
@@ -737,15 +742,17 @@ export default {
       show_line: false,
       editorOption: dataOptions.editorOption,
       addSections: dataOptions.addSections,
-      positions: [],
-      nationalities: [],
-      countries: [],
-      degrees: [],
       in_progress: 0,
       old_pdf: null,
       old_pdf_class: 'hiddenpdf',
       pdf_class: 'showpdf',
-      skills: []
+      current_skills: [],
+      positions: [],
+      nationalities: [],
+      countries: [],
+      degrees: [],
+      suggestionSkills: [],
+      autocompleteSkills: []
     }
   },
   computed: {
@@ -805,18 +812,22 @@ export default {
     this.getNationality()
     this.getCountry()
     this.getDegree()
+    this.getSkillAutocomplete()
     if (this.user_resume) {
+      if (this.user_resume.skills.length > 0) {
+        this.current_skills = []
+        this.user_resume.skills.forEach((item) => {
+          this.current_skills.push(item.skill)
+        })
+      }
+      this.getSkillSuggestion()
       this.logContent()
     }
-    this.getSkills()
   },
   methods: {
-    getSkills () {
-      this.$axios
-        .post(this.$base_api + '/api/frontend/skill/suggestion')
-        .then((res) => {
-          this.skills = res.data.data
-        })
+    addSuggestion (item) {
+      this.addSectionItemSkill(this.user_resume.skills, item)
+      this.refreshResume()
     },
     activeTab (item) {
       return item.hasOwnProperty('active_tab')
@@ -884,6 +895,7 @@ export default {
     removeSectionItem (model, item, section) {
       this.in_progress = 1
       if (Array.isArray(model)) {
+        console.log(item)
         if (model.includes(item)) {
           const self = this
           self.$swal({
@@ -910,6 +922,13 @@ export default {
                   })
                   .then((res) => {
                     this.user_resume = res.data.data
+                    if (this.user_resume.skills.length > 0) {
+                      this.current_skills = []
+                      this.user_resume.skills.forEach((item) => {
+                        this.current_skills.push(item.skill)
+                      })
+                    }
+                    this.getSkillSuggestion()
                     this.logContent()
                   })
               }
@@ -964,6 +983,24 @@ export default {
     onEditorFocus (editor) {
       this.show_line = true
     },
+
+    // Get Data
+    getSkillSuggestion () {
+      this.$axios
+        .post(this.$base_api + '/api/frontend/skill/suggestion', {
+          current_skills: this.current_skills
+        })
+        .then((res) => {
+          this.suggestionSkills = res.data.data
+        })
+    },
+    getSkillAutocomplete () {
+      this.$axios
+        .get(this.$base_api + '/api/frontend/skill/autocomplete')
+        .then((res) => {
+          this.autocompleteSkills = res.data.data
+        })
+    },
     getDegree () {
       this.$axios
         .get(this.$base_api + '/api/frontend/degree/get-option')
@@ -997,6 +1034,14 @@ export default {
       this.resume_pdf_src = null
       this.old_pdf_class = 'showpdf'
       this.pdf_class = 'hiddenpdf'
+
+      if (this.user_resume.skills.length > 0) {
+        this.current_skills = []
+        this.user_resume.skills.forEach((item) => {
+          this.current_skills.push(item.skill)
+        })
+      }
+      this.getSkillSuggestion()
       this.$axios
         .post(this.$base_api + '/api/frontend/resume/store', this.user_resume)
         .then((res) => {

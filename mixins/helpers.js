@@ -251,6 +251,17 @@ export const helpers = {
       }
       return result
     },
+    addSectionItemSkill (model, value = null) {
+      const newItem = {
+        skill: null,
+        level: null,
+        active_tab: true
+      }
+      if (value) {
+        newItem.skill = value
+      }
+      model.push(newItem)
+    },
     addSectionItem (model, type) {
       let newItem = null
       switch (type) {

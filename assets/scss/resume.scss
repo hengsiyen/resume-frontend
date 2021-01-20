@@ -485,19 +485,25 @@
   border-radius: 4px;
   background-color: rgb(242, 245, 250);
   color: rgb(38, 43, 51);
-  font-size: 16px;
+  font-size: 14px;
   line-height: 20px;
   white-space: nowrap;
   transition: background-color 0.1s ease 0s, color 0.1s ease 0s;
   will-change: opacity, transform;
   cursor: pointer;
+
+  & .ski-item-icon {
+    margin-left: 2px;
+    color: rgb(152, 161, 179);
+    transition: color 0.1s ease 0s;
+  }
+
+  &:hover, &:focus, &:active, &:hover .ski-item-icon {
+    background-color: rgb(230, 244, 255);
+    color: $resume-blue;
+  }
 }
 
-.ski-item-icon {
-  margin-left: 2px;
-  color: rgb(152, 161, 179);
-  transition: color 0.1s ease 0s;
-}
 
 @media screen and (max-width: 1279px) {
   .resume__left-block {

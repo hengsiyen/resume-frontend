@@ -68,11 +68,12 @@ export default {
       default: () => {
         return null
       }
-    }
-  },
-  data () {
-    return {
-      skills: []
+    },
+    dataSkills: {
+      type: Array,
+      default: () => {
+        return []
+      }
     }
   },
   computed: {
@@ -82,9 +83,6 @@ export default {
       }
       return null
     }
-  },
-  mounted () {
-    this.getSkills()
   },
   methods: {
     refreshResume () {
@@ -112,16 +110,9 @@ export default {
       if (input < 1) {
         return []
       }
-      return this.skills.filter((skill) => {
+      return this.dataSkills.filter((skill) => {
         return skill.name_en.toLowerCase().startsWith(input.toLowerCase())
       })
-    },
-    getSkills () {
-      this.$axios
-        .post(this.$base_api + '/api/frontend/skill/suggestion')
-        .then((res) => {
-          this.skills = res.data.data
-        })
     }
   }
 }
