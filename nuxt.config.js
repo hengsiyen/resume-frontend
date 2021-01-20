@@ -69,8 +69,7 @@ export default {
     '@nuxtjs/moment',
     'vue-sweetalert2/nuxt',
     'vue-social-sharing/nuxt',
-    'cookie-universal-nuxt',
-    'nuxtjs-mdi-font'
+    'cookie-universal-nuxt'
   ],
 
   server: {
