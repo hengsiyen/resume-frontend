@@ -806,7 +806,10 @@ export default {
     }
   },
   mounted () {
-    window.addEventListener('keypress', this.onPressEnter)
+    // eslint-disable-next-line nuxt/no-env-in-hooks
+    if (process.client) {
+      window.addEventListener('keypress', this.onPressEnter)
+    }
     this.getProvinces()
     this.getPosition()
     this.getNationality()
@@ -1071,6 +1074,9 @@ export default {
         this.old_pdf = this.resume_pdf_src
       }
     }
+  },
+  destroyed () {
+    window.removeEventListener('keypress', this.onPressEnter)
   }
 }
 </script>

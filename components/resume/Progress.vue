@@ -34,7 +34,7 @@ export default {
   name: 'Progress',
   data () {
     return {
-      progress: 30,
+      progress: 30
     }
   },
   computed: {
@@ -49,7 +49,7 @@ export default {
         return 'default'
       }
     }
-  },
+  }
 }
 </script>
 

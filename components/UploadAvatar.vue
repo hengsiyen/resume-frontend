@@ -9,7 +9,7 @@
             href="javascript:void(0)"
             @click="toggleShow"
           >
-<!--            <mdicon name="pencilOutline" />-->
+            <!--            <mdicon name="pencilOutline" />-->
             Edit Photo
           </a>
           <a
@@ -17,7 +17,7 @@
             href="javascript:void(0)"
             @click="removePhoto"
           >
-<!--            <div><mdicon name="deleteOutline" /></div>-->
+            <!--            <div><mdicon name="deleteOutline" /></div>-->
             Remove
           </a>
         </div>
@@ -31,7 +31,7 @@
       >
         <div class="d-flex">
           <div class="upload-icon">
-<!--            <mdicon name="account" class="w-100 h-100 text-center" :size="45" />-->
+            <!--            <mdicon name="account" class="w-100 h-100 text-center" :size="45" />-->
           </div>
           <div class="upload-label">
             <label class="label-text">Upload Photo</label>

@@ -31,7 +31,7 @@
             class="rf-section__edit mr-2"
             @click="onEdit"
           >
-<!--            <mdicon name="pencilOutline" />-->
+            <!--            <mdicon name="pencilOutline" />-->
           </a>
         </template>
       </template>
@@ -41,7 +41,7 @@
           class="rf-section__delete"
           @click="onDelete"
         >
-<!--          <mdicon name="deleteOutline" />-->
+          <!--          <mdicon name="deleteOutline" />-->
         </a>
       </template>
 

@@ -268,8 +268,8 @@
       <!--        :class="showAdditionalDetail ? 'fa-angle-up' : 'fa-angle-down'"-->
       <!--        style="vertical-align: middle"-->
       <!--      />-->
-<!--      <mdicon v-if="showAdditionalDetail" name="chevronUp" :size="18" />-->
-<!--      <mdicon v-else name="chevronDown" :size="18" />-->
+      <!--      <mdicon v-if="showAdditionalDetail" name="chevronUp" :size="18" />-->
+      <!--      <mdicon v-else name="chevronDown" :size="18" />-->
     </a>
   </div>
 </template>
