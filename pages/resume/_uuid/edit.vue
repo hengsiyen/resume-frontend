@@ -30,7 +30,7 @@
                     @click="editTitle"
                   >
                     <!--                    <mdicon name="pencilOutline" />-->
-                    siyen
+                    <span class="mdi mdi-credit-card-plus"></span>
                   </a>
                 </template>
               </div>
