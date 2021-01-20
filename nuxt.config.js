@@ -33,6 +33,7 @@ export default {
   css: [
     { src: 'quill/dist/quill.snow.css', lang: 'css' },
     { src: '@fortawesome/fontawesome-free/css/all.min.css', lang: 'css' },
+    { src: '@mdi/font/css/materialdesignicons.min.css', lang: 'css' },
     { src: 'vue-slick-carousel/dist/vue-slick-carousel.css', lang: 'css' },
     { src: 'vue-slick-carousel/dist/vue-slick-carousel-theme.css', lang: 'css' },
     { src: '@/assets/css/style.css', lang: 'css' },
