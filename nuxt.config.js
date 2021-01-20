@@ -1,7 +1,6 @@
 // eslint-disable-next-line nuxt/no-cjs-in-config
 const webpack = require('webpack')
 export default {
-  // Global page headers (https://go.nuxtjs.dev/config-head)
   head: {
     title: 'Talent Plus Resume',
     meta: [
@@ -31,7 +30,6 @@ export default {
     ]
   },
 
-  // Global CSS (https://go.nuxtjs.dev/config-css)
   css: [
     { src: 'quill/dist/quill.snow.css', lang: 'css' },
     { src: '@fortawesome/fontawesome-free/css/all.min.css', lang: 'css' },

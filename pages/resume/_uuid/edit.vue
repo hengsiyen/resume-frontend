@@ -29,8 +29,7 @@
                     class="rf-section__edit hover"
                     @click="editTitle"
                   >
-                    <!--                    <mdicon name="pencilOutline" />-->
-                    siyen
+                    <mdicon name="pencilOutline" />
                   </a>
                 </template>
               </div>
