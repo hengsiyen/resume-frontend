@@ -29,7 +29,7 @@
                     class="rf-section__edit hover"
                     @click="editTitle"
                   >
-<!--                    <mdicon name="pencilOutline" />-->
+                    <!--                    <mdicon name="pencilOutline" />-->
                   </a>
                 </template>
               </div>
@@ -80,7 +80,7 @@
                         data-placement="top"
                         title="Click and drag to move"
                       >
-<!--                        <mdicon name="dragVertical" :size="22" />-->
+                        <!--                        <mdicon name="dragVertical" :size="22" />-->
                       </div>
                       <template v-if="element === 'educations'">
                         <FormSection
@@ -117,7 +117,7 @@
                             class="btn-add-item"
                             @click="addSectionItem(user_resume.educations, element)"
                           >
-<!--                            <mdicon name="plus" class="mr-2" :size="22" />-->
+                            <!--                            <mdicon name="plus" class="mr-2" :size="22" />-->
                             <span>Add education</span>
                           </a>
                         </FormSection>
@@ -157,7 +157,7 @@
                             class="btn-add-item"
                             @click="addSectionItem(user_resume.work_experiences, element)"
                           >
-<!--                            <mdicon name="plus" class="mr-2" :size="22" />-->
+                            <!--                            <mdicon name="plus" class="mr-2" :size="22" />-->
                             <span>Add employment</span>
                           </a>
                         </FormSection>
@@ -176,7 +176,7 @@
                                 @click="addSuggestion(item)"
                               >
                                 <span>{{ item }}</span>
-<!--                                <mdicon name="plus" class="ski-item-icon" :size="16" />-->
+                                <!--                                <mdicon name="plus" class="ski-item-icon" :size="16" />-->
                               </a>
                             </template>
                           </div>
@@ -208,7 +208,7 @@
                             class="btn-add-item"
                             @click="addSectionItem(user_resume.skills, element)"
                           >
-<!--                            <mdicon name="plus" class="mr-2" :size="22" />-->
+                            <!--                            <mdicon name="plus" class="mr-2" :size="22" />-->
                             <span>Add skill</span>
                           </a>
                         </FormSection>
@@ -254,7 +254,7 @@
                             class="btn-add-item"
                             @click="addSectionItem(user_resume.social_profiles, element)"
                           >
-<!--                            <mdicon name="plus" class="mr-2" :size="22" />-->
+                            <!--                            <mdicon name="plus" class="mr-2" :size="22" />-->
                             <span>Add social link</span>
                           </a>
                         </FormSection>
@@ -290,7 +290,7 @@
                             class="btn-add-item"
                             @click="addSectionItem(user_resume.courses, element)"
                           >
-<!--                            <mdicon name="plus" class="mr-2" :size="22" />-->
+                            <!--                            <mdicon name="plus" class="mr-2" :size="22" />-->
                             <span>Add course</span>
                           </a>
                         </FormSection>
@@ -331,7 +331,7 @@
                             class="btn-add-item"
                             @click="addSectionItem(user_resume.internships, element)"
                           >
-<!--                            <mdicon name="plus" class="mr-2" :size="22" />-->
+                            <!--                            <mdicon name="plus" class="mr-2" :size="22" />-->
                             <span>Add internship</span>
                           </a>
                         </FormSection>
@@ -367,7 +367,7 @@
                             class="btn-add-item"
                             @click="addSectionItem(user_resume.langs, element)"
                           >
-<!--                            <mdicon name="plus" class="mr-2" :size="22" />-->
+                            <!--                            <mdicon name="plus" class="mr-2" :size="22" />-->
                             <span>Add language</span>
                           </a>
                         </FormSection>
@@ -407,7 +407,7 @@
                             class="btn-add-item"
                             @click="addSectionItem(user_resume.activities, element)"
                           >
-<!--                            <mdicon name="plus" class="mr-2" :size="22" />-->
+                            <!--                            <mdicon name="plus" class="mr-2" :size="22" />-->
                             <span>Add Activity</span>
                           </a>
                         </FormSection>
@@ -465,7 +465,7 @@
                             class="btn-add-item"
                             @click="addSectionItem(user_resume.references, element)"
                           >
-<!--                            <mdicon name="plus" class="mr-2" :size="22" />-->
+                            <!--                            <mdicon name="plus" class="mr-2" :size="22" />-->
                             <span>Add reference</span>
                           </a>
                         </FormSection>
@@ -517,7 +517,7 @@
                               class="btn-add-item"
                               @click="addSectionItem(customSection.items, 'custom')"
                             >
-<!--                              <mdicon name="plus" class="mr-2" :size="22" />-->
+                              <!--                              <mdicon name="plus" class="mr-2" :size="22" />-->
                               <span>Add item</span>
                             </a>
                           </FormSection>
@@ -566,26 +566,26 @@
             :to="{name: apiBack}"
             class="btn-float btn-float-gray"
           >
-<!--            <mdicon name="windowClose" :size="18" class="pb-3px" />-->
+            <!--            <mdicon name="windowClose" :size="18" class="pb-3px" />-->
           </NuxtLink>
         </div>
         <div class="top_pdf">
           <div class="resume-saved position-absolute d-flex align-items-center justify-content-center">
             <template v-if="in_progress">
-<!--              <mdicon name="rotateRight" :size="18" spin /> Saving...-->
+              <!--              <mdicon name="rotateRight" :size="18" spin /> Saving...-->
             </template>
             <template v-else>
-<!--              <mdicon name="cloudCheck" :size="18" /> Saved-->
+              <!--              <mdicon name="cloudCheck" :size="18" /> Saved-->
             </template>
           </div>
           <button class="btn angle-l" @click="angleLeft">
-<!--            <mdicon name="chevronLeft" />-->
+            <!--            <mdicon name="chevronLeft" />-->
           </button>
           <div class="page_count">
-<!--            {{ currentPage }} <mdicon name="slashForward" :size="18" /> {{ pageCount }}-->
+            <!--            {{ currentPage }} <mdicon name="slashForward" :size="18" /> {{ pageCount }}-->
           </div>
           <button class="btn angle-r" @click="angleRight">
-<!--            <mdicon name="chevronRight" />-->
+            <!--            <mdicon name="chevronRight" />-->
           </button>
         </div>
         <div class="resume__preview-container">
@@ -607,7 +607,7 @@
         <div class="resume__preview-footer d-flex align-items-center justify-content-between">
           <span class="btn-select-template d-flex align-items-center justify-content-center">
             <div class="btn-select-template-icon d-flex align-items-center justify-content-center">
-<!--              <mdicon name="viewGridOutline" :size="22" />-->
+              <!--              <mdicon name="viewGridOutline" :size="22" />-->
             </div>
             <NuxtLink
               :to="{name: 'resume-uuid-select-template', params: {uuid: $route.params.uuid}}"
@@ -628,7 +628,7 @@
               aria-haspopup="true"
               aria-expanded="false"
             >
-<!--              <mdicon name="dotsHorizontal" />-->
+              <!--              <mdicon name="dotsHorizontal" />-->
             </button>
             <div
               class="dropdown-menu custom-position-5 dropdown-menu-right"
@@ -640,7 +640,7 @@
                 data-toggle="modal"
                 data-target="#shareLinkEdit"
               >
-<!--                <mdicon name="link" /> Share a link-->
+                <!--                <mdicon name="link" /> Share a link-->
               </button>
             </div>
           </div>
@@ -652,7 +652,7 @@
         :to="{name: apiBack}"
         class="btn-float btn-float-gray"
       >
-<!--        <mdicon name="windowClose" :size="18" class="pb-3px" />-->
+        <!--        <mdicon name="windowClose" :size="18" class="pb-3px" />-->
       </NuxtLink>
     </div>
     <div class="button-float button-float-lg button-float-bottom-right show-button-preview">

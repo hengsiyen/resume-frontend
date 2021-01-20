@@ -41,13 +41,13 @@ export default {
     { src: '@/assets/scss/style.scss', lang: 'css' }
   ],
 
-  // Plugins to run before rendering page (https://go.nuxtjs.dev/config-plugins)
   plugins: [
     { src: '~/plugins/main.js', mode: 'client', ssr: false },
     { src: '~/plugins/axios.js', mode: 'client', ssr: false },
     { src: '~/plugins/avatar.js', mode: 'client', ssr: false },
     { src: '~/plugins/crosser.js', mode: 'client', ssr: false },
     { src: '~/plugins/vue-pdf.js', mode: 'client', ssr: false },
+    { src: '~/plugins/vue-mdi.js', mode: 'client', ssr: false },
     { src: '~/plugins/date-picker.js', mode: 'client', ssr: false },
     { src: '~/plugins/authenticate.js', mode: 'client', ssr: false },
     { src: '~/plugins/quill-editor.js', mode: 'client', ssr: false },
@@ -59,20 +59,13 @@ export default {
     { src: '~/plugins/vue-js-toggle-button.js', mode: 'client', ssr: false }
   ],
 
-  // Auto import components (https://go.nuxtjs.dev/config-components)
   components: true,
 
-  // Modules for dev and build (recommended) (https://go.nuxtjs.dev/config-modules)
   buildModules: [
-    // https://go.nuxtjs.dev/eslint
     '@nuxtjs/eslint-module'
   ],
-
-  // Modules (https://go.nuxtjs.dev/config-modules)
   modules: [
-    // https://go.nuxtjs.dev/bootstrap
     'bootstrap-vue/nuxt',
-    // https://go.nuxtjs.dev/axios
     '@nuxtjs/axios',
     '@nuxtjs/dotenv',
     '@nuxt/content',
@@ -91,7 +84,6 @@ export default {
     locales: ['km']
   },
   loading: false,
-  // Build Configuration (https://go.nuxtjs.dev/config-build)
   build: {
     extend (config, ctx) {
       config.output.globalObject = 'this'
