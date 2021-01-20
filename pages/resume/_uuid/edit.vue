@@ -30,6 +30,7 @@
                     @click="editTitle"
                   >
                     <!--                    <mdicon name="pencilOutline" />-->
+                    siyen
                   </a>
                 </template>
               </div>
@@ -81,6 +82,7 @@
                         title="Click and drag to move"
                       >
                         <!--                        <mdicon name="dragVertical" :size="22" />-->
+                        siyen
                       </div>
                       <template v-if="element === 'educations'">
                         <FormSection
@@ -118,6 +120,7 @@
                             @click="addSectionItem(user_resume.educations, element)"
                           >
                             <!--                            <mdicon name="plus" class="mr-2" :size="22" />-->
+                            siyen
                             <span>Add education</span>
                           </a>
                         </FormSection>
@@ -158,6 +161,7 @@
                             @click="addSectionItem(user_resume.work_experiences, element)"
                           >
                             <!--                            <mdicon name="plus" class="mr-2" :size="22" />-->
+                            siyen
                             <span>Add employment</span>
                           </a>
                         </FormSection>
@@ -177,6 +181,7 @@
                               >
                                 <span>{{ item }}</span>
                                 <!--                                <mdicon name="plus" class="ski-item-icon" :size="16" />-->
+                                siyen
                               </a>
                             </template>
                           </div>
@@ -209,6 +214,7 @@
                             @click="addSectionItem(user_resume.skills, element)"
                           >
                             <!--                            <mdicon name="plus" class="mr-2" :size="22" />-->
+                            siyen
                             <span>Add skill</span>
                           </a>
                         </FormSection>
@@ -255,6 +261,7 @@
                             @click="addSectionItem(user_resume.social_profiles, element)"
                           >
                             <!--                            <mdicon name="plus" class="mr-2" :size="22" />-->
+                            siyen
                             <span>Add social link</span>
                           </a>
                         </FormSection>
@@ -291,6 +298,7 @@
                             @click="addSectionItem(user_resume.courses, element)"
                           >
                             <!--                            <mdicon name="plus" class="mr-2" :size="22" />-->
+                            siyen
                             <span>Add course</span>
                           </a>
                         </FormSection>
@@ -332,6 +340,7 @@
                             @click="addSectionItem(user_resume.internships, element)"
                           >
                             <!--                            <mdicon name="plus" class="mr-2" :size="22" />-->
+                            siyen
                             <span>Add internship</span>
                           </a>
                         </FormSection>
@@ -368,6 +377,7 @@
                             @click="addSectionItem(user_resume.langs, element)"
                           >
                             <!--                            <mdicon name="plus" class="mr-2" :size="22" />-->
+                            siyen
                             <span>Add language</span>
                           </a>
                         </FormSection>
@@ -408,6 +418,7 @@
                             @click="addSectionItem(user_resume.activities, element)"
                           >
                             <!--                            <mdicon name="plus" class="mr-2" :size="22" />-->
+                            siyen
                             <span>Add Activity</span>
                           </a>
                         </FormSection>
@@ -466,6 +477,7 @@
                             @click="addSectionItem(user_resume.references, element)"
                           >
                             <!--                            <mdicon name="plus" class="mr-2" :size="22" />-->
+                            siyen
                             <span>Add reference</span>
                           </a>
                         </FormSection>
@@ -518,6 +530,7 @@
                               @click="addSectionItem(customSection.items, 'custom')"
                             >
                               <!--                              <mdicon name="plus" class="mr-2" :size="22" />-->
+                              siyen
                               <span>Add item</span>
                             </a>
                           </FormSection>
@@ -573,19 +586,24 @@
           <div class="resume-saved position-absolute d-flex align-items-center justify-content-center">
             <template v-if="in_progress">
               <!--              <mdicon name="rotateRight" :size="18" spin /> Saving...-->
+              siyen
             </template>
             <template v-else>
               <!--              <mdicon name="cloudCheck" :size="18" /> Saved-->
+              siyen
             </template>
           </div>
           <button class="btn angle-l" @click="angleLeft">
             <!--            <mdicon name="chevronLeft" />-->
+            siyen
           </button>
           <div class="page_count">
             <!--            {{ currentPage }} <mdicon name="slashForward" :size="18" /> {{ pageCount }}-->
+            siyen
           </div>
           <button class="btn angle-r" @click="angleRight">
             <!--            <mdicon name="chevronRight" />-->
+            siyen
           </button>
         </div>
         <div class="resume__preview-container">
@@ -608,6 +626,7 @@
           <span class="btn-select-template d-flex align-items-center justify-content-center">
             <div class="btn-select-template-icon d-flex align-items-center justify-content-center">
               <!--              <mdicon name="viewGridOutline" :size="22" />-->
+              siyen
             </div>
             <NuxtLink
               :to="{name: 'resume-uuid-select-template', params: {uuid: $route.params.uuid}}"
@@ -629,6 +648,7 @@
               aria-expanded="false"
             >
               <!--              <mdicon name="dotsHorizontal" />-->
+              siyen
             </button>
             <div
               class="dropdown-menu custom-position-5 dropdown-menu-right"
@@ -641,6 +661,7 @@
                 data-target="#shareLinkEdit"
               >
                 <!--                <mdicon name="link" /> Share a link-->
+                siyen
               </button>
             </div>
           </div>
@@ -653,6 +674,7 @@
         class="btn-float btn-float-gray"
       >
         <!--        <mdicon name="windowClose" :size="18" class="pb-3px" />-->
+        siyen
       </NuxtLink>
     </div>
     <div class="button-float button-float-lg button-float-bottom-right show-button-preview">
@@ -807,9 +829,9 @@ export default {
   },
   mounted () {
     // eslint-disable-next-line nuxt/no-env-in-hooks
-    if (process.client) {
-      window.addEventListener('keypress', this.onPressEnter)
-    }
+    // if (process.client) {
+    //   window.addEventListener('keypress', this.onPressEnter)
+    // }
     this.getProvinces()
     this.getPosition()
     this.getNationality()
@@ -841,27 +863,27 @@ export default {
     },
     editTitle () {
       this.editable_title = true
-      this.$nextTick(() => {
-        const resumeInputName = this.$refs.resumeName
-        if (resumeInputName) {
-          resumeInputName.addEventListener('blur', (event) => {
-            this.confirmResumeName()
-          })
-          window.addEventListener('keypress', (e) => {
-            if (e.key === 'Enter') {
-              this.confirmResumeName()
-            }
-          })
-        }
-      })
+      // this.$nextTick(() => {
+      //   const resumeInputName = this.$refs.resumeName
+      //   if (process.client && resumeInputName) {
+      //     resumeInputName.addEventListener('blur', (event) => {
+      //       this.confirmResumeName()
+      //     })
+      //     window.addEventListener('keypress', (e) => {
+      //       if (e.key === 'Enter') {
+      //         this.confirmResumeName()
+      //       }
+      //     })
+      //   }
+      // })
     },
     confirmResumeName () {
       this.$nextTick(() => {
         const resumeInputName = this.$refs.resumeName
-        if (resumeInputName) {
-          resumeInputName.removeEventListener('blur', (e) => {})
-          window.removeEventListener('keypress', (e) => {})
-        }
+        // if (process.client && resumeInputName) {
+        //   resumeInputName.removeEventListener('blur', (e) => {})
+        //   window.removeEventListener('keypress', (e) => {})
+        // }
       })
       this.editable_title = false
       this.updateDataResume()
@@ -1076,7 +1098,7 @@ export default {
     }
   },
   destroyed () {
-    window.removeEventListener('keypress', this.onPressEnter)
+    // window.removeEventListener('keypress', this.onPressEnter)
   }
 }
 </script>
