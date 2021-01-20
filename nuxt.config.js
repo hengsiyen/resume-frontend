@@ -48,7 +48,6 @@ export default {
     { src: '~/plugins/avatar.js', mode: 'client', ssr: false },
     { src: '~/plugins/crosser.js', mode: 'client', ssr: false },
     { src: '~/plugins/vue-pdf.js', mode: 'client', ssr: false },
-    { src: '~/plugins/vue-mdi.js', mode: 'client', ssr: false },
     { src: '~/plugins/date-picker.js', mode: 'client', ssr: false },
     { src: '~/plugins/authenticate.js', mode: 'client', ssr: false },
     { src: '~/plugins/quill-editor.js', mode: 'client', ssr: false },
