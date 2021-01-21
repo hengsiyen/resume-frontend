@@ -270,6 +270,10 @@
       <!--      />-->
       <!--      <mdicon v-if="showAdditionalDetail" name="chevronUp" :size="18" />-->
       <!--      <mdicon v-else name="chevronDown" :size="18" />-->
+      <span
+        class="mdi mdi-18 mdi-middle"
+        :class="showAdditionalDetail ? 'mdi-chevron-up' : 'mdi-chevron-down'"
+      ></span>
     </a>
   </div>
 </template>

@@ -22,12 +22,48 @@ export const dataOptions = {
   ],
 
   addSections: [
-    { name_en: 'Courses', value: 'courses', active: false, icon: 'fas fa-graduation-cap' },
-    { name_en: 'Internships', value: 'internships', active: false, icon: 'fas fa-briefcase' },
-    { name_en: 'Languages', value: 'langs', active: false, icon: 'fas fa-language' },
-    { name_en: 'Activities', value: 'activities', active: false, icon: 'fas fa-chess' },
-    { name_en: 'Hobbies', value: 'hobbies', active: false, icon: 'fas fa-gamepad' },
-    { name_en: 'References', value: 'references', active: false, icon: 'fas fa-bullhorn' }
+    {
+      name_en: 'Courses',
+      value: 'courses',
+      active: false,
+      icon: '/img/svg/certificate.svg',
+      icon_deactive: '/img/svg/certificate_deactive.svg'
+    },
+    {
+      name_en: 'Internships',
+      value: 'internships',
+      active: false,
+      icon: '/img/svg/briefcase.svg',
+      icon_deactive: '/img/svg/briefcase_deactive.svg'
+    },
+    {
+      name_en: 'Languages',
+      value: 'langs',
+      active: false,
+      icon: '/img/svg/translate.svg',
+      icon_deactive: '/img/svg/translate_deactive.svg'
+    },
+    {
+      name_en: 'Activities',
+      value: 'activities',
+      active: false,
+      icon: '/img/svg/plant.svg',
+      icon_deactive: '/img/svg/plant_deactive.svg'
+    },
+    {
+      name_en: 'Hobbies',
+      value: 'hobbies',
+      active: false,
+      icon: '/img/svg/horse.svg',
+      icon_deactive: '/img/svg/horse_deactive.svg'
+    },
+    {
+      name_en: 'References',
+      value: 'references',
+      active: false,
+      icon: '/img/svg/megaphone.svg',
+      icon_deactive: '/img/svg/megaphone_deactive.svg'
+    }
   ],
   sectionOrdersSubTitle: {
     personal_details: {

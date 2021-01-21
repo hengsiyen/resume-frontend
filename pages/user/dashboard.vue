@@ -1,5 +1,5 @@
 <template>
-  <div class="dashboard-content">
+  <div class="dashboard-content dashboard-content-h">
     <div class="section-container">
       <div class="section-wrapper">
         <div class="sect-title">
@@ -17,14 +17,15 @@
             class="btn btn-primary btn-create-new font-weight-bold"
             @click="createNewResume"
           >
-            <i class="fas fa-plus" style="margin-right: 10px" /> Create New Resume
+            <span class="mdi mdi-plus mdi-18 mdi-middle" style="margin-right: 5px"></span>
+            Create New Resume
           </a>
         </div>
         <div class="w-100 flex-wrap">
           <div class="position-relative">
             <template v-if="onLoading">
               <div class="d-flex align-items-center justify-content-center on-loading">
-                <i class="fas fa-circle-notch fa-spin mr-2"></i>
+                <span class="mdi mdi-rotate-right mdi-spin mdi-28 mdi-middle mr-2"></span>
                 <p class="mb-0">
                   Loading resumes...
                 </p>
@@ -62,7 +63,7 @@
                       <NuxtLink :to="{name: 'resume-uuid-edit', params: {uuid: item.uuid}}">
                         <div class="resume-action">
                           <div class="icon">
-                            <!--                            <mdicon name="pencilOutline" />-->
+                            <span class="mdi mdi-pencil-outline mdi-24 mdi-middle"></span>
                           </div>
                           Edit
                         </div>
@@ -70,7 +71,7 @@
                       <a href="javascript:void(0)" @click="copyResume(item.uuid)">
                         <div class="resume-action">
                           <div class="icon">
-                            <i class="fas fa-clone" />
+                            <span class="mdi mdi-checkbox-multiple-blank-outline mdi-rotate-180 mdi-24 mdi-middle"></span>
                           </div>
                           Make a copy
                         </div>
@@ -78,7 +79,7 @@
                       <a href="javascript:void(0)" @click="downloadResume(item.uuid)">
                         <div class="resume-action">
                           <div class="icon">
-                            <i class="fas fa-download" />
+                            <span class="mdi mdi-arrow-down-bold-outline mdi-24 mdi-middle"></span>
                           </div>
                           Download PDF
                         </div>
@@ -92,7 +93,7 @@
                       >
                         <div class="resume-action">
                           <div class="icon">
-                            <i class="fas fa-link" />
+                            <span class="mdi mdi-link mdi-24 mdi-middle"></span>
                           </div>
                           Share Link
                         </div>
@@ -106,7 +107,7 @@
                       >
                         <div class="resume-action">
                           <div class="icon">
-                            <i class="fas fa-ellipsis-h" />
+                            <span class="mdi mdi-dots-horizontal mdi-24 mdi-middle"></span>
                           </div>
                           More
                         </div>
@@ -120,14 +121,16 @@
                           type="button"
                           @click="regenerateLink(item)"
                         >
-                          <i class="fas fa-sync-alt"></i> Regenerate Link
+                          <span class="mdi mdi-cached mdi-24 mdi-middle"></span>
+                          Regenerate Link
                         </button>
                         <button
                           class="dropdown-item"
                           type="button"
                           @click="deleteResume(item)"
                         >
-                          <!--                          <mdicon name="deleteOutline" /> Delete-->
+                          <span class="mdi mdi-delete-outline mdi-24 mdi-middle"></span>
+                          Delete
                         </button>
                       </div>
                     </div>
@@ -145,7 +148,8 @@
                       Custom-built, amazing resumes. Empower your job search in just a few clicks!
                     </p>
                     <button class="btn btn-primary">
-                      <i class="fas fa-plus" style="margin-right: 10px" /> New Resume
+                      <span class="mdi mdi-plus mdi-18 mdi-middle" style="margin-right: 5px"></span>
+                      New Resume
                     </button>
                   </div>
                 </div>
@@ -336,4 +340,7 @@ export default {
 
 <style scoped lang="scss">
 @import "@/assets/scss/user.scss";
+.dashboard-content-h {
+  min-height: 93vh;
+}
 </style>

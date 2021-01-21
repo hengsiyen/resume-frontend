@@ -18,8 +18,8 @@
                 </div>
                 <div class="collapse-action d-flex align-content-center justify-items-center">
                   <div class="collapse-btn d-none d-lg-block">
-                    <!--                    <mdicon v-if="active_tab" name="chevronUp" />-->
-                    <!--                    <mdicon v-else name="chevronDown" />-->
+                    <span v-if="active_tab" class="mdi mdi-chevron-up mdi-24 mdi-middle"></span>
+                    <span v-else class="mdi mdi-chevron-down mdi-24 mdi-middle"></span>
                   </div>
                 </div>
               </div>
@@ -40,7 +40,7 @@
 
                 <div class="dropdown-menu dropdown-menu-right" aria-labelledby="dropdownMenuLink">
                   <a class="dropdown-item" href="javascript:void(0)" @click="onDelete">
-                    <!--                    <mdicon name="deleteOutline" class="mr-2 text-primary" :size="22" style="padding-bottom: 3px" /> Delete-->
+                    <span class="mdi mdi-delete-outline mdi-22 mr-2 text-primary"></span> Delete
                   </a>
                 </div>
               </div>
@@ -55,7 +55,7 @@
               class="rf-section__delete"
               @click="onDelete"
             >
-              <!--              <mdicon name="deleteOutline" />-->
+              <span class="mdi mdi-delete-outline mdi-24 mdi-middle"></span>
             </a>
           </div>
         </div>

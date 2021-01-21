@@ -29,8 +29,7 @@
                     class="rf-section__edit hover"
                     @click="editTitle"
                   >
-                    <!--                    <mdicon name="pencilOutline" />-->
-                    <span class="mdi mdi-credit-card-plus"></span>
+                    <span class="mdi mdi-pencil-outline mdi-middle mdi-22"></span>
                   </a>
                 </template>
               </div>
@@ -81,8 +80,7 @@
                         data-placement="top"
                         title="Click and drag to move"
                       >
-                        <!--                        <mdicon name="dragVertical" :size="22" />-->
-                        siyen
+                        <span class="mdi mdi-drag-vertical mdi-middle mdi-22"></span>
                       </div>
                       <template v-if="element === 'educations'">
                         <FormSection
@@ -119,8 +117,7 @@
                             class="btn-add-item"
                             @click="addSectionItem(user_resume.educations, element)"
                           >
-                            <!--                            <mdicon name="plus" class="mr-2" :size="22" />-->
-                            siyen
+                            <span class="mdi mdi-plus mdi-middle mdi-22 mr-2"></span>
                             <span>Add education</span>
                           </a>
                         </FormSection>
@@ -160,8 +157,7 @@
                             class="btn-add-item"
                             @click="addSectionItem(user_resume.work_experiences, element)"
                           >
-                            <!--                            <mdicon name="plus" class="mr-2" :size="22" />-->
-                            siyen
+                            <span class="mdi mdi-plus mdi-middle mdi-22 mr-2"></span>
                             <span>Add employment</span>
                           </a>
                         </FormSection>
@@ -180,8 +176,7 @@
                                 @click="addSuggestion(item)"
                               >
                                 <span>{{ item }}</span>
-                                <!--                                <mdicon name="plus" class="ski-item-icon" :size="16" />-->
-                                siyen
+                                <span class="mdi mdi-plus mdi-middle mdi-16 ski-item-icon"></span>
                               </a>
                             </template>
                           </div>
@@ -213,8 +208,7 @@
                             class="btn-add-item"
                             @click="addSectionItem(user_resume.skills, element)"
                           >
-                            <!--                            <mdicon name="plus" class="mr-2" :size="22" />-->
-                            siyen
+                            <span class="mdi mdi-plus mdi-22 mdi-middle mr-2"></span>
                             <span>Add skill</span>
                           </a>
                         </FormSection>
@@ -260,8 +254,7 @@
                             class="btn-add-item"
                             @click="addSectionItem(user_resume.social_profiles, element)"
                           >
-                            <!--                            <mdicon name="plus" class="mr-2" :size="22" />-->
-                            siyen
+                            <span class="mdi mdi-plus mdi-22 mdi-middle mr-2"></span>
                             <span>Add social link</span>
                           </a>
                         </FormSection>
@@ -297,8 +290,7 @@
                             class="btn-add-item"
                             @click="addSectionItem(user_resume.courses, element)"
                           >
-                            <!--                            <mdicon name="plus" class="mr-2" :size="22" />-->
-                            siyen
+                            <span class="mdi mdi-plus mdi-22 mdi-middle mr-2"></span>
                             <span>Add course</span>
                           </a>
                         </FormSection>
@@ -339,8 +331,7 @@
                             class="btn-add-item"
                             @click="addSectionItem(user_resume.internships, element)"
                           >
-                            <!--                            <mdicon name="plus" class="mr-2" :size="22" />-->
-                            siyen
+                            <span class="mdi mdi-plus mdi-22 mdi-middle mr-2"></span>
                             <span>Add internship</span>
                           </a>
                         </FormSection>
@@ -376,8 +367,7 @@
                             class="btn-add-item"
                             @click="addSectionItem(user_resume.langs, element)"
                           >
-                            <!--                            <mdicon name="plus" class="mr-2" :size="22" />-->
-                            siyen
+                            <span class="mdi mdi-plus mdi-22 mdi-middle mr-2"></span>
                             <span>Add language</span>
                           </a>
                         </FormSection>
@@ -417,8 +407,7 @@
                             class="btn-add-item"
                             @click="addSectionItem(user_resume.activities, element)"
                           >
-                            <!--                            <mdicon name="plus" class="mr-2" :size="22" />-->
-                            siyen
+                            <span class="mdi mdi-plus mdi-22 mdi-middle mr-2"></span>
                             <span>Add Activity</span>
                           </a>
                         </FormSection>
@@ -476,8 +465,7 @@
                             class="btn-add-item"
                             @click="addSectionItem(user_resume.references, element)"
                           >
-                            <!--                            <mdicon name="plus" class="mr-2" :size="22" />-->
-                            siyen
+                            <span class="mdi mdi-plus mdi-22 mdi-middle mr-2"></span>
                             <span>Add reference</span>
                           </a>
                         </FormSection>
@@ -529,8 +517,7 @@
                               class="btn-add-item"
                               @click="addSectionItem(customSection.items, 'custom')"
                             >
-                              <!--                              <mdicon name="plus" class="mr-2" :size="22" />-->
-                              siyen
+                              <span class="mdi mdi-plus mdi-22 mdi-middle mr-2"></span>
                               <span>Add item</span>
                             </a>
                           </FormSection>
@@ -547,10 +534,8 @@
                     class="list-section-item"
                     @click="addCustomSection"
                   >
-                    <div>
-                      <i class="fas fa-sliders-h add-section-icon mr-2"></i>
-                      Custom Section
-                    </div>
+                    <img src="/img/svg/control.svg" alt="" width="100%" class="add-section-icon mr-2">
+                    Custom Section
                   </a>
                   <template v-for="(item, key) in addSections">
                     <a
@@ -560,10 +545,13 @@
                       :class="{'active': checkSectionActive(user_resume.sections_order, item.value)}"
                       @click="addSection(item)"
                     >
-                      <div>
-                        <i class="add-section-icon mr-2" :class="item.icon" />
-                        {{ item.name_en }}
-                      </div>
+                      <img
+                        :src="checkSectionActive(user_resume.sections_order, item.value) ? item.icon_deactive : item.icon"
+                        alt=""
+                        width="100%"
+                        class="add-section-icon mr-2"
+                      >
+                      {{ item.name_en }}
                     </a>
                   </template>
                 </div>
@@ -579,31 +567,26 @@
             :to="{name: apiBack}"
             class="btn-float btn-float-gray"
           >
-            <!--            <mdicon name="windowClose" :size="18" class="pb-3px" />-->
+            <span class="mdi mdi-window-close mdi-18 mdi-middle"></span>
           </NuxtLink>
         </div>
         <div class="top_pdf">
           <div class="resume-saved position-absolute d-flex align-items-center justify-content-center">
             <template v-if="in_progress">
-              <!--              <mdicon name="rotateRight" :size="18" spin /> Saving...-->
-              siyen
+              <span class="mdi mdi-rotate-right mdi-18 mdi-middle mdi-spin"></span> Saving...
             </template>
             <template v-else>
-              <!--              <mdicon name="cloudCheck" :size="18" /> Saved-->
-              siyen
+              <span class="mdi mdi-cloud-check mdi-18 mdi-middle"></span> Saved
             </template>
           </div>
           <button class="btn angle-l" @click="angleLeft">
-            <!--            <mdicon name="chevronLeft" />-->
-            siyen
+            <span class="mdi mdi-chevron-left mdi-24 mdi-middle"></span>
           </button>
           <div class="page_count">
-            <!--            {{ currentPage }} <mdicon name="slashForward" :size="18" /> {{ pageCount }}-->
-            siyen
+            {{ currentPage }} <span class="mdi mdi-slash-forward mdi-18 mdi-middle"></span> {{ pageCount }}
           </div>
           <button class="btn angle-r" @click="angleRight">
-            <!--            <mdicon name="chevronRight" />-->
-            siyen
+            <span class="mdi mdi-chevron-right mdi-24 mdi-middle"></span>
           </button>
         </div>
         <div class="resume__preview-container">
@@ -611,7 +594,7 @@
             <div class="resume__viewer-canvas">
               <template v-if="pageCount > 0">
                 <pdf
-                  v-for="(i, k) in pageCount"
+                  v-for="(page, k) in pageCount"
                   :key="k"
                   ref="viewPdfEdit"
                   class="show_pdf"
@@ -625,8 +608,7 @@
         <div class="resume__preview-footer d-flex align-items-center justify-content-between">
           <span class="btn-select-template d-flex align-items-center justify-content-center">
             <div class="btn-select-template-icon d-flex align-items-center justify-content-center">
-              <!--              <mdicon name="viewGridOutline" :size="22" />-->
-              siyen
+              <span class="mdi mdi-view-grid-outline mdi-22 mdi-middle"></span>
             </div>
             <NuxtLink
               :to="{name: 'resume-uuid-select-template', params: {uuid: $route.params.uuid}}"
@@ -647,8 +629,7 @@
               aria-haspopup="true"
               aria-expanded="false"
             >
-              <!--              <mdicon name="dotsHorizontal" />-->
-              siyen
+              <span class="mdi mdi-dots-horizontal mdi-16 mdi-middle"></span>
             </button>
             <div
               class="dropdown-menu custom-position-5 dropdown-menu-right"
@@ -660,8 +641,7 @@
                 data-toggle="modal"
                 data-target="#shareLinkEdit"
               >
-                <!--                <mdicon name="link" /> Share a link-->
-                siyen
+                <span class="mdi mdi-link mdi-24 mdi-middle"></span> Share a link
               </button>
             </div>
           </div>
@@ -673,8 +653,7 @@
         :to="{name: apiBack}"
         class="btn-float btn-float-gray"
       >
-        <!--        <mdicon name="windowClose" :size="18" class="pb-3px" />-->
-        siyen
+        <span class="mdi mdi-window-close mdi-18 mdi-middle"></span>
       </NuxtLink>
     </div>
     <div class="button-float button-float-lg button-float-bottom-right show-button-preview">
@@ -682,10 +661,7 @@
         :to="{name: 'resume-uuid-select-template', params: {uuid: $route.params.uuid}}"
         class="btn-float"
       >
-        <i
-          class="fas fa-file-alt w-100 h-100 d-flex align-items-center justify-content-center"
-          style="font-size: 24px"
-        ></i>
+        <img src="/img/svg/file.svg" alt="file" width="100%" class="w-50">
       </NuxtLink>
     </div>
     <!--      model share resume-->
@@ -829,9 +805,9 @@ export default {
   },
   mounted () {
     // eslint-disable-next-line nuxt/no-env-in-hooks
-    // if (process.client) {
-    //   window.addEventListener('keypress', this.onPressEnter)
-    // }
+    if (process.client) {
+      window.addEventListener('keypress', this.onPressEnter)
+    }
     this.getProvinces()
     this.getPosition()
     this.getNationality()
@@ -863,27 +839,27 @@ export default {
     },
     editTitle () {
       this.editable_title = true
-      // this.$nextTick(() => {
-      //   const resumeInputName = this.$refs.resumeName
-      //   if (process.client && resumeInputName) {
-      //     resumeInputName.addEventListener('blur', (event) => {
-      //       this.confirmResumeName()
-      //     })
-      //     window.addEventListener('keypress', (e) => {
-      //       if (e.key === 'Enter') {
-      //         this.confirmResumeName()
-      //       }
-      //     })
-      //   }
-      // })
+      this.$nextTick(() => {
+        const resumeInputName = this.$refs.resumeName
+        if (process.client && resumeInputName) {
+          resumeInputName.addEventListener('blur', () => {
+            this.confirmResumeName()
+          })
+          window.addEventListener('keypress', (e) => {
+            if (e.key === 'Enter') {
+              this.confirmResumeName()
+            }
+          })
+        }
+      })
     },
     confirmResumeName () {
       this.$nextTick(() => {
         const resumeInputName = this.$refs.resumeName
-        // if (process.client && resumeInputName) {
-        //   resumeInputName.removeEventListener('blur', (e) => {})
-        //   window.removeEventListener('keypress', (e) => {})
-        // }
+        if (process.client && resumeInputName) {
+          resumeInputName.removeEventListener('blur', () => {})
+          window.removeEventListener('keypress', () => {})
+        }
       })
       this.editable_title = false
       this.updateDataResume()

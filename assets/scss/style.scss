@@ -23,6 +23,34 @@ $font-family-sans-serif: 'Lato', 'Khmer OS Battambang', 'Kantumruy', 'Helvetica'
   display: none;
 }
 
+.mdi-middle {
+  vertical-align: middle;
+}
+
+
+$sizes: () !default;
+$sizes: map-merge(
+    (
+      "14": 14,
+      "16": 16,
+      "18": 18,
+      "20": 20,
+      "22": 22,
+      "24": 24,
+      "26": 26,
+      "28": 28,
+      "30": 30,
+      "32": 32,
+      "40": 40
+    ),
+    $sizes
+);
+@each $size, $value in $sizes {
+  .mdi-#{$size} {
+    font-size: #{$value}px;
+  }
+}
+
 @media only screen and (max-width: 767px) {
   .not-supp-mobile-screen {
     width: 100%;

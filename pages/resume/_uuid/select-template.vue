@@ -7,7 +7,7 @@
       <!-- Uncomment below if you prefer to use an image logo -->
       <div class="btn-select-template d-none d-md-flex align-items-center justify-content-center">
         <div class="btn-select-template-icon d-flex align-items-center justify-content-center">
-          <i class="fas fa-angle-left" />
+          <span class="mdi mdi-chevron-left mdi-20 mdi-middle"></span>
         </div>
         <NuxtLink
           :to="{name: 'resume-uuid-edit', params: {uuid: $route.params.uuid}}"
@@ -78,7 +78,8 @@
                     :style="`background-image: url('${$base_api}/${item.image}')`"
                   />
                   <div :class="{'selected': item.id === selected_id}">
-                    <i class="fas fa-check" v-if="item.id === selected_id"></i>
+                    <!--                    <i class="fas fa-check" v-if="item.id === selected_id"></i>-->
+                    <span v-if="item.id === selected_id" class="mdi mdi-check mdi-middle mdi-24"></span>
                   </div>
                 </a>
               </div>
@@ -105,17 +106,17 @@
             :class="currentPage === 1 ? 'deactive' : ''"
             @click="angleLeft"
           >
-            <i class="fas fa-chevron-left" />
+            <span class="mdi mdi-chevron-left mdi-26 mdi-middle"></span>
           </button>
           <div class="page_count">
-            {{ currentPage }} / {{ pageCount }}
+            {{ currentPage }} <span class="mdi mdi-slash-forward mdi-24 mdi-middle"></span> {{ pageCount }}
           </div>
           <button
             class="btn angle-r text-white"
             :class="currentPage === pageCount ? 'deactive' : ''"
             @click="angleRight"
           >
-            <i class="fas fa-chevron-right" />
+            <span class="mdi mdi-chevron-right mdi-26 mdi-middle"></span>
           </button>
         </div>
       </div>
@@ -396,8 +397,9 @@ export default {
     height: 92.5vh;
     padding: 32px 16px 18px;
   }
+
   .link_page {
-    left: 48%;
+    left: 55%;
     transform: unset;
   }
 }
@@ -406,21 +408,8 @@ export default {
   .nav-container {
     padding: 5px 16px;
   }
-}
-
-@media screen and (max-width: 576px) {
-  .section-body {
-    height: 93vh;
-  }
-  .nav-container-h {
-    height: 7vh;
-  }
-
-  .template-preview {
-    overflow-y: hidden;
-  }
-  .resume__preview-container {
-    height: 450px;
+  .template-list-content {
+    height: 94vh;
   }
 
   .template-list {
@@ -444,7 +433,37 @@ export default {
   }
   .link_page {
     left: 50%;
+    font-size: 16px;
     transform: translate(-50%, 0);
+  }
+  button.btn.angle-r,
+  button.btn.angle-l {
+    padding: 0 8px;
+    & .mdi {
+      font-size: 22px;
+    }
+  }
+}
+
+@media screen and (max-width: 576px) {
+  .section-body {
+    height: 93vh;
+  }
+  .nav-container-h {
+    height: 7vh;
+  }
+  .template-list-content {
+    height: 92.5vh;
+  }
+  .template-preview {
+    overflow-y: hidden;
+  }
+  .resume__preview-container {
+    height: 450px;
+  }
+
+  .template-item {
+    width: 98%;
   }
 }
 </style>
