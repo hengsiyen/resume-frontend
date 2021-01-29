@@ -360,6 +360,8 @@ export const helpers = {
             province: null,
             description: null,
             is_date_until_present: false,
+            date_from_format: null,
+            date_until_format: null,
             active_tab: true
           }
           break

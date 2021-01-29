@@ -23,7 +23,7 @@
                   <!--                  ><i class="fas fa-check-circle" /></a>-->
                 </template>
                 <template v-else>
-                  <span class="mr-2 mr-sm-1">{{ user_resume.name ? user_resume.name : 'Untitled' }}</span>
+                  <span class="mr-2 mr-sm-1">{{ user_resume.name ? user_resume.name : 'Untitled' }} {{ currentWindowSize }}</span>
                   <a
                     href="javascript:void(0)"
                     class="rf-section__edit hover"
@@ -69,13 +69,13 @@
                 v-model="user_resume.sections_order"
                 class="list-group"
                 @update="refreshResume"
-                handle=".handle"
+                handle=".section-handle"
               >
                 <transition-group type="transition" name="flip-list">
                   <template v-for="(element, key) in user_resume.sections_order">
                     <div :key="key" class="item position-relative" v-if="key > 0">
                       <div
-                        class="rf-section__draggable handle"
+                        class="rf-section__draggable section-handle"
                         data-toggle="tooltip"
                         data-placement="top"
                         title="Click and drag to move"
@@ -84,31 +84,42 @@
                       </div>
                       <template v-if="element === 'educations'">
                         <FormSection
-                          :draggable="true"
                           :title="element"
                         >
                           <draggable
                             v-model="user_resume.educations"
                             class="list-group"
                             @update="refreshResume"
+                            handle=".drag-edu-item"
                           >
-                            <transition-group type="transition" name="flip-list">
+                            <transition-group type="transition" name="flip-list-edu">
                               <template v-for="(item, edu_key) in user_resume.educations">
-                                <ItemCollapse
-                                  :key="edu_key"
-                                  :item="item"
-                                  :active-tab="activeTab(item)"
-                                  :has-sub-title="true"
-                                  @onDelete="removeSectionItem(user_resume.educations, item, element)"
-                                >
-                                  <EducationForm
+                                <div :key="edu_key" class="item position-relative">
+                                  <div
+                                    class="drag-edu-item icon-drag-item"
+                                    data-toggle="tooltip"
+                                    data-placement="top"
+                                    title="Click and drag to move"
+                                  >
+                                    <span class="mdi mdi-drag-vertical mdi-middle mdi-22"></span>
+                                  </div>
+                                  <ItemCollapse
+                                    :key="edu_key"
+                                    :draggable="true"
                                     :item="item"
-                                    :data-provinces="provinces"
-                                    :data-degree="degrees"
-                                    :data-country="countries"
-                                    @refreshResume="refreshResume"
-                                  />
-                                </ItemCollapse>
+                                    :active-tab="activeTab(item)"
+                                    :has-sub-title="true"
+                                    @onDelete="removeSectionItem(user_resume.educations, item, element)"
+                                  >
+                                    <EducationForm
+                                      :item="item"
+                                      :data-provinces="provinces"
+                                      :data-degree="degrees"
+                                      :data-country="countries"
+                                      @refreshResume="refreshResume"
+                                    />
+                                  </ItemCollapse>
+                                </div>
                               </template>
                             </transition-group>
                           </draggable>
@@ -131,24 +142,34 @@
                             v-model="user_resume.work_experiences"
                             class="list-group"
                             @update="refreshResume"
+                            handle=".drag-emp-item"
                           >
                             <transition-group type="transition" name="flip-list">
                               <template v-for="(item, emp_key) in user_resume.work_experiences">
-                                <ItemCollapse
-                                  :key="emp_key"
-                                  :item="item"
-                                  :active-tab="activeTab(item)"
-                                  :has-sub-title="true"
-                                  @onDelete="removeSectionItem(user_resume.work_experiences, item, element)"
-                                >
-                                  <EmploymentForm
+                                <div :key="emp_key" class="item position-relative">
+                                  <div
+                                    class="drag-emp-item icon-drag-item"
+                                    data-toggle="tooltip"
+                                    data-placement="top"
+                                    title="Click and drag to move"
+                                  >
+                                    <span class="mdi mdi-drag-vertical mdi-middle mdi-22"></span>
+                                  </div>
+                                  <ItemCollapse
                                     :item="item"
-                                    :data-provinces="provinces"
-                                    :data-positions="positions"
-                                    :data-country="countries"
-                                    @refreshResume="refreshResume"
-                                  />
-                                </ItemCollapse>
+                                    :active-tab="activeTab(item)"
+                                    :has-sub-title="true"
+                                    @onDelete="removeSectionItem(user_resume.work_experiences, item, element)"
+                                  >
+                                    <EmploymentForm
+                                      :item="item"
+                                      :data-provinces="provinces"
+                                      :data-positions="positions"
+                                      :data-country="countries"
+                                      @refreshResume="refreshResume"
+                                    />
+                                  </ItemCollapse>
+                                </div>
                               </template>
                             </transition-group>
                           </draggable>
@@ -184,22 +205,32 @@
                             v-model="user_resume.skills"
                             class="list-group"
                             @update="refreshResume"
+                            handle=".drag-ski-item"
                           >
                             <transition-group type="transition" name="flip-list">
                               <template v-for="(item, skill_key) in user_resume.skills">
-                                <ItemCollapse
-                                  :key="skill_key"
-                                  :item="item"
-                                  :active-tab="activeTab(item)"
-                                  :has-sub-title="true"
-                                  @onDelete="removeSectionItem(user_resume.skills, item, element)"
-                                >
-                                  <SkillForm
+                                <div :key="skill_key" class="item position-relative">
+                                  <div
+                                    class="drag-ski-item icon-drag-item"
+                                    data-toggle="tooltip"
+                                    data-placement="top"
+                                    title="Click and drag to move"
+                                  >
+                                    <span class="mdi mdi-drag-vertical mdi-middle mdi-22"></span>
+                                  </div>
+                                  <ItemCollapse
                                     :item="item"
-                                    :data-skills="autocompleteSkills"
-                                    @refreshResume="refreshResume"
-                                  />
-                                </ItemCollapse>
+                                    :active-tab="activeTab(item)"
+                                    :has-sub-title="true"
+                                    @onDelete="removeSectionItem(user_resume.skills, item, element)"
+                                  >
+                                    <SkillForm
+                                      :item="item"
+                                      :data-skills="autocompleteSkills"
+                                      @refreshResume="refreshResume"
+                                    />
+                                  </ItemCollapse>
+                                </div>
                               </template>
                             </transition-group>
                           </draggable>
@@ -234,18 +265,28 @@
                             v-model="user_resume.social_profiles"
                             class="list-group"
                             @update="refreshResume"
+                            handle=".drag-soc-item"
                           >
                             <transition-group type="transition" name="flip-list">
                               <template v-for="(item, soc_key) in user_resume.social_profiles">
-                                <ItemCollapse
-                                  :key="soc_key"
-                                  :item="item"
-                                  :active-tab="activeTab(item)"
-                                  :has-sub-title="true"
-                                  @onDelete="removeSectionItem(user_resume.social_profiles, item, element)"
-                                >
-                                  <SocialProfileForm :item="item" @refreshResume="refreshResume" />
-                                </ItemCollapse>
+                                <div :key="soc_key" class="item position-relative">
+                                  <div
+                                    class="drag-soc-item icon-drag-item"
+                                    data-toggle="tooltip"
+                                    data-placement="top"
+                                    title="Click and drag to move"
+                                  >
+                                    <span class="mdi mdi-drag-vertical mdi-middle mdi-22"></span>
+                                  </div>
+                                  <ItemCollapse
+                                    :item="item"
+                                    :active-tab="activeTab(item)"
+                                    :has-sub-title="true"
+                                    @onDelete="removeSectionItem(user_resume.social_profiles, item, element)"
+                                  >
+                                    <SocialProfileForm :item="item" @refreshResume="refreshResume" />
+                                  </ItemCollapse>
+                                </div>
                               </template>
                             </transition-group>
                           </draggable>
@@ -270,18 +311,28 @@
                             v-model="user_resume.courses"
                             class="list-group"
                             @update="refreshResume"
+                            handle=".drag-cou-item"
                           >
                             <transition-group type="transition" name="flip-list">
                               <template v-for="(item, course_key) in user_resume.courses">
-                                <ItemCollapse
-                                  :key="course_key"
-                                  :item="item"
-                                  :active-tab="activeTab(item)"
-                                  :has-sub-title="true"
-                                  @onDelete="removeSectionItem(user_resume.courses, item, element)"
-                                >
-                                  <CourseForm :item="item" @refreshResume="refreshResume" />
-                                </ItemCollapse>
+                                <div :key="course_key" class="item position-relative">
+                                  <div
+                                    class="drag-cou-item icon-drag-item"
+                                    data-toggle="tooltip"
+                                    data-placement="top"
+                                    title="Click and drag to move"
+                                  >
+                                    <span class="mdi mdi-drag-vertical mdi-middle mdi-22"></span>
+                                  </div>
+                                  <ItemCollapse
+                                    :item="item"
+                                    :active-tab="activeTab(item)"
+                                    :has-sub-title="true"
+                                    @onDelete="removeSectionItem(user_resume.courses, item, element)"
+                                  >
+                                    <CourseForm :item="item" @refreshResume="refreshResume" />
+                                  </ItemCollapse>
+                                </div>
                               </template>
                             </transition-group>
                           </draggable>
@@ -306,23 +357,33 @@
                             v-model="user_resume.internships"
                             class="list-group"
                             @update="refreshResume"
+                            handle=".drag-inter-item"
                           >
                             <transition-group type="transition" name="flip-list">
                               <template v-for="(item, intern_key) in user_resume.internships">
-                                <ItemCollapse
-                                  :key="intern_key"
-                                  :item="item"
-                                  :active-tab="activeTab(item)"
-                                  :has-sub-title="true"
-                                  @onDelete="removeSectionItem(user_resume.internships, item, element)"
-                                >
-                                  <InternshipForm
+                                <div :key="intern_key" class="item position-relative">
+                                  <div
+                                    class="drag-inter-item icon-drag-item"
+                                    data-toggle="tooltip"
+                                    data-placement="top"
+                                    title="Click and drag to move"
+                                  >
+                                    <span class="mdi mdi-drag-vertical mdi-middle mdi-22"></span>
+                                  </div>
+                                  <ItemCollapse
                                     :item="item"
-                                    :data-provinces="provinces"
-                                    :data-positions="positions"
-                                    @refreshResume="refreshResume"
-                                  />
-                                </ItemCollapse>
+                                    :active-tab="activeTab(item)"
+                                    :has-sub-title="true"
+                                    @onDelete="removeSectionItem(user_resume.internships, item, element)"
+                                  >
+                                    <InternshipForm
+                                      :item="item"
+                                      :data-provinces="provinces"
+                                      :data-positions="positions"
+                                      @refreshResume="refreshResume"
+                                    />
+                                  </ItemCollapse>
+                                </div>
                               </template>
                             </transition-group>
                           </draggable>
@@ -347,18 +408,28 @@
                             v-model="user_resume.langs"
                             class="list-group"
                             @update="refreshResume"
+                            handle=".drag-land-item"
                           >
                             <transition-group type="transition" name="flip-list">
                               <template v-for="(item, lang_key) in user_resume.langs">
-                                <ItemCollapse
-                                  :key="lang_key"
-                                  :item="item"
-                                  :has-sub-title="true"
-                                  :active-tab="activeTab(item)"
-                                  @onDelete="removeSectionItem(user_resume.langs, item, element)"
-                                >
-                                  <LanguageForm :item="item" @refreshResume="refreshResume" />
-                                </ItemCollapse>
+                                <div :key="lang_key" class="item position-relative">
+                                  <div
+                                    class="drag-land-item icon-drag-item"
+                                    data-toggle="tooltip"
+                                    data-placement="top"
+                                    title="Click and drag to move"
+                                  >
+                                    <span class="mdi mdi-drag-vertical mdi-middle mdi-22"></span>
+                                  </div>
+                                  <ItemCollapse
+                                    :item="item"
+                                    :has-sub-title="true"
+                                    :active-tab="activeTab(item)"
+                                    @onDelete="removeSectionItem(user_resume.langs, item, element)"
+                                  >
+                                    <LanguageForm :item="item" @refreshResume="refreshResume" />
+                                  </ItemCollapse>
+                                </div>
                               </template>
                             </transition-group>
                           </draggable>
@@ -383,22 +454,33 @@
                             v-model="user_resume.activities"
                             class="list-group"
                             @update="refreshResume"
+                            handle=".drag-act-item"
                           >
                             <transition-group type="transition" name="flip-list">
                               <template v-for="(item, act_key) in user_resume.activities">
-                                <ItemCollapse
-                                  :key="act_key"
-                                  :item="item"
-                                  :has-sub-title="true"
-                                  :active-tab="activeTab(item)"
-                                  @onDelete="removeSectionItem(user_resume.activities, item, element)"
-                                >
-                                  <ActivityForm
+                                <div :key="act_key" class="item position-relative">
+                                  <div
+                                    class="drag-act-item icon-drag-item"
+                                    data-toggle="tooltip"
+                                    data-placement="top"
+                                    title="Click and drag to move"
+                                  >
+                                    <span class="mdi mdi-drag-vertical mdi-middle mdi-22"></span>
+                                  </div>
+                                  <ItemCollapse
+                                    :key="act_key"
                                     :item="item"
-                                    :data-provinces="provinces"
-                                    @refreshResume="refreshResume"
-                                  />
-                                </ItemCollapse>
+                                    :has-sub-title="true"
+                                    :active-tab="activeTab(item)"
+                                    @onDelete="removeSectionItem(user_resume.activities, item, element)"
+                                  >
+                                    <ActivityForm
+                                      :item="item"
+                                      :data-provinces="provinces"
+                                      @refreshResume="refreshResume"
+                                    />
+                                  </ItemCollapse>
+                                </div>
                               </template>
                             </transition-group>
                           </draggable>
@@ -445,18 +527,28 @@
                             v-model="user_resume.references"
                             class="list-group"
                             @update="refreshResume"
+                            handle=".drag-ref-item"
                           >
                             <transition-group type="transition" name="flip-list">
                               <template v-for="(item, ref_key) in user_resume.references">
-                                <ItemCollapse
-                                  :key="ref_key"
-                                  :item="item"
-                                  :active-tab="activeTab(item)"
-                                  :has-sub-title="true"
-                                  @onDelete="removeSectionItem(user_resume.references, item, element)"
-                                >
-                                  <ReferenceForm :item="item" @refreshResume="refreshResume" />
-                                </ItemCollapse>
+                                <div :key="ref_key" class="item position-relative">
+                                  <div
+                                    class="drag-ref-item icon-drag-item"
+                                    data-toggle="tooltip"
+                                    data-placement="top"
+                                    title="Click and drag to move"
+                                  >
+                                    <span class="mdi mdi-drag-vertical mdi-middle mdi-22"></span>
+                                  </div>
+                                  <ItemCollapse
+                                    :item="item"
+                                    :active-tab="activeTab(item)"
+                                    :has-sub-title="true"
+                                    @onDelete="removeSectionItem(user_resume.references, item, element)"
+                                  >
+                                    <ReferenceForm :item="item" @refreshResume="refreshResume" />
+                                  </ItemCollapse>
+                                </div>
                               </template>
                             </transition-group>
                           </draggable>
@@ -491,23 +583,34 @@
                                 v-model="customSection.items"
                                 class="list-group"
                                 @update="refreshResume"
+                                :handle="'.drag-sec-item-' + custom_key"
                               >
                                 <transition-group type="transition" name="flip-list">
                                   <template v-for="(item, item_key) in customSection.items">
-                                    <ItemCollapse
-                                      v-if="item"
-                                      :key="item_key"
-                                      :item="item"
-                                      :active-tab="activeTab(item)"
-                                      :has-sub-title="true"
-                                      @onDelete="removeSectionItem(customSection.items, item, element)"
-                                    >
-                                      <CustomSectionForm
+                                    <div :key="item_key" class="item position-relative">
+                                      <div
+                                        class="icon-drag-item"
+                                        :class="'drag-sec-item-' + custom_key"
+                                        data-toggle="tooltip"
+                                        data-placement="top"
+                                        title="Click and drag to move"
+                                      >
+                                        <span class="mdi mdi-drag-vertical mdi-middle mdi-22"></span>
+                                      </div>
+                                      <ItemCollapse
+                                        v-if="item"
                                         :item="item"
-                                        :data-provinces="provinces"
-                                        @refreshResume="refreshResume"
-                                      />
-                                    </ItemCollapse>
+                                        :active-tab="activeTab(item)"
+                                        :has-sub-title="true"
+                                        @onDelete="removeSectionItem(customSection.items, item, element)"
+                                      >
+                                        <CustomSectionForm
+                                          :item="item"
+                                          :data-provinces="provinces"
+                                          @refreshResume="refreshResume"
+                                        />
+                                      </ItemCollapse>
+                                    </div>
                                   </template>
                                 </transition-group>
                               </draggable>
@@ -750,7 +853,8 @@ export default {
       countries: [],
       degrees: [],
       suggestionSkills: [],
-      autocompleteSkills: []
+      autocompleteSkills: [],
+      window_size: null
     }
   },
   computed: {
@@ -792,6 +896,12 @@ export default {
         return this.user_resume.country
       }
       return null
+    },
+    currentWindowSize () {
+      if (this.window_size) {
+        return this.window_size <= 576
+      }
+      return false
     }
   },
   created () {
@@ -807,6 +917,8 @@ export default {
     // eslint-disable-next-line nuxt/no-env-in-hooks
     if (process.client) {
       window.addEventListener('keypress', this.onPressEnter)
+      this.window_size = window.innerWidth
+      window.addEventListener('resize', this.eventResize)
     }
     this.getProvinces()
     this.getPosition()
@@ -826,6 +938,9 @@ export default {
     }
   },
   methods: {
+    eventResize () {
+      this.window_size = window.innerWidth
+    },
     addSuggestion (item) {
       this.addSectionItemSkill(this.user_resume.skills, item)
       this.refreshResume()
@@ -1074,7 +1189,8 @@ export default {
     }
   },
   destroyed () {
-    // window.removeEventListener('keypress', this.onPressEnter)
+    window.removeEventListener('keypress', this.onPressEnter)
+    window.removeEventListener('resize', this.eventResize)
   }
 }
 </script>
@@ -1110,5 +1226,13 @@ export default {
   transition-property: opacity;
   transition-duration: 0.3s;
   transition-delay: 0.2s;
+}
+
+.icon-drag-item {
+  position: absolute;
+  top: 20px;
+  left: -25px;
+  z-index: 10;
+  color: #b8becc
 }
 </style>
