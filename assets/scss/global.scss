@@ -233,6 +233,17 @@ select {
   }
 }
 
+@media screen and (max-width: 767px) {
+  select {
+    &.resume-form-control {
+      padding-right: 13px;
+      & + i.fa {
+        display: none;
+      }
+    }
+  }
+}
+
 /*--------------------------------------------------------------
 # select end
 --------------------------------------------------------------*/
@@ -364,17 +375,6 @@ select {
 
 /*--------------------------------------------------------------
 # suggestion end
---------------------------------------------------------------*/
-
-/*--------------------------------------------------------------
-# upload avatar start
---------------------------------------------------------------*/
-.vue-image-crop-upload .vicp-wrap .vicp-operate a {
-  color: $resume-blue !important;
-}
-
-/*--------------------------------------------------------------
-# upload avatar end
 --------------------------------------------------------------*/
 
 /*--------------------------------------------------------------
@@ -539,3 +539,88 @@ select {
     border-radius: 0.2rem;
   }
 }
+
+/*--------------------------------------------------------------
+# upload image avatar popup start
+--------------------------------------------------------------*/
+@media screen and (max-width: 768px) {
+  .vicp-wrap {
+    width: 90% !important;
+  }
+
+  .vicp-close {
+    right: 0 !important;
+  }
+
+}
+
+@media screen and (max-width: 576px) {
+  .vue-image-crop-upload .vicp-wrap {
+    position: absolute !important;
+    display: flex !important;
+    box-sizing: border-box;
+    align-items: center !important;
+    justify-content: center !important;
+    top: 50% !important;
+    left: 50% !important;
+    right: unset !important;
+    bottom: unset !important;
+    height: unset !important;
+    transform: translate(-50%, -50%);
+  }
+
+  .vicp-step1,
+  .vicp-step2,
+  .vicp-step3 {
+    width: 100%;
+  }
+
+  .vicp-operate {
+    position: relative !important;
+    right: unset !important;
+    bottom: unset !important;
+    display: flex;
+    width: 100%;
+    justify-content: flex-end;
+    align-items: center;
+    & a {
+      margin-top: 24px !important;
+      float: unset !important;
+      background-color: $resume-blue;
+      color: white !important;
+    }
+
+    & a:hover {
+      background-color: $resume-blue !important;
+      outline: none;
+    }
+  }
+
+  .vicp-drop-area {
+    padding: 50px 16px !important;
+    height: 200px !important;
+  }
+  .vicp-icon1-body {
+    height: 8.7px !important;
+  }
+
+  .vue-image-crop-upload .vicp-wrap .vicp-step2 .vicp-crop {
+    display: flex !important;
+    flex-direction: column-reverse !important;
+  }
+
+  .vue-image-crop-upload .vicp-wrap .vicp-step2 .vicp-crop {
+    & .vicp-crop-left,
+    & .vicp-crop-right {
+      display: block;
+      margin: 0 auto;
+    }
+  }
+
+  .vue-image-crop-upload .vicp-wrap .vicp-step2 .vicp-crop .vicp-crop-left .vicp-range {
+    display: none !important;
+  }
+}
+/*--------------------------------------------------------------
+# upload image avatar popup end
+--------------------------------------------------------------*/

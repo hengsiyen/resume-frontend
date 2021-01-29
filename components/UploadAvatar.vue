@@ -1,7 +1,7 @@
 <template>
   <div class="change-avatar">
     <template v-if="imgDataUrl">
-      <div class="d-flex upload-field">
+      <div class="d-flex align-items-center upload-field">
         <div class="upload-icon" :style="`background-image: url('${checkImageUrl(imgDataUrl)}')`" />
         <div class="upload-label">
           <a

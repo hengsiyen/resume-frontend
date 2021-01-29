@@ -153,6 +153,20 @@
   }
 }
 
+.resume-action-dropdown {
+  margin-bottom: 12px;
+  cursor: pointer;
+  user-select: none;
+  color: #262b33;
+  pointer-events: all;
+  font-size: 18px;
+
+  & .icon {
+    color:  $resume-blue;
+    margin-right: 10px;
+  }
+}
+
 
 .resume-card-title {
   font-size: 14px;

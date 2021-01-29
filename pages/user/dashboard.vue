@@ -86,7 +86,6 @@
                       </a>
                       <a
                         href="javascript:void(0)"
-                        type="button"
                         data-toggle="modal"
                         data-target="#shareLinkDashboard"
                         @click="shareLink(item)"
@@ -98,40 +97,40 @@
                           Share Link
                         </div>
                       </a>
-                      <a
-                        href="javascript:void(0)"
-                        id="dropdownMenuButton"
-                        data-toggle="dropdown"
-                        aria-haspopup="true"
-                        aria-expanded="false"
-                      >
-                        <div class="resume-action">
-                          <div class="icon">
-                            <span class="mdi mdi-dots-horizontal mdi-24 mdi-middle"></span>
-                          </div>
-                          More
+                      <div class="dropdown">
+                        <a
+                          href="javascript:void(0)"
+                          id="dropdownMenuButton"
+                          data-toggle="dropdown"
+                          aria-haspopup="true"
+                          aria-expanded="false"
+                          class="dropdown-toggle"
+                        >
+                          <span class="resume-action-dropdown">
+                            <span class="icon">
+                              <span class="mdi mdi-dots-horizontal mdi-24 mdi-middle"></span>
+                            </span>
+                            More
+                          </span>
+                        </a>
+                        <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                          <button
+                            class="dropdown-item"
+                            type="button"
+                            @click="regenerateLink(item)"
+                          >
+                            <span class="mdi mdi-cached mdi-24 mdi-middle"></span>
+                            Regenerate Link
+                          </button>
+                          <button
+                            class="dropdown-item"
+                            type="button"
+                            @click="deleteResume(item)"
+                          >
+                            <span class="mdi mdi-delete-outline mdi-24 mdi-middle"></span>
+                            Delete
+                          </button>
                         </div>
-                      </a>
-                      <div
-                        class="dropdown-menu custom-position-5"
-                        aria-labelledby="dropdownMenuButton"
-                      >
-                        <button
-                          class="dropdown-item"
-                          type="button"
-                          @click="regenerateLink(item)"
-                        >
-                          <span class="mdi mdi-cached mdi-24 mdi-middle"></span>
-                          Regenerate Link
-                        </button>
-                        <button
-                          class="dropdown-item"
-                          type="button"
-                          @click="deleteResume(item)"
-                        >
-                          <span class="mdi mdi-delete-outline mdi-24 mdi-middle"></span>
-                          Delete
-                        </button>
                       </div>
                     </div>
                   </div>

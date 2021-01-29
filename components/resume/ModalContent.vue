@@ -41,7 +41,6 @@
       <div>
         <a
           href="javascript:void(0)"
-          type="button"
           class="btn btn-link font-weight-bold a-no-underline"
           @click="showResumeLink"
           data-dismiss="modal"

@@ -20,7 +20,7 @@
             <div class="col-12">
               <label class="resume-label-control">Start Date</label>
             </div>
-            <div class="col-12 col-sm-4">
+            <div class="col-4 sm-pr-0">
               <div class="form-group">
                 <select
                   v-model="ssy"
@@ -41,7 +41,7 @@
                 <div class="line" />
               </div>
             </div>
-            <div class="col-12 col-sm-4 pl-0 pl-sm-1">
+            <div class="col-4 sm-pr-0 pl-sm-1">
               <div class="form-group">
                 <select
                   v-model="ssm"
@@ -54,7 +54,7 @@
                   </option>
                   <template v-for="(month, key) in date_months">
                     <option :key="key" :value="month.value">
-                      {{ month.name_en }}
+                      {{ month.short_cut }}
                     </option>
                   </template>
                 </select>
@@ -62,7 +62,7 @@
                 <div class="line" />
               </div>
             </div>
-            <div class="col-12 col-sm-4 pl-0 pl-sm-1">
+            <div class="col-4 pl-sm-1">
               <div class="form-group">
                 <select
                   v-model="ssd"
@@ -91,7 +91,7 @@
               <div class="col-12">
                 <label class="resume-label-control">End Date</label>
               </div>
-              <div class="col-12 col-sm-4">
+              <div class="col-4 sm-pr-0">
                 <div class="form-group">
                   <select
                     v-model="suty"
@@ -112,7 +112,7 @@
                   <div class="line" />
                 </div>
               </div>
-              <div class="col-12 col-sm-4 pl-0 pl-sm-1">
+              <div class="col-4 sm-pr-0 pl-sm-1">
                 <div class="form-group">
                   <select
                     v-model="sutm"
@@ -125,7 +125,7 @@
                     </option>
                     <template v-for="(month, key) in date_months">
                       <option :key="key" :value="month.value">
-                        {{ month.name_en }}
+                        {{ month.short_cut }}
                       </option>
                     </template>
                   </select>
@@ -133,7 +133,7 @@
                   <div class="line" />
                 </div>
               </div>
-              <div class="col-12 col-sm-4 pl-0 pl-sm-1">
+              <div class="col-4 pl-sm-1">
                 <div class="form-group">
                   <select
                     v-model="sutd"
@@ -180,18 +180,18 @@ export default {
   data () {
     return {
       date_months: [
-        { name_en: 'January', name_kh: 'មករា', value: '01' },
-        { name_en: 'February', name_kh: 'កុម្ភៈ', value: '02' },
-        { name_en: 'March', name_kh: 'មិនា', value: '03' },
-        { name_en: 'April', name_kh: 'មេសា', value: '04' },
-        { name_en: 'May', name_kh: 'ឧសភា', value: '05' },
-        { name_en: 'June', name_kh: 'មិថុនា', value: '06' },
-        { name_en: 'July', name_kh: 'កក្កដា', value: '07' },
-        { name_en: 'August', name_kh: 'សីហា', value: '08' },
-        { name_en: 'September', name_kh: 'កញ្ញា', value: '09' },
-        { name_en: 'October', name_kh: 'តុលា', value: '10' },
-        { name_en: 'November', name_kh: 'វិច្ឆិកា', value: '11' },
-        { name_en: 'December', name_kh: 'ធ្នូ', value: '12' }
+        { short_cut: 'Jan', name_en: 'January', name_kh: 'មករា', value: '01' },
+        { short_cut: 'Feb', name_en: 'February', name_kh: 'កុម្ភៈ', value: '02' },
+        { short_cut: 'Mar', name_en: 'March', name_kh: 'មិនា', value: '03' },
+        { short_cut: 'Apr', name_en: 'April', name_kh: 'មេសា', value: '04' },
+        { short_cut: 'May', name_en: 'May', name_kh: 'ឧសភា', value: '05' },
+        { short_cut: 'Jun', name_en: 'June', name_kh: 'មិថុនា', value: '06' },
+        { short_cut: 'Jul', name_en: 'July', name_kh: 'កក្កដា', value: '07' },
+        { short_cut: 'Aug', name_en: 'August', name_kh: 'សីហា', value: '08' },
+        { short_cut: 'Sep', name_en: 'September', name_kh: 'កញ្ញា', value: '09' },
+        { short_cut: 'Oct', name_en: 'October', name_kh: 'តុលា', value: '10' },
+        { short_cut: 'Nov', name_en: 'November', name_kh: 'វិច្ឆិកា', value: '11' },
+        { short_cut: 'Dec', name_en: 'December', name_kh: 'ធ្នូ', value: '12' }
       ],
       date_days: [],
       date_years: [],
@@ -319,4 +319,10 @@ export default {
 
 <style scoped lang="scss">
 @import "../../assets/scss/resume";
+
+@media screen and (max-width: 576px) {
+  .sm-pr-0 {
+    padding-right: 0;
+  }
+}
 </style>
