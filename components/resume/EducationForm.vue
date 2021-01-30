@@ -8,6 +8,7 @@
             id="school"
             v-model="item.school"
             type="text"
+            ref="focusInput"
             class="resume-form-control"
             @input="refreshResume"
           >
@@ -162,8 +163,17 @@ export default {
       return null
     }
   },
-
+  mounted () {
+    this.$nextTick(() => {
+      this.onFocusInput()
+    })
+  },
   methods: {
+    onFocusInput () {
+      if (this.$refs.focusInput) {
+        this.$refs.focusInput.focus()
+      }
+    },
     refreshResume () {
       this.$emit('refreshResume')
     },

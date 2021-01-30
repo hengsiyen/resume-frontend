@@ -11,6 +11,7 @@
             :get-result-value="getResultValue"
             @update="update"
             @submit="submit"
+            ref="focusInput"
           >
             <template #result="{ result, props }">
               <li v-bind="props">
@@ -78,8 +79,18 @@ export default {
   mounted () {
     this.getLanguagesLvlOptions()
     this.getLanguages()
+    this.$nextTick(() => {
+      this.onFocusInput()
+    })
   },
   methods: {
+    onFocusInput () {
+      if (this.$refs.focusInput) {
+        if (this.$refs.focusInput.$refs.input) {
+          this.$refs.focusInput.$refs.input.focus()
+        }
+      }
+    },
     refreshResume () {
       this.$emit('refreshResume')
     },

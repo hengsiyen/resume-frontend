@@ -11,6 +11,7 @@
             :get-result-value="getPositionResultValue"
             @update="updatePosition"
             @submit="submitPosition"
+            ref="focusInput"
           >
             <template #result="{ result, props }">
               <li v-bind="props">
@@ -130,7 +131,19 @@ export default {
       return null
     }
   },
+  mounted () {
+    this.$nextTick(() => {
+      this.onFocusInput()
+    })
+  },
   methods: {
+    onFocusInput () {
+      if (this.$refs.focusInput) {
+        if (this.$refs.focusInput.$refs.input) {
+          this.$refs.focusInput.$refs.input.focus()
+        }
+      }
+    },
     refreshResume () {
       this.$emit('refreshResume')
     },

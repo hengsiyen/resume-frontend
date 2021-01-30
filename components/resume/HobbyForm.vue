@@ -12,6 +12,7 @@
             rows="5"
             class="resume-form-control"
             @input="refreshResume"
+            ref="focusInput"
           />
           <div class="line" />
         </div>
@@ -44,8 +45,16 @@ export default {
     } else {
       this.item.push(this.data)
     }
+    this.$nextTick(() => {
+      this.onFocusInput()
+    })
   },
   methods: {
+    onFocusInput () {
+      if (this.$refs.focusInput) {
+        this.$refs.focusInput.focus()
+      }
+    },
     refreshResume () {
       if (this.item.length > 0) {
         this.item[0].hobby = this.data.hobby

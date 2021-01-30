@@ -259,23 +259,25 @@ export const helpers = {
       }
       if (value) {
         newItem.skill = value
+        newItem.level = 'Expert'
       }
       model.push(newItem)
     },
     addSectionItem (model, type) {
       let newItem = null
+      const current_date = this.$moment().format('YYYY-MM-DD')
       switch (type) {
         case 'educations':
           newItem = {
             school: null,
             degree: null,
-            date_from: null,
-            date_until: null,
             country: null,
             province: null,
             description: null,
             is_date_until_present: false,
-            date_from_format: null,
+            date_from: current_date,
+            date_from_format: 'Y-m-d',
+            date_until: null,
             date_until_format: null,
             active_tab: true
           }
@@ -284,12 +286,12 @@ export const helpers = {
           newItem = {
             job_title: null,
             employer: null,
-            date_from: null,
-            date_until: null,
             province: null,
             description: null,
             is_date_until_present: false,
-            date_from_format: null,
+            date_from: current_date,
+            date_from_format: 'Y-m-d',
+            date_until: null,
             date_until_format: null,
             active_tab: true
           }
@@ -299,13 +301,13 @@ export const helpers = {
           newItem = {
             job_title: null,
             employer: null,
-            date_from: null,
-            date_until: null,
             country: null,
             province: null,
             description: null,
             is_date_until_present: false,
-            date_from_format: null,
+            date_from: current_date,
+            date_from_format: 'Y-m-d',
+            date_until: null,
             date_until_format: null,
             active_tab: true
           }
@@ -328,10 +330,10 @@ export const helpers = {
           newItem = {
             course: null,
             institution: null,
-            date_from: null,
-            date_until: null,
             is_date_until_present: false,
-            date_from_format: null,
+            date_from: current_date,
+            date_from_format: 'Y-m-d',
+            date_until: null,
             date_until_format: null,
             active_tab: true
           }
@@ -355,12 +357,12 @@ export const helpers = {
         case 'custom':
           newItem = {
             title: null,
-            date_from: null,
-            date_until: null,
             province: null,
             description: null,
             is_date_until_present: false,
-            date_from_format: null,
+            date_from: current_date,
+            date_from_format: 'Y-m-d',
+            date_until: null,
             date_until_format: null,
             active_tab: true
           }
