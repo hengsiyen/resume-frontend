@@ -146,7 +146,7 @@
                     <p class="sub-title mb-4">
                       Custom-built, amazing resumes. Empower your job search in just a few clicks!
                     </p>
-                    <button class="btn btn-primary">
+                    <button class="btn btn-primary" @click="createNewResume">
                       <span class="mdi mdi-plus mdi-18 mdi-middle" style="margin-right: 5px"></span>
                       New Resume
                     </button>
@@ -305,6 +305,7 @@ export default {
         })
     },
     createNewResume () {
+      this.$isLoading(true)
       let choose_template = this.$store.state.user.choose_template
       if (!choose_template) {
         if (localStorage.hasOwnProperty('template')) {
@@ -331,6 +332,8 @@ export default {
           })
         }).catch((error) => {
           this.onResponseError(error)
+        }).finally(() => {
+          this.$isLoading(false)
         })
     }
   }
