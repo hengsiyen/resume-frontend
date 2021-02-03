@@ -116,6 +116,10 @@ export default {
         return null
       }
     },
+    itemKey: {
+      type: String,
+      default: ''
+    },
     dataCountry: {
       type: Array,
       default: () => {

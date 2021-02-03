@@ -113,6 +113,7 @@
                                   >
                                     <EducationForm
                                       :item="item"
+                                      :item-key="edu_key + ''"
                                       :data-provinces="provinces"
                                       :data-degree="degrees"
                                       :data-country="countries"
