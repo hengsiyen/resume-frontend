@@ -73,8 +73,6 @@ export default (context, reject) => {
     const getAllValuesPromise = new Promise((resolve) => {
       window.addEventListener('message', function (event) {
         if (event.data.action === 'returnAllLocalstorage') {
-          console.log('getAllValuesPromise')
-          console.log(event.data.value)
           resolve(event.data.value)
         }
       })

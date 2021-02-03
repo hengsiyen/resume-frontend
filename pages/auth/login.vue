@@ -32,7 +32,7 @@
                   <input
                     id="email"
                     v-model="email"
-                    type="text"
+                    type="email"
                     class="resume-form-control"
                   >
                   <div class="line" :class="{'line-red': checkKeyObj(validate, 'email')}" />

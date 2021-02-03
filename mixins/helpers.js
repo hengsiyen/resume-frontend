@@ -77,7 +77,6 @@ export const helpers = {
       // }
     },
     renderMeta ({ title, description, thumbnail, url }) {
-      console.log(thumbnail)
       return [
         {
           hid: 'description',
@@ -265,7 +264,7 @@ export const helpers = {
     },
     addSectionItem (model, type) {
       let newItem = null
-      const current_date = this.$moment().format('YYYY-MM-DD')
+      const current_date = this.$moment().locale('en').format('YYYY-MM-DD')
       switch (type) {
         case 'educations':
           newItem = {

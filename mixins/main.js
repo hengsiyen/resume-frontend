@@ -39,7 +39,6 @@ export const themeMixin = {
     },
     setUserPreference () {
       const access_token = this.$cookies.get(process.env.VUE_APP_TOKEN)
-      console.log(access_token)
       if (access_token) {
         this.$store.dispatch('user/loggedIn')
         this.$axios.setHeader('Authorization', `Bearer ${access_token}`)

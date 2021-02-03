@@ -53,12 +53,12 @@
                     <div class="form-group mb-0">
                       <quill-editor
                         ref="editor"
+                        id="editor"
                         v-model="user_resume.profile"
                         :class="{'editor': show_line}"
                         :options="editorOption"
                         @blur="onEditorBlur($event)"
                         @focus="onEditorFocus($event)"
-                        @change="updateDataResume"
                       />
                       <div class="ql-editor-line" />
                     </div>
@@ -1011,7 +1011,6 @@ export default {
     removeSectionItem (model, item, section) {
       this.in_progress = 1
       if (Array.isArray(model)) {
-        console.log(item)
         if (model.includes(item)) {
           const self = this
           self.$swal({
@@ -1094,6 +1093,9 @@ export default {
       return false
     },
     onEditorBlur (editor) {
+      if (this.show_line) {
+        this.updateDataResume()
+      }
       this.show_line = false
     },
     onEditorFocus (editor) {

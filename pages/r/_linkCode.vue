@@ -104,7 +104,6 @@ export default {
     }).then((res) => {
       const result = res.data.data
       const image = result ? ctx.env.VUE_APP_API + '/' + result.thumbnail : '/thumbnail.jpg'
-      console.log(image)
       return {
         resume: result,
         show_image: image,

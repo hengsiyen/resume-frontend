@@ -11,7 +11,8 @@
             cols="30"
             rows="5"
             class="resume-form-control"
-            @input="refreshResume"
+            @blur="onEditorBlur($event)"
+            @focus="onEditorFocus($event)"
             ref="focusInput"
           />
           <div class="line" />
@@ -35,7 +36,8 @@ export default {
   data () {
     return {
       data: {
-        hobby: null
+        hobby: null,
+        on_focus: false
       }
     }
   },
@@ -60,6 +62,15 @@ export default {
         this.item[0].hobby = this.data.hobby
       }
       this.$emit('refreshResume')
+    },
+    onEditorBlur (event) {
+      if (this.on_focus) {
+        this.refreshResume()
+      }
+      this.on_focus = false
+    },
+    onEditorFocus (event) {
+      this.on_focus = true
     }
   }
 }

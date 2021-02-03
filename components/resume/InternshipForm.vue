@@ -67,13 +67,13 @@
           <div class="form-group mb-0">
             <label class="resume-label-control">Description</label>
             <quill-editor
-              ref="editor"
+              ref="InternEditor"
+              id="InternEditor"
               v-model="item.description"
               :class="{'editor': show_line}"
               :options="editorOption"
               @blur="onEditorBlur($event)"
               @focus="onEditorFocus($event)"
-              @change="refreshResume"
             />
             <div class="ql-editor-line" />
           </div>
@@ -202,6 +202,9 @@ export default {
     },
 
     onEditorBlur (editor) {
+      if (this.show_line) {
+        this.refreshResume()
+      }
       this.show_line = false
     },
     onEditorFocus (editor) {
