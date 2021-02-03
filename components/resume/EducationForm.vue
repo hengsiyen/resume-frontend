@@ -83,11 +83,14 @@
     <StartAndEndDate :item="item" @refreshResume="refreshResume" :label-toggle="'Currently study here'" />
     <div class="row">
       <div class="col-12">
+        {{ item.description }}
+      </div>
+      <div class="col-12">
         <div class="form-group mb-0">
           <label class="resume-label-control">Description</label>
           <quill-editor
             ref="eduEditor"
-            id="eduEditor"
+            :id="'eduEditor' + itemKey"
             v-model="item.description"
             :class="{'editor': show_line}"
             :options="editorOption"
