@@ -49,15 +49,15 @@
           <div v-if="active_tab" class="resume-collapse-body">
             <slot />
           </div>
-<!--          <div class="btn-delete">-->
-<!--            <a-->
-<!--              href="javascript:void(0)"-->
-<!--              class="rf-section__delete"-->
-<!--              @click="onDelete"-->
-<!--            >-->
-<!--              <span class="mdi mdi-delete-outline mdi-24 mdi-middle"></span>-->
-<!--            </a>-->
-<!--          </div>-->
+          <div class="btn-delete">
+            <a
+              href="javascript:void(0)"
+              class="rf-section__delete"
+              @click="onDelete"
+            >
+              <span class="mdi mdi-delete-outline mdi-24 mdi-middle"></span>
+            </a>
+          </div>
         </div>
       </div>
     </div>

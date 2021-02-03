@@ -42,7 +42,7 @@
               </option>
             </template>
           </select>
-          <i class="fa fa-chevron-down" />
+<!--          <i class="fa fa-chevron-down" />-->
           <div class="line" />
         </div>
       </div>
