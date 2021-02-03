@@ -93,6 +93,22 @@
                             handle=".drag-edu-item"
                           >
                             <transition-group type="transition" name="flip-list-edu">
+                              <div class="row">
+                                <div class="col-12">
+                                  <div class="form-group mb-0">
+                                    <quill-editor
+                                      ref="editor"
+                                      id="editor234923"
+                                      v-model="user_resume.profile"
+                                      :class="{'editor': show_line}"
+                                      :options="editorOption"
+                                      @blur="onEditorBlur($event)"
+                                      @focus="onEditorFocus($event)"
+                                    />
+                                    <div class="ql-editor-line" />
+                                  </div>
+                                </div>
+                              </div>
                               <template v-for="(item, edu_key) in user_resume.educations">
                                 <div :key="edu_key" class="item position-relative">
                                   <div
@@ -118,7 +134,28 @@
                                       :data-degree="degrees"
                                       :data-country="countries"
                                       @refreshResume="refreshResume"
-                                    />
+                                    >
+                                      <div class="row">
+                                        <div class="col-12">
+                                          {{ item.description }}
+                                        </div>
+                                        <div class="col-12">
+                                          <div class="form-group mb-0">
+                                            <label class="resume-label-control">Description</label>
+                                            <quill-editor
+                                              ref="eduEditor"
+                                              :id="'eduEditor' + edu_key"
+                                              v-model="item.description"
+                                              :class="{'editor': show_line}"
+                                              :options="editorOption"
+                                              @blur="onEditorBlur($event)"
+                                              @focus="onEditorFocus($event)"
+                                            />
+                                            <div class="ql-editor-line" />
+                                          </div>
+                                        </div>
+                                      </div>
+                                    </EducationForm>
                                   </ItemCollapse>
                                 </div>
                               </template>

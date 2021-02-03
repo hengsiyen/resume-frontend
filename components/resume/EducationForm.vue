@@ -81,26 +81,7 @@
       </div>
     </div>
     <StartAndEndDate :item="item" @refreshResume="refreshResume" :label-toggle="'Currently study here'" />
-    <div class="row">
-      <div class="col-12">
-        {{ item.description }}
-      </div>
-      <div class="col-12">
-        <div class="form-group mb-0">
-          <label class="resume-label-control">Description</label>
-          <quill-editor
-            ref="eduEditor"
-            :id="'eduEditor' + itemKey"
-            v-model="item.description"
-            :class="{'editor': show_line}"
-            :options="editorOption"
-            @blur="onEditorBlur($event)"
-            @focus="onEditorFocus($event)"
-          />
-          <div class="ql-editor-line" />
-        </div>
-      </div>
-    </div>
+    <slot></slot>
   </div>
 </template>
 
