@@ -93,22 +93,6 @@
                             handle=".drag-edu-item"
                           >
                             <transition-group type="transition" name="flip-list-edu">
-                              <div class="row">
-                                <div class="col-12">
-                                  <div class="form-group mb-0">
-                                    <quill-editor
-                                      ref="editor"
-                                      id="editor234923"
-                                      v-model="user_resume.profile"
-                                      :class="{'editor': show_line}"
-                                      :options="editorOption"
-                                      @blur="onEditorBlur($event)"
-                                      @focus="onEditorFocus($event)"
-                                    />
-                                    <div class="ql-editor-line" />
-                                  </div>
-                                </div>
-                              </div>
                               <template v-for="(item, edu_key) in user_resume.educations">
                                 <div :key="edu_key" class="item position-relative">
                                   <div
@@ -120,8 +104,6 @@
                                     <span class="mdi mdi-drag-vertical mdi-middle mdi-22"></span>
                                   </div>
                                   <ItemCollapse
-                                    :key="edu_key"
-                                    :draggable="true"
                                     :item="item"
                                     :active-tab="activeTab(item)"
                                     :has-sub-title="true"

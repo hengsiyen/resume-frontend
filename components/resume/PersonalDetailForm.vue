@@ -222,7 +222,7 @@
                 :initial-view="'year'"
                 @input="refreshResume"
                 @closed="selectedBirthDate"
-              />
+              ></datepicker>
               <div class="line" />
             </div>
           </div>

@@ -1,23 +1,23 @@
 <template>
-  <div class="tab-collapse-row">
-    <div class="tab-collapse-col">
-      <div class="tab-collapse">
-        <div class="tab-collapse-item position-relative">
+  <div class="resume-tab-collapse-row">
+    <div class="resume-tab-collapse-col">
+      <div class="resume-tab-collapse">
+        <div class="resume-tab-collapse-item position-relative">
           <div class="d-flex align-items-center">
             <a
               href="javascript:void(0)"
               class="a-link-title a-no-underline"
               @click="active_tab = !active_tab"
             >
-              <div class="collapse-header">
-                <div class="collapse-text">
-                  <p class="collapse-header__title ellipsis w-100 mb-0">
+              <div class="resume-collapse-header">
+                <div class="resume-collapse-text">
+                  <p class="resume-collapse-header__title ellipsis w-100 mb-0">
                     <i v-if="icon" :class="icon" /> <strong>{{ title }}</strong>
                   </p>
-                  <p v-if="hasSubTitle" class="collapse-header__subtitle mb-0"> {{ subTabLabel }}</p>
+                  <p v-if="hasSubTitle" class="resume-collapse-header__subtitle mb-0"> {{ subTabLabel }}</p>
                 </div>
-                <div class="collapse-action d-flex align-content-center justify-items-center">
-                  <div class="collapse-btn d-none d-lg-block">
+                <div class="resume-collapse-action d-flex align-content-center justify-items-center">
+                  <div class="resume-collapse-btn d-none d-lg-block">
                     <span v-if="active_tab" class="mdi mdi-chevron-up mdi-24 mdi-middle"></span>
                     <span v-else class="mdi mdi-chevron-down mdi-24 mdi-middle"></span>
                   </div>
@@ -25,7 +25,7 @@
               </div>
             </a>
             <div class="btn-dropdown position-relative d-block d-lg-none">
-              <div class="dropdown collapse-btn collapse-dropdown h-100 d-flex align-items-center justify-content-center">
+              <div class="dropdown resume-collapse-btn resume-collapse-dropdown h-100 d-flex align-items-center justify-content-center">
                 <a
                   id="dropdownMenuLink"
                   class="btn-link dropdown-toggle"
@@ -46,7 +46,7 @@
               </div>
             </div>
           </div>
-          <div v-if="active_tab" class="collapse-body">
+          <div v-if="active_tab" class="resume-collapse-body">
             <slot />
           </div>
           <div class="btn-delete">
@@ -163,7 +163,7 @@ export default {
 @import "~assets/scss/elements/_default.scss";
 @import "~assets/scss/resume.scss";
 
-.tab-collapse-row {
+.resume-tab-collapse-row {
   display: flex;
   flex-wrap: wrap;
   margin-right: -25px;
@@ -181,16 +181,16 @@ export default {
   padding-left: 25px;
 }
 
-.tab-collapse {
+.resume-tab-collapse {
   width: 100%;
   padding-bottom: 12px;
 }
 
-.collapse-text {
+.resume-collapse-text {
   width: 90%;
 }
 
-.tab-collapse-item {
+.resume-tab-collapse-item {
   border: 1px solid rgb(230, 235, 244);
   border-radius: 4px;
   background-color: rgb(255, 255, 255);
@@ -210,17 +210,17 @@ export default {
 
   & a.dropdown-item:hover,
   & a.dropdown-item:focus,
-  & a.dropdown-item:hover .collapse-action .collapse-btn,
-  & a.dropdown-item:focus .collapse-action .collapse-btn,
+  & a.dropdown-item:hover .resume-collapse-action .resume-collapse-btn,
+  & a.dropdown-item:focus .resume-collapse-action .resume-collapse-btn,
   & a.a-link-title:hover,
   & a.a-link-title:focus,
-  & a.a-link-title:hover .collapse-action .collapse-btn,
-  & a.a-link-title:focus .collapse-action .collapse-btn{
+  & a.a-link-title:hover .resume-collapse-action .resume-collapse-btn,
+  & a.a-link-title:focus .resume-collapse-action .resume-collapse-btn{
     color: #3b8af2;
   }
 }
 
-.collapse-header {
+.resume-collapse-header {
   position: relative;
   display: flex;
   flex-flow: row nowrap;
@@ -241,8 +241,8 @@ export default {
   }
 }
 
-.collapse-action {
-  & .collapse-btn {
+.resume-collapse-action {
+  & .resume-collapse-btn {
     //width: 40px;
     //height: 40px;
     //text-align: center;
@@ -277,7 +277,7 @@ export default {
   }
 }
 
-.collapse-body {
+.resume-collapse-body {
   padding: 4px 20px 24px;
 }
 
@@ -289,10 +289,10 @@ export default {
 }
 
 @media screen and (max-width: 991.98px) {
-  .tab-collapse-col {
+  .resume-tab-collapse-col {
     padding-right: 20px;
   }
-  .tab-collapse-row {
+  .resume-tab-collapse-row {
     & .btn-delete {
       display: none;
     }
@@ -302,11 +302,11 @@ export default {
     }
   }
 
-  .collapse-text {
+  .resume-collapse-text {
     width: 100%;
   }
 
-  .tab-collapse-item {
+  .resume-tab-collapse-item {
     & a.a-link-title {
       width: 92%;
     }
@@ -319,7 +319,7 @@ export default {
   }
 }
 @media screen and (max-width: 576px) {
-  .tab-collapse-item {
+  .resume-tab-collapse-item {
     & a.a-link-title {
       width: 88%;
     }
