@@ -174,7 +174,7 @@ export default {
   }
 }
 
-.tab-collapse-col {
+.resume-tab-collapse-col {
   position: relative;
   width: 100%;
   padding-right: 25px;

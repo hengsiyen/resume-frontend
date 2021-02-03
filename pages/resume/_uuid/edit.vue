@@ -104,6 +104,7 @@
                                     <span class="mdi mdi-drag-vertical mdi-middle mdi-22"></span>
                                   </div>
                                   <ItemCollapse
+                                    :key="edu_key"
                                     :item="item"
                                     :active-tab="activeTab(item)"
                                     :has-sub-title="true"
@@ -118,9 +119,6 @@
                                       @refreshResume="refreshResume"
                                     >
                                       <div class="row">
-                                        <div class="col-12">
-                                          {{ item.description }}
-                                        </div>
                                         <div class="col-12">
                                           <div class="form-group mb-0">
                                             <label class="resume-label-control">Description</label>
