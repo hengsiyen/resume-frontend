@@ -42,21 +42,19 @@
     <StartAndEndDate :item="item" @refreshResume="refreshResume" />
     <div class="row">
       <div class="col-12">
-        <client-only>
-          <div class="form-group mb-0">
-            <label class="resume-label-control">Description</label>
-            <quill-editor
-              ref="cusEditor"
-              id="cusEditor"
-              v-model="item.description"
-              :class="{'editor': show_line}"
-              :options="editorOption"
-              @blur="onEditorBlur($event)"
-              @focus="onEditorFocus($event)"
-            />
-            <div class="ql-editor-line" />
-          </div>
-        </client-only>
+        <div class="form-group mb-0">
+          <label class="resume-label-control">Description</label>
+          <quill-editor
+            ref="cusEditor"
+            id="cusEditor"
+            v-model="item.description"
+            :class="{'editor': show_line}"
+            :options="editorOption"
+            @blur="onEditorBlur($event)"
+            @focus="onEditorFocus($event)"
+          />
+          <div class="ql-editor-line" />
+        </div>
       </div>
     </div>
   </div>
