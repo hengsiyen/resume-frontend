@@ -1,0 +1,70 @@
+$blue: #3b8af2;
+
+$primary: $blue;
+
+$font-weight-normal: 500;
+
+$font-family-sans-serif: 'Lato', 'Khmer OS Battambang', 'Kantumruy', 'Helvetica', 'Arial', sans-serif;
+
+@import '~bootstrap/scss/bootstrap.scss';
+@import '~bootstrap-vue/src/index.scss';
+
+@import "./elements/default";
+@import "./elements/font";
+@import "./material_design";
+
+@import "./global";
+@import "./header";
+@import "./banner";
+@import "./custom-quill-editor";
+@import "./custom-sweetalert";
+
+.not-supp-mobile-screen {
+  display: none;
+}
+
+.mdi-middle {
+  vertical-align: middle;
+}
+
+
+$sizes: () !default;
+$sizes: map-merge(
+    (
+      "14": 14,
+      "16": 16,
+      "18": 18,
+      "20": 20,
+      "22": 22,
+      "24": 24,
+      "26": 26,
+      "28": 28,
+      "30": 30,
+      "32": 32,
+      "40": 40
+    ),
+    $sizes
+);
+@each $size, $value in $sizes {
+  .mdi-#{$size} {
+    font-size: #{$value}px;
+  }
+}
+
+@media only screen and (max-width: 767px) {
+  .not-supp-mobile-screen {
+    width: 100%;
+    height: 100vh;
+    background: white;
+    display: flex;
+  }
+
+  .mobile-nav-toggle {
+    display: none;
+  }
+}
+
+.annotationLayer {
+  opacity: 1;
+  transition: opacity .5s ease 0s;
+}

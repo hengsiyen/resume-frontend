@@ -1,0 +1,587 @@
+/*--------------------------------------------------------------
+# Resume editor start
+--------------------------------------------------------------*/
+@import "elements/_default.scss";
+
+.resume-container {
+  height: 100vh;
+}
+.rf-section {
+  margin-bottom: 40px;
+
+  &__title {
+    position: relative;
+    margin-right: 4px;
+    min-width: 0;
+    display: flex;
+    flex-flow: row nowrap;
+    align-items: center;
+    font-size: $resume-font-section-title;
+    line-height: 22px;
+    font-weight: 600;
+
+    & a.rf-section__edit,
+    & a.rf-section__delete {
+      opacity: 0;
+    }
+
+    &:hover a.rf-section__edit,
+    &:hover a.rf-section__delete {
+      opacity: 1;
+    }
+  }
+
+  &__sub-title {
+    display: block;
+    font-size: 16px;
+    line-height: 20px;
+    color: $resume-gray;
+    margin-bottom: 8px;
+  }
+
+  &__edit,
+  &__confirm,
+  &__cancel,
+  &__delete {
+    font-size: 18px;
+    color: $resume-gray;
+  }
+
+  &__edit-lg,
+  &__confirm-lg,
+  &__cancel-lg,
+  &__delete-lg {
+    font-size: 21px;
+    color: $resume-gray;
+  }
+
+  &__edit-xl,
+  &__confirm-xl,
+  &__cancel-xl,
+  &__delete-xl {
+    font-size: 26px;
+    color: $resume-gray;
+  }
+
+  &__edit.hover {
+    opacity: 0;
+  }
+
+
+  &__confirm:hover,
+  &__confirm-lg:hover,
+  &__confirm-xl:hover {
+    color: $resume-green;
+  }
+
+  &__edit:hover,
+  &__edit-lg:hover,
+  &__edit-xl:hover {
+    color: $resume-blue;
+  }
+
+  &__delete:hover,
+  &__delete-lg:hover,
+  &__delete-xl:hover,
+  &__cancel:hover,
+  &__cancel-lg:hover,
+  &__cancel-xl:hover{
+    color: $resume-red;
+  }
+
+  &__draggable {
+    position: absolute;
+    left: -25px;
+    top: 8px;
+    margin-top: -13px;
+    flex-shrink: 0;
+    color: rgb(184, 190, 204);
+    transition: opacity 0.15s ease 0s;
+    cursor: move;
+    text-align: center;
+  }
+}
+
+.resume__left-block {
+  display: flex;
+  -webkit-box-pack: center;
+  justify-content: center;
+  width: 50%;
+  min-height: 100vh;
+}
+
+.resume__form {
+  width: 100%;
+  max-width: 100%;
+  flex: 1 1 0;
+  position: relative;
+
+  & .form__content {
+    flex: 1 1 0;
+    max-width: 860px;
+    height: 100%;
+    background-color: white;
+    margin: auto;
+  }
+}
+
+.rf-padding {
+  padding: 48px;
+}
+
+.rf-title {
+  font-size: 32px;
+  line-height: 34px;
+  text-align: center;
+  position: relative;
+  margin-bottom: 2px;
+  //padding: 0px 32px;
+  display: flex;
+  align-content: center;
+  justify-content: center;
+  align-items: center;
+  height: 58px;
+
+  &:hover .rf-section__edit.hover {
+    opacity: 1;
+  }
+}
+
+.rf-progress {
+  display: block;
+  user-select: none;
+  height: 71px;
+  margin-bottom: 12px;
+  position: relative;
+}
+
+.rfp-item {
+  display: block;
+  background-color: transparent;
+  padding-top: 20px;
+  padding-bottom: 16px;
+  top: 0px;
+  position: absolute;
+  left: 0px;
+  right: 0px;
+  z-index: 2;
+
+  & .rfp-content {
+    display: flex;
+    flex-flow: row nowrap;
+  }
+}
+
+.rfp-left {
+  margin-right: 8px;
+  margin-bottom: 8px;
+  font-size: 16px;
+  line-height: 20px;
+  color: $resume-gray;
+}
+
+.rfp-right {
+  display: flex;
+  flex: 1 1 0%;
+  -webkit-box-align: center;
+  align-items: center;
+  -webkit-box-pack: end;
+  justify-content: flex-end;
+  margin-bottom: 8px;
+}
+
+.rfpr-text {
+  position: relative;
+  flex: 1 1 0;
+  overflow: hidden;
+}
+
+.rfpr-text-enter {
+  text-align: right;
+  white-space: nowrap;
+  font-size: 16px;
+  line-height: 20px;
+  color: $resume-gray;
+  cursor: pointer;
+  transition: opacity 0.4s ease 0s, transform 0.4s ease 0s;
+  opacity: 1;
+  transform: translateY(0px);
+}
+
+.rtpr-tip {
+  width: 26px;
+  height: 20px;
+  margin-left: 16px;
+  position: relative;
+  bottom: 2px;
+  cursor: pointer;
+  transition: background-color 0.1s ease 0s;
+
+  &.rtpr-tip-green {
+    color: $resume-green;
+
+    &:hover,
+    &:active,
+    &:focus {
+      color: $resume-blue;
+    }
+  }
+}
+
+.rfp-content-bar {
+  height: 3px;
+  background-color: $bg-color-gray;
+
+  & .bar {
+    height: 3px;
+    width: 10%;
+
+    &-red {
+      background: $resume-red;
+    }
+
+    &-green {
+      background: $resume-green;
+    }
+
+    &-yellow {
+      background: $resume-yellow;
+    }
+  }
+}
+
+.percentage {
+  display: inline-block;
+  font-size: 16px;
+  line-height: 20px;
+  font-weight: 600;
+  margin-right: 6px;
+
+  &.green {
+    color: $resume-green;
+  }
+
+  &.yellow {
+    color: $resume-yellow;
+  }
+
+  &.red {
+    color: $resume-red;
+  }
+}
+
+.ellipsis {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.additional-detail {
+  &-hide {
+    height: 0;
+    opacity: 0;
+    overflow: hidden;
+    transition: height 0.2s ease 0s, opacity 0.2s ease 0s;
+  }
+
+  &-show {
+    height: auto;
+    opacity: 1;
+    overflow: visible;
+  }
+}
+
+
+.list-section {
+  position: relative;
+  left: -4px;
+  display: flex;
+  flex-flow: row wrap;
+
+  &-item {
+    display: flex;
+    flex-flow: row nowrap;
+    -webkit-box-align: center;
+    align-items: center;
+    margin-bottom: 18px;
+    width: calc(50% - 32px);
+    flex: 0 0 calc(50% - 32px);
+    margin-right: 32px;
+    cursor: pointer;
+    color: rgb(38, 43, 51);
+    font-size: $resume-font-section-title;
+
+    & .add-section-icon {
+      font-size: 28px;
+      width: 30px;
+      height: 30px;
+    }
+
+    &.active {
+      cursor: alias;
+      color: $resume-gray;
+    }
+  }
+}
+
+@media (min-width: 1280px) {
+  .top_pdf {
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 579px;
+    margin: 20px auto;
+  }
+
+  button.btn.angle-r,
+  button.btn.angle-l {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 24px;
+    height: 24px;
+    cursor: pointer;
+    color: white !important;
+    border-radius: 14px;
+    background-color: rgba(15, 20, 31, 0);
+    transition: background-color 0.1s ease 0s;
+    padding: 0 10px !important;
+  }
+  button.btn.angle-r:hover,
+  button.btn.angle-l:hover {
+    background-color: rgba(15, 20, 31, 0.15);
+  }
+
+  .page_count {
+    text-align: center;
+    font-size: 16px;
+    line-height: 20px;
+    color: white;
+    margin: 0 6px;
+    font-variant-numeric: tabular-nums;
+  }
+
+  .resume__left-block {
+    width: 50%;
+    overflow-y: auto;
+  }
+  .resume__preview {
+    position: fixed;
+    top: 0;
+    bottom: 0;
+    right: 0;
+    width: 50%;
+    flex: 1 1 0;
+    flex-flow: column nowrap;
+    background-color: rgb(122, 133, 153);
+    height: 100vh;
+    overflow-y: auto;
+  }
+
+  .resume__preview-container {
+    position: relative;
+
+  }
+
+  .show_pdf {
+    position: absolute !important;
+    display: inline-block !important;
+    width: 100%;
+    & canvas {
+      border-radius: 6px !important;
+    }
+  }
+
+  .resume__preview .viewer-content {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    margin: 0 auto;
+    justify-content: center;
+    align-items: center;
+  }
+
+  .resume__viewer-canvas {
+    position: relative;
+    border-radius: 6px;
+    background-color: white;
+    overflow: hidden;;
+    height: 833px;
+    width: 579px;
+  }
+  .resume__viewer-canvas-hover {
+    inset: 0;
+    z-index: 3;
+    border-radius: 6px;
+    cursor: pointer;
+  }
+  .resume-saved {
+    left: 16px;
+    color: white;
+    font-size: 16px;
+    transition: background-color 0.1s ease 0s;
+  }
+  .resume-saved i, .resume-saved span {
+    margin-right: 4px;
+  }
+
+  .resume__preview-footer {
+    width: 85%;
+    margin: 20px auto;
+  }
+}
+
+.btn-add-item {
+  line-height: 20px;
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  position: relative;
+  padding: 8px 16px;
+  width: 100%;
+  border-radius: 4px;
+  background-color: rgba(230, 244, 255, 0);
+  color: $resume-blue;
+  font-weight: 600;
+  cursor: pointer;
+  outline: none;
+  transition: background-color 0.15s ease 0s;
+
+  & span {
+    font-size: 16px;
+  }
+  &:hover,
+  &:active,
+  &:focus {
+    background-color: rgba(230, 244, 255, 0.5);
+  }
+}
+
+.show-button-preview {
+  display: none;
+}
+
+.resume-label-control {
+  display: flex;
+  -webkit-box-align: center;
+  align-items: center;
+  font-size: $resume-font-size-label;
+  line-height: 20px;
+  color: $resume-gray;
+  margin-bottom: 6px;
+}
+
+.skills-suggestion {
+  display: flex;
+  flex-wrap: wrap;
+  margin: 0px -12px -8px 0px;
+  position: relative;
+}
+
+.skill-suggestion-item {
+  display: flex;
+  align-items: center;
+  margin: 0px 12px 12px 0px;
+  padding: 6px 6px 6px 10px;
+  border-radius: 4px;
+  background-color: rgb(242, 245, 250);
+  color: rgb(38, 43, 51);
+  font-size: 14px;
+  line-height: 20px;
+  white-space: nowrap;
+  transition: background-color 0.1s ease 0s, color 0.1s ease 0s;
+  will-change: opacity, transform;
+  cursor: pointer;
+
+  & .ski-item-icon {
+    margin-left: 2px;
+    color: rgb(152, 161, 179);
+    transition: color 0.1s ease 0s;
+  }
+
+  &:hover, &:focus, &:active, &:hover .ski-item-icon {
+    background-color: rgb(230, 244, 255);
+    color: $resume-blue;
+  }
+}
+
+
+@media screen and (max-width: 1279px) {
+  .resume__left-block {
+    display: block;
+    width: 99%;
+    margin: 0 auto;
+  }
+
+  .resume__preview {
+    display: none;
+  }
+
+  .show-button-preview {
+    display: block;
+  }
+}
+
+@media (max-width: 991.98px) {
+  .rf-section__draggable {
+    left: -30px;
+    width: 30px;
+  }
+
+  .rf-section__edit,
+  .rf-section__edit.hover {
+    opacity: 1 !important;
+  }
+}
+@media (max-width: 768px) {
+  .rf-padding {
+    padding: 48px;
+  }
+
+  .rf-section {
+    &__title {
+      & a.rf-section__edit,
+      & a.rf-section__delete {
+        opacity: 1;
+      }
+    }
+  }
+
+  .btn-add-item {
+    background-color: rgba(230, 244, 255, 0.5);
+  }
+}
+
+@media (max-width: 576px) {
+  .rf-padding {
+    padding: 30px 25px 30px 30px;
+  }
+
+  .list-section-item {
+    width: 100%;
+    flex: 0 0 100%;
+    margin-right: 0;
+    margin-bottom: 14px;
+  }
+
+  .rf-title {
+    font-size: 24px;
+  }
+
+  .rf-section__sub-title {
+    font-size: 14px;
+  }
+
+  .list-section-item .add-section-icon {
+    font-size: 22px;
+  }
+}
+
+
+.pb-3px {
+  padding-bottom: 3px;
+}
+/*--------------------------------------------------------------
+# Resume editor end
+--------------------------------------------------------------*/

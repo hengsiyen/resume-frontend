@@ -1,0 +1,26 @@
+$bg-color-gray: rgb(242, 245, 250);
+$bg-color-gray-hover: rgb(222, 238, 252);
+
+$resume-blue: rgb(33, 150, 243);
+$resume-red: rgb(255, 76, 76);
+$resume-green: rgb(37, 184, 105);
+$resume-yellow: rgb(255, 186, 25);
+$resume-gray: rgb(152, 161, 179);
+$resume-cyan: rgb(2, 173, 215);
+$facebook-color: #3b5997;
+$google-color: #db4a39;
+
+$resume-icon-color: #3b8af2;
+$resume-bg-color-gray: $bg-color-gray;
+$resume-bg-color-gray-hover: $bg-color-gray-hover;
+
+
+$resume-box-shadow: rgba(207, 214, 230, 0.7) 0px 14px 16px -10px, rgba(207, 214, 230, 0.12) 0px 20px 40px -8px;
+
+$resume-font-size-input: 15px;
+$resume-font-size-label: 15px;
+$resume-font-section-title: 18px;
+
+:root {
+  --resume-font-size-input: 15px;
+}

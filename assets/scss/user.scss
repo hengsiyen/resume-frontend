@@ -1,0 +1,418 @@
+@import "elements/_default.scss";
+
+.dashboard-content {
+  background-color: rgb(242, 245, 250);
+}
+
+.on-loading {
+  height: 50vh;
+  & i,
+  & p {
+    font-size: 2em;
+  }
+}
+
+.section-container {
+  display: block;
+  width: 100%;
+  min-height: calc(100vh - 112px);
+  padding: 60px 32px;
+}
+
+.section-wrapper {
+  max-width: 1120px;
+  margin: 0 auto;
+}
+
+.sect-title {
+  font-size: 32px;
+  line-height: 34px;
+  margin-bottom: 16px;
+  font-weight: bold;
+}
+
+.sect-title-ml-40 {
+  margin-left: 40px;
+}
+
+.block-tabs {
+  margin-bottom: 40px;
+}
+
+.tabs {
+  border-bottom: 1px solid rgb(221, 227, 240);
+}
+
+.tabs-item {
+  color: rgb(38, 43, 51);
+  margin-right: 24px;
+  padding-bottom: 16px;
+  transition: color 0.1s ease 0s;
+  cursor: pointer;
+  font-size: 18px;
+}
+
+.tabs-resume {
+  display: block;
+  position: absolute;
+  left: 0px;
+  bottom: -1px;
+  width: 100px;
+  height: 2px;
+  background-color: rgb(33, 150, 243);
+  transform-origin: 0px 0px;
+  transition: transform 0.3s ease 0s;
+  transform: translateX(0px) scaleX(0.699954);
+}
+
+.btn-create-new {
+  display: flex;
+  align-items: center;
+  position: absolute;
+  bottom: 20px;
+  right: 0;
+}
+
+.each-resume {
+  width: 100%;
+  display: inline-flex;
+  align-items: center;
+  justify-content: flex-start;
+  max-width: 524px;
+  margin-bottom: 42px;
+}
+
+.each-resume:nth-child(odd) {
+  margin-right: 72px;
+}
+
+.resume-thumbnail {
+  width: 278px;
+  padding: 70% 0;
+  border-radius: 6px;
+  background-repeat: no-repeat;
+  background-position: top;
+  background-size: contain;
+  background-color: white;
+}
+
+.resume-title {
+  display: flex;
+  flex-flow: row nowrap;
+  align-items: flex-start;
+  padding-right: 26px;
+
+  & div {
+    font-size: 22px;
+    line-height: 28px;
+    height: 28px;
+    min-width: 1px;
+    max-width: 100%;
+    position: relative;
+
+    & a {
+      color: var(--dark);
+      display: block;
+      white-space: nowrap;
+      text-overflow: ellipsis;
+      overflow: hidden;
+      max-width: 100%;
+
+      &:hover {
+        color: $resume-blue;
+      }
+    }
+  }
+}
+
+.resume-updated {
+  font-size: 16px;
+  line-height: 20px;
+  color: $resume-gray;
+}
+
+.resume-action {
+  display: flex;
+  -webkit-box-align: center;
+  align-items: center;
+  margin-bottom: 12px;
+  cursor: pointer;
+  user-select: none;
+  color: rgb(38, 43, 51);
+  pointer-events: all;
+  font-size: 18px;
+  & .icon {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color:  $resume-blue;
+    margin-right: 10px;
+  }
+  &:hover {
+    color: $resume-blue;
+  }
+}
+
+.resume-action-dropdown {
+  margin-bottom: 12px;
+  cursor: pointer;
+  user-select: none;
+  color: #262b33;
+  pointer-events: all;
+  font-size: 18px;
+
+  & .icon {
+    color:  $resume-blue;
+    margin-right: 10px;
+  }
+}
+
+
+.resume-card-title {
+  font-size: 14px;
+  letter-spacing: 2.2px;
+  line-height: 20px;
+  margin-left: 40px;
+  margin-bottom: 8px;
+  color: $resume-gray;
+  text-transform: uppercase;
+}
+
+.resume-card-body {
+  width: 100%;
+  border-radius: 6px;
+  padding: 32px 40px;
+  background-color: white;
+}
+
+.social-link {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding-bottom: 24px;
+  margin-bottom: 24px;
+  border-bottom: 1px solid rgb(221, 227, 240);
+  & div {
+    font-size: 18px;
+  }
+  &:last-child {
+    padding-bottom: 0;
+    margin-bottom: 0;
+    border-bottom: unset;
+  }
+}
+
+@media screen and (max-width: 991.98px){
+  .section-container {
+    min-height: calc(100vh - 102px);
+  }
+}
+
+/*++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++*/
+/*                              auth login                                  */
+/*++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++*/
+
+.login-container {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  position: relative;
+  width: 100%;
+  -webkit-box-flex: 1;
+  flex-grow: 1;
+  padding: 40px 32px 220px;
+  height: 92.5vh;
+}
+
+.login-title {
+  font-size: 46px;
+  line-height: 48px;
+  color: rgb(33, 150, 243);
+  font-weight: bold;
+}
+
+.login-buttons {
+  display: flex;
+  flex-wrap: wrap;
+  -webkit-box-pack: justify;
+  justify-content: space-between;
+}
+
+.login-button {
+  width: 50%;
+  margin-bottom: 18px;
+}
+.login-button:nth-child(2n+1) {
+  padding-right: 8px;
+}
+
+.btn-social {
+  position: relative;
+  display: block;
+  width: 100%;
+  padding: 13px 10px 13px 30px;
+  border-radius: 4px;
+  font-size: 18px;
+  line-height: 22px;
+  font-weight: 600;
+  text-align: center;
+  cursor: pointer;
+  outline: none;
+  transition: background-color 0.2s ease 0s, border-color 0.2s ease 0s, color 0.2s ease 0s;
+}
+
+.btn-social span {
+  position: absolute;
+  left: 24px;
+  top: 55%;
+  margin-top: -12px;
+}
+
+.btn-facebook {
+  border: 1px solid rgb(59, 89, 152);
+  background-color: rgb(59, 89, 152);
+  color: white;
+}
+
+.btn-google {
+  border: 1px solid #db4a39;
+  background-color: #db4a39;
+  color: white;
+}
+
+.btn-email {
+  border: 1px solid rgb(221, 227, 240);
+  background-color: white;
+  color: rgb(38, 43, 51);
+
+  &:hover {
+    color: $resume-blue;
+    border-color: $resume-blue;
+  }
+}
+
+.btn-email span {
+  color: $resume-blue;
+}
+
+@media screen and (max-width: 768px) {
+  .login-title {
+    font-size: 40px;
+    line-height: 40px;
+  }
+}
+
+@media screen and (max-width: 576px) {
+  .login-title {
+    font-size: 28px;
+    line-height: 30px;
+  }
+}
+/*++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++*/
+/*                             end auth login                               */
+/*++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++*/
+
+
+/*++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++*/
+/*                              start account                               */
+/*++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++*/
+.account-wrapper {
+  width: 856px
+}
+
+.pt-lg-30 {
+  padding-top: 30px
+}
+
+@media screen and (max-width: 991.98px) {
+  .account-wrapper {
+    width: 100%
+  }
+
+  .pt-lg-30 {
+    padding-top: 0
+  }
+}
+/*++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++*/
+/*                               end account                                */
+/*++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++*/
+
+@media screen and (max-width: 576px) {
+  .section-container {
+    padding: 32px 16px;
+  }
+
+  .sect-title {
+    font-size: 22px;
+    margin-bottom: 26px;
+    margin-left: 0;
+  }
+
+  .resume-card-title {
+    margin-left: 0;
+  }
+
+  .resume-title {
+    padding-right: 0;
+  }
+
+  .resume-title div {
+    font-size: 20px;
+  }
+
+  .each-resume {
+    margin-bottom: 20px;
+  }
+
+  .each-resume:nth-child(odd) {
+    margin-right: 0;
+  }
+
+  .resume-thumbnail {
+    width: 165px;
+    height: 250px;
+  }
+
+  .resume-action {
+    font-size: 16px;
+  }
+
+  .resume-updated {
+    font-size: 13px;
+  }
+
+  .on-loading {
+    & i,
+    & p {
+      font-size: 22px;
+    }
+  }
+
+  .block-tabs {
+    margin-bottom: 32px;
+  }
+
+  .tabs-item {
+    font-size: 17px;
+  }
+
+  .btn-create-new {
+    display: block;
+    position: relative;
+    right: unset;
+    bottom: unset;
+    width: 100%;
+    margin: 16px 0 0;
+  }
+
+  .show_no_data {
+    max-width: 100%;
+    & .title {
+      font-size: 18px;
+    }
+  }
+
+  .btn-social span {
+   left: 15px;
+  }
+}

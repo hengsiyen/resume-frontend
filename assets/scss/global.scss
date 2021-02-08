@@ -1,0 +1,626 @@
+body {
+  font-family: var(--font-family-sans-serif);
+  color: #444444;
+  font-weight: normal;
+  font-size: 15px;
+}
+
+a {
+  color: $resume-blue;
+
+  &:hover {
+    color: $resume-icon-color;
+    text-decoration: none;
+  }
+
+  &.a-no-underline,
+  &.a-no-underline:hover {
+    text-decoration: unset;
+  }
+}
+
+h1, h2, h3, h4, h5, h6 {
+  font-family: var(--font-family-sans-serif);
+}
+
+.swal2-styled:focus,
+button:active,
+button:focus {
+  outline: unset;
+  box-shadow: none;
+}
+
+.no-border {
+  border: unset !important;
+}
+
+.underline-none {
+  text-decoration: none !important;
+
+  &:hover,
+  &:active,
+  &:focus, {
+    text-decoration: none !important;
+  }
+}
+
+.dropdown-toggle:after {
+  content: unset !important;
+}
+
+.dropdown-menu.custom-position-5[x-placement^=bottom] {
+  top: -5px !important;
+}
+
+.dropdown-menu.custom-position-25[x-placement^=bottom] {
+  top: -25px !important;
+}
+
+.dropdown-menu .dropdown-item {
+  font-size: 18px;
+  font-weight: 500;
+  color: #262b33;
+
+  & i {
+    color: $resume-icon-color;
+  }
+
+  &:hover {
+    color: $resume-icon-color;
+  }
+
+  &:active i,
+  &:active {
+    color: white;
+  }
+}
+
+.form-group .line,
+.ql-editor-line {
+  height: 2px;
+  width: 0;
+  background-color: darkgray;
+  border-radius: 3px;
+  transition: .3s width ease-in-out;
+  position: relative;
+  top: -3px;
+}
+
+div[aria-owns="autosuggest-autosuggest__results"][aria-expanded="true"] + .line,
+.resume-form-control:focus + .line,
+.editor + .ql-editor-line {
+  width: 100%;
+  background-color: $resume-cyan;
+}
+
+.line.line-red {
+  width: 100%;
+  background-color: $resume-red;
+}
+
+.btn-select-template {
+  padding: 0 16px;
+  height: 38px;
+  border-radius: 19px;
+  user-select: none;
+  color: white;
+  cursor: pointer;
+  //background-color: rgba(15, 20, 31, 0);
+  background-color: rgba(61, 64, 71, .7);
+  transition: background-color 0.1s ease 0s;
+  &-icon {
+    width: 24px;
+    height: 24px;
+    margin-right: 4px;
+  }
+  &-label {
+    font-size: 18px;
+    line-height: 24px;
+    color: white;
+  }
+  &:hover {
+    background-color: rgba(61, 64, 71, .7);
+    & .btn-select-template-label {
+      color: white;
+    }
+  }
+}
+
+.autocomplete-input,
+.resume-form-control,
+.resume_date_picker {
+  font-size: $resume-font-size-input;
+  padding: 8px 13px;
+  border-radius: 3px;
+  width: 100%;
+  display: block;
+  caret-color: $resume-blue;
+  background-color: $resume-bg-color-gray;
+  outline: none;
+  border: 0;
+  color: rgb(38, 43, 51);
+  font-weight: 500;
+  pointer-events: unset;
+  transition: .3s width ease-in-out;
+}
+
+/*--------------------------------------------------------------
+# Date picker start
+--------------------------------------------------------------*/
+.resume_calendar {
+  padding: 16px 24px;
+  box-shadow: $resume-box-shadow;
+  background-color: $resume-bg-color-gray !important;
+  border: unset !important;
+  top: 55px;
+  width: 100% !important;
+  min-width: 350px !important;
+
+  & header .month__year_btn {
+    padding: 0 16px;
+    font-size: $resume-font-size-input;
+    font-weight: 700;
+    line-height: 38px;
+  }
+}
+
+.vdp-datepicker__calendar {
+  & .cell {
+    &:not(.blank):not(.disabled) {
+      border-radius: 19px;
+      font-weight: 700;
+      border: unset !important;
+
+      &.day:hover,
+      &.month:hover,
+      &.month:hover {
+        color: $resume-blue;
+        background-color: $resume-bg-color-gray-hover;
+      }
+    }
+
+    &.selected {
+      background-color: $resume-blue !important;
+      color: rgb(222, 238, 252);
+      border-radius: 19px;
+      font-weight: 700;
+      border: unset !important;
+
+      &:not(.blank):not(.disabled) {
+        &.day:hover,
+        &.month:hover,
+        &.month:hover {
+          background-color: $resume-blue !important;
+          color: rgb(222, 238, 252);
+        }
+      }
+    }
+
+  }
+}
+
+/*--------------------------------------------------------------
+# Date picker end
+--------------------------------------------------------------*/
+
+/*--------------------------------------------------------------
+# select start
+--------------------------------------------------------------*/
+select {
+  &.resume-form-control {
+    //padding-right: 40px;
+
+    & + i.fa {
+      float: right;
+      margin-top: -25px;
+      margin-right: 0;
+      pointer-events: none;
+      background-color: $resume-bg-color-gray;
+      padding-right: 15px;
+      font-size: calc(var(--resume-font-size-input) - 5px);
+    }
+
+    & > option {
+      font-size: 18px;
+      font-weight: 500;
+    }
+  }
+
+  &:active + i.fa + .line,
+  &:focus + i.fa + .line {
+    width: 100%;
+    background-color: $resume-cyan;
+  }
+}
+
+@media screen and (max-width: 767px) {
+  select {
+    &.resume-form-control {
+      padding-right: 13px;
+      & + i.fa {
+        display: none;
+      }
+    }
+  }
+}
+
+/*--------------------------------------------------------------
+# select end
+--------------------------------------------------------------*/
+
+
+/*--------------------------------------------------------------
+# autocomplete start
+--------------------------------------------------------------*/
+.autocomplete {
+  &:after {
+    content: "";
+    height: 2px;
+    width: 0;
+    background-color: darkgray;
+    border-radius: 3px;
+    transition: 0.3s width ease-in-out;
+    position: absolute;
+    bottom: 0;
+  }
+
+  &[data-expanded="true"]:after {
+    width: 100%;
+    background-color: $resume-cyan;
+  }
+}
+
+.autocomplete-input[aria-expanded="true"] {
+  background: $resume-bg-color-gray;
+  outline: none;
+  box-shadow: $resume-box-shadow;
+}
+
+[data-position="below"] .autocomplete-input[aria-expanded="true"] {
+  border-bottom-color: transparent;
+}
+
+[data-position="above"] .autocomplete-input[aria-expanded="true"] {
+  border-top-color: transparent;
+  z-index: 2;
+}
+
+.autocomplete-result-list {
+  font-weight: 500;
+  margin: 0;
+  text-align: left;
+  position: absolute;
+  z-index: 10;
+  width: 100%;
+  border-top: 0;
+  background: $resume-bg-color-gray;
+  overflow-y: auto;
+  box-shadow: $resume-box-shadow;
+  list-style: none;
+  padding-left: 0;
+  max-height: 300px;
+
+  &::-webkit-scrollbar-track {
+    background-color: #F5F5F5;
+  }
+
+  &::-webkit-scrollbar {
+    width: 10px;
+    background-color: #F5F5F5;
+  }
+
+  &::-webkit-scrollbar-thumb {
+    border-radius: 10px;
+    background-color: #c7c9d3;
+
+    &:hover,
+    &:focus {
+      background-color: $resume-bg-color-gray-hover;
+    }
+  }
+}
+
+.scroll {
+  &::-webkit-scrollbar-track {
+    background-color: #F5F5F5;
+  }
+
+  &::-webkit-scrollbar {
+    width: 10px;
+    background-color: #F5F5F5;
+  }
+
+  &::-webkit-scrollbar-thumb {
+    border-radius: 10px;
+    background-color: #c7c9d3;
+
+    &:hover,
+    &:focus {
+      background-color: $resume-bg-color-gray-hover;
+    }
+  }
+}
+
+[data-position="below"] .autocomplete-result-list {
+  margin-top: 3px;
+  border-top-color: transparent;
+  padding-bottom: 8px;
+}
+
+[data-position="above"] .autocomplete-result-list {
+  margin-bottom: -1px;
+  border-bottom-color: transparent;
+  padding-top: 8px;
+}
+
+.autocomplete-result {
+  cursor: pointer;
+  padding: 11px 16px;
+
+  &:hover,
+  &[aria-selected="true"] {
+    background-color: $resume-bg-color-gray-hover;
+    color: $resume-blue;
+  }
+}
+
+@keyframes rotate {
+  0% {
+    transform: translateY(-50%) rotate(0deg);
+  }
+  to {
+    transform: translateY(-50%) rotate(359deg);
+  }
+}
+
+/*--------------------------------------------------------------
+# suggestion end
+--------------------------------------------------------------*/
+
+/*--------------------------------------------------------------
+# social icon start
+--------------------------------------------------------------*/
+.social-icon {
+  width: 24px;
+  height: 24px;
+  margin-right: 16px;
+
+  &.facebook {
+    color: $facebook-color;
+  }
+
+  &.google {
+    color: $google-color;
+  }
+}
+
+.share-social {
+  display: inline-block;
+  padding: 10px;
+  margin-right: 8px;
+  border: 1px solid rgb(221, 227, 240);
+  border-radius: 50%;
+  transition: border-color 0.2s ease 0s, background-color 0.2s ease 0s;
+  cursor: pointer;
+  text-align: center;
+
+  & .facebook {
+    color: $facebook-color;
+  }
+
+  & i {
+    display: block;
+    width: 20px;
+    height: 20px;
+    padding-top: 2px;
+  }
+
+  &.facebook:hover {
+    background-color: $facebook-color;
+    & .facebook {
+      color: white;
+    }
+  }
+}
+
+.modal {
+  &-header.custom-padding {
+    padding: 1rem 2rem !important;
+  }
+  &-body.custom-padding {
+    padding: 2rem !important;
+  }
+  &-footer.custom-padding {
+    padding: 0 2rem 2rem !important;
+  }
+}
+
+/*--------------------------------------------------------------
+# social icon end
+--------------------------------------------------------------*/
+
+/*--------------------------------------------------------------
+# button float start
+--------------------------------------------------------------*/
+
+.button-float {
+  border-radius: 60px;
+  position: fixed;
+  transform: scale(1);
+  z-index: 1049;
+}
+
+.button-float-top-right {
+  top: 16px;
+  right: 16px;
+}
+
+.button-float-bottom-right {
+  bottom: 16px;
+  right: 16px;
+}
+
+.btn-float {
+  position: relative;
+  appearance: none;
+  bottom: 0;
+  border-radius: 200px;
+  line-height: 60px;
+  outline: none;
+  user-select: none;
+  z-index: 999;
+  color: white !important;
+  background-color: $resume-blue;
+  border: none;
+  cursor: pointer;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  transition: background-color 200ms linear 0s, transform 200ms linear 0s;
+  width: 100%;
+  height: 100%;
+}
+
+.button-float-lg {
+  height: 60px;
+  width: 60px;
+}
+
+.button-float-md {
+  height: 50px;
+  width: 50px;
+}
+
+.button-float-sm {
+  height: 40px;
+  width: 40px;
+}
+
+.btn-float-gray {
+  background-color: rgba(15, 20, 31, 0.3) !important;
+}
+
+@media screen and (max-width: 576px) {
+  .button-float-bottom-right {
+    bottom: 40px;
+  }
+}
+
+/*--------------------------------------------------------------
+# button float end
+--------------------------------------------------------------*/
+
+.show_no_data {
+  display: block;
+  text-align: center;
+  max-width: 40%;
+  & img {
+    width: 250px;
+    margin: 0 auto 16px;
+    display: block;
+  }
+
+  & .title {
+    font-size: 22px;
+    line-height: 28px;
+    font-weight: 600;
+    margin-bottom: 8px;
+  }
+}
+
+@media screen and (max-width: 576px) {
+  .btn.sm {
+    padding: 0.25rem 0.5rem;
+    font-size: 0.875rem;
+    line-height: 1.5;
+    border-radius: 0.2rem;
+  }
+}
+
+/*--------------------------------------------------------------
+# upload image avatar popup start
+--------------------------------------------------------------*/
+@media screen and (max-width: 768px) {
+  .vicp-wrap {
+    width: 90% !important;
+  }
+
+  .vicp-close {
+    right: 0 !important;
+  }
+
+}
+
+@media screen and (max-width: 576px) {
+  .vue-image-crop-upload .vicp-wrap {
+    position: absolute !important;
+    display: flex !important;
+    box-sizing: border-box;
+    align-items: center !important;
+    justify-content: center !important;
+    top: 50% !important;
+    left: 50% !important;
+    right: unset !important;
+    bottom: unset !important;
+    height: unset !important;
+    transform: translate(-50%, -50%);
+  }
+
+  .vicp-step1,
+  .vicp-step2,
+  .vicp-step3 {
+    width: 100%;
+  }
+
+  .vicp-operate {
+    position: relative !important;
+    right: unset !important;
+    bottom: unset !important;
+    display: flex;
+    width: 100%;
+    justify-content: flex-end;
+    align-items: center;
+    & a {
+      margin-top: 24px !important;
+      float: unset !important;
+      background-color: $resume-blue;
+      color: white !important;
+    }
+
+    & a:hover {
+      background-color: $resume-blue !important;
+      outline: none;
+    }
+  }
+
+  .vicp-drop-area {
+    padding: 50px 16px !important;
+    height: 200px !important;
+  }
+  .vicp-icon1-body {
+    height: 8.7px !important;
+  }
+
+  .vue-image-crop-upload .vicp-wrap .vicp-step2 .vicp-crop {
+    display: flex !important;
+    flex-direction: column-reverse !important;
+  }
+
+  .vue-image-crop-upload .vicp-wrap .vicp-step2 .vicp-crop {
+    & .vicp-crop-left,
+    & .vicp-crop-right {
+      display: block;
+      margin: 0 auto;
+    }
+  }
+
+  .vue-image-crop-upload .vicp-wrap .vicp-step2 .vicp-crop .vicp-crop-left .vicp-range {
+    display: none !important;
+  }
+}
+/*--------------------------------------------------------------
+# upload image avatar popup end
+--------------------------------------------------------------*/
