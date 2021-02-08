@@ -8,7 +8,7 @@ export const resumes = {
       provinces: [],
       user_resume: {
         uuid: null,
-        user_id: process.env.VUE_APP_USER_ID_TEST,
+        user_id: null,
         name: 'Untitled',
         position: null,
         first_name: null,
@@ -41,6 +41,12 @@ export const resumes = {
         custom_sections: []
       }
     }
+  },
+  computed: {
+    user: this.$store.state.user.user
+  },
+  mounted () {
+    this.user_resume.user_id = this.user.id
   },
   methods: {
     angleLeft () {
