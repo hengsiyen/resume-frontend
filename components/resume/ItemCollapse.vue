@@ -174,7 +174,7 @@ export default {
   }
 }
 
-.tab-collapse-col {
+.resume-tab-collapse-col {
   position: relative;
   width: 100%;
   padding-right: 25px;
@@ -194,8 +194,6 @@ export default {
   border: 1px solid rgb(230, 235, 244);
   border-radius: 4px;
   background-color: rgb(255, 255, 255);
-  user-select: none;
-  pointer-events: auto !important;
   width: 100%;
 
   & a.a-link-title {
