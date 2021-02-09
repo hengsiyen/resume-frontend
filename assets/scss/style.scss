@@ -68,3 +68,15 @@ $sizes: map-merge(
   opacity: 1;
   transition: opacity .5s ease 0s;
 }
+
+/*--------------------------------------------------------------
+# vue toastr
+--------------------------------------------------------------*/
+
+.toast {
+  opacity: 1;
+}
+
+.toast:hover {
+  opacity: 1;
+}

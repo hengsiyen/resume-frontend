@@ -42,12 +42,6 @@ export const resumes = {
       }
     }
   },
-  computed: {
-    user: this.$store.state.user.user
-  },
-  mounted () {
-    this.user_resume.user_id = this.user.id
-  },
   methods: {
     angleLeft () {
       if (this.currentPage > 1) {
