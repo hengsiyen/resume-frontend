@@ -33,6 +33,7 @@ export default {
   css: [
     { src: 'quill/dist/quill.snow.css', lang: 'css' },
     { src: '@fortawesome/fontawesome-free/css/all.min.css', lang: 'css' },
+    { src: '@deveodk/vue-toastr/dist/@deveodk/vue-toastr.css', lang: 'css' },
     { src: '@mdi/font/css/materialdesignicons.min.css', lang: 'css' },
     { src: 'vue-slick-carousel/dist/vue-slick-carousel.css', lang: 'css' },
     { src: 'vue-slick-carousel/dist/vue-slick-carousel-theme.css', lang: 'css' },
@@ -46,6 +47,7 @@ export default {
     { src: '~/plugins/avatar.js', mode: 'client', ssr: false },
     { src: '~/plugins/crosser.js', mode: 'client', ssr: false },
     { src: '~/plugins/vue-pdf.js', mode: 'client', ssr: false },
+    { src: '~/plugins/vue-toastr.js', mode: 'client', ssr: false },
     { src: '~/plugins/date-picker.js', mode: 'client', ssr: false },
     { src: '~/plugins/authenticate.js', mode: 'client', ssr: false },
     { src: '~/plugins/quill-editor.js', mode: 'client', ssr: false },
