@@ -129,38 +129,105 @@
               Supply contact information
             </div>
             <div class="body__sub-title text-center">
-              It’s important to let employers know how to contact you. Enter your email address below.
+              It’s important to let employers know how to contact you. Enter your email address or phone number below.
             </div>
             <div class="body_content w-100">
               <div class="form__input">
-                <div class="form-group">
-                  <label
-                    class="resume-label-control"
-                    :class="{'text-danger': checkKeyObj(validate, 'email')}"
-                  >Email</label>
-                  <input v-model="email" type="email" class="resume-form-control">
-                  <div class="line" :class="{'line-red': checkKeyObj(validate, 'email')}" />
-                  <template v-if="checkKeyObj(validate, 'email')">
-                    <template v-if="validate.email[0].includes('taken')">
-                      <small class="text-muted" style="font-size: 15px">
-                        This email is already registered.
-                        <NuxtLink :to="{name: 'user_login'}">Log In</NuxtLink>
-                        or try another email
-                      </small>
-                    </template>
-                    <template v-else>
-                      <small class="text-muted">{{ validate.email[0] }}</small>
-                    </template>
+                <template v-if="signup_with_phone">
+                  <template v-if="show_verify_code">
+                    <div class="form-group">
+                      <label
+                        class="resume-label-control"
+                        :class="{'text-danger': checkKeyObj(validate, 'code')}"
+                      >We sent you a code to verity {{ phone_format.formatInternational }}</label>
+                      <input
+                        v-model="code"
+                        type="text"
+                        class="resume-form-control"
+                        placeholder="Enter your 6-digit verification code"
+                      >
+                      <div class="line" :class="{'line-red': checkKeyObj(validate, 'code')}" />
+                      <template v-if="checkKeyObj(validate, 'code')">
+                        <template>
+                          <small class="text-muted">{{ validate.code[0] }}</small>
+                        </template>
+                      </template>
+                    </div>
+                    <div class="form-group mt-0">
+                      <a
+                        href="javascript:void(0)"
+                        @click="reSendCode"
+                      > <span class="mdi mdi-cached mdi-16"></span> Didn't receive SMS?  Send code again.</a>
+                    </div>
                   </template>
-                </div>
+                  <template v-else>
+                    <div class="form-group">
+                      <label
+                        class="resume-label-control"
+                        :class="{'text-danger': checkKeyObj(validate, 'phone')}"
+                      >Phone</label>
+                      <vue-phone-number-input
+                        v-model="phone"
+                        default-country-code="KH"
+                        required
+                        :error="checkKeyObj(validate, 'phone')"
+                        @update="inputPhoneNumber"
+                      />
+                      <template v-if="checkKeyObj(validate, 'phone')">
+                        <small class="text-muted">{{ validate.phone[0] }}</small>
+                      </template>
+                    </div>
+                    <div class="form-group">
+                      <a
+                        href="javascript:void(0)"
+                        @click="signup_with_phone = false"
+                      >Sign-up with your email</a>
+                    </div>
+                  </template>
+                </template>
+                <template v-else>
+                  <div class="form-group">
+                    <label
+                      class="resume-label-control"
+                      :class="{'text-danger': checkKeyObj(validate, 'email')}"
+                    >Email</label>
+                    <input v-model="email" type="email" class="resume-form-control">
+                    <div class="line" :class="{'line-red': checkKeyObj(validate, 'email')}" />
+                    <template v-if="checkKeyObj(validate, 'email')">
+                      <template v-if="validate.email[0].includes('taken')">
+                        <small class="text-muted" style="font-size: 15px">
+                          This email is already registered.
+                          <NuxtLink :to="{name: 'user_login'}">Log In</NuxtLink>
+                          or try another email
+                        </small>
+                      </template>
+                      <template v-else>
+                        <small class="text-muted">{{ validate.email[0] }}</small>
+                      </template>
+                    </template>
+                  </div>
+                  <div class="form-group">
+                    <a
+                      href="javascript:void(0)"
+                      @click="signupWithPhone"
+                    >Sign-up with your phone number</a>
+                  </div>
+                </template>
               </div>
               <div class="d-flex align-items-center justify-content-between w-100">
                 <button class="btn btn-outline-secondary font-weight-bold" @click="onClickPrev">
                   Back
                 </button>
-                <button class="btn btn-primary font-weight-bold" @click="registerEmail">
-                  Continue
-                </button>
+                <template v-if="show_verify_code">
+                  <button class="btn btn-primary font-weight-bold" @click="verifyOtp">
+                    Verify
+                  </button>
+                </template>
+                <template v-else>
+                  <button class="btn btn-primary font-weight-bold" @click="registerEmailOrPhone">
+                    Continue
+                  </button>
+                </template>
               </div>
             </div>
           </div>
@@ -168,6 +235,7 @@
       </div>
     </div>
     <SmallFooter />
+    <div id="recaptcha-container"></div>
   </div>
 </template>
 
@@ -180,7 +248,10 @@ import HeaderSecondary from '~/components/section/HeaderSecondary'
 
 export default {
   name: 'Create',
-  components: { HeaderSecondary, SmallFooter },
+  components: {
+    HeaderSecondary,
+    SmallFooter
+  },
   layout: 'secondary',
   mixins: [facebookSdkMixin, googleSdkMixin],
   data () {
@@ -190,6 +261,12 @@ export default {
       last_name: null,
       email: null,
       validate: null,
+      phone: null,
+      phone_format: null,
+      appVerifier: '',
+      signup_with_phone: false,
+      show_verify_code: false,
+      code: '',
       steppers: [
         {
           number: 1,
@@ -213,6 +290,7 @@ export default {
     }
   },
   created () {
+    this.initReCaptcha()
     if (this.$store.state.user.authenticated) {
       this.$router.push({
         name: 'user-dashboard',
@@ -229,9 +307,19 @@ export default {
       this.first_name = null
       this.last_name = null
       this.email = null
+      this.phone = null
+      this.phone_format = null
+      this.appVerifier = ''
+      this.signup_with_phone = false
+      this.show_verify_code = false
     },
     registerByName () {
       this.validate = {}
+      this.email = null
+      this.phone = null
+      this.appVerifier = ''
+      this.signup_with_phone = false
+      this.show_verify_code = false
 
       if (!this.first_name) {
         this.validate.first_name = ['this field is required.']
@@ -243,16 +331,60 @@ export default {
         this.onClickNext()
       }
     },
-    registerEmail () {
-      this.$isLoading(true)
-      this.validate = {}
+    createResume (data) {
+      let choose_template = this.$store.state.user.choose_template
+      if (!choose_template) {
+        if (localStorage.hasOwnProperty('template')) {
+          choose_template = localStorage.getItem('template')
+        } else {
+          choose_template = dataOptions.resume_template_name
+        }
+      }
+      this.$axios
+        .post(this.$base_api + '/api/frontend/resume/store', {
+          user_id: data.id,
+          first_name: data.first_name,
+          last_name: data.last_name,
+          email: data.email,
+          phone: data.phone,
+          sections_order: this.sections_order,
+          resume_type_name: this.resume_type_name,
+          resume_template_name: choose_template,
+          hide_refs: false,
+          hide_social: false,
+          spacing: '0'
+        })
+        .then((res) => {
+          const result = res.data.data
+          this.$router.push({
+            name: 'resume-uuid-edit',
+            params: { uuid: result.uuid }
+          })
+        })
+        .catch((error) => {
+          this.onResponseError(error)
+        })
+        .finally(() => {
+          this.$isLoading(false)
+        })
+    },
+    onClickNext () {
+      this.step += 1
+    },
+    onClickPrev () {
+      this.step -= 1
+    },
+    onPressEnter (e) {
+      if (e.key === 'Enter' && this.step === 2) {
+        this.registerByName()
+      } else if (e.key === 'Enter' && this.step === 3) {
+        this.registerEmailOrPhone()
+      }
+    },
+    signupUser (data) {
       const self = this
       this.$axios
-        .post(this.$base_api + '/api/auth/frontend/resume-register', {
-          first_name: this.first_name,
-          last_name: this.last_name,
-          email: this.email
-        })
+        .post(this.$base_api + '/api/auth/frontend/resume-register', data)
         .then((res) => {
           const result = res.data.data
 
@@ -289,53 +421,98 @@ export default {
           this.$isLoading(false)
         })
     },
-    createResume (data) {
-      let choose_template = this.$store.state.user.choose_template
-      if (!choose_template) {
-        if (localStorage.hasOwnProperty('template')) {
-          choose_template = localStorage.getItem('template')
+    signupWithPhone () {
+      this.signup_with_phone = true
+      this.initReCaptcha()
+    },
+    getReCaptcha () {
+      return new this.$fireModule.auth.RecaptchaVerifier('recaptcha-container', {
+        size: 'invisible'
+      })
+    },
+    initReCaptcha () {
+      if (process.client) {
+        this.$nextTick(() => {
+          this.appVerifier = this.getReCaptcha()
+        })
+      }
+    },
+    inputPhoneNumber (event) {
+      this.phone_format = event
+    },
+    registerEmailOrPhone () {
+      this.$isLoading(true)
+      this.validate = {}
+      if (this.signup_with_phone) {
+        if (!this.phone) {
+          this.validate.phone = ['this field is required.']
+          this.$isLoading(false)
+        } else if (this.phone_format && !(this.phone_format.isValid)) {
+          this.validate.phone = ['The phone number format is invalid.']
+          this.$isLoading(false)
         } else {
-          choose_template = dataOptions.resume_template_name
+          if (process.client) {
+            this.reSendCode()
+          }
+        }
+      } else {
+        if (!this.email) {
+          this.validate.email = ['this field is required.']
+          this.$isLoading(false)
+        } else {
+          const data = {
+            first_name: this.first_name,
+            last_name: this.last_name,
+            email: this.email,
+            username: this.email
+          }
+          this.signupUser(data)
         }
       }
-      this.$axios
-        .post(this.$base_api + '/api/frontend/resume/store', {
-          user_id: data.id,
-          first_name: data.first_name,
-          last_name: data.last_name,
-          email: data.email,
-          sections_order: this.sections_order,
-          resume_type_name: this.resume_type_name,
-          resume_template_name: choose_template,
-          hide_refs: false,
-          hide_social: false,
-          spacing: '0'
-        })
-        .then((res) => {
-          const result = res.data.data
-          this.$router.push({
-            name: 'resume-uuid-edit',
-            params: { uuid: result.uuid }
+    },
+    reSendCode () {
+      if (process.client) {
+        const self = this
+        this.$fire.auth.signInWithPhoneNumber(this.phone_format.formattedNumber, this.appVerifier)
+          .then((confirmationResult) => {
+            window.confirmationResult = confirmationResult
+            this.$toastr('success', 'The verification code has been sent to phone number: ' + this.phone_format.phoneNumber, 'The verification code')
+            self.show_verify_code = true
           })
-        })
-        .catch((error) => {
-          this.onResponseError(error)
-        })
-        .finally(() => {
-          this.$isLoading(false)
-        })
+          .catch((error) => {
+            this.$toastr('error', error, 'The verification code')
+          })
+          .finally(() => {
+            this.$isLoading(false)
+          })
+      }
     },
-    onClickNext () {
-      this.step += 1
-    },
-    onClickPrev () {
-      this.step -= 1
-    },
-    onPressEnter (e) {
-      if (e.key === 'Enter' && this.step === 2) {
-        this.registerByName()
-      } else if (e.key === 'Enter' && this.step === 3) {
-        this.registerEmail()
+    verifyOtp () {
+      this.$isLoading(true)
+      this.validate = {}
+      const self = this
+      if (!this.code) {
+        this.validate.code = ['this field is required.']
+        this.$isLoading(false)
+      } else if (this.code.length !== 6) {
+        this.validate.code = ['Invalid verification code format.']
+        this.$isLoading(false)
+      } else {
+        const code = this.code
+        //
+        window.confirmationResult.confirm(code)
+          .then((result) => {
+            const data = {
+              first_name: this.first_name,
+              last_name: this.last_name,
+              phone: this.phone,
+              username: this.phone_format.countryCallingCode + this.phone_format.nationalNumber
+            }
+            self.signupUser(data)
+          }).catch((error) => {
+            this.$toastr('error', error, 'The verification code')
+            this.$isLoading(false)
+          })
       }
     }
   },
@@ -348,4 +525,7 @@ export default {
 <style scoped lang="scss">
 @import "~assets/scss/resume.scss";
 @import "~assets/scss/create-resume.scss";
+.border-red .flex-1 .input-tel.input-phone-number .input-tel__input {
+  border-color: var(--red) !important;
+}
 </style>

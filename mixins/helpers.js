@@ -53,7 +53,11 @@ export const helpers = {
       if (error.response) {
         this.$toastr('error', error.response.data.message, error.response.status)
       }
-      console.log(error)
+      if (error.response.status === 401 || error.response.status === 403) {
+        localStorage.clear()
+        this.$store.dispatch('user/loggedOut')
+        this.$router.push({ name: 'index' })
+      }
     },
     renderMeta ({ title, description, thumbnail, url }) {
       return [

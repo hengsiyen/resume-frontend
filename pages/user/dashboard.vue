@@ -36,7 +36,7 @@
                 <template v-for="(item, key) in resume_lists">
                   <div :key="key" class="each-resume">
                     <div class="mr-3 mr-sm-4">
-                      <NuxtLink :to="{name: 'resume-uuid-edit', params: {uuid: item.uuid}}">
+                      <a href="javascript:void(0)" @click="editResume(item)">
                         <template v-if="item.thumbnail">
                           <div class="resume-thumbnail" :style="`background-image: url('${$base_api}/${item.thumbnail}')`" />
                         </template>
@@ -45,14 +45,14 @@
                             class="resume-thumbnail"
                           />
                         </template>
-                      </NuxtLink>
+                      </a>
                     </div>
                     <div class="w-100" style="max-width: 226px;">
                       <div class="resume-title ellipsis">
                         <div>
-                          <NuxtLink :to="{name: 'resume-uuid-edit', params: {uuid: item.uuid}}">
+                          <a href="javascript:void(0)" @click="editResume(item)">
                             {{ item.name ? item.name : 'Untitled' }}
-                          </NuxtLink>
+                          </a>
                         </div>
                       </div>
                       <div class="d-flex align-items-center mb-3">
@@ -196,6 +196,7 @@ export default {
         first_name: null,
         last_name: null,
         email: null,
+        phone: null,
         sections_order: dataOptions.sectionOrders,
         resume_type_name: dataOptions.resume_type_name,
         resume_template_name: dataOptions.resume_template_name
@@ -230,6 +231,21 @@ export default {
           this.onLoading = false
           this.$isLoading(false)
         })
+    },
+    editResume (item) {
+      this.$isLoading(true)
+      setTimeout(() => {
+        if (!this.$store.state.user.authenticated) {
+          this.$router.push({
+            name: 'index',
+            replace: true
+          })
+          this.$isLoading(false)
+        } else {
+          this.$router.push({ name: 'resume-uuid-edit', params: { uuid: item.uuid } })
+          this.$isLoading(false)
+        }
+      }, 2500)
     },
     deleteResume (item) {
       if (this.resume_lists.includes(item)) {
@@ -318,6 +334,7 @@ export default {
       this.user.first_name = this.logged_user.first_name
       this.user.last_name = this.logged_user.last_name
       this.user.email = this.logged_user.email
+      this.user.phone = this.logged_user.phone
       this.user.resume_template_name = choose_template
       this.user.hide_refs = false
       this.user.hide_social = false
@@ -326,13 +343,13 @@ export default {
         .post(this.$base_api + '/api/frontend/resume/store', this.user)
         .then((res) => {
           const data = res.data.data
+          this.$isLoading(false)
           this.$router.push({
             name: 'resume-uuid-edit',
             params: { uuid: data.uuid }
           })
         }).catch((error) => {
           this.onResponseError(error)
-        }).finally(() => {
           this.$isLoading(false)
         })
     }
