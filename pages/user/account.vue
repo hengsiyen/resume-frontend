@@ -60,7 +60,6 @@
                   <label
                     for="email"
                     class="resume-label-control"
-                    :class="{'text-danger': checkKeyObj(validate, 'email')}"
                   >Email</label>
                   <input
                     id="email"
@@ -68,20 +67,45 @@
                     :readonly="!is_update"
                     type="email"
                     class="resume-form-control"
-                    :class="{'read-only': !is_update, 'line-red': checkKeyObj(validate, 'email')}"
+                    :class="{'read-only': !is_update}"
                   >
-                  <div class="line" :class="{'line-red': checkKeyObj(validate, 'email')}" />
-                  <template v-if="checkKeyObj(validate, 'email')">
-                    <small class="text-muted">{{ validate.email[0] }}</small>
+                  <div class="line" />
+                </div>
+              </div>
+              <div class="col-12 col-md-6">
+                <div class="form-group">
+                  <label
+                    for="phone"
+                    class="resume-label-control"
+                  >Phone Number</label>
+                  <template v-if="is_update">
+                    <vue-phone-number-input
+                      v-model="phone"
+                      default-country-code="KH"
+                      :error="checkKeyObj(validate, 'phone')"
+                      @update="inputPhoneNumber"
+                    />
+                  </template>
+                  <template v-else>
+                    <input
+                      id="phone"
+                      v-model="phone"
+                      readonly
+                      type="text"
+                      class="resume-form-control read-only"
+                    >
+                    <div class="line" />
                   </template>
                 </div>
               </div>
-              <div class="col-12 col-md-6 pt-lg-30">
-                <label class="resume-label-control">
-                  Use this email to log in to your TalentPlus Resume account and receive notifications.
-                </label>
-              </div>
             </div>
+            <!--            <div class="row">-->
+            <!--              <div class="col-12 col-md-6">-->
+            <!--                <label class="resume-label-control">-->
+            <!--                  Use this email to log in to your TalentPlus Resume account and receive notifications.-->
+            <!--                </label>-->
+            <!--              </div>-->
+            <!--            </div>-->
             <div class="row">
               <div class="col-12 text-right">
                 <template v-if="is_update">
@@ -169,9 +193,11 @@ export default {
       first_name: '',
       last_name: '',
       email: '',
+      phone: '',
       uuid: null,
       is_update: false,
-      validate: null
+      validate: null,
+      phone_format: null
     }
   },
   computed: {
@@ -192,18 +218,28 @@ export default {
     this.last_name = this.user.last_name
     this.email = this.user.email
     this.uuid = this.user.uuid
+    this.phone = this.user.phone
   },
   methods: {
+    inputPhoneNumber (event) {
+      this.phone_format = event
+    },
     updateUser () {
       this.is_update = true
     },
     saveUser () {
+      this.$isLoading(true)
+      this.validate = null
+      if (this.phone_format) {
+        this.phone = this.phone_format.formatNational
+      }
       this.$axios
         .post(this.$base_api + '/api/auth/frontend/resume-update-information', {
           uuid: this.uuid,
           first_name: this.first_name,
           last_name: this.last_name,
-          email: this.email
+          email: this.email,
+          phone: this.phone
         })
         .then((res) => {
           this.$store.dispatch('user/setUser', res.data.data)
@@ -215,6 +251,9 @@ export default {
           } else {
             this.onResponseError(error)
           }
+        })
+        .finally(() => {
+          this.$isLoading(false)
         })
     }
   }

@@ -8,7 +8,8 @@ export const state = () => ({
     id: null,
     first_name: null,
     last_name: null,
-    email: null
+    email: null,
+    phone: null
   }
 })
 
@@ -33,7 +34,8 @@ export const mutations = {
       id: null,
       first_name: null,
       last_name: null,
-      email: null
+      email: null,
+      phone: null
     }
     state.authenticated = false
   },

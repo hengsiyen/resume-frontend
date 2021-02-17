@@ -35,6 +35,7 @@ export default {
     { src: '@fortawesome/fontawesome-free/css/all.min.css', lang: 'css' },
     { src: '@deveodk/vue-toastr/dist/@deveodk/vue-toastr.css', lang: 'css' },
     { src: '@mdi/font/css/materialdesignicons.min.css', lang: 'css' },
+    { src: 'vue-phone-number-input/dist/vue-phone-number-input.css', lang: 'css' },
     { src: 'vue-slick-carousel/dist/vue-slick-carousel.css', lang: 'css' },
     { src: 'vue-slick-carousel/dist/vue-slick-carousel-theme.css', lang: 'css' },
     { src: '@/assets/css/style.css', lang: 'css' },
@@ -56,6 +57,7 @@ export default {
     { src: '~/plugins/vue-google-oauth2.js', mode: 'client', ssr: false },
     { src: '~/plugins/vue-loading-screen.js', mode: 'client', ssr: false },
     { src: '~/plugins/vue-slick-carousel.js', mode: 'client', ssr: false },
+    { src: '~/plugins/vue-phone-number-input', mode: 'client', ssr: false },
     { src: '~/plugins/vue-js-toggle-button.js', mode: 'client', ssr: false }
   ],
 
@@ -72,7 +74,33 @@ export default {
     '@nuxtjs/moment',
     'vue-sweetalert2/nuxt',
     'vue-social-sharing/nuxt',
-    'cookie-universal-nuxt'
+    'cookie-universal-nuxt',
+    [
+      '@nuxtjs/firebase',
+      {
+        config: {
+          apiKey: 'AIzaSyDKKNjHja8amhFt_ektgxxYw1vbvdz96nU',
+          authDomain: 'talentplus-resume.firebaseapp.com',
+          databaseURL: 'https://talentplus-resume-default-rtdb.firebaseio.com',
+          projectId: 'talentplus-resume',
+          storageBucket: 'talentplus-resume.appspot.com',
+          messagingSenderId: '171007525725',
+          appId: '1:171007525725:web:1c5a87b65914c86ac29eb4',
+          measurementId: 'G-RKDVXQFG29'
+        },
+        services: {
+          auth: true, // Just as example. Can be any other service.
+          firestore: true,
+          functions: true,
+          storage: true,
+          database: true,
+          messaging: true,
+          performance: true,
+          analytics: true,
+          remoteConfig: true
+        }
+      }
+    ]
   ],
 
   server: {
