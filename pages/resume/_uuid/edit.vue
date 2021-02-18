@@ -934,6 +934,7 @@ export default {
   mounted () {
     // eslint-disable-next-line nuxt/no-env-in-hooks
     if (process.client) {
+      localStorage.setItem('last_visited', this.user_resume.uuid)
       window.addEventListener('keypress', this.onPressEnter)
       this.window_size = window.innerWidth
       window.addEventListener('resize', this.eventResize)

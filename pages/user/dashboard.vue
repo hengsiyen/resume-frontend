@@ -222,8 +222,14 @@ export default {
   },
   methods: {
     listResume () {
+      let last_visited = null
+      if (process.client && localStorage.hasOwnProperty('last_visited')) {
+        last_visited = localStorage.getItem('last_visited')
+      }
       this.$axios
-        .post(this.$base_api + '/api/frontend/resume/list')
+        .post(this.$base_api + '/api/frontend/resume/list', {
+          last_visited_resume: last_visited
+        })
         .then((res) => {
           this.resume_lists = res.data.data
         })
