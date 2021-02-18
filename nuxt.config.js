@@ -79,14 +79,14 @@ export default {
       '@nuxtjs/firebase',
       {
         config: {
-          apiKey: 'AIzaSyDKKNjHja8amhFt_ektgxxYw1vbvdz96nU',
-          authDomain: 'talentplus-resume.firebaseapp.com',
-          databaseURL: 'https://talentplus-resume-default-rtdb.firebaseio.com',
-          projectId: 'talentplus-resume',
-          storageBucket: 'talentplus-resume.appspot.com',
-          messagingSenderId: '171007525725',
-          appId: '1:171007525725:web:1c5a87b65914c86ac29eb4',
-          measurementId: 'G-RKDVXQFG29'
+          apiKey: 'AIzaSyAOFoXGwL_D62yScwQYAfxtK3XJV6KKDzs',
+          authDomain: 'talentplus.firebaseapp.com',
+          databaseURL: 'https://talentplus-default-rtdb.firebaseio.com',
+          projectId: 'talentplus',
+          storageBucket: 'talentplus.appspot.com',
+          messagingSenderId: '622178573073',
+          appId: '1:622178573073:web:8a0f7ad2a349916530cab0',
+          measurementId: 'G-S2JYHJ2GJ1'
         },
         services: {
           auth: true, // Just as example. Can be any other service.
