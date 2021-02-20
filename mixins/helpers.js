@@ -50,13 +50,17 @@ export const helpers = {
       return false
     },
     onResponseError (error) {
-      if (error.response) {
-        this.$toastr('error', error.response.data.message, error.response.status)
-      }
       if (error.response.status === 401 || error.response.status === 403) {
+        if (error.response.status === 401) {
+          this.$toastr('error', 'Your session has been expired!', error.response.status)
+        } else if (error.response.status === 401) {
+          this.$toastr('error', 'You do not allow to access this page', error.response.status)
+        }
         localStorage.clear()
         this.$store.dispatch('user/loggedOut')
         this.$router.push({ name: 'index' })
+      } else {
+        this.$toastr('error', error.response.data.message, error.response.status)
       }
     },
     renderMeta ({ title, description, thumbnail, url }) {

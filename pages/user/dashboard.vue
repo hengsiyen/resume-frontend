@@ -218,7 +218,9 @@ export default {
     }
   },
   mounted () {
-    this.listResume()
+    if (this.$store.state.user.authenticated) {
+      this.listResume()
+    }
   },
   methods: {
     listResume () {
