@@ -40,6 +40,17 @@ export default (context, reject) => {
     return await removeValuePromise
   }
 
+  async function getAllLocalStorages () {
+    const iframe = document.getElementById(iframeId)
+    const getValuePromise = new Promise((resolve) => {
+      iframe.contentWindow.postMessage({ action: 'getAll' }, '*')
+      resolve()
+    })
+
+    console.log(getValuePromise)
+    return await getValuePromise
+  }
+
   reject('setLocalStorage', setLocalStorage)
   reject('removeLocalStorage', removeLocalStorage)
   reject('removeAllLocalStorages', removeAllLocalStorages)
