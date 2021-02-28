@@ -55,7 +55,7 @@ import SmallFooter from '~/components/section/SmallFooter'
 export default {
   name: 'LinkCode',
   components: { SmallFooter },
-  layout: 'secondary',
+  layout: 'public',
   asyncData (ctx) {
     return ctx.$axios.post(ctx.env.VUE_APP_API + '/api/frontend/resume/show', {
       link_code: ctx.params.linkCode
