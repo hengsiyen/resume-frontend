@@ -18,8 +18,8 @@ export default {
         name: 'keyword',
         content: 'resume, CV, generate CV, talentPlus, talent plus, online generate resume, resume for job.'
       },
-      { property: 'og:title', content: 'Talent Plus Resume' },
-      { property: 'og:site_name', content: 'Talent Plus Resume' },
+      { property: 'og:title', content: 'TalentPlus Resume' },
+      { property: 'og:site_name', content: 'TalentPlus Resume' },
       { property: 'og:type', content: 'website' }
     ],
     link: [
