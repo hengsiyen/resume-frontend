@@ -73,7 +73,7 @@ export const helpers = {
         {
           hid: 'keywords',
           name: 'keywords',
-          keywords: 'ecommerce, commerce, shopping, online shopping'
+          keywords: 'resume, CV, generate CV, talentPlus, talent plus, online generate resume, resume for job.'
         },
         {
           hid: 'al:ios:url',
@@ -138,7 +138,7 @@ export const helpers = {
         {
           hid: 'og:site_name',
           property: 'og:site_name',
-          content: 'Ecommerce'
+          content: 'TalentPlus Resume'
         },
         {
           hid: 'og:description',
