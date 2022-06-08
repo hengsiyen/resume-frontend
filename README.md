@@ -1,4 +1,4 @@
-# talentplus-resume-frontends
+# resume-frontends
 
 ## Build Setup
 
